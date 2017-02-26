@@ -15,7 +15,7 @@ namespace Discore_Selfbot
 {
     class Program
     {
-        private DiscordSocketClient client;
+        public static DiscordSocketClient client;
         public static string Token = "";
         public static List<string> GuildLogs = new List<string>();
         static void Main()
@@ -67,11 +67,25 @@ namespace Discore_Selfbot
                 GuildLogs.Add($"{GU.Guild.Name}-{message.Channel}-{message.Author}-{message.Content}");
                 if (message.Author.Id == client.CurrentUser.Id)
                 {
-                    if (message.Content == "selftest")
+                    if (message.Content == "self test")
                     {
                         var M = message as IUserMessage;
                         await M.ModifyAsync(x => {
-                            x.Content = "Command test done";
+                            x.Content = "Selfbot is working";
+                        });
+
+                    }
+                    if (message.Content == "self info")
+                    {
+                        var embed = new EmbedBuilder()
+                        {
+                            Title = "Discore Selfbot Info",
+                            Description = $"```md" + Environment.NewLine + $"<Guilds {client.Guilds.Count}> <Created {client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {client.CurrentUser.Id}>```",
+                        };
+                        var M = message as IUserMessage;
+                        await M.ModifyAsync(x => {
+                            x.Content = "";
+                            x.Embed = embed.Build();
                         });
 
                     }
