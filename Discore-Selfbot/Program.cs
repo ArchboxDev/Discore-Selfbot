@@ -17,6 +17,7 @@ namespace Discore_Selfbot
     {
         private DiscordSocketClient client;
         public static string Token = "";
+        public static List<string> GuildLogs = new List<string>();
         static void Main()
         {
             // Get token from txt file
@@ -54,9 +55,16 @@ namespace Discore_Selfbot
         {
 
             client = new DiscordSocketClient();
+            client.GuildAvailable += (g) =>
+            {
+                MyForm.GuildList.Items.Add(g.Name);
+                GuildLogs.Add(g.Name);
+                return Task.CompletedTask;
+            };
             client.MessageReceived += async (message) =>
             {
-
+                var GU = message.Author as IGuildUser;
+                GuildLogs.Add($"{GU.Guild.Name}-{message.Channel}-{message.Author}-{message.Content}");
                 if (message.Author.Id == client.CurrentUser.Id)
                 {
                     if (message.Content == "selftest")
@@ -83,4 +91,5 @@ namespace Discore_Selfbot
             await Task.Delay(-1);
         }
     }
+    
 }

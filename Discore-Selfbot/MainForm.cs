@@ -16,5 +16,13 @@ namespace Discore_Selfbot
         {
             InitializeComponent();
         }
+
+        public void GuildList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (var Log in Program.GuildLogs.FindAll(x => x.Contains(GuildList.Text)))
+            {
+                textBox1.AppendText(Environment.NewLine + Log);
+            }
+        }
     }
 }
