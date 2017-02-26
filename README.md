@@ -2,6 +2,10 @@
 Discore is a selfbot for discord that can do command and actions based on your response or other events
 
 Developed in C# with Visual Studio Made by xXBuilderBXx
+## Why should i use this?
+The bot is easy to use and requires no setup exept for a token file and Windows .net framework 2.6.1
+
+The bot combines a console and windows form that can communicate with each such as sending commands from the forum or getting certain information from a guild
 ## What does this bot do?
 - Windows form with guild and channel selector
 - Windows form with full logging of all guild chat | Guild blacklist
@@ -20,6 +24,7 @@ Developed in C# with Visual Studio Made by xXBuilderBXx
 - text tag system
 - self afk with auto notify on dm message
 - Lenny command
+
 ## Source?
 Main Bot Code /Discore-Selfbot/Program.cs
 
