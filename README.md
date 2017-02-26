@@ -4,8 +4,8 @@ Developed in C# with Visual Studio Made by xXBuilderBXx
 ## What does this bot do?
 - Insert Commands
 ## Source?
-Main Bot Code: https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/Program.cs
-Form Code: https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/MainForm.cs
+Main Bot Code: 
+Form Code: 
 ## How to download
 - Insert download link
 ## Issue/Suggestions
