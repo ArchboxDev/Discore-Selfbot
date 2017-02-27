@@ -33,6 +33,7 @@ namespace Discore_Selfbot
 
         static void Main()
         {
+            Console.Title = "Discore - Selfbot";
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
             var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt";
             if (File.Exists(TokenPath))

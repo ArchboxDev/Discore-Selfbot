@@ -43,19 +43,19 @@ namespace Discore_Selfbot
                 }
                 foreach (var Guild in Program.client.Guilds)
                 {
-                    if (!System.IO.File.Exists($"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png"))
+                    if (!System.IO.File.Exists($"{Guild.Id}.png"))
                     {
                         if (Guild.IconUrl == null)
                         {
-                            WBC.DownloadFile("http://dev.blaze.ml/Letters/" + Guild.Name.ToUpper().ToCharArray()[0] + ".png", $"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png");
+                            WBC.DownloadFile("http://dev.blaze.ml/Letters/" + Guild.Name.ToUpper().ToCharArray()[0] + ".png", $"{Guild.Id}.png");
                         }
                         else
                         {
-                            WBC.DownloadFile(Guild.IconUrl, $"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png");
+                            WBC.DownloadFile(Guild.IconUrl, $"{Guild.Id}.png");
                         }
                         WBC.Dispose();
                     }
-                    var Item = this.GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png"));
+                    var Item = this.GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
                     Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                     Item.ToolTipText = Guild.Name;
                     Program.Guilds.Add(Guild.Name);
