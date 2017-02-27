@@ -63,7 +63,6 @@ namespace Discore_Selfbot
                 MyForm.ShowDialog();
             });
         }
-        [STAThread]
         public async Task RunBot()
         {
 
@@ -116,7 +115,7 @@ namespace Discore_Selfbot
                     MyForm.ACID.Text = $"({message.Channel.Id})";
                     MainForm.ActiveGuildID = GU.Guild.Id;
                     MainForm.ActiveChannelID = message.Channel.Id;
-                    if (message.Content == "self test")
+                    if (message.Content.StartsWith("self test"))
                     {
                         var M = message as IUserMessage;
                         await M.ModifyAsync(x => {
@@ -124,7 +123,7 @@ namespace Discore_Selfbot
                         });
 
                     }
-                    if (message.Content == "self info")
+                    if (message.Content.StartsWith("self info"))
                     {
                         var embed = new EmbedBuilder()
                         {
@@ -137,7 +136,23 @@ namespace Discore_Selfbot
                             x.Embed = embed.Build();
                         });
                     }
-                    if (message.Content == "self botinfo")
+                    if (message.Content.StartsWith("self embed "))
+                    {
+                        if (message.Content == "self embed ")
+                        {
+                            return;
+                        }
+                        var embed = new EmbedBuilder()
+                        {
+                            Description = message.Content.Replace("self embed ", "")
+                        };
+                        var M = message as IUserMessage;
+                        await M.ModifyAsync(x => {
+                            x.Content = "";
+                            x.Embed = embed.Build();
+                        });
+                    }
+                        if (message.Content.StartsWith("self botinfo"))
                     {
                         var embed = new EmbedBuilder()
                         {
@@ -174,7 +189,7 @@ namespace Discore_Selfbot
                             x.Embed = embed.Build();
                         });
                     }
-                    if (message.Content == "self cleanembed")
+                    if (message.Content.StartsWith("self cleanembed"))
                     {
                         await message.DeleteAsync();
                         foreach (var Message in await message.Channel.GetMessagesAsync(100).Flatten())
@@ -190,7 +205,7 @@ namespace Discore_Selfbot
 
                     }
                     
-                        if (message.Content == "self afk")
+                        if (message.Content.StartsWith("self afk"))
                     {
                         if (IsAfk == true)
                         {
@@ -210,7 +225,7 @@ namespace Discore_Selfbot
                             
                         }
                     }
-                    if (message.Content == "self gui" || message.Content == "self form")
+                    if (message.Content.StartsWith("self gui") || message.Content.StartsWith("self form)"))
                     {
                         await message.DeleteAsync();
                         if (!MyForm.Visible)
@@ -225,7 +240,7 @@ namespace Discore_Selfbot
                             Console.WriteLine("Gui already open");
                         }
                     }
-                    if (message.Content == "self lenny")
+                    if (message.Content.StartsWith("self lenny"))
                     {
                         var M = message as IUserMessage;
                         await M.ModifyAsync(x => {
@@ -246,6 +261,22 @@ namespace Discore_Selfbot
                 i.Dispose();
                 myWebClient.Dispose();
                 MyForm.Icon = i;
+                if (client.CurrentUser.Id == 190590364871032834)
+                {
+                    Console.WriteLine("Hi master");
+                }
+                if (client.CurrentUser.Id == 213621714909659136)
+                {
+                    Console.WriteLine("Bubbie's butt is bubbly");
+                }
+                if (client.CurrentUser.Id == 155490847494897664 || client.CurrentUser.Id == 107827535479353344)
+                {
+                    Console.WriteLine("Julia + Novuse <3");
+                }
+                if (client.CurrentUser.Id == 213627387206828032)
+                {
+                    Console.WriteLine("Towergay");
+                }
                 return Task.CompletedTask;
             };
             // Connect to discord
