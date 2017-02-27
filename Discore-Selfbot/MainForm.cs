@@ -14,8 +14,10 @@ namespace Discore_Selfbot
     public partial class MainForm : Form
     {
         public static Discord.Color EmbedColor;
-        public static string SelectGuild;
-        public static string SelectChannel;
+        public static ulong SelectedGuild;
+        public static ulong SelectChannel;
+        public static ulong ActiveGuildID;
+        public static ulong ActiveChannelID;
         public MainForm()
         {
             InitializeComponent();
@@ -23,16 +25,13 @@ namespace Discore_Selfbot
 
         public void GuildList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (var Log in Program.GuildLogs.FindAll(x => x.Contains(GuildList.Text)))
-            {
-                textBox1.AppendText(Environment.NewLine + Log);
-                
-            }
+            var ChannelIndex = ChannelList.SelectedIndex;
+            SelectChannel = Program.ChannelsID[ChannelIndex];
         }
 
         public void MainForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public void button1_Click(object sender, EventArgs e)
@@ -50,8 +49,42 @@ namespace Discore_Selfbot
 
         public void button2_Click(object sender, EventArgs e)
         {
-            var Guild = Program.client.GetGuild(264310142785290241);
-            var Chan = Guild.GetChannel(264312955829485569) as ITextChannel;
+            
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
+            var GuildIndex = GuildList.Items.IndexOf(e.ClickedItem);
+            SelectedGuild = Program.GuildsID[GuildIndex];
+            ChannelList.Items.Clear();
+            ChannelList.Visible = true;
+            var GuildID = Program.GuildsID[GuildIndex];
+            var Guild = Program.client.GetGuild(GuildID);
+            Program.Channels.Clear();
+            Program.ChannelsID.Clear();
+            foreach (var Chan in Guild.TextChannels)
+            {
+                ChannelList.Items.Add($"{Chan.Name}");
+                Program.Channels.Add(Chan.Name);
+                Program.ChannelsID.Add(Chan.Id);
+            }
+        }
+
+        private void SelectedChannelClick(object sender, EventArgs e)
+        {
+            if (SelectedGuild == null)
+            {
+                MessageBox.Show("No guild selected");
+                return;
+            }
+            if (SelectChannel == null)
+            {
+                MessageBox.Show("No channel selected");
+                return;
+            }
+            var Guild = Program.client.GetGuild(SelectedGuild);
+            var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
             var embed = new EmbedBuilder()
             {
                 Title = EmbedTitle.Text,
@@ -61,6 +94,27 @@ namespace Discore_Selfbot
             Chan.SendMessageAsync("", false, embed);
         }
 
-        
+        private void EmbedActive_Click(object sender, EventArgs e)
+        {
+            if (SelectedGuild == null)
+            {
+                MessageBox.Show("No guild selected");
+                return;
+            }
+            if (SelectChannel == null)
+            {
+                MessageBox.Show("No channel selected");
+                return;
+            }
+            var Guild = Program.client.GetGuild(ActiveGuildID);
+            var Chan = Guild.GetChannel(ActiveChannelID) as ITextChannel;
+            var embed = new EmbedBuilder()
+            {
+                Title = EmbedTitle.Text,
+                Description = EmbedText.Text,
+                Color = EmbedColor
+            };
+            Chan.SendMessageAsync("", false, embed);
+        }
     }
 }

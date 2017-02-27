@@ -21,11 +21,15 @@ namespace Discore_Selfbot
         public static DiscordSocketClient client;
         public static string Token = "";
         public static List<string> GuildLogs = new List<string>();
-        public static ulong ActiveGuildID;
-        public static ulong ActiveChannelID;
+        public static List<string> Guilds = new List<string>();
+        public static List<ulong> GuildsID = new List<ulong>();
+        public static List<string> Channels = new List<string>();
+        public static List<ulong> ChannelsID = new List<ulong>();
+        
         public static WebClient myWebClient = new WebClient();
         public static bool IsAfk = false;
         public static string AfkText = "User is currently away atm";
+
         static void Main()
         {
             // Get token from txt file
@@ -59,15 +63,34 @@ namespace Discore_Selfbot
                 MyForm.ShowDialog();
             });
         }
+        [STAThread]
         public async Task RunBot()
         {
 
             client = new DiscordSocketClient();
             client.GuildAvailable += (g) =>
             {
-                MyForm.Text = $"{client.CurrentUser.Username}";
-                MyForm.GuildList.Items.Add(g.Name);
-                GuildLogs.Add(g.Name);
+                WebClient WBC = new WebClient();
+                if (g.IconUrl != null)
+                {
+                    WBC.DownloadFile(g.IconUrl, g.Id + "-icon.jpg");
+                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile(g.Id + "-icon.jpg"));
+                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    Item.ToolTipText = g.Name;
+                    Guilds.Add(g.Name);
+                    GuildsID.Add(g.Id);
+                    myWebClient.Dispose();
+                }
+                else
+                {
+                    char[] CharArray = g.Name.ToCharArray();
+                    WBC.DownloadFile("http://dev.blaze.ml/Letters/" + CharArray[0] + ".png", $"{CharArray[0]}.png");
+                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{CharArray[0]}.png"));
+                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    Item.ToolTipText = g.Name;
+                    Guilds.Add(g.Name);
+                    GuildsID.Add(g.Id);
+                }
                 return Task.CompletedTask;
             };
             client.MessageReceived += async (message) =>
@@ -91,8 +114,8 @@ namespace Discore_Selfbot
                     MyForm.AGID.Text = $"({GU.Guild.Id})";
                     MyForm.ACName.Text = message.Channel.Name;
                     MyForm.ACID.Text = $"({message.Channel.Id})";
-                    ActiveGuildID = GU.Guild.Id;
-                    ActiveChannelID = message.Channel.Id;
+                    MainForm.ActiveGuildID = GU.Guild.Id;
+                    MainForm.ActiveChannelID = message.Channel.Id;
                     if (message.Content == "self test")
                     {
                         var M = message as IUserMessage;
@@ -213,13 +236,15 @@ namespace Discore_Selfbot
             };
             client.Connected += () =>
             {
+                MyForm.Text = $"{client.CurrentUser.Username}";
                 Console.WriteLine("Bot has succefully been connected");
                 MyForm.Text = $"{client.CurrentUser.Username}";
-                //myWebClient.DownloadFile(client.CurrentUser.GetAvatarUrl(), "avatar.png");
+                myWebClient.DownloadFile(client.CurrentUser.GetAvatarUrl(), "avatar.png");
                 Bitmap b = (Bitmap)System.Drawing.Image.FromFile("avatar.png");
                 IntPtr pIcon = b.GetHicon();
                 Icon i = Icon.FromHandle(pIcon);
                 i.Dispose();
+                myWebClient.Dispose();
                 MyForm.Icon = i;
                 return Task.CompletedTask;
             };
