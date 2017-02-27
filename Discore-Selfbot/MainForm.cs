@@ -14,40 +14,18 @@ namespace Discore_Selfbot
     public partial class MainForm : Form
     {
         public static Discord.Color EmbedColor;
-        public static ulong SelectedGuild;
-        public static ulong SelectChannel;
-        public static ulong ActiveGuildID;
-        public static ulong ActiveChannelID;
+        public static ulong SelectedGuild = 0;
+        public static ulong SelectChannel = 0;
+        public static ulong ActiveGuildID = 0;
+        public static ulong ActiveChannelID = 0;
         public MainForm()
         {
             InitializeComponent();
         }
 
-        public void GuildList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var ChannelIndex = ChannelList.SelectedIndex;
-            SelectChannel = Program.ChannelsID[ChannelIndex];
-        }
+        
 
         public void MainForm_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void button1_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog1 = new ColorDialog();
-
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-
-            {
-                EmbedColor = new Discord.Color(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
-                button1.ForeColor = colorDialog1.Color;
-
-            }
-        }
-
-        public void button2_Click(object sender, EventArgs e)
         {
             
         }
@@ -73,12 +51,12 @@ namespace Discore_Selfbot
 
         private void SelectedChannelClick(object sender, EventArgs e)
         {
-            if (SelectedGuild == null)
+            if (SelectedGuild == 0)
             {
                 MessageBox.Show("No guild selected");
                 return;
             }
-            if (SelectChannel == null)
+            if (SelectChannel == 0)
             {
                 MessageBox.Show("No channel selected");
                 return;
@@ -96,12 +74,12 @@ namespace Discore_Selfbot
 
         private void EmbedActive_Click(object sender, EventArgs e)
         {
-            if (SelectedGuild == null)
+            if (SelectedGuild == 0)
             {
                 MessageBox.Show("No guild selected");
                 return;
             }
-            if (SelectChannel == null)
+            if (SelectChannel == 0)
             {
                 MessageBox.Show("No channel selected");
                 return;
@@ -115,6 +93,34 @@ namespace Discore_Selfbot
                 Color = EmbedColor
             };
             Chan.SendMessageAsync("", false, embed);
+        }
+
+        private void GuildList_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Console.WriteLine($"Selected Guild {e.ClickedItem.Name}");
+            var Index = ChannelList.SelectedIndex;
+            SelectedGuild = Program.GuildsID[Index];
+            
+        }
+
+        private void ChannelSelected(object sender, EventArgs e)
+        {
+            Console.WriteLine($"Selected Channel {ChannelList.SelectedText}");
+            var Index = ChannelList.SelectedIndex;
+            SelectChannel = Program.ChannelsID[Index];
+        }
+
+        private void OpenColorsButton_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog1 = new ColorDialog();
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+
+            {
+                EmbedColor = new Discord.Color(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
+                OpenColorsButton.ForeColor = colorDialog1.Color;
+
+            }
         }
     }
 }
