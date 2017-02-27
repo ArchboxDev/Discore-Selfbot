@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Discord;
+using System.Net;
 
 namespace Discore_Selfbot
 {
@@ -25,13 +26,41 @@ namespace Discore_Selfbot
 
         
 
-        public void MainForm_Load(object sender, EventArgs e)
+        public async void MainForm_Load(object sender, EventArgs e)
         {
-            
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
+                await Program.client.WaitForGuildsAsync();
+                WebClient WBC = new WebClient();
+                Program.Guilds.Clear();
+                Program.GuildsID.Clear();
+            this.Text = Program.CurrentUser;
+                if (System.IO.File.Exists($"avatar.png"))
+                {
+                    Bitmap b = (Bitmap)System.Drawing.Image.FromFile($"avatar.png");
+                    IntPtr pIcon = b.GetHicon();
+                    Icon i = Icon.FromHandle(pIcon);
+                    i.Dispose();
+                    this.Icon = i;
+                }
+                foreach (var Guild in Program.client.Guilds)
+                {
+                    if (!System.IO.File.Exists($"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png"))
+                    {
+                        if (Guild.IconUrl == null)
+                        {
+                            WBC.DownloadFile("http://dev.blaze.ml/Letters/" + Guild.Name.ToUpper().ToCharArray()[0] + ".png", $"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png");
+                        }
+                        else
+                        {
+                            WBC.DownloadFile(Guild.IconUrl, $"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png");
+                        }
+                        WBC.Dispose();
+                    }
+                    var Item = this.GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Environment.SpecialFolder.ApplicationData}\\Discore-Selfbot\\cache\\{Guild.Id}.png"));
+                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    Item.ToolTipText = Guild.Name;
+                    Program.Guilds.Add(Guild.Name);
+                    Program.GuildsID.Add(Guild.Id);
+                }
             
         }
 
@@ -83,21 +112,21 @@ namespace Discore_Selfbot
 
         private void GuildList_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Console.WriteLine($"Selected Guild {e.ClickedItem.Name}");
+            Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var GuildIndex = GuildList.Items.IndexOf(e.ClickedItem);
+            var Guild = Program.client.GetGuild(Program.GuildsID[GuildIndex]);
+            ChannelLogView.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => x.IsBot).Count()}";
             SelectedGuild = Program.GuildsID[GuildIndex];
             ChannelList.Items.Clear();
             ChannelList.Visible = true;
-            var GuildID = Program.GuildsID[GuildIndex];
-            var Guild = Program.client.GetGuild(GuildID);
             Program.Channels.Clear();
             Program.ChannelsID.Clear();
             foreach (var Chan in Guild.TextChannels)
             {
-                ChannelList.Items.Add($"{Chan.Name}");
                 Program.Channels.Add(Chan.Name);
                 Program.ChannelsID.Add(Chan.Id);
+                ChannelList.Items.Add($"{Chan.Name}");
             }
         }
 
@@ -150,5 +179,6 @@ namespace Discore_Selfbot
                 MoreInfo.Text = "Currently down so i cannot add :P" + Environment.NewLine + "No Link :(";
             }
         }
+        
     }
 }

@@ -13,6 +13,7 @@ using System.IO;
 using System.Net;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using Discord.Net.Providers.WS4Net;
 
 namespace Discore_Selfbot
 {
@@ -25,29 +26,29 @@ namespace Discore_Selfbot
         public static List<ulong> GuildsID = new List<ulong>();
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
-        
+        public static string CurrentUser;
         public static WebClient myWebClient = new WebClient();
         public static bool IsAfk = false;
         public static string AfkText = "User is currently away atm";
 
         static void Main()
         {
-            // Get token from txt file
-            var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Token.txt";
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
+            var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt";
             if (File.Exists(TokenPath))
             {
                 Token = File.ReadAllText(TokenPath);
             }
             else
             {
-                Console.WriteLine("Please create a text file called Token.txt at your documents folder and restart the bot");
+                System.Diagnostics.Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
+                Console.WriteLine("Please create a text file called Token.txt in this folder and restart the bot");
                 Console.WriteLine("And no i dont steal tokens you can view the code on github");
             }
             while (Token == "")
             {
 
             }
-            // Load token and run bot
             Console.WriteLine("Found token");
             new Program().RunBot().GetAwaiter().GetResult();
         }
@@ -55,7 +56,6 @@ namespace Discore_Selfbot
         [STAThread]
         public static void Mainv()
         {
-            // Seperate form thread
             MainForm.CheckForIllegalCrossThreadCalls = false;
             MyForm = new MainForm();
             Task mytask = Task.Run(() =>
@@ -66,30 +66,30 @@ namespace Discore_Selfbot
         public async Task RunBot()
         {
 
-            client = new DiscordSocketClient();
+            client = new DiscordSocketClient(new DiscordSocketConfig
+            {
+                WebSocketProvider = Discord.Net.Providers.WS4Net.WS4NetProvider.Instance
+            });
             client.GuildAvailable += (g) =>
             {
                 WebClient WBC = new WebClient();
-                if (g.IconUrl != null)
-                {
-                    WBC.DownloadFile(g.IconUrl, g.Id + "-icon.jpg");
-                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile(g.Id + "-icon.jpg"));
+                    if (!File.Exists($"{g.Id}.png"))
+                    {
+                        if (g.IconUrl == null)
+                        {
+                            WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
+                        }
+                        else
+                        {
+                            WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
+                        }
+                        WBC.Dispose();
+                    }
+                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png"));
                     Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                     Item.ToolTipText = g.Name;
-                    Guilds.Add(g.Name);
-                    GuildsID.Add(g.Id);
-                    myWebClient.Dispose();
-                }
-                else
-                {
-                    char[] CharArray = g.Name.ToCharArray();
-                    WBC.DownloadFile("http://dev.blaze.ml/Letters/" + CharArray[0] + ".png", $"{CharArray[0]}.png");
-                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{CharArray[0]}.png"));
-                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    Item.ToolTipText = g.Name;
-                    Guilds.Add(g.Name);
-                    GuildsID.Add(g.Id);
-                }
+                    Program.Guilds.Add(g.Name);
+                    Program.GuildsID.Add(g.Id);
                 return Task.CompletedTask;
             };
             client.MessageReceived += async (message) =>
@@ -231,7 +231,11 @@ namespace Discore_Selfbot
                         if (!MyForm.Visible)
                         {
                             Console.WriteLine("Opening gui");
+                            MainForm.EmbedColor = new Discord.Color(0, 0, 0);
+                            MainForm.SelectedGuild = 0;
+                            MainForm.SelectChannel = 0;
                             Mainv();
+                            
                             MyForm.Activate();
                         }
                         else
@@ -251,6 +255,7 @@ namespace Discore_Selfbot
             };
             client.Connected += () =>
             {
+                Program.CurrentUser = client.CurrentUser.Username;
                 MyForm.Text = $"{client.CurrentUser.Username}";
                 Console.WriteLine("Bot has succefully been connected");
                 MyForm.Text = $"{client.CurrentUser.Username}";
