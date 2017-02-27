@@ -8,20 +8,19 @@ The bot is easy to use and requires no setup exept for a token file and Windows 
 The bot combines a console and windows form that can communicate with each such as sending commands from the forum or getting certain information from a guild
 ## What does this bot do?
 - Windows form with guild and channel selector
-- Windows form with full logging of all guild chat | Guild blacklist
+- Windows form with full logging of all guild chat | Guild blacklist (Coming Soon)
 - Windows form with command list and other info
 - Windows form with embed creator
-- Windows form with custom emoji list
+- Windows form with role list and ids for selected guild (Coming Soon)
+- Windows form with custom emoji list (Coming Soon)
 - Windows form active guild on last message
-- Windows forms with text tag system
+- text tag system (Coming Soon)
+- Windows forms with text tag system editor (Coming Soon)
 - Update notifier
-- GUI settings | No update notify | Disable logs | White/Dark theme
+- GUI settings | No update notify | Disable logs | White/Dark theme (Coming Soon)
 - self test command
 - user info and selfbot info commands
-- Set playing status
-- Cleanme command
 - Cleanembed command
-- text tag system
 - self afk with auto notify on dm message
 - Lenny command
 
@@ -30,14 +29,18 @@ Main Bot Code /Discore-Selfbot/Program.cs
 
 Form Code /Discore-Selfbot/MainForm.cs
 ## How to download
-Coming soon!
+https://server.blaze.ml/blaze/discore/
+
+Windows smartscreen will tell you that this app is unrecognised because i dont have a code signing certificate which would cost me alot :/ just click more and run as shown in the link below
+
+http://imgur.com/a/Hi2Nc
 ## Issue/Suggestions
 If you have an issues or suggestions for this bot please click on issue and make a new post
 ## Other Stuff
 Visit my website for Discord Bots to use
 Website
 Or join my guild
-Guild
+WJTYdNb
 
 
 ```
