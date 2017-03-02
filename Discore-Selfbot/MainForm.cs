@@ -19,20 +19,20 @@ namespace Discore_Selfbot
         public static ulong SelectChannel = 0;
         public static ulong ActiveGuildID = 0;
         public static ulong ActiveChannelID = 0;
+        public string LastEmbedTitle = "";
+        public string LastEmbedText = "";
+        
         public MainForm()
         {
             InitializeComponent();
         }
-
-        
-
         public async void MainForm_Load(object sender, EventArgs e)
         {
                 await Program.client.WaitForGuildsAsync();
                 WebClient WBC = new WebClient();
                 Program.Guilds.Clear();
                 Program.GuildsID.Clear();
-            this.Text = Program.CurrentUser;
+            this.Text = Program.DiscordUser;
                 if (System.IO.File.Exists($"avatar.png"))
                 {
                     Bitmap b = (Bitmap)System.Drawing.Image.FromFile($"avatar.png");
@@ -55,7 +55,7 @@ namespace Discore_Selfbot
                         }
                         WBC.Dispose();
                     }
-                    var Item = this.GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
+                    var Item = this.ListGuild.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
                     Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                     Item.ToolTipText = Guild.Name;
                     Program.Guilds.Add(Guild.Name);
@@ -63,7 +63,6 @@ namespace Discore_Selfbot
                 }
             
         }
-
         private void SelectedChannelClick(object sender, EventArgs e)
         {
             if (SelectedGuild == 0)
@@ -76,6 +75,16 @@ namespace Discore_Selfbot
                 MessageBox.Show("No channel selected");
                 return;
             }
+            if (EmbedTitle.Text == LastEmbedTitle)
+            {
+                if (EmbedText.Text == LastEmbedText)
+                {
+                    MessageBox.Show("You already send this message");
+                    return;
+                }
+            }
+            LastEmbedTitle = EmbedTitle.Text;
+            LastEmbedText = EmbedText.Text;
             var Guild = Program.client.GetGuild(SelectedGuild);
             var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
             var embed = new EmbedBuilder()
@@ -99,6 +108,16 @@ namespace Discore_Selfbot
                 MessageBox.Show("No channel selected");
                 return;
             }
+            if (EmbedTitle.Text == LastEmbedTitle)
+            {
+                if (EmbedText.Text == LastEmbedText)
+                {
+                    MessageBox.Show("You already send this message");
+                    return;
+                }
+            }
+            LastEmbedTitle = EmbedTitle.Text;
+            LastEmbedText = EmbedText.Text;
             var Guild = Program.client.GetGuild(ActiveGuildID);
             var Chan = Guild.GetChannel(ActiveChannelID) as ITextChannel;
             var embed = new EmbedBuilder()
@@ -114,26 +133,35 @@ namespace Discore_Selfbot
         {
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
-            var GuildIndex = GuildList.Items.IndexOf(e.ClickedItem);
+            var GuildIndex = ListGuild.Items.IndexOf(e.ClickedItem);
             var Guild = Program.client.GetGuild(Program.GuildsID[GuildIndex]);
-            ChannelLogView.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => x.IsBot).Count()}";
+            TextChannelLog.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => x.IsBot).Count()}";
             SelectedGuild = Program.GuildsID[GuildIndex];
-            ChannelList.Items.Clear();
-            ChannelList.Visible = true;
+            ListChannel.Items.Clear();
+            ListChannel.Visible = true;
             Program.Channels.Clear();
             Program.ChannelsID.Clear();
             foreach (var Chan in Guild.TextChannels)
             {
                 Program.Channels.Add(Chan.Name);
                 Program.ChannelsID.Add(Chan.Id);
-                ChannelList.Items.Add($"{Chan.Name}");
+                ListChannel.Items.Add($"{Chan.Name}");
             }
+            List<string> RoleList = new List<string>();
+            foreach (var Role in Guild.Roles)
+            {
+                if (Role != Guild.EveryoneRole)
+                {
+                    RoleList.Add($"{Role.Name} - {Role.Id}");
+                }
+            }
+            ViewRoles.Text = string.Join(Environment.NewLine, RoleList.ToArray());
         }
 
         private void ChannelSelected(object sender, EventArgs e)
         {
-            Console.WriteLine($"Selected Channel {ChannelList.SelectedText}");
-            var Index = ChannelList.SelectedIndex;
+            Console.WriteLine($"Selected Channel {ListChannel.SelectedText}");
+            var Index = ListChannel.SelectedIndex;
             SelectChannel = Program.ChannelsID[Index];
         }
 
@@ -150,35 +178,95 @@ namespace Discore_Selfbot
             }
         }
 
-        private void Information_AfterSelect(object sender, TreeViewEventArgs e)
+        private void ButtonBotWebsite_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(e.Node.Name);
-            MoreInfo.Visible = true;
+            System.Diagnostics.Process.Start(ButtonBotWebsite.AccessibleDescription);
+        }
+
+        private void ButtonBotInvite_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(ButtonBotInvite.AccessibleDescription);
+        }
+
+        private void ViewBots_AfterSelect(object sender, TreeViewEventArgs e)
+        {
             if (e.Node.Name == "PixelBot")
             {
-                MoreInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts" + Environment.NewLine + "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
+                TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
+                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
+                ButtonBotWebsite.Visible = true;
+                ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Minotaur")
             {
-                MoreInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs" + Environment.NewLine + "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
+                TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
+                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
+                ButtonBotWebsite.Visible = true;
+                ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Discord Cards")
             {
-                MoreInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord" + Environment.NewLine + "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
+                TextBotInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
+                ButtonBotWebsite.AccessibleDescription = "";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
+                ButtonBotWebsite.Visible = false;
+                ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Casino Bot")
             {
-                MoreInfo.Text = "Spin the wheel and get the JACKPOT!" + Environment.NewLine + "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
+                TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
+                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
+                ButtonBotWebsite.Visible = false;
+                ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Discord RPG")
             {
-                MoreInfo.Text = "Who dosent love a good RPG bot?" + Environment.NewLine + "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
+                TextBotInfo.Text = "Who dosent love a good RPG bot?";
+                ButtonBotWebsite.AccessibleDescription = "";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
+                ButtonBotWebsite.Visible = false;
+                ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Sekusuikuto")
             {
-                MoreInfo.Text = "Currently down so i cannot add :P" + Environment.NewLine + "No Link :(";
+                TextBotInfo.Text = "Currently down and also the website so i cannot add :P";
+                ButtonBotWebsite.AccessibleDescription = "";
+                ButtonBotInvite.AccessibleDescription = "";
+                ButtonBotWebsite.Visible = false;
+                ButtonBotInvite.Visible = false;
             }
         }
+
+        private void BtnSetEdit_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SendAction = "Edit";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnSetDelete_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SendAction = "Delete";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnSetFormYes_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutoForm = "Yes";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnSetFormNo_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutoForm = "No";
+            Properties.Settings.Default.Save();
+        }
         
+        private void ViewRoles_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            MessageBox.Show(e.Node.Tag.ToString());
+        }
     }
 }
