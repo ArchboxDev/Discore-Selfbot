@@ -1,29 +1,23 @@
 # What is this bot?
-Discore is a selfbot for discord that can do command and actions based on your response or other events
+Discore is a selfbot for discord that can do command and actions based on your response with an awesome GUI for info and other features
 
-Developed in C# with Visual Studio Made by xXBuilderBXx
+Developed in Visual Studio with C# Made by xXBuilderBXx
 ## Why should i use this?
 The bot is easy to use and requires no setup exept for a token file and Windows .net framework 2.6.1
 
-The bot combines a console and windows form that can communicate with each such as sending commands from the forum or getting certain information from a guild
+The bot combines a console and windows form (gui) that can communicate with each such as sending commands from the gui or getting certain information from a guild within the gui
 ## What does this bot do?
 - Windows form with guild and channel selector
 - Windows form with full logging of all guild chat | Guild blacklist (Coming Soon)
 - Windows form with command list and other info
 - Windows form with embed creator
-- Windows form with role list and ids for selected guild (Coming Soon)
-- Windows form with custom emoji list (Coming Soon)
-- Windows form active guild on last message
+- Windows form with role list and custom emoji list
+- Windows form active guild and channel on last message
 - text tag system (Coming Soon)
 - Windows forms with text tag system editor (Coming Soon)
 - Update notifier
-- GUI settings | No update notify | Disable logs | White/Dark theme (Coming Soon)
-- self test command
-- user info and selfbot info commands
-- Cleanembed command
-- self afk with auto notify on dm message
-- Lenny command
-
+- GUI settings | Command edit/delete | Show gui on startup | Disable logs (Coming Soon) | White/Dark theme (Coming Soon)
+For more information visit http://dev.blaze.ml
 ## Source?
 Main Bot Code /Discore-Selfbot/Program.cs
 
@@ -38,7 +32,7 @@ http://imgur.com/a/Hi2Nc
 If you have an issues or suggestions for this bot please click on issue and make a new post
 ## Other Stuff
 Visit my website for Discord Bots to use
-Website
+http://dev.blaze.ml
 Or join my guild
 WJTYdNb
 
