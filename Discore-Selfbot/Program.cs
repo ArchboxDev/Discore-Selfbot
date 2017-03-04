@@ -512,5 +512,23 @@ namespace Discore_Selfbot
                 }
             }
         }
+
+        [Command("find")]
+        public async Task find(string ID)
+        {
+            await Context.Message.DeleteAsync();
+            Console.WriteLine("----- Guilds Found -----");
+            foreach(var Guild in await Context.Client.GetGuildsAsync())
+            {
+                foreach(var User in await Guild.GetUsersAsync())
+                {
+                    if (User.Id.ToString() == ID)
+                    {
+                        Console.WriteLine(Guild.Name);
+                    }
+                }
+            }
+            Console.WriteLine("----- ----- -----");
+        }
     }
 }
