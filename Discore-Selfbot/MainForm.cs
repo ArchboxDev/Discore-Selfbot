@@ -25,11 +25,18 @@ namespace Discore_Selfbot
         public MainForm()
         {
             InitializeComponent();
+            
         }
         public async void MainForm_Load(object sender, EventArgs e)
         {
-                await Program.client.WaitForGuildsAsync();
-                WebClient WBC = new WebClient();
+            if (Program.ConnectedOnce == false)
+            {
+                if (Properties.Settings.Default.AutoForm == "No")
+                {
+                    return;
+                }
+            }
+            WebClient WBC = new WebClient();
                 Program.Guilds.Clear();
                 Program.GuildsID.Clear();
             this.Text = Program.DiscordUser;
@@ -55,13 +62,10 @@ namespace Discore_Selfbot
                         }
                         WBC.Dispose();
                     }
-                    var Item = this.ListGuild.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
-                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    Item.ToolTipText = Guild.Name;
+                    this.ListGuild.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
                     Program.Guilds.Add(Guild.Name);
                     Program.GuildsID.Add(Guild.Id);
                 }
-            
         }
         private void SelectedChannelClick(object sender, EventArgs e)
         {
@@ -135,7 +139,7 @@ namespace Discore_Selfbot
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var GuildIndex = ListGuild.Items.IndexOf(e.ClickedItem);
             var Guild = Program.client.GetGuild(Program.GuildsID[GuildIndex]);
-            TextChannelLog.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => x.IsBot).Count()}";
+            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()} Bots: {Guild.Users.Where(x => x.IsBot).Count()}" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
             SelectedGuild = Program.GuildsID[GuildIndex];
             ListChannel.Items.Clear();
             ListChannel.Visible = true;
@@ -147,15 +151,22 @@ namespace Discore_Selfbot
                 Program.ChannelsID.Add(Chan.Id);
                 ListChannel.Items.Add($"{Chan.Name}");
             }
+            TextGuildRoles.Clear();
             List<string> RoleList = new List<string>();
             foreach (var Role in Guild.Roles)
             {
                 if (Role != Guild.EveryoneRole)
                 {
-                    RoleList.Add($"{Role.Name} - {Role.Id}");
+                    AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(Role.Color.R,Role.Color.G,Role.Color.B));
+                    AppendText(TextGuildRoles, Role.Id + Environment.NewLine + Environment.NewLine, System.Drawing.Color.FromArgb(0, 0, 0));
                 }
             }
-            ViewRoles.Text = string.Join(Environment.NewLine, RoleList.ToArray());
+            List<string> EmojiList = new List<string>();
+            foreach (var Emoji in Guild.Emojis)
+            {
+                EmojiList.Add(Emoji.Name);
+            }
+            TextGuildEmoji.Text = string.Join(Environment.NewLine, EmojiList.ToArray());
         }
 
         private void ChannelSelected(object sender, EventArgs e)
@@ -267,6 +278,36 @@ namespace Discore_Selfbot
         private void ViewRoles_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             MessageBox.Show(e.Node.Tag.ToString());
+        }
+
+        private void ThemeSkype_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/SnazzyPine25/BeautifulDiscordThemes");
+        }
+
+        private void ThemeAlexflipnote_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/AlexFlipnote/Discord_Theme");
+        }
+
+        private void ThemeOther1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/beautiful-discord-community/resources/");
+        }
+
+        private void ThemeOther2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Jiiks/BetterDiscordApp/wiki/Themes");
+        }
+        public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+
+            box.SelectionColor = color;
+            //box.SelectionFont = font;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
         }
     }
 }

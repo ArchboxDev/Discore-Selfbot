@@ -14,13 +14,16 @@ using System.Net;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Discord.Net.Providers.WS4Net;
-
+using Discord.Commands;
 namespace Discore_Selfbot
 {
     class Program
     {
+        private CommandService commands;
         public static DiscordSocketClient client;
+        private DependencyMap map;
         public static List<string> GuildLogs = new List<string>();
+        public static bool DownloadGuilds = false;
         public static List<string> Guilds = new List<string>();
         public static List<ulong> GuildsID = new List<ulong>();
         public static List<string> Channels = new List<string>();
@@ -37,11 +40,9 @@ namespace Discore_Selfbot
             string Token = "";
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
             var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt";
-            Console.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            Console.WriteLine(TokenPath);
             if (File.Exists(TokenPath))
             {
-                    Token = File.ReadAllText(TokenPath);
+                Token = File.ReadAllText(TokenPath);
             }
             else
             {
@@ -55,7 +56,7 @@ namespace Discore_Selfbot
                 Console.WriteLine("Token not found");
             }
             Console.Title = "Discore - Selfbot";
-            Console.WriteLine("Token found");
+            Console.WriteLine("Token found Loading Bot");
             new Program().RunBot().GetAwaiter().GetResult();
         }
         [STAThread]
@@ -83,9 +84,16 @@ namespace Discore_Selfbot
             {
                 WebSocketProvider = WS4NetProvider.Instance
             });
+            commands = new CommandService();
+            map = new DependencyMap();
+            await InstallCommands();
+            int Guilds = 0;
             client.GuildAvailable += (g) =>
             {
-                WebClient WBC = new WebClient();
+                Guilds++;
+                if (DownloadGuilds == false)
+                {
+                    WebClient WBC = new WebClient();
                     if (!File.Exists($"{g.Id}.png"))
                     {
                         if (g.IconUrl == null)
@@ -98,17 +106,51 @@ namespace Discore_Selfbot
                         }
                         WBC.Dispose();
                     }
-                if (Properties.Settings.Default.AutoForm == "Yes")
+                    if (Properties.Settings.Default.AutoForm == "Yes")
+                    {
+                        MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        Program.Guilds.Add(g.Name);
+                        Program.GuildsID.Add(g.Id);
+                    }
+                }
+                
+                if (Guilds == client.Guilds.Count)
                 {
-                    var Item = MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png"));
-                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    Item.ToolTipText = g.Name;
-                    Program.Guilds.Add(g.Name);
-                    Program.GuildsID.Add(g.Id);
+                    DownloadGuilds = true;
                 }
                 return Task.CompletedTask;
             };
-
+            client.JoinedGuild += (g) =>
+            {
+                WebClient WBC = new WebClient();
+                if (!File.Exists($"{g.Id}.png"))
+                {
+                    if (g.IconUrl == null)
+                    {
+                        WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
+                    }
+                    else
+                    {
+                        WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
+                    }
+                    WBC.Dispose();
+                }
+                var Item = MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png"));
+                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                Item.ToolTipText = g.Name;
+                Program.Guilds.Add(g.Name);
+                Program.GuildsID.Add(g.Id);
+                Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                return Task.CompletedTask;
+            };
+            client.LeftGuild += (g) =>
+            {
+                MyForm.ListGuild.Items.RemoveAt(Program.GuildsID.FindIndex(x => x == g.Id));
+                Program.Guilds.Remove(g.Name);
+                Program.GuildsID.Remove(g.Id);
+                Console.WriteLine($"Left Guild > {g.Name} ({g.Id})");
+                return Task.CompletedTask;
+            };
             client.MessageReceived += async (message) =>
             {
                 var GU = message.Author as IGuildUser;
@@ -142,172 +184,6 @@ namespace Discore_Selfbot
                     MyForm.ACID.Text = $"({message.Channel.Id})";
                     MainForm.ActiveGuildID = GU.Guild.Id;
                     MainForm.ActiveChannelID = message.Channel.Id;
-                }
-                if (message.Content.StartsWith("self test"))
-                {
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "Selfbot is working";
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("Selfbot is working");
-                    }
-                }
-                if (message.Content.StartsWith("self info"))
-                {
-                    var embed = new EmbedBuilder()
-                    {
-                        Title = "Discore Selfbot Info",
-                        Description = $"```md" + Environment.NewLine + $"<Guilds {client.Guilds.Count}> <Created {client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {client.CurrentUser.Id}>```",
-                    };
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "";
-                            x.Embed = embed.Build();
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("", false, embed);
-                    }   
-                }
-                if (message.Content.StartsWith("self embed "))
-                {
-                    if (message.Content == "self embed ")
-                    {
-                        return;
-                    }
-                    var embed = new EmbedBuilder()
-                    {
-                        Description = message.Content.Replace("self embed ", "")
-                    };
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "";
-                            x.Embed = embed.Build();
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("", false, embed);
-                    }
-                }
-                if (message.Content.StartsWith("self botinfo"))
-                {
-                    var embed = new EmbedBuilder()
-                    {
-                        Title = "Discore Selfbot Info",
-                        Description = $"Selfbot made by <@190590364871032834> xXBuilderBXx#9113 [Github Project](https://github.com/ArchboxDev/Discore-Selfbot)",
-                    };
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "";
-                            x.Embed = embed.Build();
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("", false, embed);
-                    }
-                }
-                if (message.Content.StartsWith("self lewd"))
-                {
-                    var embed = new EmbedBuilder()
-                    {
-                        Title = "",
-                        Description = "LEWD",
-                        Color = new Discord.Color(255, 20, 147),
-                        ThumbnailUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRM7wR508Do1SR7I-kJACZtjyb4vCXX_N5ftE4PbSC5ptNheXi1"
-                    };
-                    if (message.Content.Contains("is"))
-                    {
-                        embed.Description = message.Content.Replace("self lewd ", "") + " LEWD";
-                    }
-                    else
-                    if (message.Content.Contains("self lewd "))
-                    {
-                        embed.Description = "LEWD " + message.Content.Replace("self lewd ", "");
-                    }
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "";
-                            x.Embed = embed.Build();
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("", false, embed);
-                    }
-                }
-                if (message.Content.StartsWith("self cleanembed"))
-                {
-                    await message.DeleteAsync();
-                    foreach (var Message in await message.Channel.GetMessagesAsync(100).Flatten())
-                    {
-                        if (Message.Author.Id == client.CurrentUser.Id)
-                        {
-                            if (Message.Embeds.Count == 1)
-                            {
-                                await Message.DeleteAsync();
-                            }
-                        }
-                    }
-                }
-                if (message.Content.StartsWith("self gui") || message.Content.StartsWith("self form"))
-                {
-                    await message.DeleteAsync();
-                    if (!MyForm.Visible)
-                    {
-                        Console.WriteLine("Opening gui");
-                        MainForm.EmbedColor = new Discord.Color(0, 0, 0);
-                        MainForm.SelectedGuild = 0;
-                        MainForm.SelectChannel = 0;
-                        OpenGUI();
-                        MyForm.Activate();
-                    }
-                    else
-                    {
-                        MyForm.Activate();
-                        Console.WriteLine("Gui already open");
-                    }
-                }
-                if (message.Content.StartsWith("self lenny"))
-                {
-                    if (Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        var M = message as IUserMessage;
-                        await M.ModifyAsync(x =>
-                        {
-                            x.Content = "( ͡° ͜ʖ ͡°)";
-                        });
-                    }
-                    else
-                    {
-                        await message.DeleteAsync();
-                        await message.Channel.SendMessageAsync("( ͡° ͜ʖ ͡°)");
-                    }
                 }
             };
             client.Connected += () =>
@@ -356,13 +232,285 @@ namespace Discore_Selfbot
                 Console.WriteLine("DISCONNECTED!");
                 return Task.CompletedTask;
             };
-
             Console.WriteLine("Connecting to discord");
             await client.LoginAsync(TokenType.User, File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt"));
             await client.StartAsync();
             OpenGUI();
             await Task.Delay(-1);
         }
+        public async Task InstallCommands()
+        {
+            client.MessageReceived += HandleCommand;
+            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
+        }
+        public async Task HandleCommand(SocketMessage messageParam)
+        {
+            var message = messageParam as SocketUserMessage;
+            if (message == null) return;
+            int argPos = 0;
+            if (message.Author.Id == client.CurrentUser.Id)
+            {
+                if (!(message.HasStringPrefix("self ", ref argPos))) return;
+                var context = new CommandContext(client, message);
+                var result = await commands.ExecuteAsync(context, argPos, map);
+            }
+        }
     }
-    
+    public class InfoModule : ModuleBase
+    {
+        [Command("test")]
+        public async Task test()
+        {
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "Selfbot is working";
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Channel.SendMessageAsync("Selfbot is working");
+            }
+        }
+
+        [Command("info")]
+        public async Task info()
+        {
+            var Guilds = await Context.Client.GetGuildsAsync();
+            var embed = new EmbedBuilder()
+            {
+                Title = "Discore Selfbot Info",
+                Description = $"```md" + Environment.NewLine + $"<Guilds {Guilds.Count()}> <Created {Context.Client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {Context.Client.CurrentUser.Id}>```",
+            };
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Channel.SendMessageAsync("", false, embed);
+            }
+        }
+
+        [Command("cleanembed")]
+        public async Task cleanembed()
+        {
+            await Context.Message.DeleteAsync();
+            foreach (var Message in await Context.Channel.GetMessagesAsync(100).Flatten())
+            {
+                if (Message.Author.Id == Context.Client.CurrentUser.Id)
+                {
+                    if (Message.Embeds.Count == 1)
+                    {
+                        await Message.DeleteAsync();
+                    }
+                }
+            }
+        }
+
+        [Command("form")]
+        [Alias("gui")]
+        public async Task form()
+        {
+            await Context.Message.DeleteAsync();
+            if (!Program.MyForm.Visible)
+            {
+                Console.WriteLine("Opening gui");
+                MainForm.EmbedColor = new Discord.Color(0, 0, 0);
+                MainForm.SelectedGuild = 0;
+                MainForm.SelectChannel = 0;
+                Program.OpenGUI();
+                Program.MyForm.Activate();
+            }
+            else
+            {
+                Program.MyForm.Activate();
+                Console.WriteLine("Gui already open");
+            }
+        }
+
+        [Command("embed")]
+        public async Task embed([Remainder] string Text)
+        {
+            var embed = new EmbedBuilder()
+            {
+                Description = Text
+            };
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed);
+            }
+        }
+
+        [Command("botinfo")]
+        public async Task botinfo()
+        {
+            var embed = new EmbedBuilder()
+            {
+                Title = "Discore Selfbot Info",
+                Description = $"Selfbot made by <@190590364871032834> xXBuilderBXx#9113 [Github Project](https://github.com/ArchboxDev/Discore-Selfbot)",
+            };
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed);
+            }
+        }
+
+        [Command("lenny")]
+        public async Task lenny()
+        {
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "( ͡° ͜ʖ ͡°)";
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("( ͡° ͜ʖ ͡°)");
+            }
+        }
+
+        [Command("lewd")]
+        public async Task lewd([Remainder] string Text)
+        {
+            var embed = new EmbedBuilder()
+            {
+                Title = "",
+                Description = "LEWD",
+                Color = new Discord.Color(255, 20, 147),
+                ThumbnailUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRM7wR508Do1SR7I-kJACZtjyb4vCXX_N5ftE4PbSC5ptNheXi1"
+            };
+            if (Text.Contains("is") || Text.Contains("are"))
+            {
+                embed.Description = Text;
+                if (Text.EndsWith("is") || Text.EndsWith("are"))
+                {
+                    embed.Description = Text + " LEWD";
+                }
+            }
+            else
+            if (Text.Any())
+            {
+                embed.Description = "LEWD " + Text;
+            }
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed);
+            }
+        }
+
+        [Command("user")]
+        public async Task user(string ID)
+        {
+            if (Context.IsPrivate)
+            {
+                await Context.Message.Channel.SendMessageAsync("Cannot use command in private channel");
+                return;
+            }
+            string User = ID;
+            if (User.StartsWith("<@"))
+            {
+                User = User.Replace("<@", "").Replace(">", "");
+            }
+            try
+            {
+                var GuildUser = await Context.Guild.GetUserAsync(Convert.ToUInt64(User));
+                int Count = 0;
+                foreach(var Guild in await Context.Client.GetGuildsAsync())
+                {
+                    foreach (var Member in await Guild.GetUsersAsync())
+                    {
+                        if (Member.Id == GuildUser.Id)
+                        {
+                            Count++;
+                        }
+                    }
+                }
+                var embed = new EmbedBuilder()
+                {
+                    Author = new EmbedAuthorBuilder()
+                    {
+                        Name = $"{GuildUser.Username}#{GuildUser.Discriminator}",
+                        IconUrl = GuildUser.GetAvatarUrl()
+                    },
+                    Description = $"{GuildUser.Mention} - {GuildUser.Id}" + Environment.NewLine + $"Created {GuildUser.CreatedAt.Date.ToShortDateString()} | Joined Guild {GuildUser.JoinedAt.Value.Date.ToShortDateString()}" + Environment.NewLine + $"I am in {Count} Guilds with {Context.Message.Author.Username}",
+                    Url = GuildUser.GetAvatarUrl(),
+                    Color = new Discord.Color(0, 100, 0)
+                };
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = "";
+                        x.Embed = embed.Build();
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync("", false, embed);
+                }
+            }
+            catch
+            {
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = "Selfbot - Could not find user";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync("Selfbot - Could not find user");
+                }
+            }
+        }
+    }
 }
