@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Discord;
 using System.Net;
+using System.IO;
 
 namespace Discore_Selfbot
 {
@@ -95,7 +96,11 @@ namespace Discore_Selfbot
             {
                 Title = EmbedTitle.Text,
                 Description = EmbedText.Text,
-                Color = EmbedColor
+                Color = EmbedColor,
+                Footer = new EmbedFooterBuilder()
+                {
+                    Text = EmbedFooter.Text
+                }
             };
             Chan.SendMessageAsync("", false, embed);
         }
@@ -128,7 +133,11 @@ namespace Discore_Selfbot
             {
                 Title = EmbedTitle.Text,
                 Description = EmbedText.Text,
-                Color = EmbedColor
+                Color = EmbedColor,
+                Footer = new EmbedFooterBuilder()
+                {
+                    Text = EmbedFooter.Text
+                }
             };
             Chan.SendMessageAsync("", false, embed);
         }
@@ -139,7 +148,38 @@ namespace Discore_Selfbot
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var GuildIndex = ListGuild.Items.IndexOf(e.ClickedItem);
             var Guild = Program.client.GetGuild(Program.GuildsID[GuildIndex]);
-            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: {Guild.Users.Where(x => !x.IsBot).Count()} Bots: {Guild.Users.Where(x => x.IsBot).Count()}" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
+            var GuildUser = Guild.GetUser(Program.client.CurrentUser.Id);
+            int MembersOnline = 0;
+            int MembersOffline = 0;
+            int BotsOnline = 0;
+            int BotsOffline = 0;
+            foreach (var User in Guild.Users)
+            {
+                if (User.IsBot)
+                {
+                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
+                    {
+                        BotsOnline++;
+                    }
+                    else
+                    {
+                        BotsOffline++;
+                    }
+                }
+                else
+                {
+                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
+                    {
+                        MembersOnline++;
+                    }
+                    else
+                    {
+                        MembersOffline++;
+                    }
+                }
+            }
+            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {MembersOnline}/{MembersOffline} Offline" + Environment.NewLine + $"Bots: Online {BotsOnline}/{BotsOffline} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
+            
             SelectedGuild = Program.GuildsID[GuildIndex];
             ListChannel.Items.Clear();
             ListChannel.Visible = true;
@@ -308,6 +348,17 @@ namespace Discore_Selfbot
             //box.SelectionFont = font;
             box.AppendText(text);
             box.SelectionColor = box.ForeColor;
+        }
+
+        private void TagEditorShow_Click(object sender, EventArgs e)
+        {
+            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
+            var TagText = File.ReadAllText(TagPath + ".txt");
+        }
+
+        private void TagEditorDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

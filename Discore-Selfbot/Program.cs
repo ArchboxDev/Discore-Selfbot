@@ -14,7 +14,10 @@ using System.Net;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Discord.Net.Providers.WS4Net;
+using Discord.Audio;
 using Discord.Commands;
+using System.Diagnostics;
+
 namespace Discore_Selfbot
 {
     class Program
@@ -39,6 +42,7 @@ namespace Discore_Selfbot
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags");
             var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt";
             if (File.Exists(TokenPath))
             {
@@ -48,12 +52,13 @@ namespace Discore_Selfbot
             {
                 File.CreateText(TokenPath);
                 Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
-                Console.WriteLine("And no i dont steal tokens you can view the code on github");
+                Console.WriteLine("And no i dont steal tokens you can view the code on github ");
                 System.Diagnostics.Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
             }
             while (Token == "")
             {
-                Console.WriteLine("Token not found");
+                Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                System.Diagnostics.Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
             }
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
@@ -82,7 +87,8 @@ namespace Discore_Selfbot
         {
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
-                WebSocketProvider = WS4NetProvider.Instance
+                WebSocketProvider = WS4NetProvider.Instance,
+                AudioMode = Discord.Audio.AudioMode.Outgoing
             });
             commands = new CommandService();
             map = new DependencyMap();
@@ -127,7 +133,8 @@ namespace Discore_Selfbot
                 {
                     if (g.IconUrl == null)
                     {
-                        WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
+                        var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
+                        WBC.DownloadFile("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png", $"{g.Id}.png");
                     }
                     else
                     {
@@ -232,7 +239,6 @@ namespace Discore_Selfbot
                 Console.WriteLine("DISCONNECTED!");
                 return Task.CompletedTask;
             };
-            Console.WriteLine("Connecting to discord");
             await client.LoginAsync(TokenType.User, File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt"));
             await client.StartAsync();
             OpenGUI();
@@ -300,7 +306,12 @@ namespace Discore_Selfbot
                 await Context.Channel.SendMessageAsync("", false, embed);
             }
         }
-
+        [Command("ut")]
+        public async Task ut(IUser User)
+        {
+            var GU = User as IGuildUser;
+            Console.WriteLine(GU.JoinedAt.Value.Date.ToShortDateString());
+        }
         [Command("cleanembed")]
         public async Task cleanembed()
         {
@@ -529,6 +540,213 @@ namespace Discore_Selfbot
                 }
             }
             Console.WriteLine("----- ----- -----");
+        }
+
+        [Command("tag")]
+        public async Task tag(string Tag)
+        {
+            var GuildUser = Context.Message.Author as IGuildUser;
+            bool AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
+            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
+            if (File.Exists(TagPath + Tag + ".txt"))
+            {
+                var TagText = File.ReadAllText(TagPath + Tag + ".txt");
+                if (AllowedEmbeds == true)
+                {
+                    var embed = new EmbedBuilder()
+                    {
+                        Title = $"Selfbot Tag | {Tag}",
+                        Description = "<@189778832973103104> " + TagText
+                    };
+                    if (Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        var M = Context.Message as IUserMessage;
+                        await M.ModifyAsync(x =>
+                        {
+                            x.Content = "";
+                            x.Embed = embed.Build();
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
+                    }
+                }
+                else
+                {
+                    if (Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        var M = Context.Message as IUserMessage;
+                        await M.ModifyAsync(x =>
+                        {
+                            x.Content = $"Selfbot Tag | {Tag}" + Environment.NewLine + TagText;
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"Selfbot Tag | {Tag}" + Environment.NewLine + TagText);
+                    }
+                }
+            }
+            else
+            {
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Selfbot Tag `{Tag}` not found";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` not found");
+                }
+            }
+        }
+
+        [Command("addtag")]
+        public async Task addtag(string Tag = "", string MessageID = "")
+        {
+            string TagContent = "";
+            bool Numeric = MessageID.All(char.IsDigit);
+            if (Numeric == true)
+            {
+                foreach (var Message in await Context.Channel.GetMessagesAsync().Flatten())
+                {
+                    if (Message.Id.ToString() == MessageID)
+                    {
+                        TagContent = Message.Content;
+                    }
+                }
+            }
+            else
+            {
+                TagContent = MessageID;
+            }
+            if (TagContent == "")
+            {
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Tag content not set or found";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Tag content not set or found");
+                }
+                return;
+            }
+            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
+            if (File.Exists(TagPath + Tag + ".txt"))
+            {
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Selfbot Tag `{Tag}` already exists";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` already exists");
+                }
+            }
+            else
+            {
+                var TagFile = File.CreateText(TagPath + Tag + ".txt");
+                TagFile.Write(TagContent);
+                TagFile.Flush();
+                TagFile.Close();
+                TagFile.Dispose();
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Selfbot Tag `{Tag}` created" + Environment.NewLine + TagContent;
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` created" + Environment.NewLine + TagContent);
+                }
+            }
+        }
+
+        [Command("deltag")]
+        public async Task deltag(string Tag)
+        {
+            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
+            if (File.Exists(TagPath + Tag + ".txt"))
+            {
+                File.Delete(TagPath + Tag + ".txt");
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Selfbot Tag `{Tag}` deleted";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` deleted");
+                }
+
+            }
+            else
+            {
+                if (Properties.Settings.Default.SendAction == "Edit")
+                {
+                    var M = Context.Message as IUserMessage;
+                    await M.ModifyAsync(x =>
+                    {
+                        x.Content = $"Selfbot Tag `{Tag}` not found";
+                    });
+                }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` not found");
+                }
+            }
+        }
+
+        [Command("tags")]
+        public async Task tags()
+        {
+            List<string> TagList = new List<string>();
+            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
+            foreach (var File in Directory.GetFiles(TagPath))
+            {
+                TagList.Add(File.Replace(TagPath, "").Replace(".txt", ""));
+            }
+            string Tags = string.Join(", ", TagList.ToArray());
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = $"Selfbot Tags" + Environment.NewLine + Tags;
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync($"```--- Selfbot Tags ---" + Environment.NewLine + Tags + "```");
+            }
         }
     }
 }

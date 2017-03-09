@@ -28,33 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("self test");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("self info");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("self botinfo");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("self cleanembed");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("self embed (Text)");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("self lenny");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("self lewd");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("self lewd (Text)");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("self gui | self form");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("self user @Mention");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("self user UserID");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("self find UserID");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("PixelBot");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Minotaur");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14});
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Discord Cards");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Casino Bot");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Discord RPG");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18});
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Sekusuikuto");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode20});
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("self test");
+            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("self info");
+            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("self botinfo");
+            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("self cleanembed");
+            System.Windows.Forms.TreeNode treeNode83 = new System.Windows.Forms.TreeNode("self embed (Text)");
+            System.Windows.Forms.TreeNode treeNode84 = new System.Windows.Forms.TreeNode("self lenny");
+            System.Windows.Forms.TreeNode treeNode85 = new System.Windows.Forms.TreeNode("self lewd");
+            System.Windows.Forms.TreeNode treeNode86 = new System.Windows.Forms.TreeNode("self lewd (Text)");
+            System.Windows.Forms.TreeNode treeNode87 = new System.Windows.Forms.TreeNode("self gui | self form");
+            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("self user @Mention");
+            System.Windows.Forms.TreeNode treeNode89 = new System.Windows.Forms.TreeNode("self user UserID");
+            System.Windows.Forms.TreeNode treeNode90 = new System.Windows.Forms.TreeNode("self find UserID");
+            System.Windows.Forms.TreeNode treeNode91 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Text)");
+            System.Windows.Forms.TreeNode treeNode92 = new System.Windows.Forms.TreeNode("self addtag (Tag) (MessageID)");
+            System.Windows.Forms.TreeNode treeNode93 = new System.Windows.Forms.TreeNode("self tag (Tag)");
+            System.Windows.Forms.TreeNode treeNode94 = new System.Windows.Forms.TreeNode("self tags");
+            System.Windows.Forms.TreeNode treeNode95 = new System.Windows.Forms.TreeNode("self deltag (Tag)");
+            System.Windows.Forms.TreeNode treeNode96 = new System.Windows.Forms.TreeNode("PixelBot");
+            System.Windows.Forms.TreeNode treeNode97 = new System.Windows.Forms.TreeNode("Minotaur");
+            System.Windows.Forms.TreeNode treeNode98 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode96,
+            treeNode97});
+            System.Windows.Forms.TreeNode treeNode99 = new System.Windows.Forms.TreeNode("Discord Cards");
+            System.Windows.Forms.TreeNode treeNode100 = new System.Windows.Forms.TreeNode("Casino Bot");
+            System.Windows.Forms.TreeNode treeNode101 = new System.Windows.Forms.TreeNode("Discord RPG");
+            System.Windows.Forms.TreeNode treeNode102 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode99,
+            treeNode100,
+            treeNode101});
+            System.Windows.Forms.TreeNode treeNode103 = new System.Windows.Forms.TreeNode("Sekusuikuto");
+            System.Windows.Forms.TreeNode treeNode104 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode103});
             this.ListChannel = new System.Windows.Forms.ComboBox();
             this.TextChannelLog = new System.Windows.Forms.TextBox();
             this.ViewCommands = new System.Windows.Forms.TreeView();
@@ -106,6 +112,12 @@
             this.ACTitle = new System.Windows.Forms.ToolStripStatusLabel();
             this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
             this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
+            this.EmbedFooter = new System.Windows.Forms.TextBox();
+            this.Tags = new System.Windows.Forms.TabPage();
+            this.TagList = new System.Windows.Forms.ListBox();
+            this.TagEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TagEditorShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.TagEditorDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.TabsInfo.SuspendLayout();
             this.TabsInfoPage.SuspendLayout();
             this.TabsBotPage.SuspendLayout();
@@ -117,6 +129,8 @@
             this.TabsRolePage.SuspendLayout();
             this.TabsEmojiPage.SuspendLayout();
             this.StatusActive.SuspendLayout();
+            this.Tags.SuspendLayout();
+            this.TagEditor.SuspendLayout();
             this.SuspendLayout();
             // 
             // ListChannel
@@ -144,55 +158,75 @@
             // 
             this.ViewCommands.Location = new System.Drawing.Point(6, 96);
             this.ViewCommands.Name = "ViewCommands";
-            treeNode1.Name = "self test";
-            treeNode1.Text = "self test";
-            treeNode1.ToolTipText = "Test if the bot works";
-            treeNode2.Name = "self info";
-            treeNode2.Text = "self info";
-            treeNode2.ToolTipText = "Get info about yourself such as the ammount of guilds";
-            treeNode3.Name = "self botinfo";
-            treeNode3.Text = "self botinfo";
-            treeNode3.ToolTipText = "Get info about the bot";
-            treeNode4.Name = "self cleanembed";
-            treeNode4.Text = "self cleanembed";
-            treeNode4.ToolTipText = "Clean up your your embeds";
-            treeNode5.Name = "self embed (Text)";
-            treeNode5.Text = "self embed (Text)";
-            treeNode5.ToolTipText = "Embed a message with text";
-            treeNode6.Name = "self lenny";
-            treeNode6.Text = "self lenny";
-            treeNode6.ToolTipText = "Insert lenny face";
-            treeNode7.Name = "self lewd";
-            treeNode7.Text = "self lewd";
-            treeNode7.ToolTipText = "You know what this is :3";
-            treeNode8.Name = "self lewd (Text)";
-            treeNode8.Text = "self lewd (Text)";
-            treeNode8.ToolTipText = "You know what this is :3";
-            treeNode9.Name = "self gui | self form";
-            treeNode9.Text = "self gui | self form";
-            treeNode9.ToolTipText = "Open this form";
-            treeNode10.Name = "self user @Mention";
-            treeNode10.Text = "self user @Mention";
-            treeNode10.ToolTipText = "Get info about a user";
-            treeNode11.Name = "self user UserID";
-            treeNode11.Text = "self user UserID";
-            treeNode11.ToolTipText = "Get info about a user";
-            treeNode12.Name = "self find UserID";
-            treeNode12.Text = "self find UserID";
-            treeNode12.ToolTipText = "Find a list of guilds that the user is in";
+            treeNode79.Name = "self test";
+            treeNode79.Text = "self test";
+            treeNode79.ToolTipText = "Test if the bot works";
+            treeNode80.Name = "self info";
+            treeNode80.Text = "self info";
+            treeNode80.ToolTipText = "Get info about yourself such as the ammount of guilds";
+            treeNode81.Name = "self botinfo";
+            treeNode81.Text = "self botinfo";
+            treeNode81.ToolTipText = "Get info about the bot";
+            treeNode82.Name = "self cleanembed";
+            treeNode82.Text = "self cleanembed";
+            treeNode82.ToolTipText = "Clean up your your embeds";
+            treeNode83.Name = "self embed (Text)";
+            treeNode83.Text = "self embed (Text)";
+            treeNode83.ToolTipText = "Embed a message with text";
+            treeNode84.Name = "self lenny";
+            treeNode84.Text = "self lenny";
+            treeNode84.ToolTipText = "Insert lenny face";
+            treeNode85.Name = "self lewd";
+            treeNode85.Text = "self lewd";
+            treeNode85.ToolTipText = "You know what this is :3";
+            treeNode86.Name = "self lewd (Text)";
+            treeNode86.Text = "self lewd (Text)";
+            treeNode86.ToolTipText = "You know what this is :3";
+            treeNode87.Name = "self gui | self form";
+            treeNode87.Text = "self gui | self form";
+            treeNode87.ToolTipText = "Open this form";
+            treeNode88.Name = "self user @Mention";
+            treeNode88.Text = "self user @Mention";
+            treeNode88.ToolTipText = "Get info about a user";
+            treeNode89.Name = "self user UserID";
+            treeNode89.Text = "self user UserID";
+            treeNode89.ToolTipText = "Get info about a user";
+            treeNode90.Name = "self find UserID";
+            treeNode90.Text = "self find UserID";
+            treeNode90.ToolTipText = "Find a list of guilds that the user is in";
+            treeNode91.Name = "self addtag (Tag) (Text)";
+            treeNode91.Text = "self addtag (Tag) (Text)";
+            treeNode91.ToolTipText = "Create a tag with text linked to it";
+            treeNode92.Name = "self addtag (Tag) (MessageID)";
+            treeNode92.Text = "self addtag (Tag) (MessageID)";
+            treeNode92.ToolTipText = "Create a tag with text linked to it";
+            treeNode93.Name = "self tag (Tag)";
+            treeNode93.Text = "self tag (Tag)";
+            treeNode93.ToolTipText = "Post the tag content in the channel";
+            treeNode94.Name = "self tags";
+            treeNode94.Text = "self tags";
+            treeNode94.ToolTipText = "Get a list of all your tags";
+            treeNode95.Name = "self deltag (Tag)";
+            treeNode95.Text = "self deltag (Tag)";
+            treeNode95.ToolTipText = "Delete a tag";
             this.ViewCommands.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode79,
+            treeNode80,
+            treeNode81,
+            treeNode82,
+            treeNode83,
+            treeNode84,
+            treeNode85,
+            treeNode86,
+            treeNode87,
+            treeNode88,
+            treeNode89,
+            treeNode90,
+            treeNode91,
+            treeNode92,
+            treeNode93,
+            treeNode94,
+            treeNode95});
             this.ViewCommands.ShowLines = false;
             this.ViewCommands.ShowNodeToolTips = true;
             this.ViewCommands.Size = new System.Drawing.Size(214, 253);
@@ -220,7 +254,7 @@
             this.OpenColorsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OpenColorsButton.Location = new System.Drawing.Point(163, 3);
             this.OpenColorsButton.Name = "OpenColorsButton";
-            this.OpenColorsButton.Size = new System.Drawing.Size(46, 46);
+            this.OpenColorsButton.Size = new System.Drawing.Size(46, 72);
             this.OpenColorsButton.TabIndex = 5;
             this.OpenColorsButton.Text = "Color";
             this.OpenColorsButton.UseVisualStyleBackColor = false;
@@ -228,9 +262,9 @@
             // 
             // EmbedSelected
             // 
-            this.EmbedSelected.Location = new System.Drawing.Point(3, 81);
+            this.EmbedSelected.Location = new System.Drawing.Point(3, 107);
             this.EmbedSelected.Name = "EmbedSelected";
-            this.EmbedSelected.Size = new System.Drawing.Size(90, 66);
+            this.EmbedSelected.Size = new System.Drawing.Size(90, 40);
             this.EmbedSelected.TabIndex = 6;
             this.EmbedSelected.Text = "Selected";
             this.EmbedSelected.UseVisualStyleBackColor = true;
@@ -238,9 +272,9 @@
             // 
             // EmbedActive
             // 
-            this.EmbedActive.Location = new System.Drawing.Point(119, 81);
+            this.EmbedActive.Location = new System.Drawing.Point(119, 107);
             this.EmbedActive.Name = "EmbedActive";
-            this.EmbedActive.Size = new System.Drawing.Size(90, 66);
+            this.EmbedActive.Size = new System.Drawing.Size(90, 40);
             this.EmbedActive.TabIndex = 8;
             this.EmbedActive.Text = "Active";
             this.EmbedActive.UseVisualStyleBackColor = true;
@@ -268,6 +302,7 @@
             this.TabsInfo.Controls.Add(this.TabsBotPage);
             this.TabsInfo.Controls.Add(this.TabsThemePage);
             this.TabsInfo.Controls.Add(this.TabsSettingPage);
+            this.TabsInfo.Controls.Add(this.Tags);
             this.TabsInfo.HotTrack = true;
             this.TabsInfo.Location = new System.Drawing.Point(238, 40);
             this.TabsInfo.Name = "TabsInfo";
@@ -285,7 +320,7 @@
             this.TabsInfoPage.Name = "TabsInfoPage";
             this.TabsInfoPage.Size = new System.Drawing.Size(226, 370);
             this.TabsInfoPage.TabIndex = 0;
-            this.TabsInfoPage.Text = "Information";
+            this.TabsInfoPage.Text = "Info";
             this.TabsInfoPage.UseVisualStyleBackColor = true;
             // 
             // TitleCommands
@@ -365,38 +400,38 @@
             // 
             this.ViewBots.Location = new System.Drawing.Point(6, 5);
             this.ViewBots.Name = "ViewBots";
-            treeNode13.Name = "PixelBot";
-            treeNode13.Text = "PixelBot";
-            treeNode13.ToolTipText = "A gamer featured bot with twitch streamer alerts";
-            treeNode14.Name = "Minotaur";
-            treeNode14.Text = "Minotaur";
-            treeNode14.ToolTipText = "A guild moderation bot with modlog channel and full user/guild logs";
-            treeNode15.Name = "My Bots";
-            treeNode15.Text = "My Bots";
-            treeNode15.ToolTipText = "Shameless promotions ik :P";
-            treeNode16.Name = "Discord Cards";
-            treeNode16.Text = "Discord Cards";
-            treeNode16.ToolTipText = "A really cool bot made by Snazzah and other peeps which has a card collection sys" +
+            treeNode96.Name = "PixelBot";
+            treeNode96.Text = "PixelBot";
+            treeNode96.ToolTipText = "A gamer featured bot with twitch streamer alerts";
+            treeNode97.Name = "Minotaur";
+            treeNode97.Text = "Minotaur";
+            treeNode97.ToolTipText = "A guild moderation bot with modlog channel and full user/guild logs";
+            treeNode98.Name = "My Bots";
+            treeNode98.Text = "My Bots";
+            treeNode98.ToolTipText = "Shameless promotions ik :P";
+            treeNode99.Name = "Discord Cards";
+            treeNode99.Text = "Discord Cards";
+            treeNode99.ToolTipText = "A really cool bot made by Snazzah and other peeps which has a card collection sys" +
     "tem and daily money";
-            treeNode17.Name = "Casino Bot";
-            treeNode17.Text = "Casino Bot";
-            treeNode17.ToolTipText = "Spin the wheel!";
-            treeNode18.Name = "Discord RPG";
-            treeNode18.Text = "Discord RPG";
-            treeNode18.ToolTipText = "A really awesome RPG game bot";
-            treeNode19.Name = "Fun Bots";
-            treeNode19.Text = "Fun Bots";
-            treeNode19.ToolTipText = "Bots that have a game or fun premise";
-            treeNode20.Name = "Sekusuikuto";
-            treeNode20.Text = "Sekusuikuto";
-            treeNode20.ToolTipText = "Made by Bubbie which has some usefull random commands and modlogs";
-            treeNode21.Name = "Other Bots";
-            treeNode21.Text = "Other Bots";
-            treeNode21.ToolTipText = "Other cool bots :)";
+            treeNode100.Name = "Casino Bot";
+            treeNode100.Text = "Casino Bot";
+            treeNode100.ToolTipText = "Spin the wheel!";
+            treeNode101.Name = "Discord RPG";
+            treeNode101.Text = "Discord RPG";
+            treeNode101.ToolTipText = "A really awesome RPG game bot";
+            treeNode102.Name = "Fun Bots";
+            treeNode102.Text = "Fun Bots";
+            treeNode102.ToolTipText = "Bots that have a game or fun premise";
+            treeNode103.Name = "Sekusuikuto";
+            treeNode103.Text = "Sekusuikuto";
+            treeNode103.ToolTipText = "Made by Bubbie which has some usefull random commands and modlogs";
+            treeNode104.Name = "Other Bots";
+            treeNode104.Text = "Other Bots";
+            treeNode104.ToolTipText = "Other cool bots :)";
             this.ViewBots.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode15,
-            treeNode19,
-            treeNode21});
+            treeNode98,
+            treeNode102,
+            treeNode104});
             this.ViewBots.ShowNodeToolTips = true;
             this.ViewBots.Size = new System.Drawing.Size(214, 249);
             this.ViewBots.TabIndex = 3;
@@ -607,6 +642,7 @@
             // 
             // TabsEmbedPage
             // 
+            this.TabsEmbedPage.Controls.Add(this.EmbedFooter);
             this.TabsEmbedPage.Controls.Add(this.TitleSendto);
             this.TabsEmbedPage.Controls.Add(this.EmbedTitle);
             this.TabsEmbedPage.Controls.Add(this.EmbedText);
@@ -628,7 +664,7 @@
             this.TitleSendto.Cursor = System.Windows.Forms.Cursors.Default;
             this.TitleSendto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleSendto.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleSendto.Location = new System.Drawing.Point(3, 55);
+            this.TitleSendto.Location = new System.Drawing.Point(3, 81);
             this.TitleSendto.Name = "TitleSendto";
             this.TitleSendto.ReadOnly = true;
             this.TitleSendto.Size = new System.Drawing.Size(206, 20);
@@ -645,7 +681,7 @@
             this.TabsGuildInfoPage.Name = "TabsGuildInfoPage";
             this.TabsGuildInfoPage.Size = new System.Drawing.Size(212, 150);
             this.TabsGuildInfoPage.TabIndex = 3;
-            this.TabsGuildInfoPage.Text = "Guild Info";
+            this.TabsGuildInfoPage.Text = "G Info";
             this.TabsGuildInfoPage.UseVisualStyleBackColor = true;
             // 
             // TextGuildInfo
@@ -764,6 +800,58 @@
             this.ACID.Size = new System.Drawing.Size(27, 17);
             this.ACID.Text = "(69)";
             // 
+            // EmbedFooter
+            // 
+            this.EmbedFooter.Location = new System.Drawing.Point(3, 55);
+            this.EmbedFooter.Name = "EmbedFooter";
+            this.EmbedFooter.Size = new System.Drawing.Size(154, 20);
+            this.EmbedFooter.TabIndex = 75;
+            this.EmbedFooter.Text = "Footer";
+            // 
+            // Tags
+            // 
+            this.Tags.Controls.Add(this.TagList);
+            this.Tags.Location = new System.Drawing.Point(4, 22);
+            this.Tags.Name = "Tags";
+            this.Tags.Size = new System.Drawing.Size(226, 370);
+            this.Tags.TabIndex = 4;
+            this.Tags.Text = "Tags";
+            this.Tags.UseVisualStyleBackColor = true;
+            // 
+            // TagList
+            // 
+            this.TagList.ContextMenuStrip = this.TagEditor;
+            this.TagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TagList.FormattingEnabled = true;
+            this.TagList.Items.AddRange(new object[] {
+            "Coming Soon"});
+            this.TagList.Location = new System.Drawing.Point(0, 0);
+            this.TagList.Name = "TagList";
+            this.TagList.Size = new System.Drawing.Size(226, 370);
+            this.TagList.TabIndex = 0;
+            // 
+            // TagEditor
+            // 
+            this.TagEditor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TagEditorShow,
+            this.TagEditorDelete});
+            this.TagEditor.Name = "TagEditor";
+            this.TagEditor.Size = new System.Drawing.Size(108, 48);
+            // 
+            // TagEditorShow
+            // 
+            this.TagEditorShow.Name = "TagEditorShow";
+            this.TagEditorShow.Size = new System.Drawing.Size(152, 22);
+            this.TagEditorShow.Text = "Show";
+            this.TagEditorShow.Click += new System.EventHandler(this.TagEditorShow_Click);
+            // 
+            // TagEditorDelete
+            // 
+            this.TagEditorDelete.Name = "TagEditorDelete";
+            this.TagEditorDelete.Size = new System.Drawing.Size(152, 22);
+            this.TagEditorDelete.Text = "Delete";
+            this.TagEditorDelete.Click += new System.EventHandler(this.TagEditorDelete_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -799,6 +887,8 @@
             this.TabsEmojiPage.PerformLayout();
             this.StatusActive.ResumeLayout(false);
             this.StatusActive.PerformLayout();
+            this.Tags.ResumeLayout(false);
+            this.TagEditor.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -857,5 +947,11 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button ThemeAlexflipnote;
         private System.Windows.Forms.RichTextBox TextGuildRoles;
+        private System.Windows.Forms.TextBox EmbedFooter;
+        private System.Windows.Forms.TabPage Tags;
+        public System.Windows.Forms.ListBox TagList;
+        private System.Windows.Forms.ContextMenuStrip TagEditor;
+        private System.Windows.Forms.ToolStripMenuItem TagEditorShow;
+        private System.Windows.Forms.ToolStripMenuItem TagEditorDelete;
     }
 }
