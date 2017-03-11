@@ -23,7 +23,7 @@ Main Bot Code /Discore-Selfbot/Program.cs
 
 Form Code /Discore-Selfbot/MainForm.cs
 ## How to download
-https://dl.blaze.ml
+http://discore.blaze.ml/
 
 Windows smartscreen will tell you that this app is unrecognised because i dont have a code signing certificate which would cost me alot :/ just click more and run as shown in the link below
 
