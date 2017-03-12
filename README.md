@@ -23,19 +23,17 @@ Main Bot Code /Discore-Selfbot/Program.cs
 
 Form Code /Discore-Selfbot/MainForm.cs
 ## How to download
-https://server.blaze.ml/blaze/discore/
+http://discore.blaze.ml/
 
 Windows smartscreen will tell you that this app is unrecognised because i dont have a code signing certificate which would cost me alot :/ just click more and run as shown in the link below
 
 http://imgur.com/a/Hi2Nc
-## Issue/Suggestions
-If you have an issues or suggestions for this bot please click on issue and make a new post
-## Other Stuff
-Visit my website for Discord Bots to use
-http://dev.blaze.ml
-Or join my guild
-WJTYdNb
 
+## Website
+For a list of commands visit the website 
+https://blaze.ml/minotaur/
+
+If you have a suggestion/issue please use this github or join my guild WJTYdNb
 
 ```
     Copyright (C) 2017 Builderb
