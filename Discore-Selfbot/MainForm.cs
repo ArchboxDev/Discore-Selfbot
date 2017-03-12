@@ -30,6 +30,11 @@ namespace Discore_Selfbot
         }
         public async void MainForm_Load(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.ANList == null)
+            {
+                Properties.Settings.Default.ANList = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
+            }
             if (Program.ConnectedOnce == false)
             {
                 if (Properties.Settings.Default.AutoForm == "No")
@@ -40,7 +45,7 @@ namespace Discore_Selfbot
             WebClient WBC = new WebClient();
                 Program.Guilds.Clear();
                 Program.GuildsID.Clear();
-            this.Text = Program.DiscordUser;
+            this.Text = Program.CurrentUserName;
                 if (System.IO.File.Exists($"avatar.png"))
                 {
                     Bitmap b = (Bitmap)System.Drawing.Image.FromFile($"avatar.png");
@@ -179,7 +184,6 @@ namespace Discore_Selfbot
                 }
             }
             TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {MembersOnline}/{MembersOffline} Offline" + Environment.NewLine + $"Bots: Online {BotsOnline}/{BotsOffline} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
-            
             SelectedGuild = Program.GuildsID[GuildIndex];
             ListChannel.Items.Clear();
             ListChannel.Visible = true;
@@ -197,8 +201,15 @@ namespace Discore_Selfbot
             {
                 if (Role != Guild.EveryoneRole)
                 {
-                    AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(Role.Color.R,Role.Color.G,Role.Color.B));
-                    AppendText(TextGuildRoles, Role.Id + Environment.NewLine + Environment.NewLine, System.Drawing.Color.FromArgb(0, 0, 0));
+                    if (Role.Color.R == 0)
+                    {
+                        AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
+                    }
+                    else
+                    {
+                        AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(Role.Color.R, Role.Color.G, Role.Color.B));
+                    }
+                    AppendText(TextGuildRoles, Role.Id + Environment.NewLine + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
                 }
             }
             List<string> EmojiList = new List<string>();
@@ -214,6 +225,24 @@ namespace Discore_Selfbot
             Console.WriteLine($"Selected Channel {ListChannel.SelectedText}");
             var Index = ListChannel.SelectedIndex;
             SelectChannel = Program.ChannelsID[Index];
+            var Guild = Program.client.GetGuild(SelectedGuild);
+            var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
+            var User = Guild.GetUser(Program.CurrentUserID);
+            if (User.GuildPermissions.EmbedLinks == true)
+            {
+                EmbedSelected.Text = "Selected";
+            }
+            else
+            {
+                if (User.GetPermissions(Chan).EmbedLinks == true)
+                {
+                    EmbedSelected.Text = "Selected";
+                }
+                else
+                {
+                    EmbedSelected.Text = "Selected" + Environment.NewLine + "No perms";
+                }
+            }
         }
 
         private void OpenColorsButton_Click(object sender, EventArgs e)
@@ -244,7 +273,7 @@ namespace Discore_Selfbot
             if (e.Node.Name == "PixelBot")
             {
                 TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
-                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotWebsite.AccessibleDescription = "https://blaze.ml";
                 ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
                 ButtonBotWebsite.Visible = true;
                 ButtonBotInvite.Visible = true;
@@ -252,7 +281,7 @@ namespace Discore_Selfbot
             if (e.Node.Name == "Minotaur")
             {
                 TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
-                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotWebsite.AccessibleDescription = "https://blaze.ml";
                 ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
                 ButtonBotWebsite.Visible = true;
                 ButtonBotInvite.Visible = true;
@@ -268,7 +297,7 @@ namespace Discore_Selfbot
             if (e.Node.Name == "Casino Bot")
             {
                 TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
-                ButtonBotWebsite.AccessibleDescription = "http://dev.blaze.ml";
+                ButtonBotWebsite.AccessibleDescription = "";
                 ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
                 ButtonBotWebsite.Visible = false;
                 ButtonBotInvite.Visible = true;
@@ -276,18 +305,18 @@ namespace Discore_Selfbot
             if (e.Node.Name == "Discord RPG")
             {
                 TextBotInfo.Text = "Who dosent love a good RPG bot?";
-                ButtonBotWebsite.AccessibleDescription = "";
+                ButtonBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
                 ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
-                ButtonBotWebsite.Visible = false;
+                ButtonBotWebsite.Visible = true;
                 ButtonBotInvite.Visible = true;
             }
             if (e.Node.Name == "Sekusuikuto")
             {
                 TextBotInfo.Text = "Currently down and also the website so i cannot add :P";
-                ButtonBotWebsite.AccessibleDescription = "";
-                ButtonBotInvite.AccessibleDescription = "";
-                ButtonBotWebsite.Visible = false;
-                ButtonBotInvite.Visible = false;
+                ButtonBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
+                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
+                ButtonBotWebsite.Visible = true;
+                ButtonBotInvite.Visible = true;
             }
         }
 

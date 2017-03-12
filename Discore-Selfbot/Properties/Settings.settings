@@ -8,5 +8,11 @@
     <Setting Name="AutoForm" Type="System.String" Scope="User">
       <Value Profile="(Default)">Yes</Value>
     </Setting>
+    <Setting Name="ANList" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ANGuild" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -17,6 +17,7 @@ using Discord.Net.Providers.WS4Net;
 using Discord.Audio;
 using Discord.Commands;
 using System.Diagnostics;
+using System.Timers;
 
 namespace Discore_Selfbot
 {
@@ -32,11 +33,12 @@ namespace Discore_Selfbot
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
         public static MainForm MyForm;
-        public static string DiscordUser;
+        public static string CurrentUserName;
+        public static ulong CurrentUserID;
         public static bool IsAfk = false;
         public static string AfkText = "User is currently away atm";
         public static bool ConnectedOnce = false;
-
+        public static Random Random = new Random();
         static void Main()
         {
             Console.Title = "Discore - Selfbot - User Token Required";
@@ -93,6 +95,10 @@ namespace Discore_Selfbot
             commands = new CommandService();
             map = new DependencyMap();
             await InstallCommands();
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.Interval = 60000;
+                timer.Elapsed += Timer;
+                timer.Start();
             int Guilds = 0;
             client.GuildAvailable += (g) =>
             {
@@ -191,6 +197,21 @@ namespace Discore_Selfbot
                     MyForm.ACID.Text = $"({message.Channel.Id})";
                     MainForm.ActiveGuildID = GU.Guild.Id;
                     MainForm.ActiveChannelID = message.Channel.Id;
+                    if (GU.GuildPermissions.EmbedLinks == true)
+                    {
+                        MyForm.EmbedActive.Text = "Active";
+                    }
+                    else
+                    {
+                        if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
+                        {
+                            MyForm.EmbedActive.Text = "Active";
+                        }
+                        else
+                        {
+                            MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
+                        }
+                    }
                 }
             };
             client.Connected += () =>
@@ -199,7 +220,8 @@ namespace Discore_Selfbot
                 Console.WriteLine("CONNECTED!");
                 if (ConnectedOnce == false)
                 {
-                    DiscordUser = client.CurrentUser.Username;
+                    CurrentUserName = client.CurrentUser.Username;
+                    CurrentUserID = client.CurrentUser.Id;
                     WebClient myWebClient = new WebClient();
                     myWebClient.DownloadFile(client.CurrentUser.GetAvatarUrl(), "avatar.png");
                     Bitmap b = (Bitmap)System.Drawing.Image.FromFile("avatar.png");
@@ -209,7 +231,7 @@ namespace Discore_Selfbot
                     myWebClient.Dispose();
                     if (Properties.Settings.Default.AutoForm == "Yes")
                     {
-                        MyForm.Text = DiscordUser;
+                        MyForm.Text = CurrentUserName;
                         MyForm.Icon = i;
                     }
                     if (client.CurrentUser.Id == 190590364871032834)
@@ -244,7 +266,40 @@ namespace Discore_Selfbot
             OpenGUI();
             await Task.Delay(-1);
         }
-        public async Task InstallCommands()
+        public async static void SendMessage(ITextChannel Channel, IUserMessage CommandMessage, [Remainder] string Message)
+        {
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                await CommandMessage.ModifyAsync(x =>
+                {
+                    x.Content = $"`Selfbot | {Message}`";
+                });
+            }
+            else
+            {
+                await CommandMessage.DeleteAsync();
+                await Channel.SendMessageAsync($"`Selfbot | {Message}`");
+            }
+        }
+        private async void Timer(object sender, ElapsedEventArgs e)
+        {
+            if (Discore_Selfbot.Properties.Settings.Default.ANList.Count != 0)
+            {
+                if (Discore_Selfbot.Properties.Settings.Default.ANGuild.ToString() != "")
+                {
+                    if (CurrentUserID.ToString() != "")
+                    {
+                        int Items = Properties.Settings.Default.ANList.Count;
+                        int randomValue = Program.Random.Next(0, Items);
+                        string Nickname = Properties.Settings.Default.ANList[randomValue];
+                        var Guild = client.GetGuild(Properties.Settings.Default.ANGuild);
+                        var GuildUser = Guild.GetUser(CurrentUserID);
+                        await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
+                    }
+                }
+            }
+        }
+            public async Task InstallCommands()
         {
             client.MessageReceived += HandleCommand;
             await commands.AddModulesAsync(Assembly.GetEntryAssembly());
@@ -267,19 +322,7 @@ namespace Discore_Selfbot
         [Command("test")]
         public async Task test()
         {
-            if (Properties.Settings.Default.SendAction == "Edit")
-            {
-                var M = Context.Message as IUserMessage;
-                await M.ModifyAsync(x =>
-                {
-                    x.Content = "Selfbot is working";
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Channel.SendMessageAsync("Selfbot is working");
-            }
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Test!");
         }
 
         [Command("info")]
@@ -306,12 +349,7 @@ namespace Discore_Selfbot
                 await Context.Channel.SendMessageAsync("", false, embed);
             }
         }
-        [Command("ut")]
-        public async Task ut(IUser User)
-        {
-            var GU = User as IGuildUser;
-            Console.WriteLine(GU.JoinedAt.Value.Date.ToShortDateString());
-        }
+
         [Command("cleanembed")]
         public async Task cleanembed()
         {
@@ -508,26 +546,14 @@ namespace Discore_Selfbot
             }
             catch
             {
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message as IUserMessage;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = "Selfbot - Could not find user";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync("Selfbot - Could not find user");
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Could not find user");
             }
         }
 
         [Command("find")]
         public async Task find(string ID)
         {
-            await Context.Message.DeleteAsync();
+            int GuildCount = 0;
             Console.WriteLine("----- Guilds Found -----");
             foreach(var Guild in await Context.Client.GetGuildsAsync())
             {
@@ -536,14 +562,16 @@ namespace Discore_Selfbot
                     if (User.Id.ToString() == ID)
                     {
                         Console.WriteLine(Guild.Name);
+                        GuildCount++;
                     }
                 }
             }
             Console.WriteLine("----- ----- -----");
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Found {ID} in {GuildCount} guilds check console for names");
         }
 
         [Command("tag")]
-        public async Task tag(string Tag)
+        public async Task tag(string Tag) 
         {
             var GuildUser = Context.Message.Author as IGuildUser;
             bool AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
@@ -592,19 +620,7 @@ namespace Discore_Selfbot
             }
             else
             {
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message as IUserMessage;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Selfbot Tag `{Tag}` not found";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` not found");
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
         }
 
@@ -629,37 +645,13 @@ namespace Discore_Selfbot
             }
             if (TagContent == "")
             {
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Tag content not set or found";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Tag content not set or found");
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Tag content not set or found");
                 return;
             }
             var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
             if (File.Exists(TagPath + Tag + ".txt"))
             {
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Selfbot Tag `{Tag}` already exists";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` already exists");
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} already exists");
             }
             else
             {
@@ -668,19 +660,7 @@ namespace Discore_Selfbot
                 TagFile.Flush();
                 TagFile.Close();
                 TagFile.Dispose();
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message as IUserMessage;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Selfbot Tag `{Tag}` created" + Environment.NewLine + TagContent;
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` created" + Environment.NewLine + TagContent);
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} created");
             }
         }
 
@@ -691,36 +671,87 @@ namespace Discore_Selfbot
             if (File.Exists(TagPath + Tag + ".txt"))
             {
                 File.Delete(TagPath + Tag + ".txt");
-                if (Properties.Settings.Default.SendAction == "Edit")
-                {
-                    var M = Context.Message as IUserMessage;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Selfbot Tag `{Tag}` deleted";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` deleted");
-                }
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} deleted");
 
             }
             else
             {
-                if (Properties.Settings.Default.SendAction == "Edit")
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} not found");
+            }
+        }
+
+        [Command("an bind")]
+        public async Task anbind()
+        {
+            var GuildUser = Context.User as IGuildUser;
+            string Message = "";
+            if (GuildUser.GuildPermissions.ChangeNickname == false)
+            {
+                Message = "`Selfbot | You do not have perms for change nickname`";
+            }
+            else
+            {
+                Message = "`Auto Nickname bound to guild`";
+                Properties.Settings.Default.ANGuild = Context.Guild.Id;
+                Properties.Settings.Default.Save();
+            }
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, Message);
+        }
+
+        [Command("an add")]
+        public async Task anadd([Remainder]string Nickname)
+        {
+            Properties.Settings.Default.ANList.Add(Nickname);
+            Properties.Settings.Default.Save();
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Nickname added to list");
+        }
+
+        [Command("an del")]
+        public async Task andel(int Number)
+        {
+            int ListCount = Properties.Settings.Default.ANList.Count;
+            string Message = "";
+            if (ListCount == 0)
+            {
+                Message = "Auto Nickname list does not have any items";
+            }
+            else
+            {
+                if (Number <= 0 || Number > ListCount)
                 {
-                    var M = Context.Message as IUserMessage;
-                    await M.ModifyAsync(x =>
-                    {
-                        x.Content = $"Selfbot Tag `{Tag}` not found";
-                    });
+                    Message = "Number is invalid";
                 }
                 else
                 {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"Selfbot Tag `{Tag}` not found");
+                    Message = $"{Properties.Settings.Default.ANList[Number - 1]} has been removed from the list";
+                    Properties.Settings.Default.ANList.RemoveAt(Number - 1);
+                    Properties.Settings.Default.Save();
                 }
+            }
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, Message);
+        }
+
+        [Command("an list")]
+        public async Task anlist()
+        {
+            List<string> ANList = new List<string>();
+            foreach(var Item in Properties.Settings.Default.ANList)
+            {
+                ANList.Add(Item);
+            }
+            string NicknameList = string.Join(", ", ANList.ToArray());
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                var M = Context.Message as IUserMessage;
+                await M.ModifyAsync(x =>
+                {
+                    x.Content = "List of auto nicknames" + Environment.NewLine + NicknameList;
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("List of auto nicknames" + Environment.NewLine + NicknameList);
             }
         }
 
