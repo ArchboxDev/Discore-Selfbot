@@ -25,7 +25,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Edit")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string SendAction {
             get {
                 return ((string)(this["SendAction"]));
@@ -37,7 +37,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AutoForm {
             get {
                 return ((string)(this["AutoForm"]));
@@ -67,6 +67,18 @@ namespace Discore_Selfbot.Properties {
             }
             set {
                 this["ANGuild"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color FavoriteColor {
+            get {
+                return ((global::System.Drawing.Color)(this["FavoriteColor"]));
+            }
+            set {
+                this["FavoriteColor"] = value;
             }
         }
     }

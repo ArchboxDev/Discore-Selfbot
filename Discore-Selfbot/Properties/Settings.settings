@@ -3,16 +3,19 @@
   <Profiles />
   <Settings>
     <Setting Name="SendAction" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Edit</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AutoForm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Yes</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ANList" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ANGuild" Type="System.UInt64" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">ControlText</Value>
     </Setting>
   </Settings>
 </SettingsFile>

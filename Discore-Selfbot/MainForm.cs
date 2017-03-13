@@ -22,7 +22,7 @@ namespace Discore_Selfbot
         public static ulong ActiveChannelID = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -248,13 +248,15 @@ namespace Discore_Selfbot
         private void OpenColorsButton_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog1 = new ColorDialog();
-
             if (colorDialog1.ShowDialog() == DialogResult.OK)
-
             {
                 EmbedColor = new Discord.Color(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
                 OpenColorsButton.ForeColor = colorDialog1.Color;
-
+            }
+            else
+            {
+                EmbedColor = new Discord.Color();
+                OpenColorsButton.ForeColor = System.Drawing.SystemColors.ControlText;
             }
         }
 
@@ -388,6 +390,22 @@ namespace Discore_Selfbot
         private void TagEditorDelete_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void BtnOpenFavColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog FavColorForm = FavColorSelect;
+            if (FavColorForm.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.FavoriteColor = FavColorForm.Color;
+                Program.FavColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
+            }
+            else
+            {
+                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
+                Program.FavColor = new Discord.Color();
+            }
+            Properties.Settings.Default.Save();
         }
     }
 }

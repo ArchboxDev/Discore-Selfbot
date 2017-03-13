@@ -32,6 +32,7 @@ namespace Discore_Selfbot
         public static List<ulong> GuildsID = new List<ulong>();
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
+        public static Discord.Color FavColor;
         public static MainForm MyForm;
         public static string CurrentUserName;
         public static ulong CurrentUserID;
@@ -87,6 +88,7 @@ namespace Discore_Selfbot
 
         public async Task RunBot()
         {
+            FavColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 WebSocketProvider = WS4NetProvider.Instance,
@@ -319,19 +321,19 @@ namespace Discore_Selfbot
     }
     public class InfoModule : ModuleBase
     {
-        [Command("test")]
-        public async Task test()
-        {
-            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Test!");
-        }
-
         [Command("info")]
         public async Task info()
         {
             var Guilds = await Context.Client.GetGuildsAsync();
             var embed = new EmbedBuilder()
             {
-                Title = "Discore Selfbot Info",
+                Author = new EmbedAuthorBuilder()
+                {
+                    Name = $"Selfbot | {Context.Client.CurrentUser.Username}",
+                    IconUrl = Context.Client.CurrentUser.GetAvatarUrl(),
+                    Url = Context.Client.CurrentUser.GetAvatarUrl()
+                },
+                Color = Program.FavColor,
                 Description = $"```md" + Environment.NewLine + $"<Guilds {Guilds.Count()}> <Created {Context.Client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {Context.Client.CurrentUser.Id}>```",
             };
             if (Properties.Settings.Default.SendAction == "Edit")
@@ -374,7 +376,6 @@ namespace Discore_Selfbot
             if (!Program.MyForm.Visible)
             {
                 Console.WriteLine("Opening gui");
-                MainForm.EmbedColor = new Discord.Color(0, 0, 0);
                 MainForm.SelectedGuild = 0;
                 MainForm.SelectChannel = 0;
                 Program.OpenGUI();
@@ -392,7 +393,8 @@ namespace Discore_Selfbot
         {
             var embed = new EmbedBuilder()
             {
-                Description = Text
+                Description = Text,
+                Color = MainForm.EmbedColor
             };
             if (Properties.Settings.Default.SendAction == "Edit")
             {
@@ -416,7 +418,8 @@ namespace Discore_Selfbot
             var embed = new EmbedBuilder()
             {
                 Title = "Discore Selfbot Info",
-                Description = $"Selfbot made by <@190590364871032834> xXBuilderBXx#9113 [Github Project](https://github.com/ArchboxDev/Discore-Selfbot)",
+                Color = Program.FavColor,
+                Description = $"Selfbot made by xXBuilderBXx#9113 [Github](https://github.com/ArchboxDev/Discore-Selfbot)",
             };
             if (Properties.Settings.Default.SendAction == "Edit")
             {
@@ -503,6 +506,10 @@ namespace Discore_Selfbot
             if (User.StartsWith("<@"))
             {
                 User = User.Replace("<@", "").Replace(">", "");
+                if (User.StartsWith("!"))
+                {
+                    User = User.Replace("!", "");
+                }
             }
             try
             {
@@ -525,9 +532,9 @@ namespace Discore_Selfbot
                         Name = $"{GuildUser.Username}#{GuildUser.Discriminator}",
                         IconUrl = GuildUser.GetAvatarUrl()
                     },
+                    Color = Program.FavColor,
                     Description = $"{GuildUser.Mention} - {GuildUser.Id}" + Environment.NewLine + $"Created {GuildUser.CreatedAt.Date.ToShortDateString()} | Joined Guild {GuildUser.JoinedAt.Value.Date.ToShortDateString()}" + Environment.NewLine + $"I am in {Count} Guilds with {Context.Message.Author.Username}",
-                    Url = GuildUser.GetAvatarUrl(),
-                    Color = new Discord.Color(0, 100, 0)
+                    Url = GuildUser.GetAvatarUrl()
                 };
                 if (Properties.Settings.Default.SendAction == "Edit")
                 {
@@ -584,6 +591,7 @@ namespace Discore_Selfbot
                     var embed = new EmbedBuilder()
                     {
                         Title = $"Selfbot Tag | {Tag}",
+                        Color = Program.FavColor,
                         Description = "<@189778832973103104> " + TagText
                     };
                     if (Properties.Settings.Default.SendAction == "Edit")
