@@ -49,7 +49,7 @@
             System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("self an bind");
             System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("self an list");
             System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("self an add (Nickname)");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("self an del (Number)");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("self an del (Nickname)");
             System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("PixelBot");
             System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Minotaur");
             System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
@@ -215,16 +215,16 @@
             treeNode17.ToolTipText = "Delete a tag";
             treeNode18.Name = "self an bind";
             treeNode18.Text = "self an bind";
-            treeNode18.ToolTipText = "Bind auto nickname to guild";
+            treeNode18.ToolTipText = "(Per Guild) Enabled or disable auto nickname";
             treeNode19.Name = "self an list";
             treeNode19.Text = "self an list";
-            treeNode19.ToolTipText = "List all auto nickname items";
+            treeNode19.ToolTipText = "(Per Guild) List all auto nickname items";
             treeNode20.Name = "self an add (Nickname)";
             treeNode20.Text = "self an add (Nickname)";
-            treeNode20.ToolTipText = "Add a nickname to the list";
-            treeNode21.Name = "self an del (Number)";
-            treeNode21.Text = "self an del (Number)";
-            treeNode21.ToolTipText = "Delete an item from auto nickname by index number";
+            treeNode20.ToolTipText = "(Per Guild) Add a nickname to the auto nickname list";
+            treeNode21.Name = "self an del (Nickname)";
+            treeNode21.Text = "self an del (Nickname)";
+            treeNode21.ToolTipText = "(Per Guild) Delete an item from auto nickname";
             this.ViewCommands.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,

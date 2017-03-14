@@ -11,8 +11,8 @@
     <Setting Name="ANList" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ANGuild" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ANGuilds" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">ControlText</Value>

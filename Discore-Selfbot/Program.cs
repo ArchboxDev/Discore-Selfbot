@@ -14,7 +14,6 @@ using System.Net;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Discord.Net.Providers.WS4Net;
-using Discord.Audio;
 using Discord.Commands;
 using System.Diagnostics;
 using System.Timers;
@@ -50,10 +49,16 @@ namespace Discore_Selfbot
             {
                 Properties.Settings.Default.AutoForm = "Yes";
             }
+            if (Properties.Settings.Default.ANGuilds == null)
+            {
+                Properties.Settings.Default.ANGuilds = new System.Collections.Specialized.StringCollection();
+            }
+            Properties.Settings.Default.Save();
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags");
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames");
             var TokenPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt";
             if (File.Exists(TokenPath))
             {
@@ -99,8 +104,7 @@ namespace Discore_Selfbot
             FavColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
-                WebSocketProvider = WS4NetProvider.Instance,
-                AudioMode = Discord.Audio.AudioMode.Outgoing
+                WebSocketProvider = WS4NetProvider.Instance
             });
             commands = new CommandService();
             map = new DependencyMap();
@@ -293,18 +297,31 @@ namespace Discore_Selfbot
         }
         private async void Timer(object sender, ElapsedEventArgs e)
         {
-            if (Discore_Selfbot.Properties.Settings.Default.ANList.Count != 0)
+
+            if (Properties.Settings.Default.ANGuilds.Count != 0)
             {
-                if (Discore_Selfbot.Properties.Settings.Default.ANGuild.ToString() != "")
+                if (Properties.Settings.Default.ANList.Count != 0)
                 {
-                    if (CurrentUserID.ToString() != "")
+                    List<string> NickList = new List<string>();
+                    foreach(var Guild in Properties.Settings.Default.ANGuilds)
                     {
-                        int Items = Properties.Settings.Default.ANList.Count;
-                        int randomValue = Program.Random.Next(0, Items);
-                        string Nickname = Properties.Settings.Default.ANList[randomValue];
-                        var Guild = client.GetGuild(Properties.Settings.Default.ANGuild);
-                        var GuildUser = Guild.GetUser(CurrentUserID);
-                        await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
+                        NickList.Clear();
+                        var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+                        foreach (var Item in Directory.GetFiles(NicknamePath))
+                        {
+                            if (Item.StartsWith($"{NicknamePath + Guild}-"))
+                            {
+                                NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
+                            }
+                        }
+                        if (NickList.Count != 0)
+                        {
+                            int randomValue = Program.Random.Next(0, NickList.Count);
+                            var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
+                            var GuildUser = DGuild.GetUser(CurrentUserID);
+                            string Nickname = NickList[randomValue].Replace(Guild + "-", "");
+                            await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
+                        }
                     }
                 }
             }
@@ -468,6 +485,7 @@ namespace Discore_Selfbot
                 await Context.Message.Channel.SendMessageAsync("( ͡° ͜ʖ ͡°)");
             }
         }
+
         [Command("st")]
         public async Task st()
         {
@@ -478,6 +496,7 @@ namespace Discore_Selfbot
             };
             await Context.Channel.SendMessageAsync("", false, embed);
         }
+
         [Command("lewd")]
         public async Task lewd([Remainder] string Text)
         {
@@ -655,6 +674,23 @@ namespace Discore_Selfbot
             }
         }
 
+        [Command("an convert")]
+        public async Task anconv()
+        {
+            if (Properties.Settings.Default.ANList.Count == 0)
+            {
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "You do not have any nicknames to convert");
+                return;
+            }
+            foreach (var Item in Properties.Settings.Default.ANList)
+            {
+                File.Create($"{Context.Guild.Id}-{Item}");
+            }
+            Properties.Settings.Default.ANList.Clear();
+            Properties.Settings.Default.Save();
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "All nicknames have been converted");
+        }
+
         [Command("addtag")]
         public async Task addtag(string Tag = "", string MessageID = "")
         {
@@ -722,8 +758,16 @@ namespace Discore_Selfbot
             }
             else
             {
-                Message = "Auto Nickname bound to guild";
-                Properties.Settings.Default.ANGuild = Context.Guild.Id;
+                if (Properties.Settings.Default.ANGuilds.Contains(Context.Guild.Id.ToString()))
+                {
+                    Message = "Guild removed from auto nickname list";
+                    Properties.Settings.Default.ANGuilds.Remove(Context.Guild.Id.ToString());
+                }
+                else
+                {
+                    Message = "Guild added to auto nickname list";
+                    Properties.Settings.Default.ANGuilds.Add(Context.Guild.Id.ToString());
+                }
                 Properties.Settings.Default.Save();
             }
             Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, Message);
@@ -732,45 +776,49 @@ namespace Discore_Selfbot
         [Command("an add")]
         public async Task anadd([Remainder]string Nickname)
         {
-            Properties.Settings.Default.ANList.Add(Nickname);
-            Properties.Settings.Default.Save();
-            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
-        }
-
-        [Command("an del")]
-        public async Task andel(int Number)
-        {
-            int ListCount = Properties.Settings.Default.ANList.Count;
-            string Message = "";
-            if (ListCount == 0)
+            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+            if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
             {
-                Message = "Auto Nickname list does not have any items";
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} already exists");
             }
             else
             {
-                if (Number <= 0 || Number > ListCount)
-                {
-                    Message = "Number is invalid";
-                }
-                else
-                {
-                    Message = $"{Properties.Settings.Default.ANList[Number - 1]} has been removed from the auto nickname list";
-                    Properties.Settings.Default.ANList.RemoveAt(Number - 1);
-                    Properties.Settings.Default.Save();
-                }
+                File.Create(NicknamePath + Context.Guild.Id + "-" + Nickname);
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
             }
-            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, Message);
+        }
+
+        [Command("an del")]
+        public async Task andel(string Nickname)
+        {
+            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+            if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
+            {
+                File.Delete(NicknamePath + Context.Guild.Id + "-" + Nickname);
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} deleted");
+            }
+            else
+            {
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} does not exists");
+            }
         }
 
         [Command("an list")]
         public async Task anlist()
         {
             List<string> ANList = new List<string>();
-            int Count = 1;
-            foreach(var Item in Properties.Settings.Default.ANList)
+            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+            foreach (var Item in Directory.GetFiles(NicknamePath))
             {
-                ANList.Add($"{Count}." + Item);
-                Count++;
+                if (Item.StartsWith($"{NicknamePath + Context.Guild.Id}-"))
+                {
+                    ANList.Add(Item.Replace($"{NicknamePath + Context.Guild.Id}-", ""));
+                }
+            }
+            if (ANList.Count == 0)
+            {
+                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "This guild does not have any nicknames set");
+                return;
             }
             string NicknameList = string.Join(" | ", ANList.ToArray());
             if (Properties.Settings.Default.SendAction == "Edit")

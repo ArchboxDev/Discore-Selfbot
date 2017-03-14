@@ -60,13 +60,12 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public ulong ANGuild {
+        public global::System.Collections.Specialized.StringCollection ANGuilds {
             get {
-                return ((ulong)(this["ANGuild"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["ANGuilds"]));
             }
             set {
-                this["ANGuild"] = value;
+                this["ANGuilds"] = value;
             }
         }
         
