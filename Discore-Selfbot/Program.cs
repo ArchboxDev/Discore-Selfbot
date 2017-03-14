@@ -303,10 +303,11 @@ namespace Discore_Selfbot
                 if (Properties.Settings.Default.ANList.Count != 0)
                 {
                     List<string> NickList = new List<string>();
-                    foreach(var Guild in Properties.Settings.Default.ANGuilds)
+                    var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+                    foreach (var Guild in Properties.Settings.Default.ANGuilds)
                     {
                         NickList.Clear();
-                        var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+                        
                         foreach (var Item in Directory.GetFiles(NicknamePath))
                         {
                             if (Item.StartsWith($"{NicknamePath + Guild}-"))
@@ -319,7 +320,7 @@ namespace Discore_Selfbot
                             int randomValue = Program.Random.Next(0, NickList.Count);
                             var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
                             var GuildUser = DGuild.GetUser(CurrentUserID);
-                            string Nickname = NickList[randomValue].Replace(Guild + "-", "");
+                            string Nickname = NickList[randomValue];
                             await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
                         }
                     }
