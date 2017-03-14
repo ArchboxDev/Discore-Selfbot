@@ -677,6 +677,7 @@ namespace Discore_Selfbot
         [Command("an convert")]
         public async Task anconv()
         {
+            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
             if (Properties.Settings.Default.ANList.Count == 0)
             {
                 Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "You do not have any nicknames to convert");
@@ -684,7 +685,7 @@ namespace Discore_Selfbot
             }
             foreach (var Item in Properties.Settings.Default.ANList)
             {
-                File.Create($"{Context.Guild.Id}-{Item}");
+                File.Create($"{NicknamePath + Context.Guild.Id}-{Item}");
             }
             Properties.Settings.Default.ANList.Clear();
             Properties.Settings.Default.Save();
