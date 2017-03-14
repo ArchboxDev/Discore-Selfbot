@@ -30,11 +30,6 @@ namespace Discore_Selfbot
         }
         public async void MainForm_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.ANList == null)
-            {
-                Properties.Settings.Default.ANList = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
-            }
             if (Program.ConnectedOnce == false)
             {
                 if (Properties.Settings.Default.AutoForm == "No")

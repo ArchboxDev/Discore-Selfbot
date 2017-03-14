@@ -8,9 +8,6 @@
     <Setting Name="AutoForm" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ANList" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">ControlText</Value>
     </Setting>

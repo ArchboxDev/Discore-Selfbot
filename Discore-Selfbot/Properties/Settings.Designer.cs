@@ -49,17 +49,6 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection ANList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ANList"]));
-            }
-            set {
-                this["ANList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
         public global::System.Drawing.Color FavoriteColor {
             get {

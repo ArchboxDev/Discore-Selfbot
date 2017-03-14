@@ -299,8 +299,6 @@ namespace Discore_Selfbot
         {
             if (Properties.Settings.Default.ANGuildsList.Count != 0)
             {
-                if (Properties.Settings.Default.ANList.Count != 0)
-                {
                     List<string> NickList = new List<string>();
                     var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
                     foreach (var Guild in Properties.Settings.Default.ANGuildsList)
@@ -329,7 +327,6 @@ namespace Discore_Selfbot
 
                         }
                     }
-                }
             }
         }
             public async Task InstallCommands()
@@ -678,24 +675,6 @@ namespace Discore_Selfbot
             {
                 Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
-        }
-
-        [Command("an convert")]
-        public async Task anconv()
-        {
-            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-            if (Properties.Settings.Default.ANList.Count == 0)
-            {
-                Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "You do not have any nicknames to convert");
-                return;
-            }
-            foreach (var Item in Properties.Settings.Default.ANList)
-            {
-                File.Create($"{NicknamePath + Context.Guild.Id}-{Item}");
-            }
-            Properties.Settings.Default.ANList.Clear();
-            Properties.Settings.Default.Save();
-            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "All nicknames have been converted");
         }
 
         [Command("addtag")]
