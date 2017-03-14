@@ -105,12 +105,15 @@ namespace Discore_Selfbot
             Chan.SendMessageAsync("", false, embed);
         }
 
-        private void EmbedActive_Click(object sender, EventArgs e)
+        private async void EmbedActive_ClickAsync(object sender, EventArgs e)
         {
-            if (ActiveGuildID == 0)
+            if (EmbedActive.Text == "Active")
             {
-                MessageBox.Show("No guild selected");
-                return;
+                if (ActiveGuildID == 0)
+                {
+                    MessageBox.Show("No guild selected");
+                    return;
+                }
             }
             if (ActiveChannelID == 0)
             {
@@ -127,8 +130,6 @@ namespace Discore_Selfbot
             }
             LastEmbedTitle = EmbedTitle.Text;
             LastEmbedText = EmbedText.Text;
-            var Guild = Program.client.GetGuild(ActiveGuildID);
-            var Chan = Guild.GetChannel(ActiveChannelID) as ITextChannel;
             var embed = new EmbedBuilder()
             {
                 Title = EmbedTitle.Text,
@@ -139,7 +140,17 @@ namespace Discore_Selfbot
                     Text = EmbedFooter.Text
                 }
             };
-            Chan.SendMessageAsync("", false, embed);
+            if (EmbedActive.Text == "Active")
+            {
+                var Guild = Program.client.GetGuild(ActiveGuildID);
+                var GuildChan = Guild.GetChannel(ActiveChannelID) as ITextChannel;
+                await GuildChan.SendMessageAsync("", false, embed);
+            }
+            else
+            {
+                IDMChannel DMChan = Program.client.GetChannel(ActiveChannelID) as IDMChannel;
+                await DMChan.SendMessageAsync("", false, embed);
+            }
         }
 
         private void GuildList_Clicked(object sender, ToolStripItemClickedEventArgs e)
@@ -257,12 +268,12 @@ namespace Discore_Selfbot
 
         private void ButtonBotWebsite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ButtonBotWebsite.AccessibleDescription);
+            System.Diagnostics.Process.Start(BtnBotWebsite.AccessibleDescription);
         }
 
         private void ButtonBotInvite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(ButtonBotInvite.AccessibleDescription);
+            System.Diagnostics.Process.Start(BtnBotInvite.AccessibleDescription);
         }
 
         private void ViewBots_AfterSelect(object sender, TreeViewEventArgs e)
@@ -270,50 +281,50 @@ namespace Discore_Selfbot
             if (e.Node.Name == "PixelBot")
             {
                 TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
-                ButtonBotWebsite.AccessibleDescription = "https://blaze.ml";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
-                ButtonBotWebsite.Visible = true;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "https://blaze.ml";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
+                BtnBotWebsite.Visible = true;
+                BtnBotInvite.Visible = true;
             }
             if (e.Node.Name == "Minotaur")
             {
                 TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
-                ButtonBotWebsite.AccessibleDescription = "https://blaze.ml";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
-                ButtonBotWebsite.Visible = true;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "https://blaze.ml";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
+                BtnBotWebsite.Visible = true;
+                BtnBotInvite.Visible = true;
             }
             if (e.Node.Name == "Discord Cards")
             {
                 TextBotInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
-                ButtonBotWebsite.AccessibleDescription = "";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
-                ButtonBotWebsite.Visible = false;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
+                BtnBotWebsite.Visible = false;
+                BtnBotInvite.Visible = true;
             }
             if (e.Node.Name == "Casino Bot")
             {
                 TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
-                ButtonBotWebsite.AccessibleDescription = "";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
-                ButtonBotWebsite.Visible = false;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
+                BtnBotWebsite.Visible = false;
+                BtnBotInvite.Visible = true;
             }
             if (e.Node.Name == "Discord RPG")
             {
                 TextBotInfo.Text = "Who dosent love a good RPG bot?";
-                ButtonBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
-                ButtonBotWebsite.Visible = true;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
+                BtnBotWebsite.Visible = true;
+                BtnBotInvite.Visible = true;
             }
             if (e.Node.Name == "Sekusuikuto")
             {
                 TextBotInfo.Text = "Currently down and also the website so i cannot add :P";
-                ButtonBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
-                ButtonBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
-                ButtonBotWebsite.Visible = true;
-                ButtonBotInvite.Visible = true;
+                BtnBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
+                BtnBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
+                BtnBotWebsite.Visible = true;
+                BtnBotInvite.Visible = true;
             }
         }
 
@@ -401,6 +412,28 @@ namespace Discore_Selfbot
                 Program.FavColor = new Discord.Color();
             }
             Properties.Settings.Default.Save();
+        }
+
+        private void BtnANTimer1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Auto nickname timer changed to 1 minute");
+            Properties.Settings.Default.ANTimer = "1";
+            Program.ANTimer.Interval = 60000;
+        }
+
+        private void BtnANTimer5_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Auto nickname timer changed to 5 minute");
+            Properties.Settings.Default.ANTimer = "5";
+            Program.ANTimer.Interval = 300000;
+        }
+
+        private void BtnANTimer10_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Auto nickname timer changed to 10 minute");
+            Properties.Settings.Default.ANTimer = "10";
+            Program.ANTimer.Interval = 600000;
+            
         }
     }
 }

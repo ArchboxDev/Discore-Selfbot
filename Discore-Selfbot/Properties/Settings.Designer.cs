@@ -25,7 +25,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Edit")]
         public string SendAction {
             get {
                 return ((string)(this["SendAction"]));
@@ -37,7 +37,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yes")]
         public string AutoForm {
             get {
                 return ((string)(this["AutoForm"]));
@@ -49,7 +49,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WindowText")]
         public global::System.Drawing.Color FavoriteColor {
             get {
                 return ((global::System.Drawing.Color)(this["FavoriteColor"]));
@@ -67,6 +67,18 @@ namespace Discore_Selfbot.Properties {
             }
             set {
                 this["ANGuildsList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string ANTimer {
+            get {
+                return ((string)(this["ANTimer"]));
+            }
+            set {
+                this["ANTimer"] = value;
             }
         }
     }

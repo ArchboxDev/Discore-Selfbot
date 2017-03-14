@@ -74,37 +74,34 @@
             this.OpenColorsButton = new System.Windows.Forms.Button();
             this.EmbedSelected = new System.Windows.Forms.Button();
             this.EmbedActive = new System.Windows.Forms.Button();
-            this.ListGuild = new System.Windows.Forms.ToolStrip();
             this.TabsInfo = new System.Windows.Forms.TabControl();
             this.TabsInfoPage = new System.Windows.Forms.TabPage();
-            this.TitleCommands = new System.Windows.Forms.TextBox();
             this.TextAboutBot = new System.Windows.Forms.RichTextBox();
             this.TabsBotPage = new System.Windows.Forms.TabPage();
             this.TextBotInfo = new System.Windows.Forms.RichTextBox();
-            this.ButtonBotInvite = new System.Windows.Forms.Button();
-            this.ButtonBotWebsite = new System.Windows.Forms.Button();
+            this.BtnBotInvite = new System.Windows.Forms.Button();
+            this.BtnBotWebsite = new System.Windows.Forms.Button();
             this.ViewBots = new System.Windows.Forms.TreeView();
             this.TabsThemePage = new System.Windows.Forms.TabPage();
             this.ThemeOther2 = new System.Windows.Forms.Button();
             this.ThemeOther1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.TextThemeDesc = new System.Windows.Forms.RichTextBox();
             this.ThemeAlexflipnote = new System.Windows.Forms.Button();
             this.ThemeSkype = new System.Windows.Forms.Button();
             this.TabsSettingPage = new System.Windows.Forms.TabPage();
-            this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
+            this.BtnANTimer10 = new System.Windows.Forms.Button();
+            this.BtnANTimer5 = new System.Windows.Forms.Button();
+            this.BtnANTimer1 = new System.Windows.Forms.Button();
             this.BtnSetFormNo = new System.Windows.Forms.Button();
             this.BtnSetFormYes = new System.Windows.Forms.Button();
-            this.TitleStartupForm = new System.Windows.Forms.TextBox();
-            this.BtnSetDelete = new System.Windows.Forms.Button();
-            this.BtnSetEdit = new System.Windows.Forms.Button();
-            this.TitleCommandMessage = new System.Windows.Forms.TextBox();
+            this.BtnSetCMDelete = new System.Windows.Forms.Button();
+            this.BtnSetCMEdit = new System.Windows.Forms.Button();
             this.TagEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TagEditorShow = new System.Windows.Forms.ToolStripMenuItem();
             this.TagEditorDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.TabsGuild = new System.Windows.Forms.TabControl();
             this.TabsEmbedPage = new System.Windows.Forms.TabPage();
             this.EmbedFooter = new System.Windows.Forms.TextBox();
-            this.TitleSendto = new System.Windows.Forms.TextBox();
             this.TabsGuildInfoPage = new System.Windows.Forms.TabPage();
             this.TextGuildInfo = new System.Windows.Forms.TextBox();
             this.TabsRolePage = new System.Windows.Forms.TabPage();
@@ -120,9 +117,17 @@
             this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
             this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
             this.FavColorSelect = new System.Windows.Forms.ColorDialog();
+            this.TitleSendto = new System.Windows.Forms.TextBox();
+            this.TitleCommands = new System.Windows.Forms.TextBox();
+            this.TextShowANTimer = new System.Windows.Forms.TextBox();
+            this.TitleAutoNicknameTimer = new System.Windows.Forms.TextBox();
+            this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
+            this.TitleStartupForm = new System.Windows.Forms.TextBox();
+            this.TitleCommandMessage = new System.Windows.Forms.TextBox();
             this.BtnOpenFavColor = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.TextShowAF = new System.Windows.Forms.TextBox();
+            this.TextShowCM = new System.Windows.Forms.TextBox();
+            this.ListGuild = new System.Windows.Forms.ToolStrip();
             this.TabsInfo.SuspendLayout();
             this.TabsInfoPage.SuspendLayout();
             this.TabsBotPage.SuspendLayout();
@@ -298,23 +303,7 @@
             this.EmbedActive.TabIndex = 8;
             this.EmbedActive.Text = "Active";
             this.EmbedActive.UseVisualStyleBackColor = true;
-            this.EmbedActive.Click += new System.EventHandler(this.EmbedActive_Click);
-            // 
-            // ListGuild
-            // 
-            this.ListGuild.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ListGuild.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ListGuild.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.ListGuild.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.ListGuild.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.ListGuild.Location = new System.Drawing.Point(0, 0);
-            this.ListGuild.Name = "ListGuild";
-            this.ListGuild.Padding = new System.Windows.Forms.Padding(0);
-            this.ListGuild.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.ListGuild.Size = new System.Drawing.Size(484, 25);
-            this.ListGuild.Stretch = true;
-            this.ListGuild.TabIndex = 9;
-            this.ListGuild.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_Clicked);
+            this.EmbedActive.Click += new System.EventHandler(this.EmbedActive_ClickAsync);
             // 
             // TabsInfo
             // 
@@ -334,6 +323,7 @@
             this.TabsInfoPage.Controls.Add(this.TitleCommands);
             this.TabsInfoPage.Controls.Add(this.TextAboutBot);
             this.TabsInfoPage.Controls.Add(this.ViewCommands);
+            this.TabsInfoPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsInfoPage.Location = new System.Drawing.Point(4, 22);
             this.TabsInfoPage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsInfoPage.Name = "TabsInfoPage";
@@ -341,22 +331,6 @@
             this.TabsInfoPage.TabIndex = 0;
             this.TabsInfoPage.Text = "Info";
             this.TabsInfoPage.UseVisualStyleBackColor = true;
-            // 
-            // TitleCommands
-            // 
-            this.TitleCommands.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleCommands.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommands.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleCommands.Location = new System.Drawing.Point(6, 83);
-            this.TitleCommands.Name = "TitleCommands";
-            this.TitleCommands.ReadOnly = true;
-            this.TitleCommands.Size = new System.Drawing.Size(214, 20);
-            this.TitleCommands.TabIndex = 73;
-            this.TitleCommands.TabStop = false;
-            this.TitleCommands.Text = "Commands";
-            this.TitleCommands.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TextAboutBot
             // 
@@ -372,9 +346,10 @@
             // TabsBotPage
             // 
             this.TabsBotPage.Controls.Add(this.TextBotInfo);
-            this.TabsBotPage.Controls.Add(this.ButtonBotInvite);
-            this.TabsBotPage.Controls.Add(this.ButtonBotWebsite);
+            this.TabsBotPage.Controls.Add(this.BtnBotInvite);
+            this.TabsBotPage.Controls.Add(this.BtnBotWebsite);
             this.TabsBotPage.Controls.Add(this.ViewBots);
+            this.TabsBotPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsBotPage.Location = new System.Drawing.Point(4, 22);
             this.TabsBotPage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsBotPage.Name = "TabsBotPage";
@@ -393,27 +368,27 @@
             this.TextBotInfo.TabIndex = 6;
             this.TextBotInfo.Text = "Click an item above to get information about the bot";
             // 
-            // ButtonBotInvite
+            // BtnBotInvite
             // 
-            this.ButtonBotInvite.Location = new System.Drawing.Point(120, 324);
-            this.ButtonBotInvite.Name = "ButtonBotInvite";
-            this.ButtonBotInvite.Size = new System.Drawing.Size(100, 40);
-            this.ButtonBotInvite.TabIndex = 5;
-            this.ButtonBotInvite.Text = "Invite Link";
-            this.ButtonBotInvite.UseVisualStyleBackColor = true;
-            this.ButtonBotInvite.Visible = false;
-            this.ButtonBotInvite.Click += new System.EventHandler(this.ButtonBotInvite_Click);
+            this.BtnBotInvite.Location = new System.Drawing.Point(120, 324);
+            this.BtnBotInvite.Name = "BtnBotInvite";
+            this.BtnBotInvite.Size = new System.Drawing.Size(100, 40);
+            this.BtnBotInvite.TabIndex = 5;
+            this.BtnBotInvite.Text = "Invite Link";
+            this.BtnBotInvite.UseVisualStyleBackColor = true;
+            this.BtnBotInvite.Visible = false;
+            this.BtnBotInvite.Click += new System.EventHandler(this.ButtonBotInvite_Click);
             // 
-            // ButtonBotWebsite
+            // BtnBotWebsite
             // 
-            this.ButtonBotWebsite.Location = new System.Drawing.Point(6, 324);
-            this.ButtonBotWebsite.Name = "ButtonBotWebsite";
-            this.ButtonBotWebsite.Size = new System.Drawing.Size(100, 40);
-            this.ButtonBotWebsite.TabIndex = 4;
-            this.ButtonBotWebsite.Text = "Website";
-            this.ButtonBotWebsite.UseVisualStyleBackColor = true;
-            this.ButtonBotWebsite.Visible = false;
-            this.ButtonBotWebsite.Click += new System.EventHandler(this.ButtonBotWebsite_Click);
+            this.BtnBotWebsite.Location = new System.Drawing.Point(6, 324);
+            this.BtnBotWebsite.Name = "BtnBotWebsite";
+            this.BtnBotWebsite.Size = new System.Drawing.Size(100, 40);
+            this.BtnBotWebsite.TabIndex = 4;
+            this.BtnBotWebsite.Text = "Website";
+            this.BtnBotWebsite.UseVisualStyleBackColor = true;
+            this.BtnBotWebsite.Visible = false;
+            this.BtnBotWebsite.Click += new System.EventHandler(this.ButtonBotWebsite_Click);
             // 
             // ViewBots
             // 
@@ -460,9 +435,10 @@
             // 
             this.TabsThemePage.Controls.Add(this.ThemeOther2);
             this.TabsThemePage.Controls.Add(this.ThemeOther1);
-            this.TabsThemePage.Controls.Add(this.richTextBox1);
+            this.TabsThemePage.Controls.Add(this.TextThemeDesc);
             this.TabsThemePage.Controls.Add(this.ThemeAlexflipnote);
             this.TabsThemePage.Controls.Add(this.ThemeSkype);
+            this.TabsThemePage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsThemePage.Location = new System.Drawing.Point(4, 22);
             this.TabsThemePage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsThemePage.Name = "TabsThemePage";
@@ -491,15 +467,15 @@
             this.ThemeOther1.UseVisualStyleBackColor = true;
             this.ThemeOther1.Click += new System.EventHandler(this.ThemeOther1_Click);
             // 
-            // richTextBox1
+            // TextThemeDesc
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 5);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(220, 38);
-            this.richTextBox1.TabIndex = 79;
-            this.richTextBox1.Text = "If you dont know how to install a theme dont ask me!";
+            this.TextThemeDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextThemeDesc.Location = new System.Drawing.Point(3, 5);
+            this.TextThemeDesc.Name = "TextThemeDesc";
+            this.TextThemeDesc.ReadOnly = true;
+            this.TextThemeDesc.Size = new System.Drawing.Size(220, 38);
+            this.TextThemeDesc.TabIndex = 79;
+            this.TextThemeDesc.Text = "If you dont know how to install a theme dont ask me!";
             // 
             // ThemeAlexflipnote
             // 
@@ -523,16 +499,22 @@
             // 
             // TabsSettingPage
             // 
-            this.TabsSettingPage.Controls.Add(this.TitleFavoriteColor);
+            this.TabsSettingPage.Controls.Add(this.TextShowANTimer);
+            this.TabsSettingPage.Controls.Add(this.BtnANTimer10);
+            this.TabsSettingPage.Controls.Add(this.BtnANTimer5);
+            this.TabsSettingPage.Controls.Add(this.BtnANTimer1);
             this.TabsSettingPage.Controls.Add(this.BtnSetFormNo);
             this.TabsSettingPage.Controls.Add(this.BtnSetFormYes);
+            this.TabsSettingPage.Controls.Add(this.BtnSetCMDelete);
+            this.TabsSettingPage.Controls.Add(this.BtnSetCMEdit);
+            this.TabsSettingPage.Controls.Add(this.TitleAutoNicknameTimer);
+            this.TabsSettingPage.Controls.Add(this.TitleFavoriteColor);
             this.TabsSettingPage.Controls.Add(this.TitleStartupForm);
-            this.TabsSettingPage.Controls.Add(this.BtnSetDelete);
-            this.TabsSettingPage.Controls.Add(this.BtnSetEdit);
             this.TabsSettingPage.Controls.Add(this.TitleCommandMessage);
             this.TabsSettingPage.Controls.Add(this.BtnOpenFavColor);
-            this.TabsSettingPage.Controls.Add(this.textBox6);
-            this.TabsSettingPage.Controls.Add(this.textBox4);
+            this.TabsSettingPage.Controls.Add(this.TextShowAF);
+            this.TabsSettingPage.Controls.Add(this.TextShowCM);
+            this.TabsSettingPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsSettingPage.Location = new System.Drawing.Point(4, 22);
             this.TabsSettingPage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsSettingPage.Name = "TabsSettingPage";
@@ -541,21 +523,44 @@
             this.TabsSettingPage.Text = "Settings";
             this.TabsSettingPage.UseVisualStyleBackColor = true;
             // 
-            // TitleFavoriteColor
+            // BtnANTimer10
             // 
-            this.TitleFavoriteColor.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleFavoriteColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleFavoriteColor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleFavoriteColor.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleFavoriteColor.Location = new System.Drawing.Point(3, 149);
-            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
-            this.TitleFavoriteColor.ReadOnly = true;
-            this.TitleFavoriteColor.Size = new System.Drawing.Size(214, 20);
-            this.TitleFavoriteColor.TabIndex = 84;
-            this.TitleFavoriteColor.TabStop = false;
-            this.TitleFavoriteColor.Text = "Favorite Color";
-            this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtnANTimer10.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnANTimer10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnANTimer10.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnANTimer10.Location = new System.Drawing.Point(135, 247);
+            this.BtnANTimer10.Name = "BtnANTimer10";
+            this.BtnANTimer10.Size = new System.Drawing.Size(60, 40);
+            this.BtnANTimer10.TabIndex = 88;
+            this.BtnANTimer10.Text = "10 Mins";
+            this.BtnANTimer10.UseVisualStyleBackColor = false;
+            this.BtnANTimer10.Click += new System.EventHandler(this.BtnANTimer10_Click);
+            // 
+            // BtnANTimer5
+            // 
+            this.BtnANTimer5.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnANTimer5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnANTimer5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnANTimer5.Location = new System.Drawing.Point(69, 247);
+            this.BtnANTimer5.Name = "BtnANTimer5";
+            this.BtnANTimer5.Size = new System.Drawing.Size(60, 40);
+            this.BtnANTimer5.TabIndex = 87;
+            this.BtnANTimer5.Text = "5 Mins";
+            this.BtnANTimer5.UseVisualStyleBackColor = false;
+            this.BtnANTimer5.Click += new System.EventHandler(this.BtnANTimer5_Click);
+            // 
+            // BtnANTimer1
+            // 
+            this.BtnANTimer1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnANTimer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnANTimer1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnANTimer1.Location = new System.Drawing.Point(3, 247);
+            this.BtnANTimer1.Name = "BtnANTimer1";
+            this.BtnANTimer1.Size = new System.Drawing.Size(60, 40);
+            this.BtnANTimer1.TabIndex = 86;
+            this.BtnANTimer1.Text = "1 Mins";
+            this.BtnANTimer1.UseVisualStyleBackColor = false;
+            this.BtnANTimer1.Click += new System.EventHandler(this.BtnANTimer1_Click);
             // 
             // BtnSetFormNo
             // 
@@ -577,57 +582,25 @@
             this.BtnSetFormYes.UseVisualStyleBackColor = true;
             this.BtnSetFormYes.Click += new System.EventHandler(this.BtnSetFormYes_Click);
             // 
-            // TitleStartupForm
+            // BtnSetCMDelete
             // 
-            this.TitleStartupForm.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleStartupForm.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleStartupForm.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleStartupForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleStartupForm.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleStartupForm.Location = new System.Drawing.Point(3, 77);
-            this.TitleStartupForm.Name = "TitleStartupForm";
-            this.TitleStartupForm.ReadOnly = true;
-            this.TitleStartupForm.Size = new System.Drawing.Size(214, 20);
-            this.TitleStartupForm.TabIndex = 79;
-            this.TitleStartupForm.TabStop = false;
-            this.TitleStartupForm.Text = "Open Form On Startup";
-            this.TitleStartupForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtnSetCMDelete.Location = new System.Drawing.Point(69, 31);
+            this.BtnSetCMDelete.Name = "BtnSetCMDelete";
+            this.BtnSetCMDelete.Size = new System.Drawing.Size(60, 40);
+            this.BtnSetCMDelete.TabIndex = 77;
+            this.BtnSetCMDelete.Text = "Delete";
+            this.BtnSetCMDelete.UseVisualStyleBackColor = true;
+            this.BtnSetCMDelete.Click += new System.EventHandler(this.BtnSetDelete_Click);
             // 
-            // BtnSetDelete
+            // BtnSetCMEdit
             // 
-            this.BtnSetDelete.Location = new System.Drawing.Point(69, 31);
-            this.BtnSetDelete.Name = "BtnSetDelete";
-            this.BtnSetDelete.Size = new System.Drawing.Size(60, 40);
-            this.BtnSetDelete.TabIndex = 77;
-            this.BtnSetDelete.Text = "Delete";
-            this.BtnSetDelete.UseVisualStyleBackColor = true;
-            this.BtnSetDelete.Click += new System.EventHandler(this.BtnSetDelete_Click);
-            // 
-            // BtnSetEdit
-            // 
-            this.BtnSetEdit.Location = new System.Drawing.Point(3, 31);
-            this.BtnSetEdit.Name = "BtnSetEdit";
-            this.BtnSetEdit.Size = new System.Drawing.Size(60, 40);
-            this.BtnSetEdit.TabIndex = 76;
-            this.BtnSetEdit.Text = "Edit";
-            this.BtnSetEdit.UseVisualStyleBackColor = true;
-            this.BtnSetEdit.Click += new System.EventHandler(this.BtnSetEdit_Click);
-            // 
-            // TitleCommandMessage
-            // 
-            this.TitleCommandMessage.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleCommandMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleCommandMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommandMessage.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleCommandMessage.Location = new System.Drawing.Point(3, 5);
-            this.TitleCommandMessage.Name = "TitleCommandMessage";
-            this.TitleCommandMessage.ReadOnly = true;
-            this.TitleCommandMessage.Size = new System.Drawing.Size(214, 20);
-            this.TitleCommandMessage.TabIndex = 75;
-            this.TitleCommandMessage.TabStop = false;
-            this.TitleCommandMessage.Text = "Command Message";
-            this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtnSetCMEdit.Location = new System.Drawing.Point(3, 31);
+            this.BtnSetCMEdit.Name = "BtnSetCMEdit";
+            this.BtnSetCMEdit.Size = new System.Drawing.Size(60, 40);
+            this.BtnSetCMEdit.TabIndex = 76;
+            this.BtnSetCMEdit.Text = "Edit";
+            this.BtnSetCMEdit.UseVisualStyleBackColor = true;
+            this.BtnSetCMEdit.Click += new System.EventHandler(this.BtnSetEdit_Click);
             // 
             // TagEditor
             // 
@@ -667,6 +640,7 @@
             // 
             // TabsEmbedPage
             // 
+            this.TabsEmbedPage.BackColor = System.Drawing.Color.Transparent;
             this.TabsEmbedPage.Controls.Add(this.EmbedFooter);
             this.TabsEmbedPage.Controls.Add(this.TitleSendto);
             this.TabsEmbedPage.Controls.Add(this.EmbedTitle);
@@ -674,13 +648,13 @@
             this.TabsEmbedPage.Controls.Add(this.OpenColorsButton);
             this.TabsEmbedPage.Controls.Add(this.EmbedSelected);
             this.TabsEmbedPage.Controls.Add(this.EmbedActive);
+            this.TabsEmbedPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsEmbedPage.Location = new System.Drawing.Point(4, 22);
             this.TabsEmbedPage.Name = "TabsEmbedPage";
             this.TabsEmbedPage.Padding = new System.Windows.Forms.Padding(3);
             this.TabsEmbedPage.Size = new System.Drawing.Size(212, 150);
             this.TabsEmbedPage.TabIndex = 0;
             this.TabsEmbedPage.Text = "Embed";
-            this.TabsEmbedPage.UseVisualStyleBackColor = true;
             // 
             // EmbedFooter
             // 
@@ -690,25 +664,10 @@
             this.EmbedFooter.TabIndex = 75;
             this.EmbedFooter.Text = "Footer";
             // 
-            // TitleSendto
-            // 
-            this.TitleSendto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleSendto.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleSendto.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleSendto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleSendto.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TitleSendto.Location = new System.Drawing.Point(3, 81);
-            this.TitleSendto.Name = "TitleSendto";
-            this.TitleSendto.ReadOnly = true;
-            this.TitleSendto.Size = new System.Drawing.Size(206, 20);
-            this.TitleSendto.TabIndex = 74;
-            this.TitleSendto.TabStop = false;
-            this.TitleSendto.Text = "Send To";
-            this.TitleSendto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // TabsGuildInfoPage
             // 
             this.TabsGuildInfoPage.Controls.Add(this.TextGuildInfo);
+            this.TabsGuildInfoPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsGuildInfoPage.Location = new System.Drawing.Point(4, 22);
             this.TabsGuildInfoPage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsGuildInfoPage.Name = "TabsGuildInfoPage";
@@ -720,6 +679,7 @@
             // TextGuildInfo
             // 
             this.TextGuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextGuildInfo.ForeColor = System.Drawing.SystemColors.WindowText;
             this.TextGuildInfo.Location = new System.Drawing.Point(0, 0);
             this.TextGuildInfo.Multiline = true;
             this.TextGuildInfo.Name = "TextGuildInfo";
@@ -730,6 +690,7 @@
             // TabsRolePage
             // 
             this.TabsRolePage.Controls.Add(this.TextGuildRoles);
+            this.TabsRolePage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsRolePage.Location = new System.Drawing.Point(4, 22);
             this.TabsRolePage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsRolePage.Name = "TabsRolePage";
@@ -754,6 +715,7 @@
             // TabsEmojiPage
             // 
             this.TabsEmojiPage.Controls.Add(this.TextGuildEmoji);
+            this.TabsEmojiPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.TabsEmojiPage.Location = new System.Drawing.Point(4, 22);
             this.TabsEmojiPage.Margin = new System.Windows.Forms.Padding(0);
             this.TabsEmojiPage.Name = "TabsEmojiPage";
@@ -834,13 +796,132 @@
             this.ACID.Size = new System.Drawing.Size(27, 17);
             this.ACID.Text = "(69)";
             // 
+            // TitleSendto
+            // 
+            this.TitleSendto.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleSendto.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleSendto.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleSendto.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleSendto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleSendto.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleSendto.Location = new System.Drawing.Point(3, 81);
+            this.TitleSendto.Name = "TitleSendto";
+            this.TitleSendto.ReadOnly = true;
+            this.TitleSendto.Size = new System.Drawing.Size(206, 20);
+            this.TitleSendto.TabIndex = 74;
+            this.TitleSendto.TabStop = false;
+            this.TitleSendto.Text = "Send To";
+            this.TitleSendto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleCommands
+            // 
+            this.TitleCommands.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleCommands.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleCommands.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleCommands.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleCommands.Location = new System.Drawing.Point(6, 83);
+            this.TitleCommands.Name = "TitleCommands";
+            this.TitleCommands.ReadOnly = true;
+            this.TitleCommands.Size = new System.Drawing.Size(214, 20);
+            this.TitleCommands.TabIndex = 73;
+            this.TitleCommands.TabStop = false;
+            this.TitleCommands.Text = "Commands";
+            this.TitleCommands.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TextShowANTimer
+            // 
+            this.TextShowANTimer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowANTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowANTimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowANTimer.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowANTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowANTimer.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowANTimer.Location = new System.Drawing.Point(201, 256);
+            this.TextShowANTimer.Name = "TextShowANTimer";
+            this.TextShowANTimer.ReadOnly = true;
+            this.TextShowANTimer.Size = new System.Drawing.Size(16, 20);
+            this.TextShowANTimer.TabIndex = 89;
+            this.TextShowANTimer.TabStop = false;
+            this.TextShowANTimer.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
+            this.TextShowANTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleAutoNicknameTimer
+            // 
+            this.TitleAutoNicknameTimer.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleAutoNicknameTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleAutoNicknameTimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleAutoNicknameTimer.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleAutoNicknameTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleAutoNicknameTimer.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleAutoNicknameTimer.Location = new System.Drawing.Point(3, 221);
+            this.TitleAutoNicknameTimer.Name = "TitleAutoNicknameTimer";
+            this.TitleAutoNicknameTimer.ReadOnly = true;
+            this.TitleAutoNicknameTimer.Size = new System.Drawing.Size(214, 20);
+            this.TitleAutoNicknameTimer.TabIndex = 85;
+            this.TitleAutoNicknameTimer.TabStop = false;
+            this.TitleAutoNicknameTimer.Text = "Auto Nickname Timer";
+            this.TitleAutoNicknameTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleFavoriteColor
+            // 
+            this.TitleFavoriteColor.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleFavoriteColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleFavoriteColor.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleFavoriteColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleFavoriteColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleFavoriteColor.Location = new System.Drawing.Point(3, 149);
+            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
+            this.TitleFavoriteColor.ReadOnly = true;
+            this.TitleFavoriteColor.Size = new System.Drawing.Size(214, 20);
+            this.TitleFavoriteColor.TabIndex = 84;
+            this.TitleFavoriteColor.TabStop = false;
+            this.TitleFavoriteColor.Text = "Favorite Color";
+            this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleStartupForm
+            // 
+            this.TitleStartupForm.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleStartupForm.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleStartupForm.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleStartupForm.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleStartupForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleStartupForm.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleStartupForm.Location = new System.Drawing.Point(3, 77);
+            this.TitleStartupForm.Name = "TitleStartupForm";
+            this.TitleStartupForm.ReadOnly = true;
+            this.TitleStartupForm.Size = new System.Drawing.Size(214, 20);
+            this.TitleStartupForm.TabIndex = 79;
+            this.TitleStartupForm.TabStop = false;
+            this.TitleStartupForm.Text = "Open Form On Startup";
+            this.TitleStartupForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleCommandMessage
+            // 
+            this.TitleCommandMessage.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleCommandMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleCommandMessage.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleCommandMessage.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleCommandMessage.Location = new System.Drawing.Point(3, 5);
+            this.TitleCommandMessage.Name = "TitleCommandMessage";
+            this.TitleCommandMessage.ReadOnly = true;
+            this.TitleCommandMessage.Size = new System.Drawing.Size(214, 20);
+            this.TitleCommandMessage.TabIndex = 75;
+            this.TitleCommandMessage.TabStop = false;
+            this.TitleCommandMessage.Text = "Command Message";
+            this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // BtnOpenFavColor
             // 
             this.BtnOpenFavColor.BackColor = System.Drawing.SystemColors.ControlLight;
             this.BtnOpenFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.BtnOpenFavColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnOpenFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.BtnOpenFavColor.Location = new System.Drawing.Point(3, 175);
+            this.BtnOpenFavColor.Location = new System.Drawing.Point(69, 175);
             this.BtnOpenFavColor.Name = "BtnOpenFavColor";
             this.BtnOpenFavColor.Size = new System.Drawing.Size(60, 40);
             this.BtnOpenFavColor.TabIndex = 83;
@@ -848,39 +929,56 @@
             this.BtnOpenFavColor.UseVisualStyleBackColor = false;
             this.BtnOpenFavColor.Click += new System.EventHandler(this.BtnOpenFavColor_Click);
             // 
-            // textBox6
+            // TextShowAF
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox6.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.textBox6.Location = new System.Drawing.Point(135, 112);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(82, 20);
-            this.textBox6.TabIndex = 82;
-            this.textBox6.TabStop = false;
-            this.textBox6.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextShowAF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowAF.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowAF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowAF.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowAF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowAF.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowAF.Location = new System.Drawing.Point(135, 112);
+            this.TextShowAF.Name = "TextShowAF";
+            this.TextShowAF.ReadOnly = true;
+            this.TextShowAF.Size = new System.Drawing.Size(82, 20);
+            this.TextShowAF.TabIndex = 82;
+            this.TextShowAF.TabStop = false;
+            this.TextShowAF.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.TextShowAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox4
+            // TextShowCM
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.textBox4.Location = new System.Drawing.Point(135, 40);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(82, 20);
-            this.textBox4.TabIndex = 78;
-            this.textBox4.TabStop = false;
-            this.textBox4.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TextShowCM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowCM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowCM.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowCM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowCM.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowCM.Location = new System.Drawing.Point(135, 40);
+            this.TextShowCM.Name = "TextShowCM";
+            this.TextShowCM.ReadOnly = true;
+            this.TextShowCM.Size = new System.Drawing.Size(82, 20);
+            this.TextShowCM.TabIndex = 78;
+            this.TextShowCM.TabStop = false;
+            this.TextShowCM.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.TextShowCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ListGuild
+            // 
+            this.ListGuild.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.ListGuild.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ListGuild.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ListGuild.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.ListGuild.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.ListGuild.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.ListGuild.Location = new System.Drawing.Point(0, 0);
+            this.ListGuild.Name = "ListGuild";
+            this.ListGuild.Padding = new System.Windows.Forms.Padding(0);
+            this.ListGuild.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.ListGuild.Size = new System.Drawing.Size(484, 25);
+            this.ListGuild.Stretch = true;
+            this.ListGuild.TabIndex = 9;
+            this.ListGuild.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_Clicked);
             // 
             // MainForm
             // 
@@ -893,6 +991,7 @@
             this.Controls.Add(this.ListGuild);
             this.Controls.Add(this.TextChannelLog);
             this.Controls.Add(this.ListChannel);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(500, 500);
@@ -945,8 +1044,8 @@
         private System.Windows.Forms.TabPage TabsRolePage;
         internal System.Windows.Forms.TextBox TitleSendto;
         private System.Windows.Forms.RichTextBox TextBotInfo;
-        private System.Windows.Forms.Button ButtonBotInvite;
-        private System.Windows.Forms.Button ButtonBotWebsite;
+        private System.Windows.Forms.Button BtnBotInvite;
+        private System.Windows.Forms.Button BtnBotWebsite;
         private System.Windows.Forms.TabPage TabsEmojiPage;
         private System.Windows.Forms.TabPage TabsThemePage;
         private System.Windows.Forms.StatusStrip StatusActive;
@@ -959,11 +1058,11 @@
         private System.Windows.Forms.TabPage TabsSettingPage;
         private System.Windows.Forms.ToolStripStatusLabel ATitle;
         internal System.Windows.Forms.TextBox TitleCommandMessage;
-        internal System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button BtnSetDelete;
-        private System.Windows.Forms.Button BtnSetEdit;
+        internal System.Windows.Forms.TextBox TextShowCM;
+        private System.Windows.Forms.Button BtnSetCMDelete;
+        private System.Windows.Forms.Button BtnSetCMEdit;
         internal System.Windows.Forms.TextBox TitleStartupForm;
-        internal System.Windows.Forms.TextBox textBox6;
+        internal System.Windows.Forms.TextBox TextShowAF;
         private System.Windows.Forms.Button BtnSetFormNo;
         private System.Windows.Forms.Button BtnSetFormYes;
         private System.Windows.Forms.TabPage TabsGuildInfoPage;
@@ -972,7 +1071,7 @@
         private System.Windows.Forms.Button ThemeSkype;
         private System.Windows.Forms.Button ThemeOther2;
         private System.Windows.Forms.Button ThemeOther1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox TextThemeDesc;
         private System.Windows.Forms.Button ThemeAlexflipnote;
         private System.Windows.Forms.RichTextBox TextGuildRoles;
         private System.Windows.Forms.TextBox EmbedFooter;
@@ -984,5 +1083,10 @@
         internal System.Windows.Forms.TextBox TitleFavoriteColor;
         private System.Windows.Forms.Button BtnOpenFavColor;
         private System.Windows.Forms.ColorDialog FavColorSelect;
+        internal System.Windows.Forms.TextBox TitleAutoNicknameTimer;
+        internal System.Windows.Forms.TextBox TextShowANTimer;
+        private System.Windows.Forms.Button BtnANTimer10;
+        private System.Windows.Forms.Button BtnANTimer5;
+        private System.Windows.Forms.Button BtnANTimer1;
     }
 }

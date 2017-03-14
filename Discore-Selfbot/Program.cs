@@ -33,22 +33,14 @@ namespace Discore_Selfbot
         public static List<ulong> ChannelsID = new List<ulong>();
         public static Discord.Color FavColor;
         public static MainForm MyForm;
+        public static System.Timers.Timer ANTimer = new System.Timers.Timer();
         public static string CurrentUserName;
         public static ulong CurrentUserID;
-        public static bool IsAfk = false;
-        public static string AfkText = "User is currently away atm";
         public static bool ConnectedOnce = false;
         public static Random Random = new Random();
         static void Main()
         {
-            if (Properties.Settings.Default.SendAction == "")
-            {
-                Properties.Settings.Default.SendAction = "Edit";
-            }
-            if (Properties.Settings.Default.AutoForm == "")
-            {
-                Properties.Settings.Default.AutoForm = "Yes";
-            }
+            Console.ForegroundColor = ConsoleColor.White;
             if (Properties.Settings.Default.ANGuildsList == null)
             {
                 Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
@@ -109,10 +101,18 @@ namespace Discore_Selfbot
             commands = new CommandService();
             map = new DependencyMap();
             await InstallCommands();
-                System.Timers.Timer timer = new System.Timers.Timer();
-                timer.Interval = 60000;
-                timer.Elapsed += Timer;
-                timer.Start();
+            ANTimer.Interval = 60000;
+            if (Properties.Settings.Default.ANTimer == "5")
+            {
+                ANTimer.Interval = 300000;
+            }
+            if (Properties.Settings.Default.ANTimer == "10")
+            {
+                ANTimer.Interval = 600000;
+            }
+
+            ANTimer.Elapsed += Timer;
+                ANTimer.Start();
             int Guilds = 0;
             client.GuildAvailable += (g) =>
             {
@@ -179,51 +179,48 @@ namespace Discore_Selfbot
                 return Task.CompletedTask;
             };
             client.MessageReceived += async (message) =>
-            {
-                var GU = message.Author as IGuildUser;
-                if (message.Author.Id != client.CurrentUser.Id)
+            {    
+                if (message.Author.Id == client.CurrentUser.Id)
                 {
                     if (message.Channel is IPrivateChannel)
                     {
+                        MyForm.ListChannel.Visible = false;
+                        MyForm.AGName.Text = "DM";
+                        MyForm.AGID.Text = $"(1)";
+                        MyForm.ACName.Text = message.Channel.Name;
+                        MyForm.ACID.Text = $"({message.Channel.Id})";
+                        MyForm.EmbedSelected.Visible = false;
+                        MyForm.EmbedActive.Text = "Active DM";
+                        MainForm.ActiveGuildID = 1;
+                        MainForm.ActiveChannelID = message.Channel.Id;
 
                     }
                     else
                     {
+                        var GU = message.Author as IGuildUser;
                         GuildLogs.Add($"{GU.Guild.Name}-{message.Channel}-{message.Author}-{message.Content}");
-                    }
-                    return;
-                }
-                if (message.Channel is IPrivateChannel)
-                {
-                    MyForm.ListChannel.Visible = false;
-                    MyForm.AGName.Text = "DM";
-                    MyForm.AGID.Text = $"(1)";
-                    MyForm.ACName.Text = message.Channel.Name;
-                    MyForm.ACID.Text = $"({message.Channel.Id})";
-                    MainForm.ActiveGuildID = 1;
-                    MainForm.ActiveChannelID = message.Channel.Id;
-                }
-                else
-                {
-                    MyForm.AGName.Text = GU.Guild.Name;
-                    MyForm.AGID.Text = $"({GU.Guild.Id})";
-                    MyForm.ACName.Text = message.Channel.Name;
-                    MyForm.ACID.Text = $"({message.Channel.Id})";
-                    MainForm.ActiveGuildID = GU.Guild.Id;
-                    MainForm.ActiveChannelID = message.Channel.Id;
-                    if (GU.GuildPermissions.EmbedLinks == true)
-                    {
+                        MyForm.AGName.Text = GU.Guild.Name;
+                        MyForm.AGID.Text = $"({GU.Guild.Id})";
+                        MyForm.ACName.Text = message.Channel.Name;
+                        MyForm.ACID.Text = $"({message.Channel.Id})";
+                        MyForm.EmbedSelected.Visible = true;
                         MyForm.EmbedActive.Text = "Active";
-                    }
-                    else
-                    {
-                        if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
+                        MainForm.ActiveGuildID = GU.Guild.Id;
+                        MainForm.ActiveChannelID = message.Channel.Id;
+                        if (GU.GuildPermissions.EmbedLinks == true)
                         {
                             MyForm.EmbedActive.Text = "Active";
                         }
                         else
                         {
-                            MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
+                            if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
+                            {
+                                MyForm.EmbedActive.Text = "Active";
+                            }
+                            else
+                            {
+                                MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
+                            }
                         }
                     }
                 }
