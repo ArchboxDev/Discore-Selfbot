@@ -42,6 +42,14 @@ namespace Discore_Selfbot
         public static Random Random = new Random();
         static void Main()
         {
+            if (Properties.Settings.Default.SendAction == "")
+            {
+                Properties.Settings.Default.SendAction = "Edit";
+            }
+            if (Properties.Settings.Default.AutoForm == "")
+            {
+                Properties.Settings.Default.AutoForm = "Yes";
+            }
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\");
@@ -321,6 +329,12 @@ namespace Discore_Selfbot
     }
     public class InfoModule : ModuleBase
     {
+        [Command("test")]
+        public async Task test()
+        {
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"Hi {Context.Client.CurrentUser.Username}");
+        }
+
         [Command("info")]
         public async Task info()
         {
@@ -454,7 +468,16 @@ namespace Discore_Selfbot
                 await Context.Message.Channel.SendMessageAsync("( ͡° ͜ʖ ͡°)");
             }
         }
-
+        [Command("st")]
+        public async Task st()
+        {
+            await Context.Message.DeleteAsync();
+            var embed = new EmbedBuilder()
+            {
+                ImageUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRM7wR508Do1SR7I-kJACZtjyb4vCXX_N5ftE4PbSC5ptNheXi1"
+            };
+            await Context.Channel.SendMessageAsync("", false, embed);
+        }
         [Command("lewd")]
         public async Task lewd([Remainder] string Text)
         {
@@ -592,7 +615,7 @@ namespace Discore_Selfbot
                     {
                         Title = $"Selfbot Tag | {Tag}",
                         Color = Program.FavColor,
-                        Description = "<@189778832973103104> " + TagText
+                        Description = TagText
                     };
                     if (Properties.Settings.Default.SendAction == "Edit")
                     {
@@ -643,7 +666,7 @@ namespace Discore_Selfbot
                 {
                     if (Message.Id.ToString() == MessageID)
                     {
-                        TagContent = Message.Content;
+                        TagContent = $"{Message.Author.Username} said \"{Message.Content}\"";
                     }
                 }
             }
@@ -695,11 +718,11 @@ namespace Discore_Selfbot
             string Message = "";
             if (GuildUser.GuildPermissions.ChangeNickname == false)
             {
-                Message = "`Selfbot | You do not have perms for change nickname`";
+                Message = "You do not have perms for change nickname";
             }
             else
             {
-                Message = "`Auto Nickname bound to guild`";
+                Message = "Auto Nickname bound to guild";
                 Properties.Settings.Default.ANGuild = Context.Guild.Id;
                 Properties.Settings.Default.Save();
             }
@@ -711,7 +734,7 @@ namespace Discore_Selfbot
         {
             Properties.Settings.Default.ANList.Add(Nickname);
             Properties.Settings.Default.Save();
-            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, "Nickname added to list");
+            Program.SendMessage(Context.Channel as ITextChannel, Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
         }
 
         [Command("an del")]
@@ -731,7 +754,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    Message = $"{Properties.Settings.Default.ANList[Number - 1]} has been removed from the list";
+                    Message = $"{Properties.Settings.Default.ANList[Number - 1]} has been removed from the auto nickname list";
                     Properties.Settings.Default.ANList.RemoveAt(Number - 1);
                     Properties.Settings.Default.Save();
                 }
@@ -743,11 +766,13 @@ namespace Discore_Selfbot
         public async Task anlist()
         {
             List<string> ANList = new List<string>();
+            int Count = 1;
             foreach(var Item in Properties.Settings.Default.ANList)
             {
-                ANList.Add(Item);
+                ANList.Add($"{Count}." + Item);
+                Count++;
             }
-            string NicknameList = string.Join(", ", ANList.ToArray());
+            string NicknameList = string.Join(" | ", ANList.ToArray());
             if (Properties.Settings.Default.SendAction == "Edit")
             {
                 var M = Context.Message as IUserMessage;
@@ -772,7 +797,7 @@ namespace Discore_Selfbot
             {
                 TagList.Add(File.Replace(TagPath, "").Replace(".txt", ""));
             }
-            string Tags = string.Join(", ", TagList.ToArray());
+            string Tags = string.Join(" | ", TagList.ToArray());
             if (Properties.Settings.Default.SendAction == "Edit")
             {
                 var M = Context.Message as IUserMessage;

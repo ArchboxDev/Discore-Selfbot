@@ -92,15 +92,12 @@
             this.ThemeSkype = new System.Windows.Forms.Button();
             this.TabsSettingPage = new System.Windows.Forms.TabPage();
             this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
-            this.BtnOpenFavColor = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.BtnSetFormNo = new System.Windows.Forms.Button();
             this.BtnSetFormYes = new System.Windows.Forms.Button();
             this.TitleStartupForm = new System.Windows.Forms.TextBox();
             this.BtnSetDelete = new System.Windows.Forms.Button();
             this.BtnSetEdit = new System.Windows.Forms.Button();
             this.TitleCommandMessage = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.TagEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TagEditorShow = new System.Windows.Forms.ToolStripMenuItem();
             this.TagEditorDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,6 +120,9 @@
             this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
             this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
             this.FavColorSelect = new System.Windows.Forms.ColorDialog();
+            this.BtnOpenFavColor = new System.Windows.Forms.Button();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.TabsInfo.SuspendLayout();
             this.TabsInfoPage.SuspendLayout();
             this.TabsBotPage.SuspendLayout();
@@ -524,14 +524,14 @@
             // TabsSettingPage
             // 
             this.TabsSettingPage.Controls.Add(this.TitleFavoriteColor);
-            this.TabsSettingPage.Controls.Add(this.BtnOpenFavColor);
-            this.TabsSettingPage.Controls.Add(this.textBox6);
             this.TabsSettingPage.Controls.Add(this.BtnSetFormNo);
             this.TabsSettingPage.Controls.Add(this.BtnSetFormYes);
             this.TabsSettingPage.Controls.Add(this.TitleStartupForm);
             this.TabsSettingPage.Controls.Add(this.BtnSetDelete);
             this.TabsSettingPage.Controls.Add(this.BtnSetEdit);
             this.TabsSettingPage.Controls.Add(this.TitleCommandMessage);
+            this.TabsSettingPage.Controls.Add(this.BtnOpenFavColor);
+            this.TabsSettingPage.Controls.Add(this.textBox6);
             this.TabsSettingPage.Controls.Add(this.textBox4);
             this.TabsSettingPage.Location = new System.Drawing.Point(4, 22);
             this.TabsSettingPage.Margin = new System.Windows.Forms.Padding(0);
@@ -556,37 +556,6 @@
             this.TitleFavoriteColor.TabStop = false;
             this.TitleFavoriteColor.Text = "Favorite Color";
             this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // BtnOpenFavColor
-            // 
-            this.BtnOpenFavColor.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnOpenFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.BtnOpenFavColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnOpenFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.BtnOpenFavColor.Location = new System.Drawing.Point(3, 175);
-            this.BtnOpenFavColor.Name = "BtnOpenFavColor";
-            this.BtnOpenFavColor.Size = new System.Drawing.Size(60, 40);
-            this.BtnOpenFavColor.TabIndex = 83;
-            this.BtnOpenFavColor.Text = "Color";
-            this.BtnOpenFavColor.UseVisualStyleBackColor = false;
-            this.BtnOpenFavColor.Click += new System.EventHandler(this.BtnOpenFavColor_Click);
-            // 
-            // textBox6
-            // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox6.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.textBox6.Location = new System.Drawing.Point(135, 112);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(82, 20);
-            this.textBox6.TabIndex = 82;
-            this.textBox6.TabStop = false;
-            this.textBox6.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BtnSetFormNo
             // 
@@ -659,23 +628,6 @@
             this.TitleCommandMessage.TabStop = false;
             this.TitleCommandMessage.Text = "Command Message";
             this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox4
-            // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.textBox4.Location = new System.Drawing.Point(135, 40);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(82, 20);
-            this.textBox4.TabIndex = 78;
-            this.textBox4.TabStop = false;
-            this.textBox4.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TagEditor
             // 
@@ -881,6 +833,54 @@
             this.ACID.Name = "ACID";
             this.ACID.Size = new System.Drawing.Size(27, 17);
             this.ACID.Text = "(69)";
+            // 
+            // BtnOpenFavColor
+            // 
+            this.BtnOpenFavColor.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnOpenFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.BtnOpenFavColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnOpenFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.BtnOpenFavColor.Location = new System.Drawing.Point(3, 175);
+            this.BtnOpenFavColor.Name = "BtnOpenFavColor";
+            this.BtnOpenFavColor.Size = new System.Drawing.Size(60, 40);
+            this.BtnOpenFavColor.TabIndex = 83;
+            this.BtnOpenFavColor.Text = "Color";
+            this.BtnOpenFavColor.UseVisualStyleBackColor = false;
+            this.BtnOpenFavColor.Click += new System.EventHandler(this.BtnOpenFavColor_Click);
+            // 
+            // textBox6
+            // 
+            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox6.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox6.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.textBox6.Location = new System.Drawing.Point(135, 112);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(82, 20);
+            this.textBox6.TabIndex = 82;
+            this.textBox6.TabStop = false;
+            this.textBox6.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.textBox4.Location = new System.Drawing.Point(135, 40);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(82, 20);
+            this.textBox4.TabIndex = 78;
+            this.textBox4.TabStop = false;
+            this.textBox4.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MainForm
             // 
