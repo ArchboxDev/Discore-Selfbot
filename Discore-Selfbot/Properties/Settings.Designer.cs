@@ -60,17 +60,6 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection ANGuilds {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ANGuilds"]));
-            }
-            set {
-                this["ANGuilds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
         public global::System.Drawing.Color FavoriteColor {
             get {
@@ -78,6 +67,17 @@ namespace Discore_Selfbot.Properties {
             }
             set {
                 this["FavoriteColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection ANGuildsList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ANGuildsList"]));
+            }
+            set {
+                this["ANGuildsList"] = value;
             }
         }
     }

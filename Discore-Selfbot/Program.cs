@@ -49,9 +49,9 @@ namespace Discore_Selfbot
             {
                 Properties.Settings.Default.AutoForm = "Yes";
             }
-            if (Properties.Settings.Default.ANGuilds == null)
+            if (Properties.Settings.Default.ANGuildsList == null)
             {
-                Properties.Settings.Default.ANGuilds = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
             }
             Properties.Settings.Default.Save();
             Console.Title = "Discore - Selfbot - User Token Required";
@@ -297,31 +297,36 @@ namespace Discore_Selfbot
         }
         private async void Timer(object sender, ElapsedEventArgs e)
         {
-
-            if (Properties.Settings.Default.ANGuilds.Count != 0)
+            if (Properties.Settings.Default.ANGuildsList.Count != 0)
             {
                 if (Properties.Settings.Default.ANList.Count != 0)
                 {
                     List<string> NickList = new List<string>();
                     var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-                    foreach (var Guild in Properties.Settings.Default.ANGuilds)
+                    foreach (var Guild in Properties.Settings.Default.ANGuildsList)
                     {
                         NickList.Clear();
-                        
-                        foreach (var Item in Directory.GetFiles(NicknamePath))
+                        try
                         {
-                            if (Item.StartsWith($"{NicknamePath + Guild}-"))
+                            foreach (var Item in Directory.GetFiles(NicknamePath))
                             {
-                                NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
+                                if (Item.StartsWith($"{NicknamePath + Guild}-"))
+                                {
+                                    NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
+                                }
+                            }
+                            if (NickList.Count != 0)
+                            {
+                                int randomValue = Program.Random.Next(0, NickList.Count);
+                                var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
+                                var GuildUser = DGuild.GetUser(CurrentUserID);
+                                string Nickname = NickList[randomValue];
+                                await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
                             }
                         }
-                        if (NickList.Count != 0)
+                        catch
                         {
-                            int randomValue = Program.Random.Next(0, NickList.Count);
-                            var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
-                            var GuildUser = DGuild.GetUser(CurrentUserID);
-                            string Nickname = NickList[randomValue];
-                            await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
+
                         }
                     }
                 }
@@ -760,15 +765,15 @@ namespace Discore_Selfbot
             }
             else
             {
-                if (Properties.Settings.Default.ANGuilds.Contains(Context.Guild.Id.ToString()))
+                if (Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
                 {
                     Message = "Guild removed from auto nickname list";
-                    Properties.Settings.Default.ANGuilds.Remove(Context.Guild.Id.ToString());
+                    Properties.Settings.Default.ANGuildsList.Remove(Context.Guild.Id.ToString());
                 }
                 else
                 {
                     Message = "Guild added to auto nickname list";
-                    Properties.Settings.Default.ANGuilds.Add(Context.Guild.Id.ToString());
+                    Properties.Settings.Default.ANGuildsList.Add(Context.Guild.Id.ToString());
                 }
                 Properties.Settings.Default.Save();
             }
