@@ -76,6 +76,7 @@
             this.EmbedActive = new System.Windows.Forms.Button();
             this.TabsInfo = new System.Windows.Forms.TabControl();
             this.TabsInfoPage = new System.Windows.Forms.TabPage();
+            this.TitleCommands = new System.Windows.Forms.TextBox();
             this.TextAboutBot = new System.Windows.Forms.RichTextBox();
             this.TabsBotPage = new System.Windows.Forms.TabPage();
             this.TextBotInfo = new System.Windows.Forms.RichTextBox();
@@ -89,6 +90,7 @@
             this.ThemeAlexflipnote = new System.Windows.Forms.Button();
             this.ThemeSkype = new System.Windows.Forms.Button();
             this.TabsSettingPage = new System.Windows.Forms.TabPage();
+            this.TextShowANTimer = new System.Windows.Forms.TextBox();
             this.BtnANTimer10 = new System.Windows.Forms.Button();
             this.BtnANTimer5 = new System.Windows.Forms.Button();
             this.BtnANTimer1 = new System.Windows.Forms.Button();
@@ -96,12 +98,20 @@
             this.BtnSetFormYes = new System.Windows.Forms.Button();
             this.BtnSetCMDelete = new System.Windows.Forms.Button();
             this.BtnSetCMEdit = new System.Windows.Forms.Button();
+            this.TitleAutoNicknameTimer = new System.Windows.Forms.TextBox();
+            this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
+            this.TitleStartupForm = new System.Windows.Forms.TextBox();
+            this.TitleCommandMessage = new System.Windows.Forms.TextBox();
+            this.BtnOpenFavColor = new System.Windows.Forms.Button();
+            this.TextShowAF = new System.Windows.Forms.TextBox();
+            this.TextShowCM = new System.Windows.Forms.TextBox();
             this.TagEditor = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TagEditorShow = new System.Windows.Forms.ToolStripMenuItem();
             this.TagEditorDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.TabsGuild = new System.Windows.Forms.TabControl();
             this.TabsEmbedPage = new System.Windows.Forms.TabPage();
             this.EmbedFooter = new System.Windows.Forms.TextBox();
+            this.TitleSendto = new System.Windows.Forms.TextBox();
             this.TabsGuildInfoPage = new System.Windows.Forms.TabPage();
             this.TextGuildInfo = new System.Windows.Forms.TextBox();
             this.TabsRolePage = new System.Windows.Forms.TabPage();
@@ -117,16 +127,6 @@
             this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
             this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
             this.FavColorSelect = new System.Windows.Forms.ColorDialog();
-            this.TitleSendto = new System.Windows.Forms.TextBox();
-            this.TitleCommands = new System.Windows.Forms.TextBox();
-            this.TextShowANTimer = new System.Windows.Forms.TextBox();
-            this.TitleAutoNicknameTimer = new System.Windows.Forms.TextBox();
-            this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
-            this.TitleStartupForm = new System.Windows.Forms.TextBox();
-            this.TitleCommandMessage = new System.Windows.Forms.TextBox();
-            this.BtnOpenFavColor = new System.Windows.Forms.Button();
-            this.TextShowAF = new System.Windows.Forms.TextBox();
-            this.TextShowCM = new System.Windows.Forms.TextBox();
             this.ListGuild = new System.Windows.Forms.ToolStrip();
             this.TabsInfo.SuspendLayout();
             this.TabsInfoPage.SuspendLayout();
@@ -332,6 +332,23 @@
             this.TabsInfoPage.Text = "Info";
             this.TabsInfoPage.UseVisualStyleBackColor = true;
             // 
+            // TitleCommands
+            // 
+            this.TitleCommands.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleCommands.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleCommands.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleCommands.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleCommands.Location = new System.Drawing.Point(6, 83);
+            this.TitleCommands.Name = "TitleCommands";
+            this.TitleCommands.ReadOnly = true;
+            this.TitleCommands.Size = new System.Drawing.Size(214, 20);
+            this.TitleCommands.TabIndex = 73;
+            this.TitleCommands.TabStop = false;
+            this.TitleCommands.Text = "Commands";
+            this.TitleCommands.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // TextAboutBot
             // 
             this.TextAboutBot.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -523,6 +540,23 @@
             this.TabsSettingPage.Text = "Settings";
             this.TabsSettingPage.UseVisualStyleBackColor = true;
             // 
+            // TextShowANTimer
+            // 
+            this.TextShowANTimer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowANTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowANTimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowANTimer.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowANTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowANTimer.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowANTimer.Location = new System.Drawing.Point(201, 256);
+            this.TextShowANTimer.Name = "TextShowANTimer";
+            this.TextShowANTimer.ReadOnly = true;
+            this.TextShowANTimer.Size = new System.Drawing.Size(16, 20);
+            this.TextShowANTimer.TabIndex = 89;
+            this.TextShowANTimer.TabStop = false;
+            this.TextShowANTimer.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
+            this.TextShowANTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // BtnANTimer10
             // 
             this.BtnANTimer10.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -602,6 +636,122 @@
             this.BtnSetCMEdit.UseVisualStyleBackColor = true;
             this.BtnSetCMEdit.Click += new System.EventHandler(this.BtnSetEdit_Click);
             // 
+            // TitleAutoNicknameTimer
+            // 
+            this.TitleAutoNicknameTimer.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleAutoNicknameTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleAutoNicknameTimer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleAutoNicknameTimer.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleAutoNicknameTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleAutoNicknameTimer.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleAutoNicknameTimer.Location = new System.Drawing.Point(3, 221);
+            this.TitleAutoNicknameTimer.Name = "TitleAutoNicknameTimer";
+            this.TitleAutoNicknameTimer.ReadOnly = true;
+            this.TitleAutoNicknameTimer.Size = new System.Drawing.Size(214, 20);
+            this.TitleAutoNicknameTimer.TabIndex = 85;
+            this.TitleAutoNicknameTimer.TabStop = false;
+            this.TitleAutoNicknameTimer.Text = "Auto Nickname Timer";
+            this.TitleAutoNicknameTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleFavoriteColor
+            // 
+            this.TitleFavoriteColor.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleFavoriteColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleFavoriteColor.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleFavoriteColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleFavoriteColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleFavoriteColor.Location = new System.Drawing.Point(3, 149);
+            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
+            this.TitleFavoriteColor.ReadOnly = true;
+            this.TitleFavoriteColor.Size = new System.Drawing.Size(214, 20);
+            this.TitleFavoriteColor.TabIndex = 84;
+            this.TitleFavoriteColor.TabStop = false;
+            this.TitleFavoriteColor.Text = "Favorite Color";
+            this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleStartupForm
+            // 
+            this.TitleStartupForm.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleStartupForm.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleStartupForm.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleStartupForm.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleStartupForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleStartupForm.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleStartupForm.Location = new System.Drawing.Point(3, 77);
+            this.TitleStartupForm.Name = "TitleStartupForm";
+            this.TitleStartupForm.ReadOnly = true;
+            this.TitleStartupForm.Size = new System.Drawing.Size(214, 20);
+            this.TitleStartupForm.TabIndex = 79;
+            this.TitleStartupForm.TabStop = false;
+            this.TitleStartupForm.Text = "Open Form On Startup";
+            this.TitleStartupForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TitleCommandMessage
+            // 
+            this.TitleCommandMessage.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleCommandMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleCommandMessage.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleCommandMessage.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleCommandMessage.Location = new System.Drawing.Point(3, 5);
+            this.TitleCommandMessage.Name = "TitleCommandMessage";
+            this.TitleCommandMessage.ReadOnly = true;
+            this.TitleCommandMessage.Size = new System.Drawing.Size(214, 20);
+            this.TitleCommandMessage.TabIndex = 75;
+            this.TitleCommandMessage.TabStop = false;
+            this.TitleCommandMessage.Text = "Command Message";
+            this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // BtnOpenFavColor
+            // 
+            this.BtnOpenFavColor.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BtnOpenFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.BtnOpenFavColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnOpenFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.BtnOpenFavColor.Location = new System.Drawing.Point(69, 175);
+            this.BtnOpenFavColor.Name = "BtnOpenFavColor";
+            this.BtnOpenFavColor.Size = new System.Drawing.Size(60, 40);
+            this.BtnOpenFavColor.TabIndex = 83;
+            this.BtnOpenFavColor.Text = "Color";
+            this.BtnOpenFavColor.UseVisualStyleBackColor = false;
+            this.BtnOpenFavColor.Click += new System.EventHandler(this.BtnOpenFavColor_Click);
+            // 
+            // TextShowAF
+            // 
+            this.TextShowAF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowAF.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowAF.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowAF.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowAF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowAF.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowAF.Location = new System.Drawing.Point(135, 112);
+            this.TextShowAF.Name = "TextShowAF";
+            this.TextShowAF.ReadOnly = true;
+            this.TextShowAF.Size = new System.Drawing.Size(82, 20);
+            this.TextShowAF.TabIndex = 82;
+            this.TextShowAF.TabStop = false;
+            this.TextShowAF.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.TextShowAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TextShowCM
+            // 
+            this.TextShowCM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.TextShowCM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextShowCM.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextShowCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextShowCM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextShowCM.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.TextShowCM.Location = new System.Drawing.Point(135, 40);
+            this.TextShowCM.Name = "TextShowCM";
+            this.TextShowCM.ReadOnly = true;
+            this.TextShowCM.Size = new System.Drawing.Size(82, 20);
+            this.TextShowCM.TabIndex = 78;
+            this.TextShowCM.TabStop = false;
+            this.TextShowCM.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.TextShowCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // TagEditor
             // 
             this.TagEditor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -663,6 +813,23 @@
             this.EmbedFooter.Size = new System.Drawing.Size(154, 20);
             this.EmbedFooter.TabIndex = 75;
             this.EmbedFooter.Text = "Footer";
+            // 
+            // TitleSendto
+            // 
+            this.TitleSendto.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.TitleSendto.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TitleSendto.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TitleSendto.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TitleSendto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleSendto.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TitleSendto.Location = new System.Drawing.Point(3, 81);
+            this.TitleSendto.Name = "TitleSendto";
+            this.TitleSendto.ReadOnly = true;
+            this.TitleSendto.Size = new System.Drawing.Size(206, 20);
+            this.TitleSendto.TabIndex = 74;
+            this.TitleSendto.TabStop = false;
+            this.TitleSendto.Text = "Send To";
+            this.TitleSendto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TabsGuildInfoPage
             // 
@@ -795,173 +962,6 @@
             this.ACID.Name = "ACID";
             this.ACID.Size = new System.Drawing.Size(27, 17);
             this.ACID.Text = "(69)";
-            // 
-            // TitleSendto
-            // 
-            this.TitleSendto.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleSendto.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleSendto.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleSendto.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleSendto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleSendto.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleSendto.Location = new System.Drawing.Point(3, 81);
-            this.TitleSendto.Name = "TitleSendto";
-            this.TitleSendto.ReadOnly = true;
-            this.TitleSendto.Size = new System.Drawing.Size(206, 20);
-            this.TitleSendto.TabIndex = 74;
-            this.TitleSendto.TabStop = false;
-            this.TitleSendto.Text = "Send To";
-            this.TitleSendto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleCommands
-            // 
-            this.TitleCommands.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleCommands.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleCommands.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleCommands.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommands.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleCommands.Location = new System.Drawing.Point(6, 83);
-            this.TitleCommands.Name = "TitleCommands";
-            this.TitleCommands.ReadOnly = true;
-            this.TitleCommands.Size = new System.Drawing.Size(214, 20);
-            this.TitleCommands.TabIndex = 73;
-            this.TitleCommands.TabStop = false;
-            this.TitleCommands.Text = "Commands";
-            this.TitleCommands.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TextShowANTimer
-            // 
-            this.TextShowANTimer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.TextShowANTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextShowANTimer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TextShowANTimer.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextShowANTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextShowANTimer.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TextShowANTimer.Location = new System.Drawing.Point(201, 256);
-            this.TextShowANTimer.Name = "TextShowANTimer";
-            this.TextShowANTimer.ReadOnly = true;
-            this.TextShowANTimer.Size = new System.Drawing.Size(16, 20);
-            this.TextShowANTimer.TabIndex = 89;
-            this.TextShowANTimer.TabStop = false;
-            this.TextShowANTimer.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
-            this.TextShowANTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleAutoNicknameTimer
-            // 
-            this.TitleAutoNicknameTimer.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleAutoNicknameTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleAutoNicknameTimer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleAutoNicknameTimer.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleAutoNicknameTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleAutoNicknameTimer.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleAutoNicknameTimer.Location = new System.Drawing.Point(3, 221);
-            this.TitleAutoNicknameTimer.Name = "TitleAutoNicknameTimer";
-            this.TitleAutoNicknameTimer.ReadOnly = true;
-            this.TitleAutoNicknameTimer.Size = new System.Drawing.Size(214, 20);
-            this.TitleAutoNicknameTimer.TabIndex = 85;
-            this.TitleAutoNicknameTimer.TabStop = false;
-            this.TitleAutoNicknameTimer.Text = "Auto Nickname Timer";
-            this.TitleAutoNicknameTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleFavoriteColor
-            // 
-            this.TitleFavoriteColor.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleFavoriteColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleFavoriteColor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleFavoriteColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleFavoriteColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleFavoriteColor.Location = new System.Drawing.Point(3, 149);
-            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
-            this.TitleFavoriteColor.ReadOnly = true;
-            this.TitleFavoriteColor.Size = new System.Drawing.Size(214, 20);
-            this.TitleFavoriteColor.TabIndex = 84;
-            this.TitleFavoriteColor.TabStop = false;
-            this.TitleFavoriteColor.Text = "Favorite Color";
-            this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleStartupForm
-            // 
-            this.TitleStartupForm.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleStartupForm.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleStartupForm.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleStartupForm.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleStartupForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleStartupForm.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleStartupForm.Location = new System.Drawing.Point(3, 77);
-            this.TitleStartupForm.Name = "TitleStartupForm";
-            this.TitleStartupForm.ReadOnly = true;
-            this.TitleStartupForm.Size = new System.Drawing.Size(214, 20);
-            this.TitleStartupForm.TabIndex = 79;
-            this.TitleStartupForm.TabStop = false;
-            this.TitleStartupForm.Text = "Open Form On Startup";
-            this.TitleStartupForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleCommandMessage
-            // 
-            this.TitleCommandMessage.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleCommandMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleCommandMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommandMessage.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleCommandMessage.Location = new System.Drawing.Point(3, 5);
-            this.TitleCommandMessage.Name = "TitleCommandMessage";
-            this.TitleCommandMessage.ReadOnly = true;
-            this.TitleCommandMessage.Size = new System.Drawing.Size(214, 20);
-            this.TitleCommandMessage.TabIndex = 75;
-            this.TitleCommandMessage.TabStop = false;
-            this.TitleCommandMessage.Text = "Command Message";
-            this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // BtnOpenFavColor
-            // 
-            this.BtnOpenFavColor.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.BtnOpenFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.BtnOpenFavColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnOpenFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.BtnOpenFavColor.Location = new System.Drawing.Point(69, 175);
-            this.BtnOpenFavColor.Name = "BtnOpenFavColor";
-            this.BtnOpenFavColor.Size = new System.Drawing.Size(60, 40);
-            this.BtnOpenFavColor.TabIndex = 83;
-            this.BtnOpenFavColor.Text = "Color";
-            this.BtnOpenFavColor.UseVisualStyleBackColor = false;
-            this.BtnOpenFavColor.Click += new System.EventHandler(this.BtnOpenFavColor_Click);
-            // 
-            // TextShowAF
-            // 
-            this.TextShowAF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.TextShowAF.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextShowAF.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TextShowAF.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextShowAF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextShowAF.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TextShowAF.Location = new System.Drawing.Point(135, 112);
-            this.TextShowAF.Name = "TextShowAF";
-            this.TextShowAF.ReadOnly = true;
-            this.TextShowAF.Size = new System.Drawing.Size(82, 20);
-            this.TextShowAF.TabIndex = 82;
-            this.TextShowAF.TabStop = false;
-            this.TextShowAF.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.TextShowAF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TextShowCM
-            // 
-            this.TextShowCM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.TextShowCM.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextShowCM.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TextShowCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextShowCM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextShowCM.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.TextShowCM.Location = new System.Drawing.Point(135, 40);
-            this.TextShowCM.Name = "TextShowCM";
-            this.TextShowCM.ReadOnly = true;
-            this.TextShowCM.Size = new System.Drawing.Size(82, 20);
-            this.TextShowCM.TabIndex = 78;
-            this.TextShowCM.TabStop = false;
-            this.TextShowCM.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.TextShowCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ListGuild
             // 

@@ -404,12 +404,12 @@ namespace Discore_Selfbot
             if (FavColorForm.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.FavoriteColor = FavColorForm.Color;
-                Program.FavColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
+                Program.FavoriteColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
             }
             else
             {
                 Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
-                Program.FavColor = new Discord.Color();
+                Program.FavoriteColor = new Discord.Color();
             }
             Properties.Settings.Default.Save();
         }
@@ -418,21 +418,21 @@ namespace Discore_Selfbot
         {
             Console.WriteLine("Auto nickname timer changed to 1 minute");
             Properties.Settings.Default.ANTimer = "1";
-            Program.ANTimer.Interval = 60000;
+            Program.AutoNickname_Timer.Interval = 60000;
         }
 
         private void BtnANTimer5_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Auto nickname timer changed to 5 minute");
             Properties.Settings.Default.ANTimer = "5";
-            Program.ANTimer.Interval = 300000;
+            Program.AutoNickname_Timer.Interval = 300000;
         }
 
         private void BtnANTimer10_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Auto nickname timer changed to 10 minute");
             Properties.Settings.Default.ANTimer = "10";
-            Program.ANTimer.Interval = 600000;
+            Program.AutoNickname_Timer.Interval = 600000;
             
         }
     }
