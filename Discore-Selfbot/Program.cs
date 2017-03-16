@@ -22,6 +22,7 @@ namespace Discore_Selfbot
 {
     class Program
     {
+        public static int RunOnce = 0;
         private CommandService commands;
         public static DiscordSocketClient client;
         private DependencyMap map;
@@ -31,7 +32,9 @@ namespace Discore_Selfbot
         public static List<ulong> GuildsID = new List<ulong>();
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
-
+        public static ulong ActiveGuildID = 0;
+        public static ulong ActiveChannelID = 0;
+        public static Icon Avatar;
         public static Discord.Color FavoriteColor;
         public static MainForm MyForm;
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
@@ -42,6 +45,7 @@ namespace Discore_Selfbot
         static void Main()
         {
             Console.ForegroundColor = ConsoleColor.White;
+            
             if (Properties.Settings.Default.ANGuildsList == null)
             {
                 Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
@@ -65,13 +69,24 @@ namespace Discore_Selfbot
             }
             while (Token == "")
             {
-                Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
-                Process.Start(SelfbotDir);
+                if (RunOnce == 0)
+                {
+                    RunOnce = 1;
+                    Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                    Process.Start(SelfbotDir);
+                    if (!File.Exists(SelfbotDir + "How-To-Get-User-Token.txt"))
+                    {
+                        using (StreamWriter sw = File.CreateText(SelfbotDir + "How-To-Get-User-Token.txt"))
+                        {
+                            sw.WriteLine("Open this in your web browser");
+                            sw.WriteLine("");
+                            sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
+                        }
+                    }
+                }
             }
-            // Load settings and bot
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
-            FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             new Program().RunBot().GetAwaiter().GetResult();
         }
 
@@ -97,54 +112,47 @@ namespace Discore_Selfbot
                 WebSocketProvider = WS4NetProvider.Instance
             });
             commands = new CommandService();
+            map = new DependencyMap();
             await InstallCommands();
-            AutoNickname_Timer.Interval = 60000;
-            if (Properties.Settings.Default.ANTimer == "5")
-            {
-                AutoNickname_Timer.Interval = 300000;
-            }
-            if (Properties.Settings.Default.ANTimer == "10")
-            {
-                AutoNickname_Timer.Interval = 600000;
-            }
-            AutoNickname_Timer.Elapsed += Timer;
-                AutoNickname_Timer.Start();
+            FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             int Guilds = 0;
             client.GuildUnavailable += (g) =>
             {
-                int Index = Program.Guilds.IndexOf(g.Name);
-                Program.Guilds.Remove(g.Name);
-                Program.GuildsID.Remove(g.Id);
-                MyForm.ListGuild.Items.RemoveAt(Index);
+                    int Index = Program.Guilds.IndexOf(g.Name);
+                    Program.Guilds.Remove(g.Name);
+                    Program.GuildsID.Remove(g.Id);
+                    MyForm.ListGuild.Items.RemoveAt(Index);
                 return Task.CompletedTask;
             };
             client.GuildAvailable += (g) =>
             {
-                if (!Program.Guilds.Contains(g.Name))
-                {
-                    Guilds++;
-                    Program.Guilds.Add(g.Name);
-                    Program.GuildsID.Add(g.Id);
-                    WebClient WBC = new WebClient();
-                    if (!File.Exists($"{g.Id}.png"))
+                    if (!Program.Guilds.Contains(g.Name))
                     {
-                        if (g.IconUrl == null)
+                        Guilds++;
+                        Program.Guilds.Add(g.Name);
+                        Program.GuildsID.Add(g.Id);
+                        WebClient WBC = new WebClient();
+                        if (!File.Exists($"{g.Id}.png"))
                         {
-                            WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
+                            if (g.IconUrl == null)
+                            {
+                                WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
+                            }
+                            else
+                            {
+                                WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
+                            }
+                            WBC.Dispose();
                         }
-                        else
+                        if (Properties.Settings.Default.AutoForm == "Yes")
                         {
-                            WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
+                            MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
                         }
-                        WBC.Dispose();
                     }
-                    if (Properties.Settings.Default.AutoForm == "Yes")
-                    {
-                        MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    }
-                }
+
                 if (Guilds == client.Guilds.Count)
                 {
+                    Console.WriteLine($"Found {Guilds} guilds");
                     DownloadGuilds = true;
                 }
                 return Task.CompletedTask;
@@ -180,50 +188,7 @@ namespace Discore_Selfbot
                 Console.WriteLine($"Left Guild > {g.Name} ({g.Id})");
                 return Task.CompletedTask;
             };
-            client.MessageReceived += async (message) =>
-            {    
-                if (message.Author.Id == client.CurrentUser.Id)
-                {
-                    if (message.Channel is IPrivateChannel)
-                    {
-                        MyForm.ListChannel.Visible = false;
-                        MyForm.AGName.Text = "DM";
-                        MyForm.AGID.Text = $"(1)";
-                        MyForm.ACName.Text = message.Channel.Name;
-                        MyForm.ACID.Text = $"({message.Channel.Id})";
-                        MyForm.EmbedActive.Text = "Active DM";
-                        MainForm.ActiveGuildID = 1;
-                        MainForm.ActiveChannelID = message.Channel.Id;
 
-                    }
-                    else
-                    {
-                        var GU = message.Author as IGuildUser;
-                        MyForm.AGName.Text = GU.Guild.Name;
-                        MyForm.AGID.Text = $"({GU.Guild.Id})";
-                        MyForm.ACName.Text = message.Channel.Name;
-                        MyForm.ACID.Text = $"({message.Channel.Id})";
-                        MyForm.EmbedActive.Text = "Active";
-                        MainForm.ActiveGuildID = GU.Guild.Id;
-                        MainForm.ActiveChannelID = message.Channel.Id;
-                        if (GU.GuildPermissions.EmbedLinks == true)
-                        {
-                            MyForm.EmbedActive.Text = "Active";
-                        }
-                        else
-                        {
-                            if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
-                            {
-                                MyForm.EmbedActive.Text = "Active";
-                            }
-                            else
-                            {
-                                MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
-                            }
-                        }
-                    }
-                }
-            };
             client.Connected += () =>
             {
                 Console.Title = "Discore - Selfbot - Online!";
@@ -232,6 +197,17 @@ namespace Discore_Selfbot
                 {
                     CurrentUserName = client.CurrentUser.Username;
                     CurrentUserID = client.CurrentUser.Id;
+                    AutoNickname_Timer.Interval = 60000;
+                    if (Properties.Settings.Default.ANTimer == "5")
+                    {
+                        AutoNickname_Timer.Interval = 300000;
+                    }
+                    if (Properties.Settings.Default.ANTimer == "10")
+                    {
+                        AutoNickname_Timer.Interval = 600000;
+                    }
+                    AutoNickname_Timer.Elapsed += Timer;
+                    AutoNickname_Timer.Start();
                     WebClient myWebClient = new WebClient();
                     if (File.Exists("avatar.png"))
                     {
@@ -241,6 +217,7 @@ namespace Discore_Selfbot
                     Bitmap b = (Bitmap)System.Drawing.Image.FromFile("avatar.png");
                     IntPtr pIcon = b.GetHicon();
                     Icon i = Icon.FromHandle(pIcon);
+                    Avatar = i;
                     i.Dispose();
                     myWebClient.Dispose();
                     if (Properties.Settings.Default.AutoForm == "Yes")
@@ -338,12 +315,50 @@ namespace Discore_Selfbot
         {
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
-            int argPos = 0;
             if (message.Author.Id == client.CurrentUser.Id)
             {
+                if (message.Channel is IPrivateChannel)
+                {
+                    MyForm.ListChannel.Visible = false;
+                    MyForm.AGName.Text = "DM";
+                    MyForm.AGID.Text = $"(1)";
+                    MyForm.ACName.Text = message.Channel.Name;
+                    MyForm.ACID.Text = $"({message.Channel.Id})";
+                    MyForm.EmbedActive.Text = "Active DM";
+                    ActiveGuildID = 0;
+                    ActiveChannelID = message.Channel.Id;
+                }
+                else
+                {
+                    var GU = message.Author as IGuildUser;
+                    MyForm.AGName.Text = GU.Guild.Name;
+                    MyForm.AGID.Text = $"({GU.Guild.Id})";
+                    MyForm.ACName.Text = message.Channel.Name;
+                    MyForm.ACID.Text = $"({message.Channel.Id})";
+                    MyForm.EmbedActive.Text = "Active";
+                    ActiveGuildID = GU.Guild.Id;
+                    ActiveChannelID = message.Channel.Id;
+                    if (GU.GuildPermissions.EmbedLinks == true)
+                    {
+                        MyForm.EmbedActive.Text = "Active";
+                    }
+                    else
+                    {
+                        if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
+                        {
+                            MyForm.EmbedActive.Text = "Active";
+                        }
+                        else
+                        {
+                            MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
+                        }
+                    }
+                }
+                int argPos = 0;
                 if (!(message.HasStringPrefix("self ", ref argPos))) return;
                 var context = new CommandContext(client, message);
                 var result = await commands.ExecuteAsync(context, argPos, map);
+                
             }
         }
     }
@@ -415,6 +430,15 @@ namespace Discore_Selfbot
                     }
                 }
             }
+        }
+
+        [Command("purge")]
+        public async Task purge(int Ammount)
+        {
+            var mess = await Context.Channel.GetMessagesAsync(100).Flatten();
+            var mymess = mess.Where(x => x.Author.Id == Context.Client.CurrentUser.Id) as IUserMessage;
+            await mymess.DeleteAsync();
+            await ReplyAsync("The Great Purge has purged: 100 messages.");
         }
 
         [Command("form")]

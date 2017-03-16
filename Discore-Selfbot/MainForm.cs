@@ -18,8 +18,6 @@ namespace Discore_Selfbot
         public static Discord.Color EmbedColor;
         public static ulong SelectedGuild = 0;
         public static ulong SelectChannel = 0;
-        public static ulong ActiveGuildID = 0;
-        public static ulong ActiveChannelID = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
 
@@ -41,14 +39,10 @@ namespace Discore_Selfbot
                 Program.Guilds.Clear();
                 Program.GuildsID.Clear();
             this.Text = Program.CurrentUserName;
-                if (System.IO.File.Exists($"avatar.png"))
-                {
-                    Bitmap b = (Bitmap)System.Drawing.Image.FromFile($"avatar.png");
-                    IntPtr pIcon = b.GetHicon();
-                    Icon i = Icon.FromHandle(pIcon);
-                    i.Dispose();
-                    this.Icon = i;
-                }
+            if (File.Exists($"avatar.png"))
+            {
+                this.Icon = Program.Avatar;
+            }
                 foreach (var Guild in Program.client.Guilds)
                 {
                     if (!System.IO.File.Exists($"{Guild.Id}.png"))
@@ -109,13 +103,13 @@ namespace Discore_Selfbot
         {
             if (EmbedActive.Text == "Active")
             {
-                if (ActiveGuildID == 0)
+                if (Program.ActiveGuildID == 0)
                 {
                     MessageBox.Show("No guild selected");
                     return;
                 }
             }
-            if (ActiveChannelID == 0)
+            if (Program.ActiveChannelID == 0)
             {
                 MessageBox.Show("No channel selected");
                 return;
@@ -142,13 +136,13 @@ namespace Discore_Selfbot
             };
             if (EmbedActive.Text == "Active")
             {
-                var Guild = Program.client.GetGuild(ActiveGuildID);
-                var GuildChan = Guild.GetChannel(ActiveChannelID) as ITextChannel;
+                var Guild = Program.client.GetGuild(Program.ActiveGuildID);
+                var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
                 await GuildChan.SendMessageAsync("", false, embed);
             }
             else
             {
-                IDMChannel DMChan = Program.client.GetChannel(ActiveChannelID) as IDMChannel;
+                IDMChannel DMChan = Program.client.GetChannel(Program.ActiveChannelID) as IDMChannel;
                 await DMChan.SendMessageAsync("", false, embed);
             }
         }
