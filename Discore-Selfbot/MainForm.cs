@@ -28,7 +28,7 @@ namespace Discore_Selfbot
         }
         public async void MainForm_Load(object sender, EventArgs e)
         {
-            if (Program.ConnectedOnce == false)
+            if (Program.Ready == false)
             {
                 if (Properties.Settings.Default.AutoForm == "No")
                 {
