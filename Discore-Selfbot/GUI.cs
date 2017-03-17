@@ -450,5 +450,15 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Theme = "Dark Sparkle";
             Properties.Settings.Default.Save();
         }
+
+        private void ViewCommandsList_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TextCommandInfo.Text = e.Node.ToolTipText;
+        }
+
+        private void CommandInfoHover(object sender, TreeNodeMouseHoverEventArgs e)
+        {
+            TextCommandInfo.Text = e.Node.ToolTipText;
+        }
     }
 }

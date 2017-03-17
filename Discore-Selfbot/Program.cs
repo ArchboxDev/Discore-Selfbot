@@ -42,7 +42,7 @@ namespace Discore_Selfbot
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
         public static string CurrentUserName;
         public static ulong CurrentUserID;
-        public static Random RandomGenerator = new Random();
+        public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
         static void Main()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -274,6 +274,7 @@ namespace Discore_Selfbot
                 {
                     await CommandMessage.ModifyAsync(x =>
                     {
+                        x.Content = "";
                         x.Embed = Embed;
                     });
                 }
@@ -386,7 +387,113 @@ namespace Discore_Selfbot
         {
             Program.SendMessage(Context.Message as IUserMessage, "Hi " + Program.CurrentUserName);
         }
+        [Command("neko")]
+        public async Task neko()
+        {
+            var RandomValue = Program.RandomGenerator.Next(1, 11);
+            var embed = new EmbedBuilder();
+            switch (RandomValue)
+            {
+                case 1:
+                    embed.ImageUrl = "https://em.wattpad.com/cfe2f4102b9bb5e0e32ad2ef4e6ad0edf906130c/687474703a2f2f666330382e64657669616e746172742e6e65742f667337302f662f323031312f3230322f332f332f615f6769726c5f6e656b6f5f62795f6d6f6b617468656865786769726c2d643431377432772e6a7067?s=fit&h=360&w=360&q=80";
+                    break;
+                case 2:
+                    embed.ImageUrl = "https://68.media.tumblr.com/8dc8675a8d5a5a58fa224d0f13b3edd6/tumblr_oj1dtq9rMk1vwt3qvo1_500.jpg";
+                    break;
+                case 3:
+                    embed.ImageUrl = "https://68.media.tumblr.com/5c472ee7d83552b5f65e9223810223de/tumblr_obgu5eQEEq1qjkxb4o1_500.png";
+                    break;
+                case 4:
+                    embed.ImageUrl = "https://68.media.tumblr.com/4c43df58c426321ca6d5f3c80d76f141/tumblr_olh7x7zeJe1vwt3qvo1_500.jpg";
+                    break;
+                case 5:
+                    embed.ImageUrl = "https://68.media.tumblr.com/d5bc9bb09cd2fac7f39f14c3a9254ab8/tumblr_ogkc06Fv531vbwt78o1_500.png";
+                    break;
+                case 6:
+                    embed.ImageUrl = "https://68.media.tumblr.com/0211be68a458ef95a958918b0972973a/tumblr_o7m6s8GekH1vsna11o1_500.gif";
+                    break;
+                case 7:
+                    embed.ImageUrl = "https://68.media.tumblr.com/2392325783e722994f418fdbfce2051d/tumblr_okym54bfdK1vwt3qvo1_500.png";
+                    break;
+                case 8:
+                    embed.ImageUrl = "https://68.media.tumblr.com/37c749b7fcf43c33d7ed3e4f69c3e56a/tumblr_o80parZMmX1v61aw6o1_500.jpg";
+                    break;
+                case 9:
+                    embed.ImageUrl = "https://68.media.tumblr.com/89854b3b3d572aa6380e0e811f8453a8/tumblr_okkhgbxPQ31vwt3qvo1_500.jpg";
+                    break;
+                case 10:
+                    embed.ImageUrl = "https://68.media.tumblr.com/bdb7ad6e1b981ef67310402b0a107f8f/tumblr_o2ugsiwXDB1uwflhdo1_500.jpg";
+                    break;
 
+            }
+            Program.SendEmbed(Context.Message as IUserMessage, embed);
+        }
+        [Command("guild")]
+        public async Task guild()
+        {
+            int Members = 0;
+            int Bots = 0;
+            int MembersOnline = 0;
+            int BotsOnline = 0;
+            IGuildUser Owner = await Context.Guild.GetOwnerAsync();
+            foreach (var User in await Context.Guild.GetUsersAsync())
+            {
+                if (User.IsBot)
+                {
+                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
+                    {
+                        BotsOnline++;
+                    }
+                    else
+                    {
+                        Bots++;
+                    }
+                }
+                else
+                {
+                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
+                    {
+                        MembersOnline++;
+                    }
+                    else
+                    {
+                        Members++;
+                    }
+                }
+            }
+            int TextChan = 0;
+            int VoiceChan = 0;
+            foreach (var emoji in Context.Guild.Emojis)
+            {
+                Console.WriteLine(emoji.Name);
+            }
+            foreach (var Channel in await Context.Guild.GetChannelsAsync())
+            {
+                if (Channel is ITextChannel)
+                {
+                    TextChan++;
+                }
+                else
+                {
+                    VoiceChan++;
+                }
+            }
+            var embed = new EmbedBuilder()
+            {
+                Author = new EmbedAuthorBuilder()
+                {
+                    Name = $"{Context.Guild.Name}"
+                },
+                ThumbnailUrl = Context.Guild.IconUrl,
+                Color = Program.FavoriteColor,
+                Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <Region {Context.Guild.VoiceRegionId}>```",
+                Footer = new EmbedFooterBuilder()
+                {
+                    Text = $"Created {Context.Guild.CreatedAt.Date.Day} {Context.Guild.CreatedAt.Date.DayOfWeek} {Context.Guild.CreatedAt.Year}"
+                }
+            };
+            Program.SendEmbed(Context.Message as IUserMessage, embed);
+        }
         [Command("ping")]
         public async Task ping(string IP = "")
         {
@@ -498,8 +605,21 @@ namespace Discore_Selfbot
         [Command("lenny")]
         public async Task lenny()
         {
-            Program.SendMessage(Context.Message, "( ͡° ͜ʖ ͡°)");
+            var CommandMessage = Context.Message as IUserMessage;
+            if (Properties.Settings.Default.SendAction == "Edit")
+            {
+                await CommandMessage.ModifyAsync(x =>
+                {
+                    x.Content = "( ͡° ͜ʖ ͡°)";
+                });
+            }
+            else
+            {
+                await CommandMessage.DeleteAsync();
+                await Context.Channel.SendMessageAsync("( ͡° ͜ʖ ͡°)");
+            }
         }
+
         [Command("lewd")]
         public async Task lewd([Remainder] string Text)
         {
