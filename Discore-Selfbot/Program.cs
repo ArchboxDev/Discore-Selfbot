@@ -268,7 +268,7 @@ namespace Discore_Selfbot
         {
             var Channel = CommandMessage.Channel as ITextChannel;
             var GuildUser = CommandMessage.Author as IGuildUser;
-            if (GuildUser.GetPermissions(Channel as ITextChannel).EmbedLinks)
+            if (GuildUser.GetPermissions(Channel as ITextChannel).EmbedLinks || GuildUser.GuildPermissions.EmbedLinks)
             {
                 if (Properties.Settings.Default.SendAction == "Edit")
                 {

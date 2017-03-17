@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Discord;
 using System.Net;
 using System.IO;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Discore_Selfbot
 {
@@ -20,14 +21,23 @@ namespace Discore_Selfbot
         public static ulong SelectChannel = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
-
         public GUI()
         {
             InitializeComponent();
         }
+            
+
 
         private void GUI_Load(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.Theme == "Dark")
+            {
+                kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+            }
+            if (Properties.Settings.Default.Theme == "Dark Sparkle")
+            {
+                kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+            }
             if (Program.Ready == false)
             {
                 if (Properties.Settings.Default.AutoForm == "No")
@@ -415,6 +425,27 @@ namespace Discore_Selfbot
                 BtnSendSelected.Text = "Selected" + Environment.NewLine + "No perms";
                 }
             }
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
+            Properties.Settings.Default.Theme = "Default";
+            Properties.Settings.Default.Save();
+        }
+
+        private void kryptonButton2_Click(object sender, EventArgs e)
+        {
+            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+            Properties.Settings.Default.Theme = "Dark";
+            Properties.Settings.Default.Save();
+        }
+
+        private void kryptonButton3_Click(object sender, EventArgs e)
+        {
+            kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+            Properties.Settings.Default.Theme = "Dark Sparkle";
+            Properties.Settings.Default.Save();
         }
     }
 }

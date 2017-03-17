@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("self test");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("self ping");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("self ping (IP)");
@@ -66,6 +67,33 @@
             System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Sekobot");
             System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
             treeNode31});
+            this.StatusActive = new System.Windows.Forms.StatusStrip();
+            this.ATitle = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AGTitle = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AGName = new System.Windows.Forms.ToolStripStatusLabel();
+            this.AGID = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ACTitle = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ChannelLogging = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.OpenFavoriteColor = new System.Windows.Forms.ColorDialog();
+            this.OpenEmbedColor = new System.Windows.Forms.ColorDialog();
+            this.ChannelList = new System.Windows.Forms.ComboBox();
+            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.NavGuild = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
+            this.NavEmbedPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.BtnSendActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.BtnSendSelected = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.EmbedFooter = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.EmbedText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.BtnEmbedColor = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.EmbedTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.NavGuildInfoPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.TextGuildInfo = new System.Windows.Forms.RichTextBox();
+            this.NavRolesPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.TextGuildRoles = new System.Windows.Forms.RichTextBox();
+            this.NavPageEmoji = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.TextGuildEmojis = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.NavInfo = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
             this.NavInfoInfo = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.NavMoreInfo = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
@@ -76,13 +104,15 @@
             this.HyperlinkGuild = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.HyperlinkWebsite = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.HyperlinkGithub = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.NavInfoThemes = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.NavInfoBots = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.TextBotInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.HyperlinkBotInvite = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.HyperlinkBotWebsite = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.ViewBotsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
-            this.NavInfoThemes = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextThemesComingSoon = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.NavInfoSettings = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.BtnAN5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -99,50 +129,9 @@
             this.TitleStartupForm = new System.Windows.Forms.TextBox();
             this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
             this.TitleAutoNicknameTimer = new System.Windows.Forms.TextBox();
+            this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
+            this.Towergame_Communism = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.GuildList = new System.Windows.Forms.ToolStrip();
-            this.StatusActive = new System.Windows.Forms.StatusStrip();
-            this.ATitle = new System.Windows.Forms.ToolStripStatusLabel();
-            this.AGTitle = new System.Windows.Forms.ToolStripStatusLabel();
-            this.AGName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.AGID = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ACTitle = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ACName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ChannelLogging = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.NavGuild = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.NavEmbedPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.BtnSendActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnSendSelected = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.EmbedFooter = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.EmbedText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.kryptonHeader1 = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.BtnEmbedColor = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.EmbedTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.NavGuildInfoPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildInfo = new System.Windows.Forms.RichTextBox();
-            this.NavRolesPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildRoles = new System.Windows.Forms.RichTextBox();
-            this.NavPageEmoji = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildEmojis = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.OpenFavoriteColor = new System.Windows.Forms.ColorDialog();
-            this.OpenEmbedColor = new System.Windows.Forms.ColorDialog();
-            this.ChannelList = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).BeginInit();
-            this.NavInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoInfo)).BeginInit();
-            this.NavInfoInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).BeginInit();
-            this.NavMoreInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).BeginInit();
-            this.NavCommandsPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavChangelogPage)).BeginInit();
-            this.NavChangelogPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).BeginInit();
-            this.NavInfoBots.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).BeginInit();
-            this.NavInfoThemes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).BeginInit();
-            this.NavInfoSettings.SuspendLayout();
             this.StatusActive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).BeginInit();
             this.NavGuild.SuspendLayout();
@@ -154,7 +143,267 @@
             this.NavRolesPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NavPageEmoji)).BeginInit();
             this.NavPageEmoji.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).BeginInit();
+            this.NavInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoInfo)).BeginInit();
+            this.NavInfoInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).BeginInit();
+            this.NavMoreInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).BeginInit();
+            this.NavCommandsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavChangelogPage)).BeginInit();
+            this.NavChangelogPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).BeginInit();
+            this.NavInfoThemes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).BeginInit();
+            this.NavInfoBots.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).BeginInit();
+            this.NavInfoSettings.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // StatusActive
+            // 
+            this.StatusActive.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ATitle,
+            this.AGTitle,
+            this.AGName,
+            this.AGID,
+            this.ACTitle,
+            this.ACName,
+            this.ACID});
+            this.StatusActive.Location = new System.Drawing.Point(0, 439);
+            this.StatusActive.Name = "StatusActive";
+            this.StatusActive.Size = new System.Drawing.Size(484, 22);
+            this.StatusActive.TabIndex = 18;
+            this.StatusActive.Text = "Active";
+            // 
+            // ATitle
+            // 
+            this.ATitle.ForeColor = System.Drawing.Color.Green;
+            this.ATitle.Name = "ATitle";
+            this.ATitle.Size = new System.Drawing.Size(40, 17);
+            this.ATitle.Text = "Active";
+            // 
+            // AGTitle
+            // 
+            this.AGTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.AGTitle.Name = "AGTitle";
+            this.AGTitle.Size = new System.Drawing.Size(19, 17);
+            this.AGTitle.Text = "G:";
+            // 
+            // AGName
+            // 
+            this.AGName.Name = "AGName";
+            this.AGName.Size = new System.Drawing.Size(35, 17);
+            this.AGName.Text = "Guild";
+            // 
+            // AGID
+            // 
+            this.AGID.Name = "AGID";
+            this.AGID.Size = new System.Drawing.Size(33, 17);
+            this.AGID.Text = "(420)";
+            // 
+            // ACTitle
+            // 
+            this.ACTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.ACTitle.Name = "ACTitle";
+            this.ACTitle.Size = new System.Drawing.Size(17, 17);
+            this.ACTitle.Text = "C:";
+            // 
+            // ACName
+            // 
+            this.ACName.Name = "ACName";
+            this.ACName.Size = new System.Drawing.Size(51, 17);
+            this.ACName.Text = "Channel";
+            // 
+            // ACID
+            // 
+            this.ACID.Name = "ACID";
+            this.ACID.Size = new System.Drawing.Size(27, 17);
+            this.ACID.Text = "(69)";
+            // 
+            // ChannelLogging
+            // 
+            this.ChannelLogging.Location = new System.Drawing.Point(12, 73);
+            this.ChannelLogging.Multiline = true;
+            this.ChannelLogging.Name = "ChannelLogging";
+            this.ChannelLogging.ReadOnly = true;
+            this.ChannelLogging.Size = new System.Drawing.Size(220, 180);
+            this.ChannelLogging.TabIndex = 20;
+            this.ChannelLogging.Text = "Channel logs comming soon ;)";
+            // 
+            // ChannelList
+            // 
+            this.ChannelList.FormattingEnabled = true;
+            this.ChannelList.Location = new System.Drawing.Point(12, 46);
+            this.ChannelList.Name = "ChannelList";
+            this.ChannelList.Size = new System.Drawing.Size(220, 21);
+            this.ChannelList.TabIndex = 22;
+            this.ChannelList.Visible = false;
+            this.ChannelList.SelectedIndexChanged += new System.EventHandler(this.ChannelList_SelectedIndexChanged);
+            // 
+            // kryptonBorderEdge1
+            // 
+            this.kryptonBorderEdge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonBorderEdge1.Location = new System.Drawing.Point(0, 0);
+            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
+            this.kryptonBorderEdge1.Size = new System.Drawing.Size(484, 461);
+            this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
+            // 
+            // NavGuild
+            // 
+            this.NavGuild.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
+            this.NavGuild.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
+            this.NavGuild.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.NavGuild.Location = new System.Drawing.Point(12, 259);
+            this.NavGuild.Name = "NavGuild";
+            this.NavGuild.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
+            this.NavEmbedPage,
+            this.NavGuildInfoPage,
+            this.NavRolesPage,
+            this.NavPageEmoji});
+            this.NavGuild.SelectedIndex = 0;
+            this.NavGuild.Size = new System.Drawing.Size(220, 176);
+            this.NavGuild.TabIndex = 21;
+            this.NavGuild.Text = "kryptonNavigator1";
+            // 
+            // NavEmbedPage
+            // 
+            this.NavEmbedPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavEmbedPage.Controls.Add(this.BtnSendActive);
+            this.NavEmbedPage.Controls.Add(this.BtnSendSelected);
+            this.NavEmbedPage.Controls.Add(this.EmbedFooter);
+            this.NavEmbedPage.Controls.Add(this.EmbedText);
+            this.NavEmbedPage.Controls.Add(this.BtnEmbedColor);
+            this.NavEmbedPage.Controls.Add(this.EmbedTitle);
+            this.NavEmbedPage.Flags = 65534;
+            this.NavEmbedPage.LastVisibleSet = true;
+            this.NavEmbedPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.NavEmbedPage.Name = "NavEmbedPage";
+            this.NavEmbedPage.Size = new System.Drawing.Size(218, 149);
+            this.NavEmbedPage.Text = "Embed";
+            this.NavEmbedPage.ToolTipTitle = "Page ToolTip";
+            this.NavEmbedPage.UniqueName = "D0784325A0CE45D21CA18507410A4550";
+            // 
+            // BtnSendActive
+            // 
+            this.BtnSendActive.Location = new System.Drawing.Point(118, 90);
+            this.BtnSendActive.Name = "BtnSendActive";
+            this.BtnSendActive.Size = new System.Drawing.Size(97, 56);
+            this.BtnSendActive.TabIndex = 6;
+            this.BtnSendActive.Values.Text = "Active";
+            this.BtnSendActive.Click += new System.EventHandler(this.BtnSendActive_Click);
+            // 
+            // BtnSendSelected
+            // 
+            this.BtnSendSelected.Location = new System.Drawing.Point(3, 90);
+            this.BtnSendSelected.Name = "BtnSendSelected";
+            this.BtnSendSelected.Size = new System.Drawing.Size(97, 56);
+            this.BtnSendSelected.TabIndex = 5;
+            this.BtnSendSelected.Values.Text = "Selected";
+            this.BtnSendSelected.Click += new System.EventHandler(this.BtnSendSelected_Click);
+            // 
+            // EmbedFooter
+            // 
+            this.EmbedFooter.Location = new System.Drawing.Point(3, 61);
+            this.EmbedFooter.Name = "EmbedFooter";
+            this.EmbedFooter.Size = new System.Drawing.Size(156, 23);
+            this.EmbedFooter.TabIndex = 4;
+            this.EmbedFooter.Text = "Footer";
+            // 
+            // EmbedText
+            // 
+            this.EmbedText.Location = new System.Drawing.Point(3, 32);
+            this.EmbedText.Name = "EmbedText";
+            this.EmbedText.Size = new System.Drawing.Size(156, 23);
+            this.EmbedText.TabIndex = 3;
+            this.EmbedText.Text = "Text";
+            // 
+            // BtnEmbedColor
+            // 
+            this.BtnEmbedColor.Location = new System.Drawing.Point(165, 3);
+            this.BtnEmbedColor.Name = "BtnEmbedColor";
+            this.BtnEmbedColor.Size = new System.Drawing.Size(50, 81);
+            this.BtnEmbedColor.TabIndex = 1;
+            this.BtnEmbedColor.Values.Text = "Color";
+            this.BtnEmbedColor.Click += new System.EventHandler(this.BtnEmbedColor_Click);
+            // 
+            // EmbedTitle
+            // 
+            this.EmbedTitle.Location = new System.Drawing.Point(3, 3);
+            this.EmbedTitle.Name = "EmbedTitle";
+            this.EmbedTitle.Size = new System.Drawing.Size(156, 23);
+            this.EmbedTitle.TabIndex = 0;
+            this.EmbedTitle.Text = "Title";
+            // 
+            // NavGuildInfoPage
+            // 
+            this.NavGuildInfoPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavGuildInfoPage.Controls.Add(this.TextGuildInfo);
+            this.NavGuildInfoPage.Flags = 65534;
+            this.NavGuildInfoPage.LastVisibleSet = true;
+            this.NavGuildInfoPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.NavGuildInfoPage.Name = "NavGuildInfoPage";
+            this.NavGuildInfoPage.Size = new System.Drawing.Size(218, 150);
+            this.NavGuildInfoPage.Text = "G Info";
+            this.NavGuildInfoPage.ToolTipTitle = "Page ToolTip";
+            this.NavGuildInfoPage.UniqueName = "15405AE8C3F64B0DFA9BB3419545B5E6";
+            // 
+            // TextGuildInfo
+            // 
+            this.TextGuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextGuildInfo.Location = new System.Drawing.Point(0, 0);
+            this.TextGuildInfo.Name = "TextGuildInfo";
+            this.TextGuildInfo.Size = new System.Drawing.Size(218, 150);
+            this.TextGuildInfo.TabIndex = 0;
+            this.TextGuildInfo.Text = "";
+            // 
+            // NavRolesPage
+            // 
+            this.NavRolesPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavRolesPage.Controls.Add(this.TextGuildRoles);
+            this.NavRolesPage.Flags = 65534;
+            this.NavRolesPage.LastVisibleSet = true;
+            this.NavRolesPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.NavRolesPage.Name = "NavRolesPage";
+            this.NavRolesPage.Size = new System.Drawing.Size(218, 150);
+            this.NavRolesPage.Text = "Roles";
+            this.NavRolesPage.ToolTipTitle = "Page ToolTip";
+            this.NavRolesPage.UniqueName = "21AAC88369604DAAF087F3A82510D49D";
+            // 
+            // TextGuildRoles
+            // 
+            this.TextGuildRoles.BackColor = System.Drawing.Color.Black;
+            this.TextGuildRoles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextGuildRoles.ForeColor = System.Drawing.Color.White;
+            this.TextGuildRoles.Location = new System.Drawing.Point(0, 0);
+            this.TextGuildRoles.Name = "TextGuildRoles";
+            this.TextGuildRoles.Size = new System.Drawing.Size(218, 150);
+            this.TextGuildRoles.TabIndex = 1;
+            this.TextGuildRoles.Text = "";
+            // 
+            // NavPageEmoji
+            // 
+            this.NavPageEmoji.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavPageEmoji.Controls.Add(this.TextGuildEmojis);
+            this.NavPageEmoji.Flags = 65534;
+            this.NavPageEmoji.LastVisibleSet = true;
+            this.NavPageEmoji.MinimumSize = new System.Drawing.Size(50, 50);
+            this.NavPageEmoji.Name = "NavPageEmoji";
+            this.NavPageEmoji.Size = new System.Drawing.Size(218, 150);
+            this.NavPageEmoji.Text = "Emoji";
+            this.NavPageEmoji.ToolTipTitle = "Page ToolTip";
+            this.NavPageEmoji.UniqueName = "14F93E3889E740C4CA8379603DCB6820";
+            // 
+            // TextGuildEmojis
+            // 
+            this.TextGuildEmojis.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextGuildEmojis.Location = new System.Drawing.Point(0, 0);
+            this.TextGuildEmojis.Multiline = true;
+            this.TextGuildEmojis.Name = "TextGuildEmojis";
+            this.TextGuildEmojis.ReadOnly = true;
+            this.TextGuildEmojis.Size = new System.Drawing.Size(218, 150);
+            this.TextGuildEmojis.TabIndex = 0;
             // 
             // NavInfo
             // 
@@ -165,10 +414,10 @@
             this.NavInfo.Name = "NavInfo";
             this.NavInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.NavInfoInfo,
-            this.NavInfoBots,
             this.NavInfoThemes,
+            this.NavInfoBots,
             this.NavInfoSettings});
-            this.NavInfo.SelectedIndex = 0;
+            this.NavInfo.SelectedIndex = 1;
             this.NavInfo.Size = new System.Drawing.Size(234, 396);
             this.NavInfo.TabIndex = 16;
             this.NavInfo.Text = "kryptonNavigator1";
@@ -201,7 +450,7 @@
             this.NavMoreInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.NavCommandsPage,
             this.NavChangelogPage});
-            this.NavMoreInfo.SelectedIndex = 0;
+            this.NavMoreInfo.SelectedIndex = 1;
             this.NavMoreInfo.Size = new System.Drawing.Size(226, 339);
             this.NavMoreInfo.TabIndex = 7;
             this.NavMoreInfo.Text = "kryptonNavigator1";
@@ -214,7 +463,7 @@
             this.NavCommandsPage.LastVisibleSet = true;
             this.NavCommandsPage.MinimumSize = new System.Drawing.Size(50, 50);
             this.NavCommandsPage.Name = "NavCommandsPage";
-            this.NavCommandsPage.Size = new System.Drawing.Size(224, 310);
+            this.NavCommandsPage.Size = new System.Drawing.Size(224, 308);
             this.NavCommandsPage.Text = "Commands";
             this.NavCommandsPage.ToolTipTitle = "Page ToolTip";
             this.NavCommandsPage.UniqueName = "E1FF2C7914C34B417AA8BFF17BFB6E40";
@@ -319,7 +568,7 @@
             treeNode21,
             treeNode22,
             treeNode23});
-            this.ViewCommandsList.Size = new System.Drawing.Size(224, 310);
+            this.ViewCommandsList.Size = new System.Drawing.Size(224, 308);
             this.ViewCommandsList.TabIndex = 1;
             // 
             // NavChangelogPage
@@ -373,6 +622,51 @@
             this.HyperlinkGithub.Values.Text = "Github";
             this.HyperlinkGithub.LinkClicked += new System.EventHandler(this.HyperlinkGithub_LinkClicked);
             // 
+            // NavInfoThemes
+            // 
+            this.NavInfoThemes.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavInfoThemes.Controls.Add(this.kryptonButton3);
+            this.NavInfoThemes.Controls.Add(this.kryptonButton2);
+            this.NavInfoThemes.Controls.Add(this.kryptonButton1);
+            this.NavInfoThemes.Flags = 65534;
+            this.NavInfoThemes.LastVisibleSet = true;
+            this.NavInfoThemes.MinimumSize = new System.Drawing.Size(50, 50);
+            this.NavInfoThemes.Name = "NavInfoThemes";
+            this.NavInfoThemes.Size = new System.Drawing.Size(232, 369);
+            this.NavInfoThemes.Text = "Themes";
+            this.NavInfoThemes.ToolTipTitle = "Page ToolTip";
+            this.NavInfoThemes.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
+            // 
+            // kryptonButton3
+            // 
+            this.kryptonButton3.Location = new System.Drawing.Point(7, 119);
+            this.kryptonButton3.Name = "kryptonButton3";
+            this.kryptonButton3.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue;
+            this.kryptonButton3.Size = new System.Drawing.Size(214, 50);
+            this.kryptonButton3.TabIndex = 2;
+            this.kryptonButton3.Values.Text = "Dark Sparkle";
+            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click);
+            // 
+            // kryptonButton2
+            // 
+            this.kryptonButton2.Location = new System.Drawing.Point(7, 63);
+            this.kryptonButton2.Name = "kryptonButton2";
+            this.kryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.kryptonButton2.Size = new System.Drawing.Size(214, 50);
+            this.kryptonButton2.TabIndex = 1;
+            this.kryptonButton2.Values.Text = "Dark Theme";
+            this.kryptonButton2.Click += new System.EventHandler(this.kryptonButton2_Click);
+            // 
+            // kryptonButton1
+            // 
+            this.kryptonButton1.Location = new System.Drawing.Point(7, 7);
+            this.kryptonButton1.Name = "kryptonButton1";
+            this.kryptonButton1.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
+            this.kryptonButton1.Size = new System.Drawing.Size(214, 50);
+            this.kryptonButton1.TabIndex = 0;
+            this.kryptonButton1.Values.Text = "Default Theme";
+            this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
+            // 
             // NavInfoBots
             // 
             this.NavInfoBots.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -384,7 +678,7 @@
             this.NavInfoBots.LastVisibleSet = true;
             this.NavInfoBots.MinimumSize = new System.Drawing.Size(50, 50);
             this.NavInfoBots.Name = "NavInfoBots";
-            this.NavInfoBots.Size = new System.Drawing.Size(232, 369);
+            this.NavInfoBots.Size = new System.Drawing.Size(232, 370);
             this.NavInfoBots.Text = "Bots";
             this.NavInfoBots.ToolTipTitle = "Page ToolTip";
             this.NavInfoBots.UniqueName = "BB6C782F33E64B9FB49FF924F7F68668";
@@ -449,30 +743,6 @@
             this.ViewBotsList.TabIndex = 1;
             this.ViewBotsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewBotsList_AfterSelect);
             // 
-            // NavInfoThemes
-            // 
-            this.NavInfoThemes.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavInfoThemes.Controls.Add(this.TextThemesComingSoon);
-            this.NavInfoThemes.Flags = 65534;
-            this.NavInfoThemes.LastVisibleSet = true;
-            this.NavInfoThemes.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavInfoThemes.Name = "NavInfoThemes";
-            this.NavInfoThemes.Size = new System.Drawing.Size(232, 369);
-            this.NavInfoThemes.Text = "Themes";
-            this.NavInfoThemes.ToolTipTitle = "Page ToolTip";
-            this.NavInfoThemes.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
-            // 
-            // TextThemesComingSoon
-            // 
-            this.TextThemesComingSoon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextThemesComingSoon.Location = new System.Drawing.Point(0, 0);
-            this.TextThemesComingSoon.Multiline = true;
-            this.TextThemesComingSoon.Name = "TextThemesComingSoon";
-            this.TextThemesComingSoon.ReadOnly = true;
-            this.TextThemesComingSoon.Size = new System.Drawing.Size(232, 369);
-            this.TextThemesComingSoon.TabIndex = 0;
-            this.TextThemesComingSoon.Text = "Themes coming soon ;)";
-            // 
             // NavInfoSettings
             // 
             this.NavInfoSettings.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -495,7 +765,7 @@
             this.NavInfoSettings.LastVisibleSet = true;
             this.NavInfoSettings.MinimumSize = new System.Drawing.Size(50, 50);
             this.NavInfoSettings.Name = "NavInfoSettings";
-            this.NavInfoSettings.Size = new System.Drawing.Size(232, 369);
+            this.NavInfoSettings.Size = new System.Drawing.Size(232, 370);
             this.NavInfoSettings.Text = "Settings";
             this.NavInfoSettings.ToolTipTitle = "Page ToolTip";
             this.NavInfoSettings.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
@@ -540,8 +810,7 @@
             // 
             // BtnFavColor
             // 
-            this.BtnFavColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.BtnFavColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.BtnFavColor.ForeColor = System.Drawing.SystemColors.WindowText;
             this.BtnFavColor.Location = new System.Drawing.Point(72, 173);
             this.BtnFavColor.Name = "BtnFavColor";
             this.BtnFavColor.Size = new System.Drawing.Size(70, 40);
@@ -675,6 +944,11 @@
             this.TitleAutoNicknameTimer.Text = "Auto Nickname Timer";
             this.TitleAutoNicknameTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // Towergame_Communism
+            // 
+            this.Towergame_Communism.AllowFormChrome = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.Towergame_Communism.BasePaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2007Blue;
+            // 
             // GuildList
             // 
             this.GuildList.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
@@ -692,261 +966,6 @@
             this.GuildList.TabIndex = 17;
             this.GuildList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
             // 
-            // StatusActive
-            // 
-            this.StatusActive.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ATitle,
-            this.AGTitle,
-            this.AGName,
-            this.AGID,
-            this.ACTitle,
-            this.ACName,
-            this.ACID});
-            this.StatusActive.Location = new System.Drawing.Point(0, 439);
-            this.StatusActive.Name = "StatusActive";
-            this.StatusActive.Size = new System.Drawing.Size(484, 22);
-            this.StatusActive.TabIndex = 18;
-            this.StatusActive.Text = "Active";
-            // 
-            // ATitle
-            // 
-            this.ATitle.ForeColor = System.Drawing.Color.Green;
-            this.ATitle.Name = "ATitle";
-            this.ATitle.Size = new System.Drawing.Size(40, 17);
-            this.ATitle.Text = "Active";
-            // 
-            // AGTitle
-            // 
-            this.AGTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.AGTitle.Name = "AGTitle";
-            this.AGTitle.Size = new System.Drawing.Size(19, 17);
-            this.AGTitle.Text = "G:";
-            // 
-            // AGName
-            // 
-            this.AGName.Name = "AGName";
-            this.AGName.Size = new System.Drawing.Size(35, 17);
-            this.AGName.Text = "Guild";
-            // 
-            // AGID
-            // 
-            this.AGID.Name = "AGID";
-            this.AGID.Size = new System.Drawing.Size(33, 17);
-            this.AGID.Text = "(420)";
-            // 
-            // ACTitle
-            // 
-            this.ACTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.ACTitle.Name = "ACTitle";
-            this.ACTitle.Size = new System.Drawing.Size(17, 17);
-            this.ACTitle.Text = "C:";
-            // 
-            // ACName
-            // 
-            this.ACName.Name = "ACName";
-            this.ACName.Size = new System.Drawing.Size(51, 17);
-            this.ACName.Text = "Channel";
-            // 
-            // ACID
-            // 
-            this.ACID.Name = "ACID";
-            this.ACID.Size = new System.Drawing.Size(27, 17);
-            this.ACID.Text = "(69)";
-            // 
-            // ChannelLogging
-            // 
-            this.ChannelLogging.Location = new System.Drawing.Point(12, 73);
-            this.ChannelLogging.Multiline = true;
-            this.ChannelLogging.Name = "ChannelLogging";
-            this.ChannelLogging.ReadOnly = true;
-            this.ChannelLogging.Size = new System.Drawing.Size(220, 180);
-            this.ChannelLogging.TabIndex = 20;
-            this.ChannelLogging.Text = "Channel logs comming soon ;)";
-            // 
-            // NavGuild
-            // 
-            this.NavGuild.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
-            this.NavGuild.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
-            this.NavGuild.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
-            this.NavGuild.Location = new System.Drawing.Point(12, 259);
-            this.NavGuild.Name = "NavGuild";
-            this.NavGuild.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
-            this.NavEmbedPage,
-            this.NavGuildInfoPage,
-            this.NavRolesPage,
-            this.NavPageEmoji});
-            this.NavGuild.SelectedIndex = 0;
-            this.NavGuild.Size = new System.Drawing.Size(220, 176);
-            this.NavGuild.TabIndex = 21;
-            this.NavGuild.Text = "kryptonNavigator1";
-            // 
-            // NavEmbedPage
-            // 
-            this.NavEmbedPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavEmbedPage.Controls.Add(this.BtnSendActive);
-            this.NavEmbedPage.Controls.Add(this.BtnSendSelected);
-            this.NavEmbedPage.Controls.Add(this.EmbedFooter);
-            this.NavEmbedPage.Controls.Add(this.EmbedText);
-            this.NavEmbedPage.Controls.Add(this.kryptonHeader1);
-            this.NavEmbedPage.Controls.Add(this.BtnEmbedColor);
-            this.NavEmbedPage.Controls.Add(this.EmbedTitle);
-            this.NavEmbedPage.Flags = 65534;
-            this.NavEmbedPage.LastVisibleSet = true;
-            this.NavEmbedPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavEmbedPage.Name = "NavEmbedPage";
-            this.NavEmbedPage.Size = new System.Drawing.Size(218, 149);
-            this.NavEmbedPage.Text = "Embed";
-            this.NavEmbedPage.ToolTipTitle = "Page ToolTip";
-            this.NavEmbedPage.UniqueName = "D0784325A0CE45D21CA18507410A4550";
-            // 
-            // BtnSendActive
-            // 
-            this.BtnSendActive.Location = new System.Drawing.Point(118, 118);
-            this.BtnSendActive.Name = "BtnSendActive";
-            this.BtnSendActive.Size = new System.Drawing.Size(97, 28);
-            this.BtnSendActive.TabIndex = 6;
-            this.BtnSendActive.Values.Text = "Active";
-            this.BtnSendActive.Click += new System.EventHandler(this.BtnSendActive_Click);
-            // 
-            // BtnSendSelected
-            // 
-            this.BtnSendSelected.Location = new System.Drawing.Point(3, 118);
-            this.BtnSendSelected.Name = "BtnSendSelected";
-            this.BtnSendSelected.Size = new System.Drawing.Size(97, 28);
-            this.BtnSendSelected.TabIndex = 5;
-            this.BtnSendSelected.Values.Text = "Selected";
-            this.BtnSendSelected.Click += new System.EventHandler(this.BtnSendSelected_Click);
-            // 
-            // EmbedFooter
-            // 
-            this.EmbedFooter.Location = new System.Drawing.Point(3, 61);
-            this.EmbedFooter.Name = "EmbedFooter";
-            this.EmbedFooter.Size = new System.Drawing.Size(156, 23);
-            this.EmbedFooter.TabIndex = 4;
-            this.EmbedFooter.Text = "Footer";
-            // 
-            // EmbedText
-            // 
-            this.EmbedText.Location = new System.Drawing.Point(3, 32);
-            this.EmbedText.Name = "EmbedText";
-            this.EmbedText.Size = new System.Drawing.Size(156, 23);
-            this.EmbedText.TabIndex = 3;
-            this.EmbedText.Text = "Text";
-            // 
-            // kryptonHeader1
-            // 
-            this.kryptonHeader1.AutoSize = false;
-            this.kryptonHeader1.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.kryptonHeader1.Location = new System.Drawing.Point(3, 90);
-            this.kryptonHeader1.Name = "kryptonHeader1";
-            this.kryptonHeader1.Size = new System.Drawing.Size(212, 22);
-            this.kryptonHeader1.StateCommon.Content.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonHeader1.StateCommon.Content.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonHeader1.StateCommon.Content.LongText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonHeader1.StateCommon.Content.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonHeader1.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonHeader1.StateCommon.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonHeader1.TabIndex = 2;
-            this.kryptonHeader1.Values.Description = "";
-            this.kryptonHeader1.Values.Heading = "Send To";
-            this.kryptonHeader1.Values.Image = null;
-            // 
-            // BtnEmbedColor
-            // 
-            this.BtnEmbedColor.Location = new System.Drawing.Point(165, 3);
-            this.BtnEmbedColor.Name = "BtnEmbedColor";
-            this.BtnEmbedColor.Size = new System.Drawing.Size(50, 81);
-            this.BtnEmbedColor.TabIndex = 1;
-            this.BtnEmbedColor.Values.Text = "Color";
-            this.BtnEmbedColor.Click += new System.EventHandler(this.BtnEmbedColor_Click);
-            // 
-            // EmbedTitle
-            // 
-            this.EmbedTitle.Location = new System.Drawing.Point(3, 3);
-            this.EmbedTitle.Name = "EmbedTitle";
-            this.EmbedTitle.Size = new System.Drawing.Size(156, 23);
-            this.EmbedTitle.TabIndex = 0;
-            this.EmbedTitle.Text = "Title";
-            // 
-            // NavGuildInfoPage
-            // 
-            this.NavGuildInfoPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavGuildInfoPage.Controls.Add(this.TextGuildInfo);
-            this.NavGuildInfoPage.Flags = 65534;
-            this.NavGuildInfoPage.LastVisibleSet = true;
-            this.NavGuildInfoPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavGuildInfoPage.Name = "NavGuildInfoPage";
-            this.NavGuildInfoPage.Size = new System.Drawing.Size(218, 149);
-            this.NavGuildInfoPage.Text = "G Info";
-            this.NavGuildInfoPage.ToolTipTitle = "Page ToolTip";
-            this.NavGuildInfoPage.UniqueName = "15405AE8C3F64B0DFA9BB3419545B5E6";
-            // 
-            // TextGuildInfo
-            // 
-            this.TextGuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildInfo.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildInfo.Name = "TextGuildInfo";
-            this.TextGuildInfo.Size = new System.Drawing.Size(218, 149);
-            this.TextGuildInfo.TabIndex = 0;
-            this.TextGuildInfo.Text = "";
-            // 
-            // NavRolesPage
-            // 
-            this.NavRolesPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavRolesPage.Controls.Add(this.TextGuildRoles);
-            this.NavRolesPage.Flags = 65534;
-            this.NavRolesPage.LastVisibleSet = true;
-            this.NavRolesPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavRolesPage.Name = "NavRolesPage";
-            this.NavRolesPage.Size = new System.Drawing.Size(218, 149);
-            this.NavRolesPage.Text = "Roles";
-            this.NavRolesPage.ToolTipTitle = "Page ToolTip";
-            this.NavRolesPage.UniqueName = "21AAC88369604DAAF087F3A82510D49D";
-            // 
-            // TextGuildRoles
-            // 
-            this.TextGuildRoles.BackColor = System.Drawing.Color.Black;
-            this.TextGuildRoles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildRoles.ForeColor = System.Drawing.Color.White;
-            this.TextGuildRoles.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildRoles.Name = "TextGuildRoles";
-            this.TextGuildRoles.Size = new System.Drawing.Size(218, 149);
-            this.TextGuildRoles.TabIndex = 1;
-            this.TextGuildRoles.Text = "";
-            // 
-            // NavPageEmoji
-            // 
-            this.NavPageEmoji.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavPageEmoji.Controls.Add(this.TextGuildEmojis);
-            this.NavPageEmoji.Flags = 65534;
-            this.NavPageEmoji.LastVisibleSet = true;
-            this.NavPageEmoji.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavPageEmoji.Name = "NavPageEmoji";
-            this.NavPageEmoji.Size = new System.Drawing.Size(218, 149);
-            this.NavPageEmoji.Text = "Emoji";
-            this.NavPageEmoji.ToolTipTitle = "Page ToolTip";
-            this.NavPageEmoji.UniqueName = "14F93E3889E740C4CA8379603DCB6820";
-            // 
-            // TextGuildEmojis
-            // 
-            this.TextGuildEmojis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildEmojis.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildEmojis.Multiline = true;
-            this.TextGuildEmojis.Name = "TextGuildEmojis";
-            this.TextGuildEmojis.ReadOnly = true;
-            this.TextGuildEmojis.Size = new System.Drawing.Size(218, 149);
-            this.TextGuildEmojis.TabIndex = 0;
-            // 
-            // ChannelList
-            // 
-            this.ChannelList.FormattingEnabled = true;
-            this.ChannelList.Location = new System.Drawing.Point(12, 46);
-            this.ChannelList.Name = "ChannelList";
-            this.ChannelList.Size = new System.Drawing.Size(220, 21);
-            this.ChannelList.TabIndex = 22;
-            this.ChannelList.Visible = false;
-            this.ChannelList.SelectedIndexChanged += new System.EventHandler(this.ChannelList_SelectedIndexChanged);
-            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -958,30 +977,10 @@
             this.Controls.Add(this.StatusActive);
             this.Controls.Add(this.GuildList);
             this.Controls.Add(this.NavInfo);
+            this.Controls.Add(this.kryptonBorderEdge1);
             this.Name = "GUI";
             this.Text = "GUI";
             this.Load += new System.EventHandler(this.GUI_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).EndInit();
-            this.NavInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoInfo)).EndInit();
-            this.NavInfoInfo.ResumeLayout(false);
-            this.NavInfoInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).EndInit();
-            this.NavMoreInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).EndInit();
-            this.NavCommandsPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavChangelogPage)).EndInit();
-            this.NavChangelogPage.ResumeLayout(false);
-            this.NavChangelogPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).EndInit();
-            this.NavInfoBots.ResumeLayout(false);
-            this.NavInfoBots.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).EndInit();
-            this.NavInfoThemes.ResumeLayout(false);
-            this.NavInfoThemes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).EndInit();
-            this.NavInfoSettings.ResumeLayout(false);
-            this.NavInfoSettings.PerformLayout();
             this.StatusActive.ResumeLayout(false);
             this.StatusActive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).EndInit();
@@ -996,6 +995,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.NavPageEmoji)).EndInit();
             this.NavPageEmoji.ResumeLayout(false);
             this.NavPageEmoji.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).EndInit();
+            this.NavInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoInfo)).EndInit();
+            this.NavInfoInfo.ResumeLayout(false);
+            this.NavInfoInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).EndInit();
+            this.NavMoreInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).EndInit();
+            this.NavCommandsPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NavChangelogPage)).EndInit();
+            this.NavChangelogPage.ResumeLayout(false);
+            this.NavChangelogPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).EndInit();
+            this.NavInfoThemes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).EndInit();
+            this.NavInfoBots.ResumeLayout(false);
+            this.NavInfoBots.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).EndInit();
+            this.NavInfoSettings.ResumeLayout(false);
+            this.NavInfoSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1025,7 +1044,6 @@
         private ComponentFactory.Krypton.Navigator.KryptonPage NavPageEmoji;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedFooter;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedText;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader kryptonHeader1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnEmbedColor;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedTitle;
         private System.Windows.Forms.RichTextBox TextGuildInfo;
@@ -1060,9 +1078,14 @@
         internal System.Windows.Forms.TextBox TitleAutoNicknameTimer;
         private System.Windows.Forms.ColorDialog OpenFavoriteColor;
         private System.Windows.Forms.ColorDialog OpenEmbedColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox TextThemesComingSoon;
         public ComponentFactory.Krypton.Toolkit.KryptonButton BtnSendActive;
         public ComponentFactory.Krypton.Toolkit.KryptonButton BtnSendSelected;
         public System.Windows.Forms.ComboBox ChannelList;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
+        private ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonPalette Towergame_Communism;
     }
 }
