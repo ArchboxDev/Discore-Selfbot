@@ -38,13 +38,6 @@ namespace Discore_Selfbot
             {
                 kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
-            if (Program.Ready == false)
-            {
-                if (Properties.Settings.Default.AutoForm == "No")
-                {
-                    return;
-                }
-            }
             WebClient WBC = new WebClient();
             Program.Guilds.Clear();
             Program.GuildsID.Clear();

@@ -96,8 +96,13 @@ namespace Discore_Selfbot
         {
             GUI.CheckForIllegalCrossThreadCalls = false;
             MyForm = new GUI();
-            if (Properties.Settings.Default.AutoForm != "No")
+            if (Properties.Settings.Default.AutoForm == "No")
             {
+                if (Ready == false)
+                {
+                    return;
+                }
+            }
                 if (Ready == false)
                 {
                     Console.WriteLine("Opening GUI");
@@ -106,7 +111,6 @@ namespace Discore_Selfbot
                     {
                         MyForm.ShowDialog();
                     });
-            }
         }
 
         public async Task RunBot()
@@ -210,10 +214,11 @@ namespace Discore_Selfbot
             };
             client.Connected += () =>
             {
-                Console.Title = "Discore - Selfbot - Online!!";
-                Console.WriteLine("CONNECTED!");
                 CurrentUserName = client.CurrentUser.Username;
                 CurrentUserID = client.CurrentUser.Id;
+                Console.Title = "Discore - Selfbot - Online!!";
+                Console.WriteLine("CONNECTED!");
+                
                 if (File.Exists("avatar.png"))
                 {
                     File.Delete("avatar.png");
@@ -429,7 +434,7 @@ namespace Discore_Selfbot
         [Command("test")]
         public async Task test()
         {
-            Program.SendMessage(Context.Message as IUserMessage, "Hi " + Program.CurrentUserName);
+            Program.SendMessage(Context.Message as IUserMessage, $"Hi {Program.CurrentUserName}");
         }
         [Command("neko")]
         public async Task neko()
