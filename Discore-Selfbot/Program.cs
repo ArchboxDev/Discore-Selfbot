@@ -122,6 +122,7 @@ namespace Discore_Selfbot
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             int GuildsCount = 0;
             RunOnce = 0;
+            Console.WriteLine(GUI.EmbedColor.R);
             client.GuildAvailable += (g) =>
             {
                 if (!Guilds.Contains(g.Name))
@@ -392,6 +393,14 @@ namespace Discore_Selfbot
         {
             var RandomValue = Program.RandomGenerator.Next(1, 11);
             var embed = new EmbedBuilder();
+            if (GUI.EmbedColor.RawValue == 0)
+            {
+                embed.Color = Program.FavoriteColor;
+            }
+            else
+            {
+                embed.Color = GUI.EmbedColor;
+            }
             switch (RandomValue)
             {
                 case 1:
@@ -485,15 +494,23 @@ namespace Discore_Selfbot
                     Name = $"{Context.Guild.Name}"
                 },
                 ThumbnailUrl = Context.Guild.IconUrl,
-                Color = Program.FavoriteColor,
                 Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <Region {Context.Guild.VoiceRegionId}>```",
                 Footer = new EmbedFooterBuilder()
                 {
                     Text = $"Created {Context.Guild.CreatedAt.Date.Day} {Context.Guild.CreatedAt.Date.DayOfWeek} {Context.Guild.CreatedAt.Year}"
                 }
             };
+            if (GUI.EmbedColor.RawValue == 0)
+            {
+                embed.Color = Program.FavoriteColor;
+            }
+            else
+            {
+                embed.Color = GUI.EmbedColor;
+            }
             Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
+
         [Command("ping")]
         public async Task ping(string IP = "")
         {
@@ -509,11 +526,13 @@ namespace Discore_Selfbot
                 Program.SendMessage(Context.Message as IUserMessage, $"PONG > {IP}: {Ping.RoundtripTime} MS");
             }
         }
+
         [Command("uptime")]
         public async Task uptime()
         {
             Program.SendMessage(Context.Message, $"Running for {Program.Uptime} minutes");
         }
+
         [Command("info")]
         public async Task info()
         {
@@ -526,9 +545,16 @@ namespace Discore_Selfbot
                     IconUrl = Context.Client.CurrentUser.GetAvatarUrl(),
                     Url = Context.Client.CurrentUser.GetAvatarUrl()
                 },
-                Color = Program.FavoriteColor,
                 Description = $"```md" + Environment.NewLine + $"<Guilds {Guilds.Count()}> <Created {Context.Client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {Context.Client.CurrentUser.Id}>" + Environment.NewLine + $"<SelfbotUptime {Program.Uptime} minutes>```",
             };
+            if (GUI.EmbedColor.RawValue == 0)
+            {
+                embed.Color = Program.FavoriteColor;
+            }
+            else
+            {
+                embed.Color = GUI.EmbedColor;
+            }
             Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
@@ -575,16 +601,14 @@ namespace Discore_Selfbot
             var embed = new EmbedBuilder()
             {
                 Description = Text,
-                
             };
-            if (GUI.EmbedColor.RawValue != 0)
+            if (GUI.EmbedColor.RawValue == 0)
             {
-                embed.Color = GUI.EmbedColor;
+                embed.Color = Program.FavoriteColor;
             }
             else
             {
-                var DColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
-                embed.Color = DColor;
+                embed.Color = GUI.EmbedColor;
             }
             Program.SendEmbed(Context.Message, embed);
         }
@@ -596,9 +620,16 @@ namespace Discore_Selfbot
             var embed = new EmbedBuilder()
             {
                 Title = "Discore Selfbot Info",
-                Color = Program.FavoriteColor,
                 Description = $"Selfbot made by xXBuilderBXx#9113 [Github](https://github.com/ArchboxDev/Discore-Selfbot)",
             };
+            if (GUI.EmbedColor.RawValue == 0)
+            {
+                embed.Color = Program.FavoriteColor;
+            }
+            else
+            {
+                embed.Color = GUI.EmbedColor;
+            }
             Program.SendEmbed(Context.Message, embed);
         }
 
@@ -683,10 +714,17 @@ namespace Discore_Selfbot
                         Name = $"{GuildUser.Username}#{GuildUser.Discriminator}",
                         IconUrl = GuildUser.GetAvatarUrl()
                     },
-                    Color = Program.FavoriteColor,
                     Description = $"{GuildUser.Mention} - {GuildUser.Id}" + Environment.NewLine + $"Created {GuildUser.CreatedAt.Date.ToShortDateString()} | Joined Guild {GuildUser.JoinedAt.Value.Date.ToShortDateString()}" + Environment.NewLine + $"I am in {Count} Guilds with {Context.Message.Author.Username}",
                     Url = GuildUser.GetAvatarUrl()
                 };
+                if (GUI.EmbedColor.RawValue == 0)
+                {
+                    embed.Color = Program.FavoriteColor;
+                }
+                else
+                {
+                    embed.Color = GUI.EmbedColor;
+                }
                 Program.SendEmbed(Context.Message, embed);
             }
             catch
@@ -745,11 +783,18 @@ namespace Discore_Selfbot
                     var embed = new EmbedBuilder()
                     {
                         Title = $"Selfbot Tag | {Tag}",
-                        Color = Program.FavoriteColor,
                         Description = $"{TagMention} {TagAuthor}" + Environment.NewLine + TagContent,
                         ThumbnailUrl = TagThumbnail,
                         Url = TagThumbnail
                     };
+                    if (GUI.EmbedColor.RawValue == 0)
+                    {
+                        embed.Color = Program.FavoriteColor;
+                    }
+                    else
+                    {
+                        embed.Color = GUI.EmbedColor;
+                    }
                     Program.SendEmbed(Context.Message, embed);
                 }
                 else
