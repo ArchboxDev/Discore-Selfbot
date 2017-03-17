@@ -158,6 +158,8 @@ namespace Discore_Selfbot
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
                 EmbedColor = new Discord.Color(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
+                TextEmbedColor.Visible = true;
+                TextEmbedColor.BackColor = colorDialog1.Color;
                 BtnEmbedColor.ForeColor = colorDialog1.Color;
                 
             }
@@ -165,6 +167,7 @@ namespace Discore_Selfbot
             {
                 EmbedColor = new Discord.Color();
                 BtnEmbedColor.ForeColor = System.Drawing.SystemColors.ControlText;
+                TextEmbedColor.Visible = false;
             }
         }
 

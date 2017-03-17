@@ -500,8 +500,6 @@ namespace Discore_Selfbot
         {
             Program.SendMessage(Context.Message, "( ͡° ͜ʖ ͡°)");
         }
-
-
         [Command("lewd")]
         public async Task lewd([Remainder] string Text)
         {
@@ -598,7 +596,7 @@ namespace Discore_Selfbot
         }
 
         [Command("tag")]
-        public async Task tag(string Tag) 
+        public async Task tag([Remainder] string Tag) 
         {
             var GuildUser = Context.Message.Author as IGuildUser;
             bool AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
@@ -717,7 +715,7 @@ namespace Discore_Selfbot
         }
 
         [Command("deltag")]
-        public async Task deltag(string Tag)
+        public async Task deltag([Remainder] string Tag)
         {
             if (Tag.Contains("-thumbnail"))
             {
@@ -773,7 +771,7 @@ namespace Discore_Selfbot
         }
 
         [Command("an add")]
-        public async Task anadd([Remainder]string Nickname)
+        public async Task anadd([Remainder] string Nickname)
         {
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
