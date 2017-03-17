@@ -126,11 +126,20 @@
   <metadata name="OpenEmbedColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>141, 19</value>
   </metadata>
+  <data name="TextChangelog.Text" xml:space="preserve">
+    <value>Fixed a bunch of stuff,  tested all commands and added TotalUptime and TotalRuns on self uptime 
+
+Added more commands uptime/guild/neko
+
+Fixed showing embed color and favorite color
+
+Custom themes added
+
+Major overhaul of the GUI
+</value>
+  </data>
   <metadata name="kryptonManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>546, 11</value>
-  </metadata>
-  <metadata name="Towergame_Communism.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>695, 11</value>
   </metadata>
   <metadata name="GuildList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

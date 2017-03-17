@@ -316,7 +316,7 @@ namespace Discore_Selfbot
             }
             if (e.Node.Name == "Sekoboto")
             {
-                TextBotInfo.Text = "Currently down and also the website so i cannot add :P";
+                TextBotInfo.Text = "A cool bot with random and usefull commands it also her per guild/channel configs";
                 HyperlinkBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
                 HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
                 HyperlinkBotWebsite.Visible = true;

@@ -45,6 +45,7 @@ namespace Discore_Selfbot
         public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
         static void Main()
         {
+            Properties.Settings.Default.TotalRuns++;
             Console.ForegroundColor = ConsoleColor.White;
             if (Properties.Settings.Default.ANGuildsList == null)
             {
@@ -141,38 +142,37 @@ namespace Discore_Selfbot
                 }
                 if (GuildsCount == client.Guilds.Count())
                 {
-                    Ready = true;
-                    
-                    AutoNickname_Timer.Interval = 60000;
-                    if (Properties.Settings.Default.ANTimer == "5")
+                    if (Ready == false)
                     {
-                        AutoNickname_Timer.Interval = 300000;
+                        Ready = true;
+                        AutoNickname_Timer.Interval = 60000;
+                        if (Properties.Settings.Default.ANTimer == "5")
+                        {
+                            AutoNickname_Timer.Interval = 300000;
+                        }
+                        if (Properties.Settings.Default.ANTimer == "10")
+                        {
+                            AutoNickname_Timer.Interval = 600000;
+                        }
+                        AutoNickname_Timer.Elapsed += Timer;
+                        AutoNickname_Timer.Start();
+                        if (client.CurrentUser.Id == 190590364871032834)
+                        {
+                            Console.WriteLine("Hi master");
+                        }
+                        if (client.CurrentUser.Id == 213621714909659136)
+                        {
+                            Console.WriteLine("Bubbie's butt is bubbly");
+                        }
+                        if (client.CurrentUser.Id == 155490847494897664 || client.CurrentUser.Id == 107827535479353344)
+                        {
+                            Console.WriteLine("Julia + Novus <3");
+                        }
+                        if (client.CurrentUser.Id == 213627387206828032)
+                        {
+                            Console.WriteLine("Towergay");
+                        }
                     }
-                    if (Properties.Settings.Default.ANTimer == "10")
-                    {
-                        AutoNickname_Timer.Interval = 600000;
-                    }
-                    AutoNickname_Timer.Elapsed += Timer;
-                    AutoNickname_Timer.Start();
-
-                    
-                    if (client.CurrentUser.Id == 190590364871032834)
-                    {
-                        Console.WriteLine("Hi master");
-                    }
-                    if (client.CurrentUser.Id == 213621714909659136)
-                    {
-                        Console.WriteLine("Bubbie's butt is bubbly");
-                    }
-                    if (client.CurrentUser.Id == 155490847494897664 || client.CurrentUser.Id == 107827535479353344)
-                    {
-                        Console.WriteLine("Julia + Novus <3");
-                    }
-                    if (client.CurrentUser.Id == 213627387206828032)
-                    {
-                        Console.WriteLine("Towergay");
-                    }
-
                 }
                 return Task.CompletedTask;
             };
@@ -250,7 +250,9 @@ namespace Discore_Selfbot
         }
         public async static void SendMessage(IUserMessage CommandMessage, [Remainder] string Message)
         {
-            var Channel = CommandMessage.Channel as ITextChannel;
+            if (CommandMessage.Channel is IPrivateChannel)
+            {
+                var Channel = CommandMessage.Channel as IDMChannel;
                 if (Properties.Settings.Default.SendAction == "Edit")
                 {
                     await CommandMessage.ModifyAsync(x =>
@@ -263,35 +265,74 @@ namespace Discore_Selfbot
                     await CommandMessage.DeleteAsync();
                     await Channel.SendMessageAsync($"`Selfbot | {Message}`");
                 }
-        }
-        public async static void SendEmbed(IUserMessage CommandMessage, Embed Embed)
-        {
-            var Channel = CommandMessage.Channel as ITextChannel;
-            var GuildUser = CommandMessage.Author as IGuildUser;
-            if (GuildUser.GetPermissions(Channel as ITextChannel).EmbedLinks || GuildUser.GuildPermissions.EmbedLinks)
+            }
+            else
             {
+                var Channel = CommandMessage.Channel as ITextChannel;
                 if (Properties.Settings.Default.SendAction == "Edit")
                 {
                     await CommandMessage.ModifyAsync(x =>
                     {
-                        x.Content = "";
-                        x.Embed = Embed;
+                        x.Content = $"`Selfbot | {Message}`";
                     });
                 }
                 else
                 {
                     await CommandMessage.DeleteAsync();
-                    await Channel.SendMessageAsync("", false, Embed);
+                    await Channel.SendMessageAsync($"`Selfbot | {Message}`");
                 }
+            }
+        }
+        public async static void SendEmbed(IUserMessage CommandMessage, Embed Embed)
+        {
+            if (CommandMessage.Channel is IPrivateChannel)
+            {
+                var Channel = CommandMessage.Channel as IDMChannel;
+                    if (Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await CommandMessage.ModifyAsync(x =>
+                        {
+                            x.Content = " ";
+                            x.Embed = Embed;
+                        });
+                    }
+                    else
+                    {
+                        await CommandMessage.DeleteAsync();
+                        await Channel.SendMessageAsync("", false, Embed);
+                    }
             }
             else
             {
-                Program.SendMessage(CommandMessage, "No embed perms");
+                var Channel = CommandMessage.Channel as ITextChannel;
+                IGuildUser GuildUser = CommandMessage.Author as IGuildUser;
+                if (GuildUser.GetPermissions(Channel as ITextChannel).EmbedLinks || GuildUser.GuildPermissions.EmbedLinks)
+                {
+                    if (Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await CommandMessage.ModifyAsync(x =>
+                        {
+                            x.Content = " ";
+                            x.Embed = Embed;
+                        });
+                    }
+                    else
+                    {
+                        await CommandMessage.DeleteAsync();
+                        await Channel.SendMessageAsync("", false, Embed);
+                    }
+                }
+                else
+                {
+                    Program.SendMessage(CommandMessage, "No embed perms");
+                }
             }
         }
         private async void Timer(object sender, ElapsedEventArgs e)
         {
             Uptime++;
+            Properties.Settings.Default.TotalUptime++;
+            Properties.Settings.Default.Save();
             if (Properties.Settings.Default.ANGuildsList.Count != 0)
             {
                     List<string> NickList = new List<string>();
@@ -442,6 +483,11 @@ namespace Discore_Selfbot
         [Command("guild")]
         public async Task guild()
         {
+            if (Context.Channel is IPrivateChannel)
+            {
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
+                return;
+            }
             int Members = 0;
             int Bots = 0;
             int MembersOnline = 0;
@@ -474,10 +520,6 @@ namespace Discore_Selfbot
             }
             int TextChan = 0;
             int VoiceChan = 0;
-            foreach (var emoji in Context.Guild.Emojis)
-            {
-                Console.WriteLine(emoji.Name);
-            }
             foreach (var Channel in await Context.Guild.GetChannelsAsync())
             {
                 if (Channel is ITextChannel)
@@ -496,7 +538,7 @@ namespace Discore_Selfbot
                     Name = $"{Context.Guild.Name}"
                 },
                 ThumbnailUrl = Context.Guild.IconUrl,
-                Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <Region {Context.Guild.VoiceRegionId}>```",
+                Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <CustomEmojis {Context.Guild.Emojis}> <Region {Context.Guild.VoiceRegionId}>```",
                 Footer = new EmbedFooterBuilder()
                 {
                     Text = $"Created {Context.Guild.CreatedAt.Date.Day} {Context.Guild.CreatedAt.Date.DayOfWeek} {Context.Guild.CreatedAt.Year}"
@@ -532,9 +574,42 @@ namespace Discore_Selfbot
         [Command("uptime")]
         public async Task uptime()
         {
-            Program.SendMessage(Context.Message, $"Running for {Program.Uptime} minutes");
+            Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
         }
 
+        [Command("calc")]
+        public async Task calc(int Num1, string Func, int Num2)
+        {
+            string Message = "";
+            int Result = 0;
+            switch (Func)
+            {
+                case "+":
+                    Result = Num1 + Num2;
+                    Message = $"{Num1} {Func} {Num2} = {Result}";
+                    break;
+                case "-":
+                    Result = Num1 - Num2;
+                    Message = $"{Num1} {Func} {Num2} = {Result}";
+                    break;
+                case "*":
+                    Result = Num1 * Num2;
+                    Message = $"{Num1} {Func} {Num2} = {Result}";
+                    break;
+                case "x":
+                    Result = Num1 * Num2;
+                    Message = $"{Num1} {Func} {Num2} = {Result}";
+                    break;
+                case "/":
+                    Result = Num1 / Num2;
+                    Message = $"{Num1} {Func} {Num2} = {Result}";
+                    break;
+                default:
+                    Message = "Unknown Function Use | + - * /";
+                    break;
+            }
+            Program.SendMessage(Context.Message as IUserMessage, Message);
+        }
         [Command("info")]
         public async Task info()
         {
@@ -683,7 +758,7 @@ namespace Discore_Selfbot
         {
             if (Context.IsPrivate)
             {
-                await Context.Message.Channel.SendMessageAsync("Cannot use command in private channel");
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
                 return;
             }
             string User = ID;
@@ -758,8 +833,17 @@ namespace Discore_Selfbot
         [Command("tag")]
         public async Task tag([Remainder] string Tag) 
         {
-            var GuildUser = Context.Message.Author as IGuildUser;
-            bool AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
+            IGuildUser GuildUser = null;
+            bool AllowedEmbeds = false;
+            if (Context.Channel is IPrivateChannel)
+            {
+                AllowedEmbeds = true;
+            }
+            else
+            {
+                GuildUser = Context.Message.Author as IGuildUser;
+                AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
+            }
             var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
             if (File.Exists(TagPath + Tag + ".txt"))
             {
@@ -907,6 +991,11 @@ namespace Discore_Selfbot
         [Command("an bind")]
         public async Task anbind()
         {
+            if (Context.Channel is IPrivateChannel)
+            {
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
+                return;
+            }
             var GuildUser = Context.User as IGuildUser;
             string Message = "";
             if (GuildUser.GuildPermissions.ChangeNickname == false)
@@ -940,6 +1029,11 @@ namespace Discore_Selfbot
         [Command("an add")]
         public async Task anadd([Remainder] string Nickname)
         {
+            if (Context.Channel is IPrivateChannel)
+            {
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
+                return;
+            }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
                 Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
@@ -960,6 +1054,11 @@ namespace Discore_Selfbot
         [Command("an del")]
         public async Task andel(string Nickname)
         {
+            if (Context.Channel is IPrivateChannel)
+            {
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
+                return;
+            }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
                 Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
@@ -981,6 +1080,11 @@ namespace Discore_Selfbot
         [Command("an list")]
         public async Task anlist()
         {
+            if (Context.Channel is IPrivateChannel)
+            {
+                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
+                return;
+            }
             List<string> ANList = new List<string>();
             var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
             foreach (var Item in Directory.GetFiles(NicknamePath))
@@ -1001,13 +1105,13 @@ namespace Discore_Selfbot
                 var M = Context.Message as IUserMessage;
                 await M.ModifyAsync(x =>
                 {
-                    x.Content = "List of auto nicknames" + Environment.NewLine + NicknameList;
+                    x.Content = "```List of auto nicknames" + Environment.NewLine + NicknameList + "```";
                 });
             }
             else
             {
                 await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync("List of auto nicknames" + Environment.NewLine + NicknameList);
+                await Context.Message.Channel.SendMessageAsync("```List of auto nicknames" + Environment.NewLine + NicknameList + "```");
             }
         }
 
