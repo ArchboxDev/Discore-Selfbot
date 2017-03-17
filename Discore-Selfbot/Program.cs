@@ -122,7 +122,6 @@ namespace Discore_Selfbot
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             int GuildsCount = 0;
             RunOnce = 0;
-            Console.WriteLine(GUI.EmbedColor.R);
             client.GuildAvailable += (g) =>
             {
                 if (!Guilds.Contains(g.Name))
@@ -377,7 +376,10 @@ namespace Discore_Selfbot
                 if (!(message.HasStringPrefix("self ", ref argPos))) return;
                 var context = new CommandContext(client, message);
                 var result = await commands.ExecuteAsync(context, argPos, map);
-                
+                if (result.IsSuccess)
+                {
+                    Console.WriteLine($"Command > {message.Content}");
+                }
             }
         }
     }
