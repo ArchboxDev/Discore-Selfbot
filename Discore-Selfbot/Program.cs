@@ -38,7 +38,7 @@ namespace Discore_Selfbot
         public static ulong ActiveChannelID = 0;
         public static Icon Avatar;
         public static Discord.Color FavoriteColor;
-        public static MainForm MyForm;
+        public static GUI MyForm;
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
         public static string CurrentUserName;
         public static ulong CurrentUserID;
@@ -46,7 +46,6 @@ namespace Discore_Selfbot
         static void Main()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            
             if (Properties.Settings.Default.ANGuildsList == null)
             {
                 Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
@@ -94,8 +93,8 @@ namespace Discore_Selfbot
         [STAThread]
         public static void OpenGUI()
         {
-            MainForm.CheckForIllegalCrossThreadCalls = false;
-            MyForm = new MainForm();
+            GUI.CheckForIllegalCrossThreadCalls = false;
+            MyForm = new GUI();
             if (Properties.Settings.Default.AutoForm != "No")
             {
                 if (Ready == false)
@@ -121,70 +120,59 @@ namespace Discore_Selfbot
             WebClient WBC = new WebClient();
             WebClient myWebClient = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
-            int Guilds = 0;
+            int GuildsCount = 0;
             RunOnce = 0;
             client.GuildAvailable += (g) =>
             {
-                    if (!Program.Guilds.Contains(g.Name))
-                    {
-                        Guilds++;
-                        Program.Guilds.Add(g.Name);
-                        Program.GuildsID.Add(g.Id);
-                        
-                    }
-                if (Guilds == client.Guilds.Count())
+                if (!Guilds.Contains(g.Name))
                 {
-                    if (Ready == false)
+                    GuildsCount++;
+                    Guilds.Add(g.Name);
+                    GuildsID.Add(g.Id);
+                    if (g.IconUrl == null)
                     {
-                        Ready = true;
-                        OpenGUI();
-                        CurrentUserName = client.CurrentUser.Username;
-                        CurrentUserID = client.CurrentUser.Id;
-                        AutoNickname_Timer.Interval = 60000;
-                        if (Properties.Settings.Default.ANTimer == "5")
-                        {
-                            AutoNickname_Timer.Interval = 300000;
-                        }
-                        if (Properties.Settings.Default.ANTimer == "10")
-                        {
-                            AutoNickname_Timer.Interval = 600000;
-                        }
-                        AutoNickname_Timer.Elapsed += Timer;
-                        AutoNickname_Timer.Start();
-
-                        if (File.Exists("avatar.png"))
-                        {
-                            File.Delete("avatar.png");
-                        }
-                        myWebClient.DownloadFile(client.CurrentUser.GetAvatarUrl(), "avatar.png");
-                        Bitmap b = (Bitmap)System.Drawing.Image.FromFile("avatar.png");
-                        IntPtr pIcon = b.GetHicon();
-                        Icon i = Icon.FromHandle(pIcon);
-                        Avatar = i;
-                        i.Dispose();
-                        myWebClient.Dispose();
-                        if (Properties.Settings.Default.AutoForm == "Yes")
-                        {
-                            MyForm.Text = CurrentUserName;
-                            MyForm.Icon = i;
-                        }
-                        if (client.CurrentUser.Id == 190590364871032834)
-                        {
-                            Console.WriteLine("Hi master");
-                        }
-                        if (client.CurrentUser.Id == 213621714909659136)
-                        {
-                            Console.WriteLine("Bubbie's butt is bubbly");
-                        }
-                        if (client.CurrentUser.Id == 155490847494897664 || client.CurrentUser.Id == 107827535479353344)
-                        {
-                            Console.WriteLine("Julia + Novus <3");
-                        }
-                        if (client.CurrentUser.Id == 213627387206828032)
-                        {
-                            Console.WriteLine("Towergay");
-                        }
+                        WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
                     }
+                    else
+                    {
+                        WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
+                    }
+                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                }
+                if (GuildsCount == client.Guilds.Count())
+                {
+                    Ready = true;
+                    
+                    AutoNickname_Timer.Interval = 60000;
+                    if (Properties.Settings.Default.ANTimer == "5")
+                    {
+                        AutoNickname_Timer.Interval = 300000;
+                    }
+                    if (Properties.Settings.Default.ANTimer == "10")
+                    {
+                        AutoNickname_Timer.Interval = 600000;
+                    }
+                    AutoNickname_Timer.Elapsed += Timer;
+                    AutoNickname_Timer.Start();
+
+                    
+                    if (client.CurrentUser.Id == 190590364871032834)
+                    {
+                        Console.WriteLine("Hi master");
+                    }
+                    if (client.CurrentUser.Id == 213621714909659136)
+                    {
+                        Console.WriteLine("Bubbie's butt is bubbly");
+                    }
+                    if (client.CurrentUser.Id == 155490847494897664 || client.CurrentUser.Id == 107827535479353344)
+                    {
+                        Console.WriteLine("Julia + Novus <3");
+                    }
+                    if (client.CurrentUser.Id == 213627387206828032)
+                    {
+                        Console.WriteLine("Towergay");
+                    }
+
                 }
                 return Task.CompletedTask;
             };
@@ -203,25 +191,44 @@ namespace Discore_Selfbot
                     }
                     WBC.Dispose();
                 }
-                var Item = MyForm.ListGuild.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
-                Program.Guilds.Add(g.Name);
-                Program.GuildsID.Add(g.Id);
+                var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                Guilds.Add(g.Name);
+                GuildsID.Add(g.Id);
                 Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+
                 return Task.CompletedTask;
             };
             client.LeftGuild += (g) =>
             {
-                int Index = Program.Guilds.IndexOf(g.Name);
-                MyForm.ListGuild.Items.RemoveAt(Index);
-                Program.Guilds.Remove(g.Name);
-                Program.GuildsID.Remove(g.Id);
+                int Index = Guilds.IndexOf(g.Name);
+                MyForm.GuildList.Items.RemoveAt(Index);
+                Guilds.Remove(g.Name);
+                GuildsID.Remove(g.Id);
                 Console.WriteLine($"Left Guild > {g.Name} ({g.Id})");
+
                 return Task.CompletedTask;
             };
             client.Connected += () =>
             {
                 Console.Title = "Discore - Selfbot - Online!!";
                 Console.WriteLine("CONNECTED!");
+                CurrentUserName = client.CurrentUser.Username;
+                CurrentUserID = client.CurrentUser.Id;
+                if (File.Exists("avatar.png"))
+                {
+                    File.Delete("avatar.png");
+                }
+                myWebClient.DownloadFile(client.CurrentUser.GetAvatarUrl(), "avatar.png");
+                Bitmap b = (Bitmap)System.Drawing.Image.FromFile("avatar.png");
+                IntPtr pIcon = b.GetHicon();
+                Icon i = Icon.FromHandle(pIcon);
+                Avatar = i;
+                i.Dispose();
+                if (Properties.Settings.Default.AutoForm == "Yes")
+                {
+                    MyForm.Text = CurrentUserName;
+                    MyForm.Icon = i;
+                }
                 return Task.CompletedTask;
             };
             client.Disconnected += (e) =>
@@ -238,6 +245,7 @@ namespace Discore_Selfbot
             };
             await client.LoginAsync(TokenType.User, File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Token.txt"));
             await client.StartAsync();
+            OpenGUI();
             await Task.Delay(-1);
         }
         public async static void SendMessage(IUserMessage CommandMessage, [Remainder] string Message)
@@ -328,12 +336,12 @@ namespace Discore_Selfbot
             {
                 if (message.Channel is IPrivateChannel)
                 {
-                    MyForm.ListChannel.Visible = false;
+                    MyForm.ChannelList.Visible = false;
                     MyForm.AGName.Text = "DM";
                     MyForm.AGID.Text = $"(1)";
                     MyForm.ACName.Text = message.Channel.Name;
                     MyForm.ACID.Text = $"({message.Channel.Id})";
-                    MyForm.EmbedActive.Text = "Active DM";
+                    MyForm.BtnSendActive.Text = "Active DM";
                     ActiveGuildID = 0;
                     ActiveChannelID = message.Channel.Id;
                 }
@@ -344,22 +352,22 @@ namespace Discore_Selfbot
                     MyForm.AGID.Text = $"({GU.Guild.Id})";
                     MyForm.ACName.Text = message.Channel.Name;
                     MyForm.ACID.Text = $"({message.Channel.Id})";
-                    MyForm.EmbedActive.Text = "Active";
+                    MyForm.BtnSendActive.Text = "Active";
                     ActiveGuildID = GU.Guild.Id;
                     ActiveChannelID = message.Channel.Id;
                     if (GU.GuildPermissions.EmbedLinks == true)
                     {
-                        MyForm.EmbedActive.Text = "Active";
+                        MyForm.BtnSendActive.Text = "Active";
                     }
                     else
                     {
                         if (GU.GetPermissions(message.Channel as ITextChannel).EmbedLinks == true)
                         {
-                            MyForm.EmbedActive.Text = "Active";
+                            MyForm.BtnSendActive.Text = "Active";
                         }
                         else
                         {
-                            MyForm.EmbedActive.Text = "Active" + Environment.NewLine + "No perms";
+                            MyForm.BtnSendActive.Text = "Active" + Environment.NewLine + "No perms";
                         }
                     }
                 }
@@ -442,8 +450,8 @@ namespace Discore_Selfbot
             if (!Program.MyForm.Visible)
             {
                 Console.WriteLine("Opening gui");
-                MainForm.SelectedGuild = 0;
-                MainForm.SelectChannel = 0;
+                GUI.SelectedGuild = 0;
+                GUI.SelectChannel = 0;
                 Program.OpenGUI();
                 Program.MyForm.Activate();
             }
@@ -462,9 +470,9 @@ namespace Discore_Selfbot
                 Description = Text,
                 
             };
-            if (MainForm.EmbedColor.RawValue != 0)
+            if (GUI.EmbedColor.RawValue != 0)
             {
-                embed.Color = MainForm.EmbedColor;
+                embed.Color = GUI.EmbedColor;
             }
             else
             {
