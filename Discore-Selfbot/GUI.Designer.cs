@@ -124,27 +124,27 @@
             this.ViewBotsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.kryptonBorderEdge2 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavInfoSettings = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.kryptonHeader4 = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.kryptonHeader3 = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.kryptonHeader2 = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.kryptonHeader1 = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.TextFavColor = new System.Windows.Forms.TextBox();
             this.BtnAN5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnFavColor = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAFNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnAFYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnCMDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnCMEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonBorderEdge3 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavCustomPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.TextCustom = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonManager1 = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.GuildList = new System.Windows.Forms.ToolStrip();
-            this.TextFavColor = new System.Windows.Forms.TextBox();
-            this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TextCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TitleCommandMessage = new System.Windows.Forms.TextBox();
-            this.TitleStartupForm = new System.Windows.Forms.TextBox();
-            this.TitleFavoriteColor = new System.Windows.Forms.TextBox();
-            this.TitleAutoNicknameTimer = new System.Windows.Forms.TextBox();
             this.StatusActive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).BeginInit();
             this.NavGuild.SuspendLayout();
@@ -178,6 +178,7 @@
             // 
             // StatusActive
             // 
+            this.StatusActive.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.StatusActive.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ATitle,
             this.AGTitle,
@@ -188,7 +189,9 @@
             this.ACID});
             this.StatusActive.Location = new System.Drawing.Point(0, 439);
             this.StatusActive.Name = "StatusActive";
+            this.StatusActive.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.StatusActive.Size = new System.Drawing.Size(484, 22);
+            this.StatusActive.SizingGrip = false;
             this.StatusActive.TabIndex = 18;
             this.StatusActive.Text = "Active";
             // 
@@ -239,22 +242,23 @@
             // 
             // ChannelLogging
             // 
-            this.ChannelLogging.Location = new System.Drawing.Point(12, 73);
+            this.ChannelLogging.Location = new System.Drawing.Point(12, 67);
             this.ChannelLogging.Multiline = true;
             this.ChannelLogging.Name = "ChannelLogging";
             this.ChannelLogging.ReadOnly = true;
-            this.ChannelLogging.Size = new System.Drawing.Size(220, 180);
+            this.ChannelLogging.Size = new System.Drawing.Size(220, 186);
             this.ChannelLogging.TabIndex = 20;
             this.ChannelLogging.Text = "Channel logs comming soon ;)";
             // 
             // ChannelList
             // 
+            this.ChannelList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ChannelList.Enabled = false;
             this.ChannelList.FormattingEnabled = true;
-            this.ChannelList.Location = new System.Drawing.Point(12, 46);
+            this.ChannelList.Location = new System.Drawing.Point(12, 40);
             this.ChannelList.Name = "ChannelList";
             this.ChannelList.Size = new System.Drawing.Size(220, 21);
             this.ChannelList.TabIndex = 22;
-            this.ChannelList.Visible = false;
             this.ChannelList.SelectedIndexChanged += new System.EventHandler(this.ChannelList_SelectedIndexChanged);
             // 
             // kryptonBorderEdge1
@@ -314,6 +318,7 @@
             // 
             // BtnSendActive
             // 
+            this.BtnSendActive.Enabled = false;
             this.BtnSendActive.Location = new System.Drawing.Point(118, 90);
             this.BtnSendActive.Name = "BtnSendActive";
             this.BtnSendActive.Size = new System.Drawing.Size(97, 56);
@@ -323,6 +328,7 @@
             // 
             // BtnSendSelected
             // 
+            this.BtnSendSelected.Enabled = false;
             this.BtnSendSelected.Location = new System.Drawing.Point(3, 90);
             this.BtnSendSelected.Name = "BtnSendSelected";
             this.BtnSendSelected.Size = new System.Drawing.Size(97, 56);
@@ -337,6 +343,7 @@
             this.EmbedFooter.Size = new System.Drawing.Size(156, 23);
             this.EmbedFooter.TabIndex = 4;
             this.EmbedFooter.Text = "Footer";
+            this.EmbedFooter.TextChanged += new System.EventHandler(this.EmbedFooter_TextChanged);
             // 
             // EmbedText
             // 
@@ -345,6 +352,7 @@
             this.EmbedText.Size = new System.Drawing.Size(156, 23);
             this.EmbedText.TabIndex = 3;
             this.EmbedText.Text = "Text";
+            this.EmbedText.TextChanged += new System.EventHandler(this.EmbedText_TextChanged);
             // 
             // BtnEmbedColor
             // 
@@ -362,6 +370,7 @@
             this.EmbedTitle.Size = new System.Drawing.Size(156, 23);
             this.EmbedTitle.TabIndex = 0;
             this.EmbedTitle.Text = "Title";
+            this.EmbedTitle.TextChanged += new System.EventHandler(this.EmbedTitle_TextChanged);
             // 
             // kryptonBorderEdge7
             // 
@@ -389,6 +398,7 @@
             this.TextGuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextGuildInfo.Location = new System.Drawing.Point(0, 0);
             this.TextGuildInfo.Name = "TextGuildInfo";
+            this.TextGuildInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.TextGuildInfo.Size = new System.Drawing.Size(218, 149);
             this.TextGuildInfo.TabIndex = 0;
             this.TextGuildInfo.Text = "";
@@ -488,7 +498,7 @@
             this.NavMoreInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.NavCommandsPage,
             this.NavChangelogPage});
-            this.NavMoreInfo.SelectedIndex = 0;
+            this.NavMoreInfo.SelectedIndex = 1;
             this.NavMoreInfo.Size = new System.Drawing.Size(232, 339);
             this.NavMoreInfo.TabIndex = 7;
             this.NavMoreInfo.Text = "kryptonNavigator1";
@@ -517,9 +527,11 @@
             this.TextCommandInfo.ReadOnly = true;
             this.TextCommandInfo.Size = new System.Drawing.Size(230, 30);
             this.TextCommandInfo.TabIndex = 2;
+            this.TextCommandInfo.Text = "Select a command";
             // 
             // ViewCommandsList
             // 
+            this.ViewCommandsList.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.PanelAlternate;
             this.ViewCommandsList.Dock = System.Windows.Forms.DockStyle.Top;
             this.ViewCommandsList.HotTracking = true;
             this.ViewCommandsList.ItemStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.Standalone;
@@ -801,6 +813,7 @@
             // 
             // ViewBotsList
             // 
+            this.ViewBotsList.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.ControlRibbon;
             this.ViewBotsList.Dock = System.Windows.Forms.DockStyle.Top;
             this.ViewBotsList.Location = new System.Drawing.Point(0, 0);
             this.ViewBotsList.Name = "ViewBotsList";
@@ -841,6 +854,10 @@
             // NavInfoSettings
             // 
             this.NavInfoSettings.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavInfoSettings.Controls.Add(this.kryptonHeader4);
+            this.NavInfoSettings.Controls.Add(this.kryptonHeader3);
+            this.NavInfoSettings.Controls.Add(this.kryptonHeader2);
+            this.NavInfoSettings.Controls.Add(this.kryptonHeader1);
             this.NavInfoSettings.Controls.Add(this.TextFavColor);
             this.NavInfoSettings.Controls.Add(this.BtnAN5);
             this.NavInfoSettings.Controls.Add(this.BtnAN10);
@@ -853,10 +870,6 @@
             this.NavInfoSettings.Controls.Add(this.BtnCMDelete);
             this.NavInfoSettings.Controls.Add(this.TextCommandMessage);
             this.NavInfoSettings.Controls.Add(this.BtnCMEdit);
-            this.NavInfoSettings.Controls.Add(this.TitleCommandMessage);
-            this.NavInfoSettings.Controls.Add(this.TitleStartupForm);
-            this.NavInfoSettings.Controls.Add(this.TitleFavoriteColor);
-            this.NavInfoSettings.Controls.Add(this.TitleAutoNicknameTimer);
             this.NavInfoSettings.Controls.Add(this.kryptonBorderEdge3);
             this.NavInfoSettings.Flags = 65534;
             this.NavInfoSettings.LastVisibleSet = true;
@@ -867,9 +880,80 @@
             this.NavInfoSettings.ToolTipTitle = "Page ToolTip";
             this.NavInfoSettings.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
             // 
+            // kryptonHeader4
+            // 
+            this.kryptonHeader4.AutoSize = false;
+            this.kryptonHeader4.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.kryptonHeader4.Location = new System.Drawing.Point(3, 225);
+            this.kryptonHeader4.Name = "kryptonHeader4";
+            this.kryptonHeader4.Size = new System.Drawing.Size(226, 22);
+            this.kryptonHeader4.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonHeader4.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonHeader4.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.kryptonHeader4.TabIndex = 114;
+            this.kryptonHeader4.Values.Description = "";
+            this.kryptonHeader4.Values.Heading = "Auto Nickname Timer";
+            this.kryptonHeader4.Values.Image = null;
+            // 
+            // kryptonHeader3
+            // 
+            this.kryptonHeader3.AutoSize = false;
+            this.kryptonHeader3.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.kryptonHeader3.Location = new System.Drawing.Point(3, 151);
+            this.kryptonHeader3.Name = "kryptonHeader3";
+            this.kryptonHeader3.Size = new System.Drawing.Size(226, 22);
+            this.kryptonHeader3.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonHeader3.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonHeader3.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.kryptonHeader3.TabIndex = 114;
+            this.kryptonHeader3.Values.Description = "";
+            this.kryptonHeader3.Values.Heading = "Favorite Color";
+            this.kryptonHeader3.Values.Image = null;
+            // 
+            // kryptonHeader2
+            // 
+            this.kryptonHeader2.AutoSize = false;
+            this.kryptonHeader2.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.kryptonHeader2.Location = new System.Drawing.Point(3, 77);
+            this.kryptonHeader2.Name = "kryptonHeader2";
+            this.kryptonHeader2.Size = new System.Drawing.Size(226, 22);
+            this.kryptonHeader2.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonHeader2.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonHeader2.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.kryptonHeader2.TabIndex = 114;
+            this.kryptonHeader2.Values.Description = "";
+            this.kryptonHeader2.Values.Heading = "Open Form On Startup";
+            this.kryptonHeader2.Values.Image = null;
+            // 
+            // kryptonHeader1
+            // 
+            this.kryptonHeader1.AutoSize = false;
+            this.kryptonHeader1.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.kryptonHeader1.Location = new System.Drawing.Point(3, 3);
+            this.kryptonHeader1.Name = "kryptonHeader1";
+            this.kryptonHeader1.Size = new System.Drawing.Size(226, 22);
+            this.kryptonHeader1.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonHeader1.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonHeader1.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.kryptonHeader1.TabIndex = 114;
+            this.kryptonHeader1.Values.Description = "";
+            this.kryptonHeader1.Values.Heading = "Command Message";
+            this.kryptonHeader1.Values.Image = null;
+            // 
+            // TextFavColor
+            // 
+            this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextFavColor.Location = new System.Drawing.Point(148, 193);
+            this.TextFavColor.Name = "TextFavColor";
+            this.TextFavColor.ReadOnly = true;
+            this.TextFavColor.Size = new System.Drawing.Size(50, 20);
+            this.TextFavColor.TabIndex = 112;
+            this.TextFavColor.Visible = false;
+            // 
             // BtnAN5
             // 
-            this.BtnAN5.Location = new System.Drawing.Point(65, 245);
+            this.BtnAN5.Location = new System.Drawing.Point(68, 253);
             this.BtnAN5.Name = "BtnAN5";
             this.BtnAN5.Size = new System.Drawing.Size(50, 40);
             this.BtnAN5.TabIndex = 111;
@@ -878,7 +962,7 @@
             // 
             // BtnAN10
             // 
-            this.BtnAN10.Location = new System.Drawing.Point(121, 245);
+            this.BtnAN10.Location = new System.Drawing.Point(133, 253);
             this.BtnAN10.Name = "BtnAN10";
             this.BtnAN10.Size = new System.Drawing.Size(50, 40);
             this.BtnAN10.TabIndex = 110;
@@ -887,17 +971,28 @@
             // 
             // BtnAN1
             // 
-            this.BtnAN1.Location = new System.Drawing.Point(9, 245);
+            this.BtnAN1.Location = new System.Drawing.Point(3, 253);
             this.BtnAN1.Name = "BtnAN1";
             this.BtnAN1.Size = new System.Drawing.Size(50, 40);
             this.BtnAN1.TabIndex = 109;
             this.BtnAN1.Values.Text = "1 Min";
             this.BtnAN1.Click += new System.EventHandler(this.BtnAN1_Click);
             // 
+            // TextAutoNickname
+            // 
+            this.TextAutoNickname.AutoSize = false;
+            this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextAutoNickname.Location = new System.Drawing.Point(189, 253);
+            this.TextAutoNickname.Name = "TextAutoNickname";
+            this.TextAutoNickname.Size = new System.Drawing.Size(40, 40);
+            this.TextAutoNickname.TabIndex = 108;
+            this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
+            this.TextAutoNickname.Values.Text = "1";
+            // 
             // BtnFavColor
             // 
             this.BtnFavColor.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.BtnFavColor.Location = new System.Drawing.Point(72, 173);
+            this.BtnFavColor.Location = new System.Drawing.Point(72, 179);
             this.BtnFavColor.Name = "BtnFavColor";
             this.BtnFavColor.Size = new System.Drawing.Size(70, 40);
             this.BtnFavColor.TabIndex = 107;
@@ -906,16 +1001,27 @@
             // 
             // BtnAFNo
             // 
-            this.BtnAFNo.Location = new System.Drawing.Point(97, 101);
+            this.BtnAFNo.Location = new System.Drawing.Point(105, 105);
             this.BtnAFNo.Name = "BtnAFNo";
             this.BtnAFNo.Size = new System.Drawing.Size(70, 40);
             this.BtnAFNo.TabIndex = 106;
             this.BtnAFNo.Values.Text = "No";
             this.BtnAFNo.Click += new System.EventHandler(this.BtnAFNo_Click);
             // 
+            // TextAutoForm
+            // 
+            this.TextAutoForm.AutoSize = false;
+            this.TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextAutoForm.Location = new System.Drawing.Point(181, 105);
+            this.TextAutoForm.Name = "TextAutoForm";
+            this.TextAutoForm.Size = new System.Drawing.Size(48, 40);
+            this.TextAutoForm.TabIndex = 105;
+            this.TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.TextAutoForm.Values.Text = "Yes";
+            // 
             // BtnAFYes
             // 
-            this.BtnAFYes.Location = new System.Drawing.Point(9, 101);
+            this.BtnAFYes.Location = new System.Drawing.Point(3, 105);
             this.BtnAFYes.Name = "BtnAFYes";
             this.BtnAFYes.Size = new System.Drawing.Size(70, 40);
             this.BtnAFYes.TabIndex = 104;
@@ -924,16 +1030,27 @@
             // 
             // BtnCMDelete
             // 
-            this.BtnCMDelete.Location = new System.Drawing.Point(97, 29);
+            this.BtnCMDelete.Location = new System.Drawing.Point(105, 31);
             this.BtnCMDelete.Name = "BtnCMDelete";
             this.BtnCMDelete.Size = new System.Drawing.Size(70, 40);
             this.BtnCMDelete.TabIndex = 103;
             this.BtnCMDelete.Values.Text = "Delete";
             this.BtnCMDelete.Click += new System.EventHandler(this.BtnCMDelete_Click);
             // 
+            // TextCommandMessage
+            // 
+            this.TextCommandMessage.AutoSize = false;
+            this.TextCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextCommandMessage.Location = new System.Drawing.Point(181, 31);
+            this.TextCommandMessage.Name = "TextCommandMessage";
+            this.TextCommandMessage.Size = new System.Drawing.Size(48, 40);
+            this.TextCommandMessage.TabIndex = 102;
+            this.TextCommandMessage.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.TextCommandMessage.Values.Text = "Edit";
+            // 
             // BtnCMEdit
             // 
-            this.BtnCMEdit.Location = new System.Drawing.Point(9, 29);
+            this.BtnCMEdit.Location = new System.Drawing.Point(3, 31);
             this.BtnCMEdit.Name = "BtnCMEdit";
             this.BtnCMEdit.Size = new System.Drawing.Size(70, 40);
             this.BtnCMEdit.TabIndex = 101;
@@ -981,129 +1098,18 @@
             this.GuildList.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
             this.GuildList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.GuildList.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GuildList.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.GuildList.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.GuildList.ImageScalingSize = new System.Drawing.Size(30, 30);
             this.GuildList.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.GuildList.Location = new System.Drawing.Point(0, 0);
             this.GuildList.Name = "GuildList";
             this.GuildList.Padding = new System.Windows.Forms.Padding(0);
-            this.GuildList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.GuildList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.GuildList.Size = new System.Drawing.Size(484, 25);
             this.GuildList.Stretch = true;
             this.GuildList.TabIndex = 17;
             this.GuildList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
-            // 
-            // TextFavColor
-            // 
-            this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextFavColor.Location = new System.Drawing.Point(148, 184);
-            this.TextFavColor.Name = "TextFavColor";
-            this.TextFavColor.ReadOnly = true;
-            this.TextFavColor.Size = new System.Drawing.Size(50, 20);
-            this.TextFavColor.TabIndex = 112;
-            this.TextFavColor.Visible = false;
-            // 
-            // TextAutoNickname
-            // 
-            this.TextAutoNickname.AutoSize = false;
-            this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoNickname.Location = new System.Drawing.Point(181, 245);
-            this.TextAutoNickname.Name = "TextAutoNickname";
-            this.TextAutoNickname.Size = new System.Drawing.Size(40, 40);
-            this.TextAutoNickname.TabIndex = 108;
-            this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
-            this.TextAutoNickname.Values.Text = "1";
-            // 
-            // TextAutoForm
-            // 
-            this.TextAutoForm.AutoSize = false;
-            this.TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoForm.Location = new System.Drawing.Point(173, 101);
-            this.TextAutoForm.Name = "TextAutoForm";
-            this.TextAutoForm.Size = new System.Drawing.Size(48, 40);
-            this.TextAutoForm.TabIndex = 105;
-            this.TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.TextAutoForm.Values.Text = "Yes";
-            // 
-            // TextCommandMessage
-            // 
-            this.TextCommandMessage.AutoSize = false;
-            this.TextCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextCommandMessage.Location = new System.Drawing.Point(173, 29);
-            this.TextCommandMessage.Name = "TextCommandMessage";
-            this.TextCommandMessage.Size = new System.Drawing.Size(48, 40);
-            this.TextCommandMessage.TabIndex = 102;
-            this.TextCommandMessage.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.TextCommandMessage.Values.Text = "Edit";
-            // 
-            // TitleCommandMessage
-            // 
-            this.TitleCommandMessage.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleCommandMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleCommandMessage.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommandMessage.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleCommandMessage.Location = new System.Drawing.Point(7, 3);
-            this.TitleCommandMessage.Name = "TitleCommandMessage";
-            this.TitleCommandMessage.ReadOnly = true;
-            this.TitleCommandMessage.Size = new System.Drawing.Size(214, 20);
-            this.TitleCommandMessage.TabIndex = 97;
-            this.TitleCommandMessage.TabStop = false;
-            this.TitleCommandMessage.Text = "Command Message";
-            this.TitleCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleStartupForm
-            // 
-            this.TitleStartupForm.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleStartupForm.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleStartupForm.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleStartupForm.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleStartupForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleStartupForm.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleStartupForm.Location = new System.Drawing.Point(7, 75);
-            this.TitleStartupForm.Name = "TitleStartupForm";
-            this.TitleStartupForm.ReadOnly = true;
-            this.TitleStartupForm.Size = new System.Drawing.Size(214, 20);
-            this.TitleStartupForm.TabIndex = 98;
-            this.TitleStartupForm.TabStop = false;
-            this.TitleStartupForm.Text = "Open Form On Startup";
-            this.TitleStartupForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleFavoriteColor
-            // 
-            this.TitleFavoriteColor.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleFavoriteColor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleFavoriteColor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleFavoriteColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleFavoriteColor.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleFavoriteColor.Location = new System.Drawing.Point(7, 147);
-            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
-            this.TitleFavoriteColor.ReadOnly = true;
-            this.TitleFavoriteColor.Size = new System.Drawing.Size(214, 20);
-            this.TitleFavoriteColor.TabIndex = 99;
-            this.TitleFavoriteColor.TabStop = false;
-            this.TitleFavoriteColor.Text = "Favorite Color";
-            this.TitleFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TitleAutoNicknameTimer
-            // 
-            this.TitleAutoNicknameTimer.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.TitleAutoNicknameTimer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TitleAutoNicknameTimer.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TitleAutoNicknameTimer.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TitleAutoNicknameTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleAutoNicknameTimer.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TitleAutoNicknameTimer.Location = new System.Drawing.Point(7, 219);
-            this.TitleAutoNicknameTimer.Name = "TitleAutoNicknameTimer";
-            this.TitleAutoNicknameTimer.ReadOnly = true;
-            this.TitleAutoNicknameTimer.Size = new System.Drawing.Size(214, 20);
-            this.TitleAutoNicknameTimer.TabIndex = 100;
-            this.TitleAutoNicknameTimer.TabStop = false;
-            this.TitleAutoNicknameTimer.Text = "Auto Nickname Timer";
-            this.TitleAutoNicknameTimer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // GUI
             // 
@@ -1117,7 +1123,12 @@
             this.Controls.Add(this.GuildList);
             this.Controls.Add(this.NavInfo);
             this.Controls.Add(this.kryptonBorderEdge1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "GUI";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "GUI";
             this.Load += new System.EventHandler(this.GUI_Load);
             this.StatusActive.ResumeLayout(false);
@@ -1216,10 +1227,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnCMDelete;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel TextCommandMessage;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnCMEdit;
-        internal System.Windows.Forms.TextBox TitleCommandMessage;
-        internal System.Windows.Forms.TextBox TitleStartupForm;
-        internal System.Windows.Forms.TextBox TitleFavoriteColor;
-        internal System.Windows.Forms.TextBox TitleAutoNicknameTimer;
         private System.Windows.Forms.ColorDialog OpenFavoriteColor;
         private System.Windows.Forms.ColorDialog OpenEmbedColor;
         public ComponentFactory.Krypton.Toolkit.KryptonButton BtnSendActive;
@@ -1241,5 +1248,9 @@
         private ComponentFactory.Krypton.Navigator.KryptonPage NavCustomPage;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox TextCustom;
         public ComponentFactory.Krypton.Toolkit.KryptonManager kryptonManager1;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader kryptonHeader1;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader kryptonHeader4;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader kryptonHeader3;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader kryptonHeader2;
     }
 }

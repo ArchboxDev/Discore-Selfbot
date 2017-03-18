@@ -127,7 +127,9 @@
     <value>141, 19</value>
   </metadata>
   <data name="TextChangelog.Text" xml:space="preserve">
-    <value>Fixed a bunch of stuff,  tested all commands and added TotalUptime and TotalRuns on self uptime 
+    <value>Few changes to the GUI, disabled some elements based on the actions and made the embed text boxes clear all
+
+Fixed a bunch of stuff,  tested all commands and added TotalUptime and TotalRuns on self uptime 
 
 Added more commands uptime/guild/neko
 
@@ -143,5 +145,8 @@ Major overhaul of the GUI
   </metadata>
   <metadata name="GuildList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
   </metadata>
 </root>

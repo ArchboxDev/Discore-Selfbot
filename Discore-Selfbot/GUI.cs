@@ -17,6 +17,7 @@ namespace Discore_Selfbot
     public partial class GUI : Form
     {
         public static Discord.Color EmbedColor;
+        public bool EmbedFirstClick = false;
         public static ulong SelectedGuild = 0;
         public static ulong SelectChannel = 0;
         public string LastEmbedTitle = "";
@@ -40,7 +41,6 @@ namespace Discore_Selfbot
             }
             WebClient WBC = new WebClient();
             Program.Guilds.Clear();
-            Program.GuildsID.Clear();
             this.Text = Program.CurrentUserName;
             if (File.Exists($"avatar.png"))
             {
@@ -60,9 +60,10 @@ namespace Discore_Selfbot
                     }
                     WBC.Dispose();
                 }
-                GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                var Item = GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
+                Item.AccessibleDescription = Guild.Id.ToString();
+                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 Program.Guilds.Add(Guild.Name);
-                Program.GuildsID.Add(Guild.Id);
             }
         }
 
@@ -70,9 +71,7 @@ namespace Discore_Selfbot
         {
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
-            var GuildIndex = GuildList.Items.IndexOf(e.ClickedItem);
-            var Guild = Program.client.GetGuild(Program.GuildsID[GuildIndex]);
-            var GuildUser = Guild.GetUser(Program.client.CurrentUser.Id);
+            var Guild = Program.client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
             int MembersOnline = 0;
             int MembersOffline = 0;
             int BotsOnline = 0;
@@ -104,17 +103,16 @@ namespace Discore_Selfbot
             }
             
             TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {MembersOnline}/{MembersOffline} Offline" + Environment.NewLine + $"Bots: Online {BotsOnline}/{BotsOffline} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
-            SelectedGuild = Program.GuildsID[GuildIndex];
+            SelectedGuild = Convert.ToUInt64(e.ClickedItem.AccessibleDescription);
             ChannelList.Items.Clear();
             ChannelList.Visible = true;
-            Program.Channels.Clear();
             Program.ChannelsID.Clear();
             foreach (var Chan in Guild.TextChannels)
             {
-                Program.Channels.Add(Chan.Name);
-                Program.ChannelsID.Add(Chan.Id);
                 ChannelList.Items.Add($"{Chan.Name}");
+                Program.ChannelsID.Add(Chan.Id);
             }
+            ChannelList.Enabled = true;
             TextGuildRoles.Clear();
             List<string> RoleList = new List<string>();
             foreach (var Role in Guild.Roles)
@@ -400,26 +398,21 @@ namespace Discore_Selfbot
 
         private void ChannelList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine($"Selected Channel {ChannelList.SelectedText}");
-            var Index = ChannelList.SelectedIndex;
+            Console.WriteLine($"Selected Channel {ChannelList.SelectedItem}");
+            int Index = ChannelList.SelectedIndex;
             SelectChannel = Program.ChannelsID[Index];
             var Guild = Program.client.GetGuild(SelectedGuild);
             var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
             var User = Guild.GetUser(Program.CurrentUserID);
-            if (User.GuildPermissions.EmbedLinks == true)
+            if (User.GuildPermissions.EmbedLinks || User.GetPermissions(Chan).EmbedLinks)
             {
-                BtnSendSelected.Text = "Selected";
+                BtnSendSelected.Enabled = true;
+                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + ChannelList.SelectedItem;
             }
             else
             {
-                if (User.GetPermissions(Chan).EmbedLinks == true)
-                {
-                BtnSendSelected.Text = "Selected";
-                }
-                else
-                {
-                BtnSendSelected.Text = "Selected" + Environment.NewLine + "No perms";
-                }
+                BtnSendSelected.Enabled = false;
+                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + "No Perms";
             }
         }
 
@@ -452,6 +445,39 @@ namespace Discore_Selfbot
         private void CommandInfoHover(object sender, TreeNodeMouseHoverEventArgs e)
         {
             TextCommandInfo.Text = e.Node.ToolTipText;
+        }
+
+        private void EmbedTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
+        }
+
+        private void EmbedText_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
+        }
+
+        private void EmbedFooter_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
         }
     }
 }

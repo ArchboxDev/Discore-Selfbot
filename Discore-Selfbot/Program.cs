@@ -30,7 +30,6 @@ namespace Discore_Selfbot
         public static string SelfbotDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public static bool DownloadGuilds = false;
         public static List<string> Guilds = new List<string>();
-        public static List<ulong> GuildsID = new List<ulong>();
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
         public static ulong ActiveGuildID = 0;
@@ -133,7 +132,6 @@ namespace Discore_Selfbot
                 {
                     GuildsCount++;
                     Guilds.Add(g.Name);
-                    GuildsID.Add(g.Id);
                     if (g.IconUrl == null)
                     {
                         WBC.DownloadFile("http://dev.blaze.ml/Letters/" + g.Name.ToUpper().ToCharArray()[0] + ".png", $"{g.Id}.png");
@@ -142,7 +140,9 @@ namespace Discore_Selfbot
                     {
                         WBC.DownloadFile(g.IconUrl, $"{g.Id}.png");
                     }
-                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png"));
+                    Item.AccessibleDescription = g.Id.ToString();
+                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 }
                 if (GuildsCount == client.Guilds.Count())
                 {
@@ -195,9 +195,11 @@ namespace Discore_Selfbot
                     }
                     WBC.Dispose();
                 }
-                var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png")).DisplayStyle = ToolStripItemDisplayStyle.Image;
+                var Item = MyForm.GuildList.Items.Add(g.Name, System.Drawing.Image.FromFile($"{g.Id}.png"));
+                Item.AccessibleDescription = g.Id.ToString();
+                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                
                 Guilds.Add(g.Name);
-                GuildsID.Add(g.Id);
                 Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
 
                 return Task.CompletedTask;
@@ -207,7 +209,6 @@ namespace Discore_Selfbot
                 int Index = Guilds.IndexOf(g.Name);
                 MyForm.GuildList.Items.RemoveAt(Index);
                 Guilds.Remove(g.Name);
-                GuildsID.Remove(g.Id);
                 Console.WriteLine($"Left Guild > {g.Name} ({g.Id})");
 
                 return Task.CompletedTask;
@@ -381,6 +382,7 @@ namespace Discore_Selfbot
             if (message == null) return;
             if (message.Author.Id == client.CurrentUser.Id)
             {
+                MyForm.BtnSendActive.Enabled = true;
                 if (message.Channel is IPrivateChannel)
                 {
                     MyForm.ChannelList.Visible = false;
