@@ -127,7 +127,9 @@
     <value>141, 19</value>
   </metadata>
   <data name="TextChangelog.Text" xml:space="preserve">
-    <value>Few changes to the GUI, disabled some elements based on the actions and made the embed text boxes clear all
+    <value>Finally fixed the freezing issue and fixed the emoji count in self guild
+
+Few changes to the GUI, disabled some elements based on the actions and made the embed text boxes clear all
 
 Fixed a bunch of stuff,  tested all commands and added TotalUptime and TotalRuns on self uptime 
 

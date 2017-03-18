@@ -44,6 +44,7 @@ namespace Discore_Selfbot
         public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
         static void Main()
         {
+            DisableConsoleQuickEdit.Go();
             Properties.Settings.Default.TotalRuns++;
             Console.ForegroundColor = ConsoleColor.White;
             if (Properties.Settings.Default.ANGuildsList == null)
@@ -88,6 +89,50 @@ namespace Discore_Selfbot
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
                 new Program().RunBot().GetAwaiter().GetResult();
+        }
+
+        static class DisableConsoleQuickEdit
+        {
+
+            const uint ENABLE_QUICK_EDIT = 0x0040;
+
+            // STD_INPUT_HANDLE (DWORD): -10 is the standard input device.
+            const int STD_INPUT_HANDLE = -10;
+
+            [DllImport("kernel32.dll", SetLastError = true)]
+            static extern IntPtr GetStdHandle(int nStdHandle);
+
+            [DllImport("kernel32.dll")]
+            static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+            [DllImport("kernel32.dll")]
+            static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
+            internal static bool Go()
+            {
+
+                IntPtr consoleHandle = GetStdHandle(STD_INPUT_HANDLE);
+
+                // get current console mode
+                uint consoleMode;
+                if (!GetConsoleMode(consoleHandle, out consoleMode))
+                {
+                    // ERROR: Unable to get console mode.
+                    return false;
+                }
+
+                // Clear the quick edit bit in the mode flags
+                consoleMode &= ~ENABLE_QUICK_EDIT;
+
+                // set the new mode
+                if (!SetConsoleMode(consoleHandle, consoleMode))
+                {
+                    // ERROR: Unable to set console mode
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         [STAThread]
@@ -545,7 +590,7 @@ namespace Discore_Selfbot
                     Name = $"{Context.Guild.Name}"
                 },
                 ThumbnailUrl = Context.Guild.IconUrl,
-                Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <CustomEmojis {Context.Guild.Emojis}> <Region {Context.Guild.VoiceRegionId}>```",
+                Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <CustomEmojis {Context.Guild.Emojis.Count}> <Region {Context.Guild.VoiceRegionId}>```",
                 Footer = new EmbedFooterBuilder()
                 {
                     Text = $"Created {Context.Guild.CreatedAt.Date.Day} {Context.Guild.CreatedAt.Date.DayOfWeek} {Context.Guild.CreatedAt.Year}"
