@@ -479,5 +479,29 @@ namespace Discore_Selfbot
                 EmbedFooter.Text = "";
             }
         }
+
+        private void BtnOnTopYes_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.OnTop = true;
+            Properties.Settings.Default.OnTopString = "Yes";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnOnTopNo_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.OnTop = false;
+            Properties.Settings.Default.OnTopString = "No";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnOpenSelfbotFolder_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Program.SelfbotDir);
+        }
+
+        private void LinkDownload_LinkClicked(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discore.blaze.ml/");
+        }
     }
 }
