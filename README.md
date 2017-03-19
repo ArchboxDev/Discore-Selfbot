@@ -22,12 +22,20 @@ The bot combines a console and windows form (gui) that can communicate with each
 - text tag system with images and gif support
 - Auto nickname | per guild | changes every 1/5/10 minutes | Selectable in GUI
 - Auto Update | Get new updates when you launch the bot
-- GUI settings | Command edit/delete | Show gui on startup | Favorite color for embeds | Auto nickname timer | Always on top
+- GUI settings
+  - Command edit/delete
+  - Show GUI on startup
+  - Favorite color for embeds
+  - Auto nickname timer 1/5/10 minutes
+  - Always on top
+  
+## Commands
+[Commands](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Commands.md)
 
 ## Source?
-Main Bot Code /Discore-Selfbot/Program.cs
+[Main Bot Code](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/Program.cs)
 
-Form Code /Discore-Selfbot/MainForm.cs
+[Form/GUI Code](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/GUI.cs)
 ## How to download
 http://discore.blaze.ml/
 
