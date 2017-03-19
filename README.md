@@ -6,18 +6,24 @@ Developed in Visual Studio with C# Made by xXBuilderBXx
 The bot is easy to use and requires no setup exept for a token file and Windows .net framework 2.6.1
 
 The bot combines a console and windows form (gui) that can communicate with each such as sending commands from the gui or getting certain information from a guild within the gui
+
+![](http://i.imgur.com/OpXQJ2u.png)
+
 ## What does this bot do?
-- Windows form with guild and channel selector
-- Windows form with full logging of all guild chat | Guild blacklist (Coming Soon)
-- Windows form with command list and other info
-- Windows form with embed creator
-- Windows form with role list and custom emoji list
-- Windows form active guild and channel on last message
-- text tag system (Coming Soon)
-- Windows forms with text tag system editor (Coming Soon)
-- Update notifier
-- GUI settings | Command edit/delete | Show gui on startup | Disable logs (Coming Soon) | White/Dark theme (Coming Soon)
-For more information visit http://dev.blaze.ml
+
+- Custom GUI | Windows form
+- Custom commands Coming Soon
+- GUI Themes | Default | Dark | Dark Sparkle
+- Windows form with full logging of all guild chat
+- GUI Bot info/links, commands list and changelog
+- GUI active guild and channel on last message
+- GUI Embed creator send to active or selected channel
+- GUI Guild information, role list and custom emojis list
+- text tag system with images and gif support
+- Auto nickname | per guild | changes every 1/5/10 minutes | Selectable in GUI
+- Auto Update | Get new updates when you launch the bot
+- GUI settings | Command edit/delete | Show gui on startup | Favorite color for embeds | Auto nickname timer | Always on top
+
 ## Source?
 Main Bot Code /Discore-Selfbot/Program.cs
 
@@ -31,7 +37,7 @@ http://imgur.com/a/Hi2Nc
 
 ## Website
 For a list of commands visit the website 
-https://blaze.ml/minotaur/
+https://blaze.ml/discore-selfbot/
 
 If you have a suggestion/issue please use this github or join my guild WJTYdNb
 
