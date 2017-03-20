@@ -40,7 +40,11 @@ namespace Discore_Selfbot
                 kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
             WebClient WBC = new WebClient();
-            Program.Guilds.Clear();
+            if (Program.Ready == false)
+            {
+                return;
+            }
+            Program.GuildIDs.Clear();
             this.Text = Program.CurrentUserName;
             if (File.Exists($"avatar.png"))
             {
@@ -48,22 +52,21 @@ namespace Discore_Selfbot
             }
             foreach (var Guild in Program.client.Guilds)
             {
-                if (!File.Exists($"{Guild.Id}.png"))
-                {
+                Stream ImageStream;
                     if (Guild.IconUrl == null)
                     {
-                        WBC.DownloadFile("http://dev.blaze.ml/Letters/" + Guild.Name.ToUpper().ToCharArray()[0] + ".png", $"{Guild.Id}.png");
+                    var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
+                    ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
                     }
                     else
                     {
-                        WBC.DownloadFile(Guild.IconUrl, $"{Guild.Id}.png");
+                        ImageStream = WBC.OpenRead(Guild.IconUrl);
                     }
-                    WBC.Dispose();
-                }
-                var Item = GuildList.Items.Add(Guild.Name, System.Drawing.Image.FromFile($"{Guild.Id}.png"));
+                Bitmap Image = new Bitmap(ImageStream);
+                var Item = GuildList.Items.Add(Guild.Name, Image);
                 Item.AccessibleDescription = Guild.Id.ToString();
                 Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                Program.Guilds.Add(Guild.Name);
+                Program.GuildIDs.Add(Guild.Id);
             }
         }
 
@@ -72,37 +75,12 @@ namespace Discore_Selfbot
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var Guild = Program.client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
-            int MembersOnline = 0;
-            int MembersOffline = 0;
-            int BotsOnline = 0;
-            int BotsOffline = 0;
-            foreach (var User in Guild.Users)
+            if (Guild == null)
             {
-                if (User.IsBot)
-                {
-                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
-                    {
-                        BotsOnline++;
-                    }
-                    else
-                    {
-                        BotsOffline++;
-                    }
-                }
-                else
-                {
-                    if (User.Status == UserStatus.Online || User.Status == UserStatus.Idle || User.Status == UserStatus.AFK || User.Status == UserStatus.DoNotDisturb)
-                    {
-                        MembersOnline++;
-                    }
-                    else
-                    {
-                        MembersOffline++;
-                    }
-                }
+                Console.WriteLine("Unable to get guild");
+                return;
             }
-            
-            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {MembersOnline}/{MembersOffline} Offline" + Environment.NewLine + $"Bots: Online {BotsOnline}/{BotsOffline} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
+            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {Guild.Users.Where(x => !x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => !x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Bots: Online {Guild.Users.Where(x => x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
             SelectedGuild = Convert.ToUInt64(e.ClickedItem.AccessibleDescription);
             ChannelList.Items.Clear();
             ChannelList.Visible = true;
@@ -114,7 +92,6 @@ namespace Discore_Selfbot
             }
             ChannelList.Enabled = true;
             TextGuildRoles.Clear();
-            List<string> RoleList = new List<string>();
             foreach (var Role in Guild.Roles)
             {
                 if (Role != Guild.EveryoneRole)

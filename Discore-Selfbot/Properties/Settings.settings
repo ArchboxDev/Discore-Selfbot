@@ -32,8 +32,5 @@
     <Setting Name="OnTopString" Type="System.String" Scope="User">
       <Value Profile="(Default)">No</Value>
     </Setting>
-    <Setting Name="Setting" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
   </Settings>
 </SettingsFile>

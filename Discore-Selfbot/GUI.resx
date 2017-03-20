@@ -127,7 +127,9 @@
     <value>141, 19</value>
   </metadata>
   <data name="TextChangelog.Text" xml:space="preserve">
-    <value>More GUI changes including command groups, help menus, selfbot folder button, self clean command and an app icon
+    <value>Changed alot of code for faster guild adding in the GUI, Fixed a bunch of issues and adding a warning for bad token and making commands always edit in DMs so users dont get 2 messages at once
+
+More GUI changes including command groups, help menus, selfbot folder button, self clean command and an app icon
 
 Finally fixed the freezing issue and fixed the emoji count in self guild
 
@@ -153,8 +155,8 @@ Major overhaul of the GUI
   <metadata name="GuildList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+  <metadata name="ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>695, 11</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

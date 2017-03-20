@@ -32,7 +32,7 @@
     <WebPage>publish.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.8.1.0</ApplicationVersion>
+    <ApplicationVersion>4.9.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -70,13 +70,20 @@
     <ManifestCertificateThumbprint>171E1EEEF45C88ACDA4F98F1F7B0E87889C7E65B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Discore-Selfbot_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Selfbot.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Blaze.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Docking, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e" />
@@ -85,22 +92,22 @@
     <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e" />
     <Reference Include="ComponentFactory.Krypton.Workspace, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e" />
     <Reference Include="Discord.Net.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Commands.1.0.0-rc-00623\lib\netstandard1.3\Discord.Net.Commands.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.Commands.1.0.0-rc-00642\lib\netstandard1.3\Discord.Net.Commands.dll</HintPath>
     </Reference>
     <Reference Include="Discord.Net.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Core.1.0.0-rc-00623\lib\netstandard1.3\Discord.Net.Core.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.Core.1.0.0-rc-00642\lib\netstandard1.3\Discord.Net.Core.dll</HintPath>
     </Reference>
     <Reference Include="Discord.Net.Providers.WS4Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Providers.WS4Net.1.0.0-rc-00623\lib\net45\Discord.Net.Providers.WS4Net.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.Providers.WS4Net.1.0.0-rc-00642\lib\net45\Discord.Net.Providers.WS4Net.dll</HintPath>
     </Reference>
     <Reference Include="Discord.Net.Rest, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Rest.1.0.0-rc-00623\lib\netstandard1.3\Discord.Net.Rest.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.Rest.1.0.0-rc-00642\lib\netstandard1.3\Discord.Net.Rest.dll</HintPath>
     </Reference>
     <Reference Include="Discord.Net.Rpc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.Rpc.1.0.0-rc-00623\lib\netstandard1.3\Discord.Net.Rpc.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.Rpc.1.0.0-rc-00642\lib\netstandard1.3\Discord.Net.Rpc.dll</HintPath>
     </Reference>
     <Reference Include="Discord.Net.WebSocket, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Discord.Net.WebSocket.1.0.0-rc-00623\lib\netstandard1.3\Discord.Net.WebSocket.dll</HintPath>
+      <HintPath>..\packages\Discord.Net.WebSocket.1.0.0-rc-00642\lib\netstandard1.3\Discord.Net.WebSocket.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
@@ -212,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Blaze.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
