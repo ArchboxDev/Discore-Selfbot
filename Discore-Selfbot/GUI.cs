@@ -7,37 +7,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Discord;
+using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
-using ComponentFactory.Krypton.Toolkit;
+using Discord;
 
 namespace Discore_Selfbot
 {
-    public partial class GUI : Form
+    public partial class GUI : KryptonForm
     {
         public static Discord.Color EmbedColor;
         public bool EmbedFirstClick = false;
         public static ulong SelectedGuild = 0;
-        public static ulong SelectChannel = 0;
+        public static ulong SelectedChannel = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
         public GUI()
         {
             InitializeComponent();
+            this.buttonSpecAny1.Click += ButtonSpecAny1_Click;
         }
-            
 
+        private void ButtonSpecAny1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hi im a test button 0_o");
+        }
 
-        private void GUI_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.Theme == "Dark")
             {
-                kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+                ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             }
             if (Properties.Settings.Default.Theme == "Dark Sparkle")
             {
-                kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+                ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
             WebClient WBC = new WebClient();
             if (Program.Ready == false)
@@ -53,15 +57,15 @@ namespace Discore_Selfbot
             foreach (var Guild in Program.client.Guilds)
             {
                 Stream ImageStream;
-                    if (Guild.IconUrl == null)
-                    {
+                if (Guild.IconUrl == null)
+                {
                     var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
                     ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
-                    }
-                    else
-                    {
-                        ImageStream = WBC.OpenRead(Guild.IconUrl);
-                    }
+                }
+                else
+                {
+                    ImageStream = WBC.OpenRead(Guild.IconUrl);
+                }
                 Bitmap Image = new Bitmap(ImageStream);
                 var Item = GuildList.Items.Add(Guild.Name, Image);
                 Item.AccessibleDescription = Guild.Id.ToString();
@@ -70,8 +74,27 @@ namespace Discore_Selfbot
             }
         }
 
+        private void kryptonButton1_Click(object sender, EventArgs e)
+        {
+            this.Palette = kryptonPalette1;
+            this.PaletteMode = PaletteMode.Custom;
+        }
+
+        public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
+        {
+            box.SelectionStart = box.TextLength;
+            box.SelectionLength = 0;
+
+            box.SelectionColor = color;
+            //box.SelectionFont = font;
+            box.AppendText(text);
+            box.SelectionColor = box.ForeColor;
+        }
+
         private void GuildList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            BtnSendSelected.Enabled = false;
+            BtnSendSelected.Text = "Selected";
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var Guild = Program.client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
@@ -115,9 +138,24 @@ namespace Discore_Selfbot
             TextGuildEmojis.Text = string.Join(Environment.NewLine, EmojiList.ToArray());
         }
 
-        private void ChannelList_Click(object sender, EventArgs e)
+        private void ChannelList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            Console.WriteLine($"Selected Channel {ChannelList.SelectedItem}");
+            int Index = ChannelList.SelectedIndex;
+            SelectedChannel = Program.ChannelsID[Index];
+            var Guild = Program.client.GetGuild(SelectedGuild);
+            var Chan = Guild.GetChannel(SelectedChannel) as ITextChannel;
+            var User = Guild.GetUser(Program.CurrentUserID);
+            if (User.GuildPermissions.EmbedLinks || User.GetPermissions(Chan).EmbedLinks)
+            {
+                BtnSendSelected.Enabled = true;
+                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + ChannelList.SelectedItem;
+            }
+            else
+            {
+                BtnSendSelected.Enabled = false;
+                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + "No Perms";
+            }
         }
 
         private void BtnEmbedColor_Click(object sender, EventArgs e)
@@ -129,7 +167,7 @@ namespace Discore_Selfbot
                 TextEmbedColor.Visible = true;
                 TextEmbedColor.BackColor = colorDialog1.Color;
                 BtnEmbedColor.ForeColor = colorDialog1.Color;
-                
+
             }
             else
             {
@@ -146,7 +184,7 @@ namespace Discore_Selfbot
                 MessageBox.Show("No guild selected");
                 return;
             }
-            if (SelectChannel == 0)
+            if (SelectedChannel == 0)
             {
                 MessageBox.Show("No channel selected");
                 return;
@@ -162,7 +200,7 @@ namespace Discore_Selfbot
             LastEmbedTitle = EmbedTitle.Text;
             LastEmbedText = EmbedText.Text;
             var Guild = Program.client.GetGuild(SelectedGuild);
-            var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
+            var Chan = Guild.GetChannel(SelectedChannel) as ITextChannel;
             var embed = new EmbedBuilder()
             {
                 Title = EmbedTitle.Text,
@@ -232,7 +270,6 @@ namespace Discore_Selfbot
         private void HyperlinkWebsite_LinkClicked(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://blaze.ml/");
-            
         }
 
         private void HyperlinkGuild_LinkClicked(object sender, EventArgs e)
@@ -240,66 +277,40 @@ namespace Discore_Selfbot
             System.Diagnostics.Process.Start("http://discord.gg/WJTYdNb");
         }
 
-        private void ViewBotsList_AfterSelect(object sender, TreeViewEventArgs e)
+        private void LinkDownload_LinkClicked(object sender, EventArgs e)
         {
-            if (e.Node.Name == "PixelBot")
-            {
-                TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
-                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
-            }
-            if (e.Node.Name == "Minotaur")
-            {
-                TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
-                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
-            }
-            if (e.Node.Name == "Discord Cards")
-            {
-                TextBotInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
-                HyperlinkBotWebsite.AccessibleDescription = "";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
-                HyperlinkBotWebsite.Visible = false;
-                HyperlinkBotInvite.Visible = true;
-            }
-            if (e.Node.Name == "Casino Bot")
-            {
-                TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
-                HyperlinkBotWebsite.AccessibleDescription = "";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
-                HyperlinkBotWebsite.Visible = false;
-                HyperlinkBotInvite.Visible = true;
-            }
-            if (e.Node.Name == "Discord RPG")
-            {
-                TextBotInfo.Text = "Who dosent love a good RPG bot?";
-                HyperlinkBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
-            }
-            if (e.Node.Name == "Sekoboto")
-            {
-                TextBotInfo.Text = "A cool bot with random and usefull commands it also her per guild/channel configs";
-                HyperlinkBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
-            }
+            System.Diagnostics.Process.Start("https://discore.blaze.ml/");
         }
 
-        private void HyperlinkBotWebsite_LinkClicked(object sender, EventArgs e)
+        private void BtnOpenSelfbotFolder_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(HyperlinkBotWebsite.AccessibleDescription);
+            System.Diagnostics.Process.Start(Program.SelfbotDir);
         }
 
-        private void HyperlinkBotInvite_LinkClicked(object sender, EventArgs e)
+        private void ViewCommandsList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            System.Diagnostics.Process.Start(HyperlinkBotInvite.AccessibleDescription);
+            TextCommandInfo.Text = e.Node.ToolTipText;
+        }
+
+        private void BtnThemeDefault_Click(object sender, EventArgs e)
+        {
+            ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
+            Properties.Settings.Default.Theme = "Default";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnThemeDark_Click(object sender, EventArgs e)
+        {
+            ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+            Properties.Settings.Default.Theme = "Default";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnThemeSparkle_Click(object sender, EventArgs e)
+        {
+            ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+            Properties.Settings.Default.Theme = "Default";
+            Properties.Settings.Default.Save();
         }
 
         private void BtnCMEdit_Click(object sender, EventArgs e)
@@ -362,100 +373,6 @@ namespace Discore_Selfbot
             Properties.Settings.Default.ANTimer = "10";
             Program.AutoNickname_Timer.Interval = 600000;
         }
-        public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
-        {
-            box.SelectionStart = box.TextLength;
-            box.SelectionLength = 0;
-
-            box.SelectionColor = color;
-            //box.SelectionFont = font;
-            box.AppendText(text);
-            box.SelectionColor = box.ForeColor;
-        }
-
-        private void ChannelList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Console.WriteLine($"Selected Channel {ChannelList.SelectedItem}");
-            int Index = ChannelList.SelectedIndex;
-            SelectChannel = Program.ChannelsID[Index];
-            var Guild = Program.client.GetGuild(SelectedGuild);
-            var Chan = Guild.GetChannel(SelectChannel) as ITextChannel;
-            var User = Guild.GetUser(Program.CurrentUserID);
-            if (User.GuildPermissions.EmbedLinks || User.GetPermissions(Chan).EmbedLinks)
-            {
-                BtnSendSelected.Enabled = true;
-                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + ChannelList.SelectedItem;
-            }
-            else
-            {
-                BtnSendSelected.Enabled = false;
-                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + "No Perms";
-            }
-        }
-
-        private void kryptonButton1_Click(object sender, EventArgs e)
-        {
-            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
-            Properties.Settings.Default.Theme = "Default";
-            Properties.Settings.Default.Save();
-        }
-
-        private void kryptonButton2_Click(object sender, EventArgs e)
-        {
-            kryptonManager1.GlobalPaletteMode = PaletteModeManager.Office2010Black;
-            Properties.Settings.Default.Theme = "Dark";
-            Properties.Settings.Default.Save();
-        }
-
-        private void kryptonButton3_Click(object sender, EventArgs e)
-        {
-            kryptonManager1.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
-            Properties.Settings.Default.Theme = "Dark Sparkle";
-            Properties.Settings.Default.Save();
-        }
-
-        private void ViewCommandsList_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TextCommandInfo.Text = e.Node.ToolTipText;
-        }
-
-        private void CommandInfoHover(object sender, TreeNodeMouseHoverEventArgs e)
-        {
-            TextCommandInfo.Text = e.Node.ToolTipText;
-        }
-
-        private void EmbedTitle_TextChanged(object sender, EventArgs e)
-        {
-            if (EmbedFirstClick == false)
-            {
-                EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
-            }
-        }
-
-        private void EmbedText_TextChanged(object sender, EventArgs e)
-        {
-            if (EmbedFirstClick == false)
-            {
-                EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
-            }
-        }
-
-        private void EmbedFooter_TextChanged(object sender, EventArgs e)
-        {
-            if (EmbedFirstClick == false)
-            {
-                EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
-            }
-        }
 
         private void BtnOnTopYes_Click(object sender, EventArgs e)
         {
@@ -471,14 +388,66 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
         }
 
-        private void BtnOpenSelfbotFolder_Click(object sender, EventArgs e)
+        private void ViewBotsList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            System.Diagnostics.Process.Start(Program.SelfbotDir);
+            if (e.Node.Name == "PixelBot")
+            {
+                TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
+                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
+                HyperlinkBotWebsite.Visible = true;
+                HyperlinkBotInvite.Visible = true;
+            }
+            if (e.Node.Name == "Minotaur")
+            {
+                TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
+                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
+                HyperlinkBotWebsite.Visible = true;
+                HyperlinkBotInvite.Visible = true;
+            }
+            if (e.Node.Name == "Discord Cards")
+            {
+                TextBotInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
+                HyperlinkBotWebsite.AccessibleDescription = "";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
+                HyperlinkBotWebsite.Visible = false;
+                HyperlinkBotInvite.Visible = true;
+            }
+            if (e.Node.Name == "Casino Bot")
+            {
+                TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
+                HyperlinkBotWebsite.AccessibleDescription = "";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
+                HyperlinkBotWebsite.Visible = false;
+                HyperlinkBotInvite.Visible = true;
+            }
+            if (e.Node.Name == "Discord RPG")
+            {
+                TextBotInfo.Text = "Who dosent love a good RPG bot?";
+                HyperlinkBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
+                HyperlinkBotWebsite.Visible = true;
+                HyperlinkBotInvite.Visible = true;
+            }
+            if (e.Node.Name == "Sekoboto")
+            {
+                TextBotInfo.Text = "A cool bot with random and usefull commands it also her per guild/channel configs";
+                HyperlinkBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
+                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
+                HyperlinkBotWebsite.Visible = true;
+                HyperlinkBotInvite.Visible = true;
+            }
         }
 
-        private void LinkDownload_LinkClicked(object sender, EventArgs e)
+        private void HyperlinkBotWebsite_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://discore.blaze.ml/");
+            System.Diagnostics.Process.Start(HyperlinkBotWebsite.AccessibleDescription);
+        }
+
+        private void HyperlinkBotInvite_LinkClicked(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(HyperlinkBotInvite.AccessibleDescription);
         }
     }
 }

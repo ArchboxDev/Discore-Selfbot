@@ -93,6 +93,7 @@ namespace Discore_Selfbot
         [STAThread]
         public static void OpenGUI()
         {
+            Application.EnableVisualStyles();
             GUI.CheckForIllegalCrossThreadCalls = false;
             MyForm = new GUI();
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
@@ -100,10 +101,7 @@ namespace Discore_Selfbot
                 return;
             }
                     Console.WriteLine("Opening GUI");
-                Task mytask = Task.Run(() =>
-                    {
-                        MyForm.ShowDialog();
-                    });
+            Application.Run(MyForm);
         }
 
         public async Task RunBot()
@@ -732,7 +730,7 @@ namespace Discore_Selfbot
             {
                 Console.WriteLine("Opening gui");
                 GUI.SelectedGuild = 0;
-                GUI.SelectChannel = 0;
+                GUI.SelectedChannel = 0;
                 Program.OpenGUI();
                 Program.MyForm.Activate();
             }
