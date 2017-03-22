@@ -79,6 +79,7 @@ namespace Discore_Selfbot
             {
                 
             }
+            
             Properties.Settings.Default.TotalRuns++;
             if (Properties.Settings.Default.ANGuildsList == null)
             {
@@ -93,15 +94,19 @@ namespace Discore_Selfbot
         [STAThread]
         public static void OpenGUI()
         {
-            Application.EnableVisualStyles();
             GUI.CheckForIllegalCrossThreadCalls = false;
             MyForm = new GUI();
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
             {
                 return;
             }
-                    Console.WriteLine("Opening GUI");
-            Application.Run(MyForm);
+            Console.WriteLine("Opening GUI");
+            Task mytask = Task.Run(() =>
+            {
+                
+                MyForm.ShowDialog();
+            });
+            
         }
 
         public async Task RunBot()

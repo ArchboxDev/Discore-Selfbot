@@ -151,19 +151,24 @@
             this.HelpCommandMessage = new System.Windows.Forms.TextBox();
             this.HelpAutoNickname = new System.Windows.Forms.TextBox();
             this.BtnOnTopNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnOnTopYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.TitleOnTop = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleFavoriteColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.TextFavColor = new System.Windows.Forms.TextBox();
             this.BtnAN5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnFavColor = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAFNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnAFYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnCMDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnCMEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BorderSettings = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavInfoBots = new ComponentFactory.Krypton.Navigator.KryptonPage();
@@ -185,11 +190,6 @@
             this.ACID = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolTipManager = new System.Windows.Forms.ToolTip(this.components);
             this.ThemeManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TextFavColor = new System.Windows.Forms.TextBox();
-            this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.TextCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.GuildList = new System.Windows.Forms.ToolStrip();
             ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).BeginInit();
             this.NavGuild.SuspendLayout();
@@ -903,6 +903,17 @@
             this.BtnOnTopNo.Values.Text = "No";
             this.BtnOnTopNo.Click += new System.EventHandler(this.BtnOnTopNo_Click);
             // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.AutoSize = false;
+            this.kryptonLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "OnTopString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.kryptonLabel1.Location = new System.Drawing.Point(179, 327);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(50, 40);
+            this.kryptonLabel1.TabIndex = 145;
+            this.kryptonLabel1.Text = global::Discore_Selfbot.Properties.Settings.Default.OnTopString;
+            this.kryptonLabel1.Values.Text = "No";
+            // 
             // BtnOnTopYes
             // 
             this.BtnOnTopYes.Location = new System.Drawing.Point(5, 327);
@@ -988,6 +999,17 @@
             this.TitleCommandMessage.Values.Heading = "Command Message";
             this.TitleCommandMessage.Values.Image = null;
             // 
+            // TextFavColor
+            // 
+            this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.TextFavColor.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextFavColor.Location = new System.Drawing.Point(180, 193);
+            this.TextFavColor.Name = "TextFavColor";
+            this.TextFavColor.ReadOnly = true;
+            this.TextFavColor.Size = new System.Drawing.Size(50, 20);
+            this.TextFavColor.TabIndex = 138;
+            // 
             // BtnAN5
             // 
             this.BtnAN5.Location = new System.Drawing.Point(79, 253);
@@ -1015,6 +1037,17 @@
             this.BtnAN1.Values.Text = "1 Min";
             this.BtnAN1.Click += new System.EventHandler(this.BtnAN1_Click);
             // 
+            // TextAutoNickname
+            // 
+            this.TextAutoNickname.AutoSize = false;
+            this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextAutoNickname.Location = new System.Drawing.Point(209, 253);
+            this.TextAutoNickname.Name = "TextAutoNickname";
+            this.TextAutoNickname.Size = new System.Drawing.Size(20, 40);
+            this.TextAutoNickname.TabIndex = 134;
+            this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
+            this.TextAutoNickname.Values.Text = "1";
+            // 
             // BtnFavColor
             // 
             this.BtnFavColor.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -1034,6 +1067,17 @@
             this.BtnAFNo.Values.Text = "No";
             this.BtnAFNo.Click += new System.EventHandler(this.BtnAFNo_Click);
             // 
+            // TextAutoForm
+            // 
+            this.TextAutoForm.AutoSize = false;
+            this.TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextAutoForm.Location = new System.Drawing.Point(180, 105);
+            this.TextAutoForm.Name = "TextAutoForm";
+            this.TextAutoForm.Size = new System.Drawing.Size(49, 40);
+            this.TextAutoForm.TabIndex = 131;
+            this.TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.TextAutoForm.Values.Text = "Yes";
+            // 
             // BtnAFYes
             // 
             this.BtnAFYes.Location = new System.Drawing.Point(5, 105);
@@ -1051,6 +1095,17 @@
             this.BtnCMDelete.TabIndex = 129;
             this.BtnCMDelete.Values.Text = "Delete";
             this.BtnCMDelete.Click += new System.EventHandler(this.BtnCMDelete_Click);
+            // 
+            // TextCommandMessage
+            // 
+            this.TextCommandMessage.AutoSize = false;
+            this.TextCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextCommandMessage.Location = new System.Drawing.Point(180, 31);
+            this.TextCommandMessage.Name = "TextCommandMessage";
+            this.TextCommandMessage.Size = new System.Drawing.Size(50, 40);
+            this.TextCommandMessage.TabIndex = 128;
+            this.TextCommandMessage.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.TextCommandMessage.Values.Text = "Edit";
             // 
             // BtnCMEdit
             // 
@@ -1245,61 +1300,6 @@
             this.ACID.Name = "ACID";
             this.ACID.Size = new System.Drawing.Size(27, 17);
             this.ACID.Text = "(69)";
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.AutoSize = false;
-            this.kryptonLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "OnTopString", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.kryptonLabel1.Location = new System.Drawing.Point(179, 327);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(50, 40);
-            this.kryptonLabel1.TabIndex = 145;
-            this.kryptonLabel1.Text = global::Discore_Selfbot.Properties.Settings.Default.OnTopString;
-            this.kryptonLabel1.Values.Text = "No";
-            // 
-            // TextFavColor
-            // 
-            this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TextFavColor.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextFavColor.Location = new System.Drawing.Point(180, 193);
-            this.TextFavColor.Name = "TextFavColor";
-            this.TextFavColor.ReadOnly = true;
-            this.TextFavColor.Size = new System.Drawing.Size(50, 20);
-            this.TextFavColor.TabIndex = 138;
-            // 
-            // TextAutoNickname
-            // 
-            this.TextAutoNickname.AutoSize = false;
-            this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoNickname.Location = new System.Drawing.Point(209, 253);
-            this.TextAutoNickname.Name = "TextAutoNickname";
-            this.TextAutoNickname.Size = new System.Drawing.Size(20, 40);
-            this.TextAutoNickname.TabIndex = 134;
-            this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
-            this.TextAutoNickname.Values.Text = "1";
-            // 
-            // TextAutoForm
-            // 
-            this.TextAutoForm.AutoSize = false;
-            this.TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoForm.Location = new System.Drawing.Point(180, 105);
-            this.TextAutoForm.Name = "TextAutoForm";
-            this.TextAutoForm.Size = new System.Drawing.Size(49, 40);
-            this.TextAutoForm.TabIndex = 131;
-            this.TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.TextAutoForm.Values.Text = "Yes";
-            // 
-            // TextCommandMessage
-            // 
-            this.TextCommandMessage.AutoSize = false;
-            this.TextCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextCommandMessage.Location = new System.Drawing.Point(180, 31);
-            this.TextCommandMessage.Name = "TextCommandMessage";
-            this.TextCommandMessage.Size = new System.Drawing.Size(50, 40);
-            this.TextCommandMessage.TabIndex = 128;
-            this.TextCommandMessage.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.TextCommandMessage.Values.Text = "Edit";
             // 
             // GuildList
             // 

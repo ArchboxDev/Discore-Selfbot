@@ -121,7 +121,7 @@
     <value>36, 18</value>
   </metadata>
   <data name="TextChangelog.Text" xml:space="preserve">
-    <value>GUI Change for some great updates ;) also click that test button above
+    <value>GUI Change for some great updates ;) also click that test button above and fixed the self form command
 
 Changed alot of code for faster guild adding in the GUI, Fixed a bunch of issues and adding a warning for bad token and making commands always edit in DMs so users dont get 2 messages at once
 
