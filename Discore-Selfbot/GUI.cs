@@ -11,6 +11,7 @@ using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
 using Discord;
+using System.Threading;
 
 namespace Discore_Selfbot
 {
@@ -25,12 +26,40 @@ namespace Discore_Selfbot
         public GUI()
         {
             InitializeComponent();
-            this.buttonSpecAny1.Click += ButtonSpecAny1_Click;
+            this.BtnTopMin.Click += BtnTopMin_Click;
+            this.BtnOnTop.Click += BtnOnTop_Click;
+            this.NavInfo.SelectedPageChanged += NavInfo_SelectedPageChanged;
         }
 
-        private void ButtonSpecAny1_Click(object sender, EventArgs e)
+        private void NavInfo_SelectedPageChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Hi im a test button 0_o");
+           if (NavInfo.SelectedPage.Name == "NavCustomPage")
+            {
+                CustomCommandsList.Items.Clear();
+                foreach (var File in Directory.GetFiles(Program.SelfbotDir + "Custom\\"))
+                {
+                    if (!File.Contains(".message"))
+                    {
+                        CustomCommandsList.Items.Add(File.Replace(Program.SelfbotDir + "Custom\\", "").Replace(".txt", ""));
+                    }
+                }
+            }
+        }
+
+        private void BtnTopMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void BtnOnTop_Click(object sender, EventArgs e)
+        {
+            if (BtnOnTop.Checked == ButtonCheckState.Unchecked)
+            {
+                this.TopMost = false;
+            }
+            else
+            {
+                this.TopMost = true;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,11 +72,11 @@ namespace Discore_Selfbot
             {
                 ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
-            WebClient WBC = new WebClient();
             if (Program.Ready == false)
             {
                 return;
             }
+            WebClient WBC = new WebClient();
             Program.GuildIDs.Clear();
             this.Text = Program.CurrentUserName;
             if (File.Exists($"avatar.png"))
@@ -56,21 +85,24 @@ namespace Discore_Selfbot
             }
             foreach (var Guild in Program.client.Guilds)
             {
-                Stream ImageStream;
-                if (Guild.IconUrl == null)
+                if (!Program.GuildIDs.Contains(Guild.Id))
                 {
-                    var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
-                    ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
+                    Stream ImageStream;
+                    if (Guild.IconUrl == null)
+                    {
+                        var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
+                        ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
+                    }
+                    else
+                    {
+                        ImageStream = WBC.OpenRead(Guild.IconUrl);
+                    }
+                    Bitmap Image = new Bitmap(ImageStream);
+                    var Item = GuildList.Items.Add(Guild.Name, Image);
+                    Item.AccessibleDescription = Guild.Id.ToString();
+                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    Program.GuildIDs.Add(Guild.Id);
                 }
-                else
-                {
-                    ImageStream = WBC.OpenRead(Guild.IconUrl);
-                }
-                Bitmap Image = new Bitmap(ImageStream);
-                var Item = GuildList.Items.Add(Guild.Name, Image);
-                Item.AccessibleDescription = Guild.Id.ToString();
-                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                Program.GuildIDs.Add(Guild.Id);
             }
         }
 
@@ -374,20 +406,6 @@ namespace Discore_Selfbot
             Program.AutoNickname_Timer.Interval = 600000;
         }
 
-        private void BtnOnTopYes_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.OnTop = true;
-            Properties.Settings.Default.OnTopString = "Yes";
-            Properties.Settings.Default.Save();
-        }
-
-        private void BtnOnTopNo_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.OnTop = false;
-            Properties.Settings.Default.OnTopString = "No";
-            Properties.Settings.Default.Save();
-        }
-
         private void ViewBotsList_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Name == "PixelBot")
@@ -448,6 +466,30 @@ namespace Discore_Selfbot
         private void HyperlinkBotInvite_LinkClicked(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(HyperlinkBotInvite.AccessibleDescription);
+        }
+        
+        private void CustomAddCustomAdd_LinkClicked(object sender, EventArgs e)
+        {
+                var Custom = new CustomCommand();
+                Custom.Show();
+        }
+
+        private void CustomDelete_LinkClicked(object sender, EventArgs e)
+        {
+            if (CustomCommandsList.SelectedIndex == -1)
+            {
+                MessageBox.Show("No item selected");
+                return;
+            }
+            string Selected = CustomCommandsList.SelectedItem.ToString();
+            File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".txt");
+            File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".message.txt");
+            CustomCommandsList.Items.RemoveAt(CustomCommandsList.SelectedIndex);
+        }
+
+        private void kryptonLabel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

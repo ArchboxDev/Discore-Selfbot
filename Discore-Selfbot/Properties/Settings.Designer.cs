@@ -117,29 +117,5 @@ namespace Discore_Selfbot.Properties {
                 this["TotalRuns"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool OnTop {
-            get {
-                return ((bool)(this["OnTop"]));
-            }
-            set {
-                this["OnTop"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("No")]
-        public string OnTopString {
-            get {
-                return ((string)(this["OnTopString"]));
-            }
-            set {
-                this["OnTopString"] = value;
-            }
-        }
     }
 }

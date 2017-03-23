@@ -142,6 +142,9 @@ Custom themes added
 Major overhaul of the GUI
 </value>
   </data>
+  <metadata name="ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>681, 18</value>
+  </metadata>
   <metadata name="OpenFavoriteColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>272, 18</value>
   </metadata>

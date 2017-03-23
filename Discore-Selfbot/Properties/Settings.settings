@@ -26,11 +26,5 @@
     <Setting Name="TotalRuns" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="OnTop" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="OnTopString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">No</Value>
-    </Setting>
   </Settings>
 </SettingsFile>
