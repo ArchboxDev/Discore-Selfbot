@@ -29,6 +29,30 @@ namespace Discore_Selfbot
             this.BtnTopMin.Click += BtnTopMin_Click;
             this.BtnOnTop.Click += BtnOnTop_Click;
             this.NavInfo.SelectedPageChanged += NavInfo_SelectedPageChanged;
+            this.kryptonContextMenuItem1.Click += KryptonContextMenuItem1_Click;
+            this.kryptonContextMenuItem2.Click += KryptonContextMenuItem2_Click;
+            this.kryptonContextMenuItem3.Click += KryptonContextMenuItem3_Click;
+            this.kryptonContextMenuItem4.Click += KryptonContextMenuItem4_Click;
+        }
+
+        private void KryptonContextMenuItem4_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/LICENSE");
+        }
+
+        private void KryptonContextMenuItem3_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://discord.gg/WJTYdNb");
+        }
+
+        private void KryptonContextMenuItem2_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot");
+        }
+
+        private void KryptonContextMenuItem1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://blaze.ml/");
         }
 
         private void NavInfo_SelectedPageChanged(object sender, EventArgs e)
@@ -190,24 +214,7 @@ namespace Discore_Selfbot
             }
         }
 
-        private void BtnEmbedColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog1 = new ColorDialog();
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                EmbedColor = new Discord.Color(colorDialog1.Color.R, colorDialog1.Color.G, colorDialog1.Color.B);
-                TextEmbedColor.Visible = true;
-                TextEmbedColor.BackColor = colorDialog1.Color;
-                BtnEmbedColor.ForeColor = colorDialog1.Color;
-
-            }
-            else
-            {
-                EmbedColor = new Discord.Color();
-                BtnEmbedColor.ForeColor = System.Drawing.SystemColors.ControlText;
-                TextEmbedColor.Visible = false;
-            }
-        }
+        
 
         private async void BtnSendSelected_Click(object sender, EventArgs e)
         {
@@ -296,17 +303,17 @@ namespace Discore_Selfbot
 
         private void HyperlinkGithub_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot");
+            
         }
 
         private void HyperlinkWebsite_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://blaze.ml/");
+            
         }
 
         private void HyperlinkGuild_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://discord.gg/WJTYdNb");
+            
         }
 
         private void LinkDownload_LinkClicked(object sender, EventArgs e)
@@ -488,6 +495,35 @@ namespace Discore_Selfbot
         }
 
         private void kryptonLabel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void kryptonColorButton1_SelectedColorChanged(object sender, ColorEventArgs e)
+        {
+            if (e.Color.IsEmpty)
+            {
+                EmbedColor = new Discord.Color();
+            }
+            else
+            {
+                BtnEmbedColor.StateNormal.Back.Color1 = e.Color;
+                BtnEmbedColor.OverrideDefault.Back.Color1 = e.Color;
+                EmbedColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
+            }
+        }
+
+        private void BtnLogsAll_LinkClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnLogsGuild_LinkClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnLogsChannel_LinkClicked(object sender, EventArgs e)
         {
 
         }

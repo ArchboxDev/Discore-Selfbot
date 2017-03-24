@@ -26,6 +26,7 @@ namespace Discore_Selfbot
         private CommandService commands;
         public static DiscordSocketClient client;
         private DependencyMap map;
+        public static List<string> Logging = new List<string>();
         public static string SelfbotDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public static bool DownloadGuilds = false;
         public static List<ulong> GuildIDs = new List<ulong>();
@@ -41,6 +42,7 @@ namespace Discore_Selfbot
         public static string CurrentUserName;
         public static ulong CurrentUserID;
         public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
+        
         static void Main()
         {
             DisableConsoleQuickEdit.Go();
@@ -91,7 +93,7 @@ namespace Discore_Selfbot
             Console.WriteLine("Token found Loading Bot");
                 new Program().RunBot().GetAwaiter().GetResult();
         }
-
+        
         [STAThread]
         public static void OpenGUI()
         {
@@ -133,6 +135,7 @@ namespace Discore_Selfbot
                 }
                 return Task.CompletedTask;
             };
+
             client.GuildAvailable += (g) =>
             {
                 if (!GuildIDs.Contains(g.Id))
@@ -163,11 +166,20 @@ namespace Discore_Selfbot
                 }
                 return Task.CompletedTask;
             };
+            
             client.MessageReceived += (m) =>
             {
+                if (m.Channel is IPrivateChannel)
+                {
+                }
+                else
+                {
+                    var GU = m.Channel as ITextChannel;
+                    Logging.Insert(0, $"{GU.Guild.Id}-{m.Channel.Id}-{m.Author.Username}-{m.Content}");
+                }
                 if (m.Author.Id == client.CurrentUser.Id)
                 {
-                MyForm.BtnSendActive.Enabled = true;
+                    MyForm.BtnSendActive.Enabled = true;
                     if (m.Channel is IPrivateChannel)
                     {
                         MyForm.ChannelList.Visible = false;
@@ -182,6 +194,16 @@ namespace Discore_Selfbot
                     else
                     {
                         var GU = m.Author as IGuildUser;
+                        if (m.Content == "self logs")
+                        {
+                            foreach (var Log in Logging)
+                            {
+                                if (Log.Contains($"{GU.Guild.Id}-{m.Channel.Id}-"))
+                                {
+                                    Console.WriteLine(Log.Replace($"{GU.Guild.Id}-{m.Channel.Id}-", ""));
+                                }
+                            }
+                        }
                         MyForm.AGName.Text = GU.Guild.Name;
                         MyForm.AGID.Text = $"({GU.Guild.Id})";
                         MyForm.ACName.Text = m.Channel.Name;
@@ -206,6 +228,7 @@ namespace Discore_Selfbot
                         }
                     }
                 }
+            
                 return Task.CompletedTask;
             };
             client.JoinedGuild += (g) =>
@@ -247,7 +270,7 @@ namespace Discore_Selfbot
                 }
                 return Task.CompletedTask;
             };
-            
+
             client.Connected += () =>
             {
                 Console.Title = "Discore - Selfbot - Online!!";
@@ -488,8 +511,7 @@ namespace Discore_Selfbot
         {
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
-            
-            
+
             if (message.Author.Id != client.CurrentUser.Id)
             {
                 if (message.Channel is IPrivateChannel)
@@ -498,11 +520,7 @@ namespace Discore_Selfbot
                 else
                 {
                     var GuildUser = message.Author as IGuildUser;
-                    if (MyForm.ChannelLogs.Items.Count == 50)
-                    {
-                        MyForm.ChannelLogs.Items.RemoveAt(49);
-                    }
-                    MyForm.ChannelLogs.Items.Insert(0, $"{GuildUser.Guild.Name} | {message.Channel.Name}" + Environment.NewLine + $"{message.Author.Username}" + Environment.NewLine + message.Content);
+                    
                 }
                     return;
             }
@@ -627,7 +645,6 @@ namespace Discore_Selfbot
         {
             await Program.SendMessage(Context.Message as IUserMessage, $"Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}");
         }
-
         [Command("neko")]
         public async Task neko()
         {
@@ -675,7 +692,7 @@ namespace Discore_Selfbot
                     break;
 
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("clean")]
@@ -683,12 +700,12 @@ namespace Discore_Selfbot
         {
             if (Ammount == 0)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be 0");
+                await Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be 0");
                 return;
             }
             if (Ammount > 30)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be more than 30");
+                await Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be more than 30");
                 return;
             }
             int Count = Ammount;
@@ -782,7 +799,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("ping")]
@@ -792,19 +809,19 @@ namespace Discore_Selfbot
             {
                 System.Net.NetworkInformation.PingReply PingDiscord = new System.Net.NetworkInformation.Ping().Send("discordapp.com");
                 System.Net.NetworkInformation.PingReply PingGoogle = new System.Net.NetworkInformation.Ping().Send("google.com");
-                Program.SendMessage(Context.Message as IUserMessage, $"PONG > Discord: {PingDiscord.RoundtripTime} MS Google: {PingGoogle.RoundtripTime} MS Gateway: " + Program.client.Latency + " MS");
+                await Program.SendMessage(Context.Message as IUserMessage, $"PONG > Discord: {PingDiscord.RoundtripTime} MS Google: {PingGoogle.RoundtripTime} MS Gateway: " + Program.client.Latency + " MS");
             }
             else
             {
                 System.Net.NetworkInformation.PingReply Ping = new System.Net.NetworkInformation.Ping().Send("discordapp.com");
-                Program.SendMessage(Context.Message as IUserMessage, $"PONG > {IP}: {Ping.RoundtripTime} MS");
+                await Program.SendMessage(Context.Message as IUserMessage, $"PONG > {IP}: {Ping.RoundtripTime} MS");
             }
         }
 
         [Command("uptime")]
         public async Task uptime()
         {
-            Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
+            await Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
         }
 
         [Command("calc")]
@@ -838,7 +855,7 @@ namespace Discore_Selfbot
                     Message = "Unknown Function Use | + - * /";
                     break;
             }
-            Program.SendMessage(Context.Message as IUserMessage, Message);
+            await Program.SendMessage(Context.Message as IUserMessage, Message);
         }
         [Command("info")]
         public async Task info()
@@ -862,7 +879,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("cleanembed")]
@@ -918,7 +935,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("tembed")]
@@ -937,7 +954,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("bot")]
@@ -957,7 +974,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("lenny")]
@@ -1000,7 +1017,7 @@ namespace Discore_Selfbot
             {
                 embed.Description = "LEWD " + Text;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("user")]
@@ -1052,11 +1069,11 @@ namespace Discore_Selfbot
                 {
                     embed.Color = GUI.EmbedColor;
                 }
-                Program.SendEmbed(Context.Message, embed);
+                await Program.SendEmbed(Context.Message, embed);
             }
             catch
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Could not find user");
+                await Program.SendMessage(Context.Message as IUserMessage, "Could not find user");
             }
         }
 
@@ -1077,7 +1094,7 @@ namespace Discore_Selfbot
                 }
             }
             Console.WriteLine("----- ----- -----");
-            Program.SendMessage(Context.Message as IUserMessage, $"Found {ID} in {GuildCount} guilds check console for names");
+            await Program.SendMessage(Context.Message as IUserMessage, $"Found {ID} in {GuildCount} guilds check console for names");
         }
 
         [Command("tag")]
@@ -1131,16 +1148,16 @@ namespace Discore_Selfbot
                     {
                         embed.Color = GUI.EmbedColor;
                     }
-                    Program.SendEmbed(Context.Message, embed);
+                    await Program.SendEmbed(Context.Message, embed);
                 }
                 else
                 {
-                    Program.SendMessage(Context.Message, TagAuthor + Environment.NewLine + TagContent);
+                    await Program.SendMessage(Context.Message, TagAuthor + Environment.NewLine + TagContent);
                 }
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
         }
 
@@ -1185,12 +1202,12 @@ namespace Discore_Selfbot
             }
             if (TagContent == "")
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Tag content not set or found");
+                await Program.SendMessage(Context.Message as IUserMessage, "Tag content not set or found");
                 return;
             }
             if (File.Exists(TagPath + Tag + ".txt"))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} already exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} already exists");
             }
             else
             {
@@ -1202,7 +1219,7 @@ namespace Discore_Selfbot
                 }
                 if (TagImage == "")
                 {
-                    Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created");
+                    await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created");
                 }
                 else
                 {
@@ -1210,7 +1227,7 @@ namespace Discore_Selfbot
                     {
                         sw.WriteLine(TagImage);
                     }
-                    Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created with an image");
+                    await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created with an image");
                 }
             }
         }
@@ -1230,11 +1247,11 @@ namespace Discore_Selfbot
                     File.Delete(TagPath + Tag + "-thumbnail.txt");
                 }
                 File.Delete(TagPath + Tag + ".txt");
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} deleted");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} deleted");
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
         }
 
@@ -1273,7 +1290,7 @@ namespace Discore_Selfbot
                     Properties.Settings.Default.Save();
                 }
             }
-            Program.SendMessage(Context.Message as IUserMessage, Message);
+            await Program.SendMessage(Context.Message as IUserMessage, Message);
         }
 
         [Command("an add")]
@@ -1286,18 +1303,18 @@ namespace Discore_Selfbot
             }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
+                await Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
                 return;
             }
             var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
             if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} already exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} already exists");
             }
             else
             {
                 File.Create(NicknamePath + Context.Guild.Id + "-" + Nickname);
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
             }
         }
 
@@ -1311,19 +1328,19 @@ namespace Discore_Selfbot
             }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
+                await Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
                 return;
             }
             var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
             if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
             {
                 File.Delete(NicknamePath + Context.Guild.Id + "-" + Nickname);
-                
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} deleted");
+
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} deleted");
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} does not exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} does not exists");
             }
         }
 
@@ -1346,7 +1363,7 @@ namespace Discore_Selfbot
             }
             if (ANList.Count == 0)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "This guild does not have any nicknames set");
+                await Program.SendMessage(Context.Message as IUserMessage, "This guild does not have any nicknames set");
                 return;
             }
             string NicknameList = string.Join(" | ", ANList.ToArray());
