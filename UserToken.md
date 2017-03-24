@@ -1,3 +1,4 @@
+Credits to SplitPixl for this tutorial 
 <h3>How to get your user token</h3>
 <b>Notice: Do not share your token with anyone else it is a private key that can be used to access your account</b><br>
 Open your Discord client on your computer.<br>
