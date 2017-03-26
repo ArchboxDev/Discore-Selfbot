@@ -25,6 +25,7 @@ namespace Discore_Selfbot
         public static bool Ready = false;
         private CommandService commands;
         public static DiscordSocketClient client;
+        private DependencyMap map;
         public static List<string> Logging = new List<string>();
         public static string SelfbotDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public static bool DownloadGuilds = false;
@@ -41,12 +42,10 @@ namespace Discore_Selfbot
         public static string CurrentUserName;
         public static ulong CurrentUserID;
         public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
-        public static DateTime StartTime;
-
+        
         static void Main()
         {
             DisableConsoleQuickEdit.Go();
-            StartTime = DateTime.Now;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
@@ -57,32 +56,33 @@ namespace Discore_Selfbot
             if (File.Exists(SelfbotDir + "Token.txt"))
             {
                 Token = File.ReadAllText(SelfbotDir + "Token.txt");
-                if (Token == "")
-                {
-                    Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
-                    Process.Start(SelfbotDir);
-                }
             }
             else
             {
-                File.CreateText(SelfbotDir + "Token.txt").Close();
+                File.CreateText(SelfbotDir + "Token.txt");
                 Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
                 Console.WriteLine("And no i dont steal tokens you can view the code on github ");
                 Process.Start(SelfbotDir);
             }
-            if (!File.Exists(SelfbotDir + "How-To-Get-User-Token.txt"))
+            if (Token == "")
             {
-                using (StreamWriter sw = File.CreateText(SelfbotDir + "How-To-Get-User-Token.txt"))
+                Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                Process.Start(SelfbotDir);
+                if (!File.Exists(SelfbotDir + "How-To-Get-User-Token.txt"))
                 {
-                    sw.WriteLine("Open this in your web browser");
-                    sw.WriteLine("");
-                    sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
-                    sw.Close();
+                    using (StreamWriter sw = File.CreateText(SelfbotDir + "How-To-Get-User-Token.txt"))
+                    {
+                        sw.WriteLine("Open this in your web browser");
+                        sw.WriteLine("");
+                        sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
+                    }
                 }
             }
-            while (Token == "")
+                while (Token == "")
             {
+                
             }
+            
             Properties.Settings.Default.TotalRuns++;
             if (Properties.Settings.Default.ANGuildsList == null)
             {
@@ -91,8 +91,9 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
-            new Program().RunBot().GetAwaiter().GetResult();
+                new Program().RunBot().GetAwaiter().GetResult();
         }
+        
         [STAThread]
         public static void OpenGUI()
         {
@@ -103,7 +104,11 @@ namespace Discore_Selfbot
                 return;
             }
             Console.WriteLine("Opening GUI");
-            Application.Run(MyForm);
+            Task mytask = Task.Run(() =>
+            {
+                MyForm.ShowDialog();
+            });
+            
         }
 
         public async Task RunBot()
@@ -114,8 +119,8 @@ namespace Discore_Selfbot
                 MessageCacheSize = 0
             });
             commands = new CommandService();
-            client.MessageReceived += HandleCommand;
-            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
+            map = new DependencyMap();
+            await InstallCommands();
             WebClient WBC = new WebClient();
             WebClient WBC2 = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
@@ -136,32 +141,28 @@ namespace Discore_Selfbot
                 if (!GuildIDs.Contains(g.Id))
                 {
                     GuildIDs.Add(g.Id);
-                    
+                    Stream ImageStream;
+                    if (g.IconUrl == null)
+                    {
+                        var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
+                        using (var WEB = WBC)
+                        {
+                            ImageStream = WEB.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
+                        }
+                    }
+                    else
+                    {
+                        using (var WEB = WBC)
+                        {
+                            ImageStream = WEB.OpenRead(g.IconUrl);
+                        }
+                    }
+                   Bitmap Image = new Bitmap(ImageStream);
+                    ToolStrip TS = MyForm.GuildList;
+                    var Item = TS.Items.Add(g.Name, Image);
+                        Item.AccessibleDescription = g.Id.ToString();
+                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
 
-                        if (g.IconUrl == null)
-                        {
-                            var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                            using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
-                            {
-                                Bitmap Image = new Bitmap(ImageStream);
-                                ToolStrip TS = MyForm.GuildList;
-                                var Item = TS.Items.Add(g.Name, Image);
-                                Item.AccessibleDescription = g.Id.ToString();
-                                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                            }
-                        }
-                        else
-                        {
-                            using (Stream ImageStream = WBC.OpenRead(g.IconUrl))
-                            {
-                                Bitmap Image = new Bitmap(ImageStream);
-                                ToolStrip TS = MyForm.GuildList;
-                                var Item = TS.Items.Add(g.Name, Image);
-                                Item.AccessibleDescription = g.Id.ToString();
-                                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                            }
-                        }
-                    
                 }
                 return Task.CompletedTask;
             };
@@ -170,7 +171,6 @@ namespace Discore_Selfbot
             {
                 if (m.Channel is IPrivateChannel)
                 {
-
                 }
                 else
                 {
@@ -231,36 +231,31 @@ namespace Discore_Selfbot
             
                 return Task.CompletedTask;
             };
-
             client.JoinedGuild += (g) =>
             {
-                GuildIDs.Add(g.Id);
                 Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                Stream ImageStream;
                 if (g.IconUrl == null)
                 {
                     var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                    using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                    using (var WEB = WBC)
                     {
-                        Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyForm.GuildList;
-                            var Item = TS.Items.Add(g.Name, Image);
-                            Item.AccessibleDescription = g.Id.ToString();
-                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        
+                        ImageStream = WEB.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
                     }
                 }
                 else
                 {
-                    using (Stream ImageStream = WBC.OpenRead(g.IconUrl))
+                    using (var WEB = WBC)
                     {
-                        Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyForm.GuildList;
-                            var Item = TS.Items.Add(g.Name, Image);
-                            Item.AccessibleDescription = g.Id.ToString();
-                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        
+                        ImageStream = WBC.OpenRead(g.IconUrl);
                     }
                 }
+                Bitmap Image = new Bitmap(ImageStream);
+                ToolStrip TS = MyForm.GuildList;
+                var Item = TS.Items.Add(g.Name, Image);
+                Item.AccessibleDescription = g.Id.ToString();
+                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                GuildIDs.Add(g.Id);
                 return Task.CompletedTask;
             };
 
@@ -284,20 +279,21 @@ namespace Discore_Selfbot
                 {
                     CurrentUserName = client.CurrentUser.Username;
                     CurrentUserID = client.CurrentUser.Id;
-
-                    using (Stream ImageStream = WBC2.OpenRead(client.CurrentUser.GetAvatarUrl()))
+                    if (File.Exists(SelfbotDir + "avatar.png"))
                     {
-                        using (Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream))
-                        {
-                            IntPtr pIcon = b.GetHicon();
-                            Icon i = Icon.FromHandle(pIcon);
-                            Avatar = i;
-                            if (Properties.Settings.Default.AutoForm == "Yes")
-                            {
-                                MyForm.Text = client.CurrentUser.Username;
-                                MyForm.Icon = i;
-                            }
-                        }
+                        File.Delete(SelfbotDir + "avatar.png");
+                    }
+                    WBC2.DownloadFile(client.CurrentUser.GetAvatarUrl(), SelfbotDir + "avatar.png");
+                    WBC2.Dispose();
+                    Bitmap b = (Bitmap)System.Drawing.Image.FromFile(SelfbotDir + "avatar.png");
+                    IntPtr pIcon = b.GetHicon();
+                    Icon i = Icon.FromHandle(pIcon);
+                    Avatar = i;
+                    i.Dispose();
+                    if (Properties.Settings.Default.AutoForm == "Yes")
+                    {
+                        MyForm.Text = client.CurrentUser.Username;
+                        MyForm.Icon = i;
                     }
                     AutoNickname_Timer.Elapsed += Timer;
                     AutoNickname_Timer.Start();
@@ -355,8 +351,7 @@ namespace Discore_Selfbot
                         Message = $"Hi {CurrentUserName}";
                         break;
                 }
-                TimeSpan Diff = DateTime.Now - StartTime;
-                Console.WriteLine($"{Message} | Selfbot ready {client.Guilds.Count()} guilds | Loaded in {Diff.Seconds} Seconds");
+                Console.WriteLine($"{Message} | Selfbot ready {client.Guilds.Count()} guilds");
                 return Task.CompletedTask;
             };
 
@@ -382,7 +377,7 @@ namespace Discore_Selfbot
             await Task.Delay(-1);
         }
 
-        public async static void SendMessage(IUserMessage CommandMessage, [Remainder] string Message)
+        public async static Task SendMessage(IUserMessage CommandMessage, [Remainder] string Message)
         {
             if (CommandMessage.Channel is IPrivateChannel)
             {
@@ -408,7 +403,7 @@ namespace Discore_Selfbot
                 }
             }
         }
-        public async static void SendAttachment(IUserMessage CommandMessage, string Location)
+        public async static Task SendAttachment(IUserMessage CommandMessage, string Location)
         {
             if (CommandMessage.Channel is IPrivateChannel)
             {
@@ -427,13 +422,13 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    Program.SendMessage(CommandMessage, "No attach files perms");
+                    await Program.SendMessage(CommandMessage, "No attach files perms");
                 }
 
             }
         }
 
-        public async static void SendEmbed(IUserMessage CommandMessage, Embed Embed)
+        public async static Task SendEmbed(IUserMessage CommandMessage, Embed Embed)
         {
             if (CommandMessage.Channel is IPrivateChannel)
             {
@@ -465,7 +460,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    Program.SendMessage(CommandMessage, "No embed perms");
+                    await Program.SendMessage(CommandMessage, "No embed perms");
                 }
             }
         }
@@ -507,6 +502,11 @@ namespace Discore_Selfbot
                     }
             }
         }
+            public async Task InstallCommands()
+        {
+            client.MessageReceived += HandleCommand;
+            await commands.AddModulesAsync(Assembly.GetEntryAssembly());
+        }
         public async Task HandleCommand(SocketMessage messageParam)
         {
             var message = messageParam as SocketUserMessage;
@@ -533,7 +533,7 @@ namespace Discore_Selfbot
                     x.Content = "`...`";
                 });
                 var context = new CommandContext(client, message);
-                var result = await commands.ExecuteAsync(context, argPos);
+                var result = await commands.ExecuteAsync(context, argPos, map);
                 if (result.IsSuccess)
                 {
                     Console.WriteLine($"Command > {message.Content}");
@@ -562,13 +562,13 @@ namespace Discore_Selfbot
                                     {
                                         using (StreamReader reader2 = new StreamReader(stream2))
                                         {
-                                            Program.SendMessage(message as IUserMessage, reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString()));
+                                            await Program.SendMessage(message as IUserMessage, reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString()));
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    Program.SendMessage(message as IUserMessage, $"Cannot find custom command file {message.Content.Replace("self ", "")}");
+                                    await Program.SendMessage(message as IUserMessage, $"Cannot find custom command file {message.Content.Replace("self ", "")}");
                                 }
                             }
                             if (Type == "embed")
@@ -589,13 +589,13 @@ namespace Discore_Selfbot
                                                 ImageUrl = Image,
                                                 Description = reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString())
                                             };
-                                            Program.SendEmbed(message as IUserMessage, embed);
+                                            await Program.SendEmbed(message as IUserMessage, embed);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    Program.SendMessage(message as IUserMessage, $"Cannot find custom command file {message.Content.Replace("self ", "")}");
+                                    await Program.SendMessage(message as IUserMessage, $"Cannot find custom command file {message.Content.Replace("self ", "")}");
                                 }
                             }
                             if (Type == "gallery")
@@ -611,13 +611,13 @@ namespace Discore_Selfbot
                                 }
                                 if (ImageList.Count == 0)
                                 {
-                                    Program.SendMessage(message as IUserMessage, "No images found in command gallery");
+                                    await Program.SendMessage(message as IUserMessage, "No images found in command gallery");
                                 }
                                 else
                                 {
                                     var RandomValue = Program.RandomGenerator.Next(1, ImageList.Count);
                                     var RandomImage = ImageList[RandomValue];
-                                    Program.SendAttachment(message, RandomImage);
+                                    await Program.SendAttachment(message, RandomImage);
                                 }
                             }
                             if (Type == "link")
@@ -629,7 +629,7 @@ namespace Discore_Selfbot
                                     Title = Title,
                                     ImageUrl = Url
                                 };
-                                Program.SendEmbed(message as IUserMessage, embed);
+                                await Program.SendEmbed(message as IUserMessage, embed);
                             }
                         }
                     }
@@ -643,10 +643,10 @@ namespace Discore_Selfbot
         [Command("test")]
         public async Task test()
         {
-            Program.SendMessage(Context.Message as IUserMessage, $"Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}");
+            await Program.SendMessage(Context.Message as IUserMessage, $"Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}");
         }
         [Command("neko")]
-        public async Task Neko()
+        public async Task neko()
         {
             var RandomValue = Program.RandomGenerator.Next(1, 11);
             var embed = new EmbedBuilder();
@@ -692,7 +692,7 @@ namespace Discore_Selfbot
                     break;
 
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("clean")]
@@ -700,12 +700,12 @@ namespace Discore_Selfbot
         {
             if (Ammount == 0)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be 0");
+                await Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be 0");
                 return;
             }
             if (Ammount > 30)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be more than 30");
+                await Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be more than 30");
                 return;
             }
             int Count = Ammount;
@@ -799,7 +799,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("ping")]
@@ -809,19 +809,19 @@ namespace Discore_Selfbot
             {
                 System.Net.NetworkInformation.PingReply PingDiscord = new System.Net.NetworkInformation.Ping().Send("discordapp.com");
                 System.Net.NetworkInformation.PingReply PingGoogle = new System.Net.NetworkInformation.Ping().Send("google.com");
-                Program.SendMessage(Context.Message as IUserMessage, $"PONG > Discord: {PingDiscord.RoundtripTime} MS Google: {PingGoogle.RoundtripTime} MS Gateway: " + Program.client.Latency + " MS");
+                await Program.SendMessage(Context.Message as IUserMessage, $"PONG > Discord: {PingDiscord.RoundtripTime} MS Google: {PingGoogle.RoundtripTime} MS Gateway: " + Program.client.Latency + " MS");
             }
             else
             {
                 System.Net.NetworkInformation.PingReply Ping = new System.Net.NetworkInformation.Ping().Send("discordapp.com");
-                Program.SendMessage(Context.Message as IUserMessage, $"PONG > {IP}: {Ping.RoundtripTime} MS");
+                await Program.SendMessage(Context.Message as IUserMessage, $"PONG > {IP}: {Ping.RoundtripTime} MS");
             }
         }
 
         [Command("uptime")]
         public async Task uptime()
         {
-            Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
+            await Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
         }
 
         [Command("calc")]
@@ -855,7 +855,7 @@ namespace Discore_Selfbot
                     Message = "Unknown Function Use | + - * /";
                     break;
             }
-           Program.SendMessage(Context.Message as IUserMessage, Message);
+            await Program.SendMessage(Context.Message as IUserMessage, Message);
         }
         [Command("info")]
         public async Task info()
@@ -879,7 +879,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message as IUserMessage, embed);
+            await Program.SendEmbed(Context.Message as IUserMessage, embed);
         }
 
         [Command("cleanembed")]
@@ -935,7 +935,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("tembed")]
@@ -954,7 +954,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("bot")]
@@ -974,7 +974,7 @@ namespace Discore_Selfbot
             {
                 embed.Color = GUI.EmbedColor;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("lenny")]
@@ -1017,7 +1017,7 @@ namespace Discore_Selfbot
             {
                 embed.Description = "LEWD " + Text;
             }
-            Program.SendEmbed(Context.Message, embed);
+            await Program.SendEmbed(Context.Message, embed);
         }
 
         [Command("user")]
@@ -1069,11 +1069,11 @@ namespace Discore_Selfbot
                 {
                     embed.Color = GUI.EmbedColor;
                 }
-                Program.SendEmbed(Context.Message, embed);
+                await Program.SendEmbed(Context.Message, embed);
             }
             catch
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Could not find user");
+                await Program.SendMessage(Context.Message as IUserMessage, "Could not find user");
             }
         }
 
@@ -1094,7 +1094,7 @@ namespace Discore_Selfbot
                 }
             }
             Console.WriteLine("----- ----- -----");
-            Program.SendMessage(Context.Message as IUserMessage, $"Found {ID} in {GuildCount} guilds check console for names");
+            await Program.SendMessage(Context.Message as IUserMessage, $"Found {ID} in {GuildCount} guilds check console for names");
         }
 
         [Command("tag")]
@@ -1148,16 +1148,16 @@ namespace Discore_Selfbot
                     {
                         embed.Color = GUI.EmbedColor;
                     }
-                    Program.SendEmbed(Context.Message, embed);
+                    await Program.SendEmbed(Context.Message, embed);
                 }
                 else
                 {
-                    Program.SendMessage(Context.Message, TagAuthor + Environment.NewLine + TagContent);
+                    await Program.SendMessage(Context.Message, TagAuthor + Environment.NewLine + TagContent);
                 }
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
         }
 
@@ -1202,12 +1202,12 @@ namespace Discore_Selfbot
             }
             if (TagContent == "")
             {
-                Program.SendMessage(Context.Message as IUserMessage, "Tag content not set or found");
+                await Program.SendMessage(Context.Message as IUserMessage, "Tag content not set or found");
                 return;
             }
             if (File.Exists(TagPath + Tag + ".txt"))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} already exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} already exists");
             }
             else
             {
@@ -1219,7 +1219,7 @@ namespace Discore_Selfbot
                 }
                 if (TagImage == "")
                 {
-                    Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created");
+                    await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created");
                 }
                 else
                 {
@@ -1227,7 +1227,7 @@ namespace Discore_Selfbot
                     {
                         sw.WriteLine(TagImage);
                     }
-                    Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created with an image");
+                    await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} created with an image");
                 }
             }
         }
@@ -1247,11 +1247,11 @@ namespace Discore_Selfbot
                     File.Delete(TagPath + Tag + "-thumbnail.txt");
                 }
                 File.Delete(TagPath + Tag + ".txt");
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} deleted");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} deleted");
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
+                await Program.SendMessage(Context.Message as IUserMessage, $"Tag {Tag} not found");
             }
         }
 
@@ -1290,7 +1290,7 @@ namespace Discore_Selfbot
                     Properties.Settings.Default.Save();
                 }
             }
-            Program.SendMessage(Context.Message as IUserMessage, Message);
+            await Program.SendMessage(Context.Message as IUserMessage, Message);
         }
 
         [Command("an add")]
@@ -1303,18 +1303,18 @@ namespace Discore_Selfbot
             }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
+                await Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
                 return;
             }
             var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
             if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} already exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} already exists");
             }
             else
             {
                 File.Create(NicknamePath + Context.Guild.Id + "-" + Nickname);
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} added to auto nickname list");
             }
         }
 
@@ -1328,7 +1328,7 @@ namespace Discore_Selfbot
             }
             if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
+                await Program.SendMessage(Context.Message as IUserMessage, $"This guild is not in the auto nickname list use | self an bind");
                 return;
             }
             var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
@@ -1336,11 +1336,11 @@ namespace Discore_Selfbot
             {
                 File.Delete(NicknamePath + Context.Guild.Id + "-" + Nickname);
 
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} deleted");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} deleted");
             }
             else
             {
-                Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} does not exists");
+                await Program.SendMessage(Context.Message as IUserMessage, $"{Nickname} does not exists");
             }
         }
 
@@ -1363,7 +1363,7 @@ namespace Discore_Selfbot
             }
             if (ANList.Count == 0)
             {
-                Program.SendMessage(Context.Message as IUserMessage, "This guild does not have any nicknames set");
+                await Program.SendMessage(Context.Message as IUserMessage, "This guild does not have any nicknames set");
                 return;
             }
             string NicknameList = string.Join(" | ", ANList.ToArray());
