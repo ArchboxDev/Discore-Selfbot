@@ -25,6 +25,10 @@ namespace Discore_Selfbot
         public static bool Ready = false;
         private CommandService commands;
         public static DiscordSocketClient client;
+<<<<<<< HEAD
+        private DependencyMap map;
+=======
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
         public static List<string> Logging = new List<string>();
         public static string SelfbotDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public static bool DownloadGuilds = false;
@@ -91,6 +95,10 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
+<<<<<<< HEAD
+
+=======
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
             new Program().RunBot().GetAwaiter().GetResult();
         }
         [STAThread]
@@ -119,7 +127,7 @@ namespace Discore_Selfbot
             WebClient WBC = new WebClient();
             WebClient WBC2 = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
-            
+
             client.GuildUnavailable += (g) =>
             {
                 if (GuildIDs.Contains(g.Id))
@@ -136,6 +144,20 @@ namespace Discore_Selfbot
                 if (!GuildIDs.Contains(g.Id))
                 {
                     GuildIDs.Add(g.Id);
+<<<<<<< HEAD
+
+
+                    if (g.IconUrl == null)
+                    {
+                        var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
+                        using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                        {
+                            Bitmap Image = new Bitmap(ImageStream);
+                            ToolStrip TS = MyForm.GuildList;
+                            var Item = TS.Items.Add(g.Name, Image);
+                            Item.AccessibleDescription = g.Id.ToString();
+                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+=======
                     
 
                         if (g.IconUrl == null)
@@ -160,12 +182,92 @@ namespace Discore_Selfbot
                                 Item.AccessibleDescription = g.Id.ToString();
                                 Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                             }
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
                         }
                     
                 }
                 return Task.CompletedTask;
             };
             
+            client.MessageReceived += (m) =>
+            {
+                if (m.Channel is IPrivateChannel)
+                {
+
+                }
+                else
+                {
+                    var GU = m.Channel as ITextChannel;
+                    Logging.Insert(0, $"{GU.Guild.Id}-{m.Channel.Id}-{m.Author.Username}-{m.Content}");
+                }
+                if (m.Author.Id == client.CurrentUser.Id)
+                {
+                    MyForm.BtnSendActive.Enabled = true;
+                    if (m.Channel is IPrivateChannel)
+                    {
+                        MyForm.ChannelList.Visible = false;
+                        MyForm.AGName.Text = "DM";
+                        MyForm.AGID.Text = $"(1)";
+                        MyForm.ACName.Text = m.Channel.Name;
+                        MyForm.ACID.Text = $"({m.Channel.Id})";
+                        MyForm.BtnSendActive.Text = "Active DM";
+                        ActiveGuildID = 0;
+                        ActiveChannelID = m.Channel.Id;
+                    }
+                    else
+                    {
+<<<<<<< HEAD
+                        using (Stream ImageStream = WBC.OpenRead(g.IconUrl))
+                        {
+                            Bitmap Image = new Bitmap(ImageStream);
+                            ToolStrip TS = MyForm.GuildList;
+                            var Item = TS.Items.Add(g.Name, Image);
+                            Item.AccessibleDescription = g.Id.ToString();
+                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        }
+                    }
+
+=======
+                        var GU = m.Author as IGuildUser;
+                        if (m.Content == "self logs")
+                        {
+                            foreach (var Log in Logging)
+                            {
+                                if (Log.Contains($"{GU.Guild.Id}-{m.Channel.Id}-"))
+                                {
+                                    Console.WriteLine(Log.Replace($"{GU.Guild.Id}-{m.Channel.Id}-", ""));
+                                }
+                            }
+                        }
+                        MyForm.AGName.Text = GU.Guild.Name;
+                        MyForm.AGID.Text = $"({GU.Guild.Id})";
+                        MyForm.ACName.Text = m.Channel.Name;
+                        MyForm.ACID.Text = $"({m.Channel.Id})";
+                        MyForm.BtnSendActive.Text = "Active";
+                        ActiveGuildID = GU.Guild.Id;
+                        ActiveChannelID = m.Channel.Id;
+                        if (GU.GuildPermissions.EmbedLinks == true)
+                        {
+                            MyForm.BtnSendActive.Text = "Active";
+                        }
+                        else
+                        {
+                            if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
+                            {
+                                MyForm.BtnSendActive.Text = "Active";
+                            }
+                            else
+                            {
+                                MyForm.BtnSendActive.Text = "Active" + Environment.NewLine + "No perms";
+                            }
+                        }
+                    }
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
+                }
+            
+                return Task.CompletedTask;
+            };
+
             client.MessageReceived += (m) =>
             {
                 if (m.Channel is IPrivateChannel)
@@ -228,7 +330,7 @@ namespace Discore_Selfbot
                         }
                     }
                 }
-            
+
                 return Task.CompletedTask;
             };
 
@@ -243,10 +345,17 @@ namespace Discore_Selfbot
                     {
                         Bitmap Image = new Bitmap(ImageStream);
                         ToolStrip TS = MyForm.GuildList;
+<<<<<<< HEAD
+                        var Item = TS.Items.Add(g.Name, Image);
+                        Item.AccessibleDescription = g.Id.ToString();
+                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+
+=======
                             var Item = TS.Items.Add(g.Name, Image);
                             Item.AccessibleDescription = g.Id.ToString();
                             Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                         
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
                     }
                 }
                 else
@@ -255,10 +364,17 @@ namespace Discore_Selfbot
                     {
                         Bitmap Image = new Bitmap(ImageStream);
                         ToolStrip TS = MyForm.GuildList;
+<<<<<<< HEAD
+                        var Item = TS.Items.Add(g.Name, Image);
+                        Item.AccessibleDescription = g.Id.ToString();
+                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+
+=======
                             var Item = TS.Items.Add(g.Name, Image);
                             Item.AccessibleDescription = g.Id.ToString();
                             Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                         
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
                     }
                 }
                 return Task.CompletedTask;
@@ -386,10 +502,10 @@ namespace Discore_Selfbot
         {
             if (CommandMessage.Channel is IPrivateChannel)
             {
-                    await CommandMessage.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | {Message}`";
-                    });
+                await CommandMessage.ModifyAsync(x =>
+                {
+                    x.Content = $"`Selfbot | {Message}`";
+                });
             }
             else
             {
@@ -477,34 +593,34 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
             if (Properties.Settings.Default.ANGuildsList.Count != 0)
             {
-                    List<string> NickList = new List<string>();
-                    var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-                    foreach (var Guild in Properties.Settings.Default.ANGuildsList)
+                List<string> NickList = new List<string>();
+                var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
+                foreach (var Guild in Properties.Settings.Default.ANGuildsList)
+                {
+                    NickList.Clear();
+                    try
                     {
-                        NickList.Clear();
-                        try
+                        foreach (var Item in Directory.GetFiles(NicknamePath))
                         {
-                            foreach (var Item in Directory.GetFiles(NicknamePath))
+                            if (Item.StartsWith($"{NicknamePath + Guild}-"))
                             {
-                                if (Item.StartsWith($"{NicknamePath + Guild}-"))
-                                {
-                                    NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
-                                }
-                            }
-                            if (NickList.Count != 0)
-                            {
-                                int randomValue = Program.RandomGenerator.Next(0, NickList.Count);
-                                var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
-                                var GuildUser = DGuild.GetUser(client.CurrentUser.Id);
-                                string Nickname = NickList[randomValue];
-                                await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
+                                NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
                             }
                         }
-                        catch
+                        if (NickList.Count != 0)
                         {
-
+                            int randomValue = Program.RandomGenerator.Next(0, NickList.Count);
+                            var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
+                            var GuildUser = DGuild.GetUser(client.CurrentUser.Id);
+                            string Nickname = NickList[randomValue];
+                            await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
                         }
                     }
+                    catch
+                    {
+
+                    }
+                }
             }
         }
         public async Task HandleCommand(SocketMessage messageParam)
@@ -520,9 +636,15 @@ namespace Discore_Selfbot
                 else
                 {
                     var GuildUser = message.Author as IGuildUser;
+<<<<<<< HEAD
+
+                }
+                return;
+=======
                     
                 }
                     return;
+>>>>>>> 84997a2ec541c069a9ced391f82bc215f5668f49
             }
             if (message.Author.Id == client.CurrentUser.Id)
             {
@@ -710,7 +832,7 @@ namespace Discore_Selfbot
             }
             int Count = Ammount;
             var Messages = await Context.Channel.GetMessagesAsync().Flatten();
-            foreach(var Message in Messages)
+            foreach (var Message in Messages)
             {
                 if (Message.Author.Id == Context.Client.CurrentUser.Id)
                 {
@@ -1041,7 +1163,7 @@ namespace Discore_Selfbot
             {
                 var GuildUser = await Context.Guild.GetUserAsync(Convert.ToUInt64(User));
                 int Count = 0;
-                foreach(var Guild in await Context.Client.GetGuildsAsync())
+                foreach (var Guild in await Context.Client.GetGuildsAsync())
                 {
                     foreach (var Member in await Guild.GetUsersAsync())
                     {
@@ -1082,9 +1204,9 @@ namespace Discore_Selfbot
         {
             int GuildCount = 0;
             Console.WriteLine("----- Guilds Found -----");
-            foreach(var Guild in await Context.Client.GetGuildsAsync())
+            foreach (var Guild in await Context.Client.GetGuildsAsync())
             {
-                foreach(var User in await Guild.GetUsersAsync())
+                foreach (var User in await Guild.GetUsersAsync())
                 {
                     if (User.Id.ToString() == ID)
                     {
@@ -1098,7 +1220,7 @@ namespace Discore_Selfbot
         }
 
         [Command("tag")]
-        public async Task tag([Remainder] string Tag) 
+        public async Task tag([Remainder] string Tag)
         {
             IGuildUser GuildUser = null;
             bool AllowedEmbeds = false;
@@ -1185,7 +1307,7 @@ namespace Discore_Selfbot
                         TagContent = Message.Content;
                         if (Message.Attachments.Count == 1)
                         {
-                            foreach(var Attachment in Message.Attachments)
+                            foreach (var Attachment in Message.Attachments)
                             {
                                 TagImage = Attachment.Url;
                                 break;
