@@ -102,31 +102,38 @@ namespace Discore_Selfbot
             }
             WebClient WBC = new WebClient();
             Program.GuildIDs.Clear();
-            this.Text = Program.CurrentUserName;
-            if (File.Exists($"avatar.png"))
-            {
-                this.Icon = Program.Avatar;
-            }
             foreach (var Guild in Program.client.Guilds)
             {
-                if (!Program.GuildIDs.Contains(Guild.Id))
+                Program.GuildIDs.Add(Guild.Id);
+                if (Guild.IconUrl == null)
                 {
-                    Stream ImageStream;
-                    if (Guild.IconUrl == null)
+                    var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
+                    using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
                     {
-                        var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
-                        ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png");
+                        Bitmap Image = new Bitmap(ImageStream);
+                        var Item = GuildList.Items.Add(Guild.Name, Image);
+                        Item.AccessibleDescription = Guild.Id.ToString();
+                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
                     }
-                    else
-                    {
-                        ImageStream = WBC.OpenRead(Guild.IconUrl);
-                    }
-                    Bitmap Image = new Bitmap(ImageStream);
-                    var Item = GuildList.Items.Add(Guild.Name, Image);
-                    Item.AccessibleDescription = Guild.Id.ToString();
-                    Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                    Program.GuildIDs.Add(Guild.Id);
                 }
+                else
+                {
+                    using (Stream ImageStream = WBC.OpenRead(Guild.IconUrl))
+                    {
+                        Bitmap Image = new Bitmap(ImageStream);
+                        var Item = GuildList.Items.Add(Guild.Name, Image);
+                        Item.AccessibleDescription = Guild.Id.ToString();
+                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                    }
+                }
+            }
+            this.Text = Program.CurrentUserName;
+            using (Stream ImageStream = WBC.OpenRead(Program.client.CurrentUser.GetAvatarUrl()))
+            {
+                Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
+                IntPtr pIcon = b.GetHicon();
+                Icon i = Icon.FromHandle(pIcon);
+                this.Icon = i;
             }
         }
 
