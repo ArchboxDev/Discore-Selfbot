@@ -138,9 +138,7 @@ namespace Discore_Selfbot
         {
             Thread MyIconThread = new Thread(delegate ()
             {
-#pragma warning disable IDE0017 // Simplify object initialization
                 MyIcon = new NotifyIcon();
-#pragma warning restore IDE0017 // Simplify object initialization
                 MyIcon.Icon = Properties.Resources.Selfbot;
                 MyIcon.Visible = true;
                 MyIcon.Click += Notify_Click;

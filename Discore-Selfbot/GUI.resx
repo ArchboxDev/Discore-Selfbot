@@ -121,7 +121,9 @@
     <value>36, 18</value>
   </metadata>
   <data name="Changelog.Text" xml:space="preserve">
-    <value>Some more spoopy GUI changes 0_o
+    <value>spoopy notification icon/menu, GUI option to auto hide the console on startup and fixed some library issues
+
+Some more spoopy GUI changes 0_o
 
 GUI Change for some great updates ;) also click that test button above and fixed the self form command
 
@@ -152,6 +154,9 @@ Major overhaul of the GUI
   </metadata>
   <metadata name="StatusActive.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>426, 18</value>
+  </metadata>
+  <metadata name="ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>681, 18</value>
   </metadata>
   <metadata name="ThemeManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>544, 18</value>
