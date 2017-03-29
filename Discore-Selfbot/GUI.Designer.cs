@@ -140,6 +140,11 @@
             this.BtnThemeDefault = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BorderTheme = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavInfoSettings = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.HelpHideConsole = new System.Windows.Forms.TextBox();
+            this.TitleHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.BtnHideConsoleNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.BtnHideConsoleYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.HelpFavoriteColor = new System.Windows.Forms.TextBox();
             this.HelpAutoForm = new System.Windows.Forms.TextBox();
             this.HelpCommandMessage = new System.Windows.Forms.TextBox();
@@ -191,7 +196,6 @@
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.BtnOnTop = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.ChannelLogs = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
-            this.GuildList = new System.Windows.Forms.ToolStrip();
             this.BtnLinks = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.MenuLinks = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
             this.kryptonContextMenuItems3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
@@ -199,6 +203,8 @@
             this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.GuildList = new System.Windows.Forms.ToolStrip();
+            this.buttonSpecAny1 = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).BeginInit();
             this.NavGuild.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NavEmbedPage)).BeginInit();
@@ -302,7 +308,7 @@
             this.BtnEmbedColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.BtnEmbedColor.TabIndex = 23;
             this.BtnEmbedColor.Values.Text = "Embed\r\nColor\r\n";
-            this.BtnEmbedColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.kryptonColorButton1_SelectedColorChanged);
+            this.BtnEmbedColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.KryptonColorButton1_SelectedColorChanged);
             // 
             // BtnSendActive
             // 
@@ -331,6 +337,7 @@
             this.EmbedFooter.Size = new System.Drawing.Size(156, 23);
             this.EmbedFooter.TabIndex = 12;
             this.EmbedFooter.Text = "Footer";
+            this.EmbedFooter.TextChanged += new System.EventHandler(this.EmbedFooter_TextChanged);
             // 
             // EmbedText
             // 
@@ -339,6 +346,7 @@
             this.EmbedText.Size = new System.Drawing.Size(156, 23);
             this.EmbedText.TabIndex = 11;
             this.EmbedText.Text = "Text";
+            this.EmbedText.TextChanged += new System.EventHandler(this.EmbedText_TextChanged);
             // 
             // EmbedTitle
             // 
@@ -347,6 +355,7 @@
             this.EmbedTitle.Size = new System.Drawing.Size(156, 23);
             this.EmbedTitle.TabIndex = 9;
             this.EmbedTitle.Text = "Title";
+            this.EmbedTitle.TextChanged += new System.EventHandler(this.EmbedTitle_TextChanged);
             // 
             // BorderEmbed
             // 
@@ -449,7 +458,7 @@
             this.NavInfoSettings,
             this.NavInfoBots,
             this.NavCustomPage});
-            this.NavInfo.SelectedIndex = 0;
+            this.NavInfo.SelectedIndex = 2;
             this.NavInfo.Size = new System.Drawing.Size(234, 396);
             this.NavInfo.TabIndex = 28;
             this.NavInfo.Text = "kryptonNavigator1";
@@ -738,6 +747,11 @@
             // NavInfoSettings
             // 
             this.NavInfoSettings.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavInfoSettings.Controls.Add(this.HelpHideConsole);
+            this.NavInfoSettings.Controls.Add(this.TitleHideConsole);
+            this.NavInfoSettings.Controls.Add(this.BtnHideConsoleNo);
+            this.NavInfoSettings.Controls.Add(this.TextHideConsole);
+            this.NavInfoSettings.Controls.Add(this.BtnHideConsoleYes);
             this.NavInfoSettings.Controls.Add(this.HelpFavoriteColor);
             this.NavInfoSettings.Controls.Add(this.HelpAutoForm);
             this.NavInfoSettings.Controls.Add(this.HelpCommandMessage);
@@ -768,11 +782,68 @@
             this.NavInfoSettings.ToolTipTitle = "Page ToolTip";
             this.NavInfoSettings.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
             // 
+            // HelpHideConsole
+            // 
+            this.HelpHideConsole.Cursor = System.Windows.Forms.Cursors.Help;
+            this.HelpHideConsole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HelpHideConsole.Location = new System.Drawing.Point(-1, 151);
+            this.HelpHideConsole.Name = "HelpHideConsole";
+            this.HelpHideConsole.ReadOnly = true;
+            this.HelpHideConsole.Size = new System.Drawing.Size(20, 22);
+            this.HelpHideConsole.TabIndex = 156;
+            this.HelpHideConsole.Text = "?";
+            this.HelpHideConsole.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ToolTipManager.SetToolTip(this.HelpHideConsole, "WARNING! This will hide the console window on startup");
+            // 
+            // TitleHideConsole
+            // 
+            this.TitleHideConsole.AutoSize = false;
+            this.TitleHideConsole.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.TitleHideConsole.Location = new System.Drawing.Point(25, 151);
+            this.TitleHideConsole.Name = "TitleHideConsole";
+            this.TitleHideConsole.Size = new System.Drawing.Size(208, 22);
+            this.TitleHideConsole.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleHideConsole.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.TitleHideConsole.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.TitleHideConsole.TabIndex = 155;
+            this.TitleHideConsole.Values.Description = "";
+            this.TitleHideConsole.Values.Heading = "Hide Console On Startup";
+            this.TitleHideConsole.Values.Image = null;
+            // 
+            // BtnHideConsoleNo
+            // 
+            this.BtnHideConsoleNo.Location = new System.Drawing.Point(104, 179);
+            this.BtnHideConsoleNo.Name = "BtnHideConsoleNo";
+            this.BtnHideConsoleNo.Size = new System.Drawing.Size(70, 40);
+            this.BtnHideConsoleNo.TabIndex = 154;
+            this.BtnHideConsoleNo.Values.Text = "No";
+            this.BtnHideConsoleNo.Click += new System.EventHandler(this.BtnHideConsoleNo_Click);
+            // 
+            // TextHideConsole
+            // 
+            this.TextHideConsole.AutoSize = false;
+            this.TextHideConsole.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "HideConsole", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextHideConsole.Location = new System.Drawing.Point(180, 179);
+            this.TextHideConsole.Name = "TextHideConsole";
+            this.TextHideConsole.Size = new System.Drawing.Size(49, 40);
+            this.TextHideConsole.TabIndex = 153;
+            this.TextHideConsole.Text = global::Discore_Selfbot.Properties.Settings.Default.HideConsole;
+            this.TextHideConsole.Values.Text = "No";
+            // 
+            // BtnHideConsoleYes
+            // 
+            this.BtnHideConsoleYes.Location = new System.Drawing.Point(5, 179);
+            this.BtnHideConsoleYes.Name = "BtnHideConsoleYes";
+            this.BtnHideConsoleYes.Size = new System.Drawing.Size(70, 40);
+            this.BtnHideConsoleYes.TabIndex = 152;
+            this.BtnHideConsoleYes.Values.Text = "Yes";
+            this.BtnHideConsoleYes.Click += new System.EventHandler(this.BtnHideConsoleYes_Click);
+            // 
             // HelpFavoriteColor
             // 
             this.HelpFavoriteColor.Cursor = System.Windows.Forms.Cursors.Help;
             this.HelpFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpFavoriteColor.Location = new System.Drawing.Point(-1, 151);
+            this.HelpFavoriteColor.Location = new System.Drawing.Point(-1, 225);
             this.HelpFavoriteColor.Name = "HelpFavoriteColor";
             this.HelpFavoriteColor.ReadOnly = true;
             this.HelpFavoriteColor.Size = new System.Drawing.Size(20, 22);
@@ -811,20 +882,21 @@
             // 
             this.HelpAutoNickname.Cursor = System.Windows.Forms.Cursors.Help;
             this.HelpAutoNickname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpAutoNickname.Location = new System.Drawing.Point(-1, 225);
+            this.HelpAutoNickname.Location = new System.Drawing.Point(-1, 299);
             this.HelpAutoNickname.Name = "HelpAutoNickname";
             this.HelpAutoNickname.ReadOnly = true;
             this.HelpAutoNickname.Size = new System.Drawing.Size(20, 22);
             this.HelpAutoNickname.TabIndex = 147;
             this.HelpAutoNickname.Text = "?";
             this.HelpAutoNickname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ToolTipManager.SetToolTip(this.HelpAutoNickname, "Set how long the auto nickname feature should trigger");
             // 
             // TitleAutoNickname
             // 
             this.TitleAutoNickname.AllowButtonSpecToolTips = true;
             this.TitleAutoNickname.AutoSize = false;
             this.TitleAutoNickname.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleAutoNickname.Location = new System.Drawing.Point(25, 225);
+            this.TitleAutoNickname.Location = new System.Drawing.Point(25, 299);
             this.TitleAutoNickname.Name = "TitleAutoNickname";
             this.TitleAutoNickname.Size = new System.Drawing.Size(209, 22);
             this.TitleAutoNickname.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -839,7 +911,7 @@
             // 
             this.TitleFavoriteColor.AutoSize = false;
             this.TitleFavoriteColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleFavoriteColor.Location = new System.Drawing.Point(25, 151);
+            this.TitleFavoriteColor.Location = new System.Drawing.Point(25, 225);
             this.TitleFavoriteColor.Name = "TitleFavoriteColor";
             this.TitleFavoriteColor.Size = new System.Drawing.Size(209, 22);
             this.TitleFavoriteColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -885,7 +957,7 @@
             this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
             this.TextFavColor.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextFavColor.Location = new System.Drawing.Point(180, 193);
+            this.TextFavColor.Location = new System.Drawing.Point(180, 267);
             this.TextFavColor.Name = "TextFavColor";
             this.TextFavColor.ReadOnly = true;
             this.TextFavColor.Size = new System.Drawing.Size(50, 20);
@@ -893,7 +965,7 @@
             // 
             // BtnAN5
             // 
-            this.BtnAN5.Location = new System.Drawing.Point(79, 253);
+            this.BtnAN5.Location = new System.Drawing.Point(79, 327);
             this.BtnAN5.Name = "BtnAN5";
             this.BtnAN5.Size = new System.Drawing.Size(50, 40);
             this.BtnAN5.TabIndex = 137;
@@ -902,7 +974,7 @@
             // 
             // BtnAN10
             // 
-            this.BtnAN10.Location = new System.Drawing.Point(153, 253);
+            this.BtnAN10.Location = new System.Drawing.Point(153, 327);
             this.BtnAN10.Name = "BtnAN10";
             this.BtnAN10.Size = new System.Drawing.Size(50, 40);
             this.BtnAN10.TabIndex = 136;
@@ -911,7 +983,7 @@
             // 
             // BtnAN1
             // 
-            this.BtnAN1.Location = new System.Drawing.Point(5, 253);
+            this.BtnAN1.Location = new System.Drawing.Point(5, 327);
             this.BtnAN1.Name = "BtnAN1";
             this.BtnAN1.Size = new System.Drawing.Size(50, 40);
             this.BtnAN1.TabIndex = 135;
@@ -922,7 +994,7 @@
             // 
             this.TextAutoNickname.AutoSize = false;
             this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoNickname.Location = new System.Drawing.Point(209, 253);
+            this.TextAutoNickname.Location = new System.Drawing.Point(209, 327);
             this.TextAutoNickname.Name = "TextAutoNickname";
             this.TextAutoNickname.Size = new System.Drawing.Size(20, 40);
             this.TextAutoNickname.TabIndex = 134;
@@ -932,7 +1004,7 @@
             // BtnFavColor
             // 
             this.BtnFavColor.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.BtnFavColor.Location = new System.Drawing.Point(104, 179);
+            this.BtnFavColor.Location = new System.Drawing.Point(104, 253);
             this.BtnFavColor.Name = "BtnFavColor";
             this.BtnFavColor.Size = new System.Drawing.Size(70, 40);
             this.BtnFavColor.TabIndex = 133;
@@ -1260,28 +1332,12 @@
             // 
             // ChannelLogs
             // 
+            this.ChannelLogs.Items.AddRange(new object[] {
+            "--- Recent Mentions ---"});
             this.ChannelLogs.Location = new System.Drawing.Point(12, 91);
             this.ChannelLogs.Name = "ChannelLogs";
             this.ChannelLogs.Size = new System.Drawing.Size(220, 161);
             this.ChannelLogs.TabIndex = 32;
-            // 
-            // GuildList
-            // 
-            this.GuildList.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.GuildList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.GuildList.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GuildList.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GuildList.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.GuildList.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.GuildList.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.GuildList.Location = new System.Drawing.Point(0, 0);
-            this.GuildList.Name = "GuildList";
-            this.GuildList.Padding = new System.Windows.Forms.Padding(0);
-            this.GuildList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.GuildList.Size = new System.Drawing.Size(484, 25);
-            this.GuildList.Stretch = true;
-            this.GuildList.TabIndex = 18;
-            this.GuildList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
             // 
             // BtnLinks
             // 
@@ -1296,6 +1352,7 @@
             // 
             // kryptonContextMenuItems3
             // 
+            this.kryptonContextMenuItems3.ImageColumn = false;
             this.kryptonContextMenuItems3.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
             this.kryptonContextMenuItem1,
             this.kryptonContextMenuItem2,
@@ -1318,6 +1375,29 @@
             // 
             this.kryptonContextMenuItem4.Text = "License";
             // 
+            // GuildList
+            // 
+            this.GuildList.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.GuildList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GuildList.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GuildList.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GuildList.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.GuildList.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.GuildList.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.GuildList.Location = new System.Drawing.Point(0, 0);
+            this.GuildList.Name = "GuildList";
+            this.GuildList.Padding = new System.Windows.Forms.Padding(0);
+            this.GuildList.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.GuildList.Size = new System.Drawing.Size(484, 25);
+            this.GuildList.Stretch = true;
+            this.GuildList.TabIndex = 18;
+            this.GuildList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
+            // 
+            // buttonSpecAny1
+            // 
+            this.buttonSpecAny1.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.ArrowDown;
+            this.buttonSpecAny1.UniqueName = "FB2C0A52DC87464137A04B3F503D4584";
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1325,6 +1405,7 @@
             this.ButtonSpecs.AddRange(new ComponentFactory.Krypton.Toolkit.ButtonSpecAny[] {
             this.BtnLinks,
             this.BtnOnTop,
+            this.buttonSpecAny1,
             this.BtnTopMin});
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.BtnLogsAll);
@@ -1466,7 +1547,7 @@
         private System.Windows.Forms.ToolStripStatusLabel ACTitle;
         public System.Windows.Forms.ToolStripStatusLabel ACName;
         public System.Windows.Forms.ToolStripStatusLabel ACID;
-        private System.Windows.Forms.ToolTip ToolTipManager;
+        private new System.Windows.Forms.ToolTip ToolTipManager;
         private ComponentFactory.Krypton.Toolkit.KryptonManager ThemeManager;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel CustomEdit;
@@ -1489,5 +1570,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel BtnLogsGuild;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel BtnLogsChannel;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel BtnLogsAll;
+        private System.Windows.Forms.TextBox HelpHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleNo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleYes;
+        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny buttonSpecAny1;
     }
 }

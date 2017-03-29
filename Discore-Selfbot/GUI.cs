@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
 using Discord;
-using System.Threading;
 
 namespace Discore_Selfbot
 {
@@ -33,6 +29,13 @@ namespace Discore_Selfbot
             this.kryptonContextMenuItem2.Click += KryptonContextMenuItem2_Click;
             this.kryptonContextMenuItem3.Click += KryptonContextMenuItem3_Click;
             this.kryptonContextMenuItem4.Click += KryptonContextMenuItem4_Click;
+            this.buttonSpecAny1.Click += ButtonSpecAny1_Click;
+            
+        }
+
+        private void ButtonSpecAny1_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void KryptonContextMenuItem4_Click(object sender, EventArgs e)
@@ -137,7 +140,7 @@ namespace Discore_Selfbot
             }
         }
 
-        private void kryptonButton1_Click(object sender, EventArgs e)
+        private void KryptonButton1_Click(object sender, EventArgs e)
         {
             this.Palette = kryptonPalette1;
             this.PaletteMode = PaletteMode.Custom;
@@ -501,15 +504,12 @@ namespace Discore_Selfbot
             CustomCommandsList.Items.RemoveAt(CustomCommandsList.SelectedIndex);
         }
 
-        private void kryptonLabel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void kryptonColorButton1_SelectedColorChanged(object sender, ColorEventArgs e)
+        private void KryptonColorButton1_SelectedColorChanged(object sender, ColorEventArgs e)
         {
             if (e.Color.IsEmpty)
             {
+                BtnEmbedColor.StateNormal.Back.Color1 = e.Color;
+                BtnEmbedColor.OverrideDefault.Back.Color1 = e.Color;
                 EmbedColor = new Discord.Color();
             }
             else
@@ -533,6 +533,51 @@ namespace Discore_Selfbot
         private void BtnLogsChannel_LinkClicked(object sender, EventArgs e)
         {
 
+        }
+
+        private void EmbedTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
+        }
+
+        private void EmbedText_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
+        }
+
+        private void EmbedFooter_TextChanged(object sender, EventArgs e)
+        {
+            if (EmbedFirstClick == false)
+            {
+                EmbedFirstClick = true;
+                EmbedTitle.Text = "";
+                EmbedText.Text = "";
+                EmbedFooter.Text = "";
+            }
+        }
+
+        private void BtnHideConsoleYes_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.HideConsole = "Yes";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnHideConsoleNo_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.HideConsole = "No";
+            Properties.Settings.Default.Save();
         }
     }
 }

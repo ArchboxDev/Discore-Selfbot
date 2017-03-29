@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Discord;
@@ -12,8 +11,8 @@ using System.Reflection;
 using System.IO;
 using System.Net;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using Discord.Net.Providers.WS4Net;
+using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Timers;
 
@@ -44,15 +43,25 @@ namespace Discore_Selfbot
         public static Icon Avatar;
         public static Discord.Color FavoriteColor;
         public static GUI MyForm;
+        public static NotifyIcon MyIcon;
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
         public static string CurrentUserName;
         public static ulong CurrentUserID;
         public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
         public static DateTime StartupTime;
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GetConsoleWindow();
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        public const int SW_HIDE = 0;
+        public const int SW_SHOW = 5;
         
+        [STAThread]
         static void Main()
         {
             DisableConsoleQuickEdit.Go();
+            StartupTime = DateTime.Now;
+            Notif();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
@@ -83,8 +92,9 @@ namespace Discore_Selfbot
                     sw.WriteLine("Open this in your web browser");
                     sw.WriteLine("");
                     sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
-                    sw.Close();
+                    sw.Dispose();
                 }
+                
             }
             while (Token == "")
             {
@@ -97,10 +107,16 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
             Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
-            StartupTime = DateTime.Now;
+            
+            if (Properties.Settings.Default.HideConsole == "Yes")
+            {
+                MyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
+                var handle = GetConsoleWindow();
+                ShowWindow(handle, SW_HIDE);
+            }
             new Program().RunBot().GetAwaiter().GetResult();
         }
-        
+
         [STAThread]
         public static void OpenGUI()
         {
@@ -116,10 +132,35 @@ namespace Discore_Selfbot
                     MyForm.ShowDialog();
                 });
         }
-        
+
+        [STAThread]
+        public static void Notif()
+        {
+            Thread MyIconThread = new Thread(delegate ()
+            {
+#pragma warning disable IDE0017 // Simplify object initialization
+                MyIcon = new NotifyIcon();
+#pragma warning restore IDE0017 // Simplify object initialization
+                MyIcon.Icon = Properties.Resources.Selfbot;
+                MyIcon.Visible = true;
+                MyIcon.Click += Notify_Click;
+                Application.Run();
+            });
+            MyIconThread.SetApartmentState(ApartmentState.STA);
+            MyIconThread.Start();
+        }
+
+        private static void Notify_Click(object sender, EventArgs e)
+        {
+            var NotifyMenu = new NotifyMenu();
+            if (NotifyMenu.Visible == false)
+            {
+                NotifyMenu.ShowDialog();
+            }
+        }
+
         public async Task RunBot()
         {
-
             client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 WebSocketProvider = WS4NetProvider.Instance,
@@ -128,10 +169,10 @@ namespace Discore_Selfbot
             commands = new CommandService();
             map = new DependencyMap();
             await InstallCommands();
-            WebClient WBC = new WebClient();
-            WebClient WBC2 = new WebClient();
+            WebClient GuildIconDownload = new WebClient();
+            WebClient AvatarIconDownload = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
-            
+            int GuildCount = 0;
             client.GuildUnavailable += (g) =>
             {
                 if (GuildIDs.Contains(g.Id))
@@ -151,7 +192,7 @@ namespace Discore_Selfbot
                     if (g.IconUrl == null)
                     {
                         var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                        using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                        using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToUpper().ToCharArray()[0] + ".png"))
                         {
                             Bitmap Image = new Bitmap(ImageStream);
                             ToolStrip TS = MyForm.GuildList;
@@ -163,7 +204,7 @@ namespace Discore_Selfbot
                     }
                     else
                     {
-                        using (Stream ImageStream = WBC.OpenRead(g.IconUrl))
+                        using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
                         {
                             Bitmap Image = new Bitmap(ImageStream);
                             ToolStrip TS = MyForm.GuildList;
@@ -174,6 +215,47 @@ namespace Discore_Selfbot
                     }
                    
 
+                }
+                if (Ready == false & GuildCount == client.Guilds.Count)
+                {
+                    Ready = true;
+                    if (Properties.Settings.Default.HideConsole == "Yes")
+                    {
+                        MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                    }
+                    string Message = "";
+                    switch (CurrentUserID)
+                    {
+                        case 190590364871032834:
+                            Message = "Hi master Builderb";
+                            break;
+                        case 213621714909659136:
+                            Message = "Bubbie's butt is bubbly";
+                            break;
+                        case 155490847494897664:
+                            Message = "Julia + Novus <3";
+                            break;
+                        case 107827535479353344:
+                            Message = "Julia + Novus <3";
+                            break;
+                        case 213627387206828032:
+                            Message = "Towergay confirmed";
+                            break;
+                        case 149928344811601920:
+                            Message = "Builderb pats Chat the neko";
+                            break;
+                        case 267007263359631380:
+                            Message = "Thanks for testing";
+                            break;
+                        case 190376235128455168:
+                            Message = "Get back in the salt mines!";
+                            break;
+                        default:
+                            Message = $"Hi {CurrentUserName}";
+                            break;
+                    }
+                    TimeSpan Startup = DateTime.Now - StartupTime;
+                    Console.WriteLine($"{Message} | Selfbot ready {client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds");
                 }
                 return Task.CompletedTask;
             };
@@ -205,6 +287,22 @@ namespace Discore_Selfbot
                     else
                     {
                         var GU = m.Author as IGuildUser;
+                        if (m.MentionedUsers.Count != 0)
+                        {
+                            if (m.MentionedUsers.First().ToString() == $"{client.CurrentUser.Username}#{client.CurrentUser.Discriminator}")
+                            {
+                                string ReplaceMessage = m.Content;
+                                if (ReplaceMessage.Contains("<!@"))
+                                {
+                                    ReplaceMessage = ReplaceMessage.Replace($"<!@{client.CurrentUser.Id}>", "");
+                                }
+                                else
+                                {
+                                    ReplaceMessage = ReplaceMessage.Replace($"<@{client.CurrentUser.Id}>", "");
+                                }
+                                MyForm.ChannelLogs.Items.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
+                            }
+                        }
                         if (m.Content == "self logs")
                         {
                             foreach (var Log in Logging)
@@ -242,14 +340,15 @@ namespace Discore_Selfbot
             
                 return Task.CompletedTask;
             };
+
             client.JoinedGuild += (g) =>
             {
-                Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username} - Members {g.Users.Where(x => !x.IsBot).Count()} | {g.Users.Where(x => x.IsBot).Count()} Bots");
+                Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 GuildIDs.Add(g.Id);
                 if (g.IconUrl == null)
                 {
                     var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                    using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                    using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
                         ToolStrip TS = MyForm.GuildList;
@@ -260,7 +359,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    using (Stream ImageStream = WBC.OpenRead(g.IconUrl))
+                    using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
                         ToolStrip TS = MyForm.GuildList;
@@ -271,13 +370,17 @@ namespace Discore_Selfbot
                 }
                 return Task.CompletedTask;
             };
-
+            
             client.LeftGuild += (g) =>
             {
+                
                 Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                if (GuildIDs.Contains(g.Id))
+                {
                     int Index = GuildIDs.IndexOf(g.Id);
                     MyForm.GuildList.Items.RemoveAt(Index);
                     GuildIDs.Remove(g.Id);
+                }
                 return Task.CompletedTask;
             };
 
@@ -289,7 +392,7 @@ namespace Discore_Selfbot
                 {
                     CurrentUserName = client.CurrentUser.Username;
                     CurrentUserID = client.CurrentUser.Id;
-                    using (Stream ImageStream = WBC2.OpenRead(client.CurrentUser.GetAvatarUrl()))
+                    using (Stream ImageStream = AvatarIconDownload.OpenRead(client.CurrentUser.GetAvatarUrl()))
                     {
                         Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
                         IntPtr pIcon = b.GetHicon();
@@ -318,6 +421,8 @@ namespace Discore_Selfbot
 
             client.Disconnected += (e) =>
             {
+                MyForm.GuildList.Items.Clear();
+                GuildIDs.Clear();
                 Console.Title = "Discore - Selfbot - Offline!";
                 Console.WriteLine("DISCONNECTED!");
                 return Task.CompletedTask;
@@ -325,43 +430,50 @@ namespace Discore_Selfbot
 
             client.Ready += () =>
             {
-                Ready = true;
-                string Message = "";
-                switch (CurrentUserID)
+                if (Ready == false)
                 {
-                    case 190590364871032834:
-                        Message = "Hi master Builderb";
-                        break;
-                    case 213621714909659136:
-                        Message = "Bubbie's butt is bubbly";
-                        break;
-                    case 155490847494897664:
-                        Message = "Julia + Novus <3";
-                        break;
-                    case 107827535479353344:
-                        Message = "Julia + Novus <3";
-                        break;
-                    case 213627387206828032:
-                        Message = "Towergay confirmed";
-                        break;
-                    case 149928344811601920:
-                        Message = "Builderb pats Chat the neko";
-                        break;
-                    case 267007263359631380:
-                        Message = "Thanks for testing";
-                        break;
-                    case 190376235128455168:
-                        Message = "Get back in the salt mines!";
-                        break;
-                    default:
-                        Message = $"Hi {CurrentUserName}";
-                        break;
+                    Ready = true;
+                    if (Properties.Settings.Default.HideConsole == "Yes")
+                    {
+                        MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                    }
+                    string Message = "";
+                    switch (CurrentUserID)
+                    {
+                        case 190590364871032834:
+                            Message = "Hi master Builderb";
+                            break;
+                        case 213621714909659136:
+                            Message = "Bubbie's butt is bubbly";
+                            break;
+                        case 155490847494897664:
+                            Message = "Julia + Novus <3";
+                            break;
+                        case 107827535479353344:
+                            Message = "Julia + Novus <3";
+                            break;
+                        case 213627387206828032:
+                            Message = "Towergay confirmed";
+                            break;
+                        case 149928344811601920:
+                            Message = "Builderb pats Chat the neko";
+                            break;
+                        case 267007263359631380:
+                            Message = "Thanks for testing";
+                            break;
+                        case 190376235128455168:
+                            Message = "Get back in the salt mines!";
+                            break;
+                        default:
+                            Message = $"Hi {CurrentUserName}";
+                            break;
+                    }
+                    TimeSpan Startup = DateTime.Now - StartupTime;
+                    Console.WriteLine($"{Message} | Selfbot ready {client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds");
                 }
-                TimeSpan Startup = DateTime.Now - StartupTime;
-                Console.WriteLine($"{Message} | Selfbot ready {client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds");
                 return Task.CompletedTask;
             };
-
+            
             try
             {
                 await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
@@ -370,6 +482,12 @@ namespace Discore_Selfbot
             }
             catch (Exception ex)
             {
+                if (Properties.Settings.Default.HideConsole == "Yes")
+                {
+                    MyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
+                    var handle = GetConsoleWindow();
+                    ShowWindow(handle, SW_SHOW);
+                }
                 Console.ForegroundColor = ConsoleColor.Red;
                 if (ex.Message.Contains("401"))
                 {
@@ -383,7 +501,6 @@ namespace Discore_Selfbot
             }
             await Task.Delay(-1);
         }
-
         public async static Task SendMessage(IUserMessage CommandMessage, [Remainder] string Message)
         {
             try
@@ -397,7 +514,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    var Channel = CommandMessage.Channel as ITextChannel;
+                    
                     if (Properties.Settings.Default.SendAction == "Edit")
                     {
                         await CommandMessage.ModifyAsync(x =>
@@ -408,7 +525,7 @@ namespace Discore_Selfbot
                     else
                     {
                         await CommandMessage.DeleteAsync();
-                        await Channel.SendMessageAsync($"`Selfbot | {Message}`");
+                        await CommandMessage.Channel.SendMessageAsync($"`Selfbot | {Message}`");
                     }
                 }
             }
@@ -418,6 +535,7 @@ namespace Discore_Selfbot
             }
 
         }
+
         public async static Task SendAttachment(IUserMessage CommandMessage, string Location)
         {
             try
@@ -463,27 +581,18 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    var Channel = CommandMessage.Channel as ITextChannel;
-                    IGuildUser GuildUser = CommandMessage.Author as IGuildUser;
-                    if (GuildUser.GetPermissions(Channel as ITextChannel).EmbedLinks || GuildUser.GuildPermissions.EmbedLinks)
+                    if (Properties.Settings.Default.SendAction == "Edit")
                     {
-                        if (Properties.Settings.Default.SendAction == "Edit")
+                        await CommandMessage.ModifyAsync(x =>
                         {
-                            await CommandMessage.ModifyAsync(x =>
-                            {
-                                x.Content = " ";
-                                x.Embed = Embed;
-                            });
-                        }
-                        else
-                        {
-                            await CommandMessage.DeleteAsync();
-                            await Channel.SendMessageAsync("", false, Embed);
-                        }
+                            x.Content = " ";
+                            x.Embed = Embed;
+                        });
                     }
                     else
                     {
-                        await Program.SendMessage(CommandMessage, "No embed perms");
+                        await CommandMessage.DeleteAsync();
+                        await CommandMessage.Channel.SendMessageAsync("", false, Embed);
                     }
                 }
             }
@@ -671,12 +780,14 @@ namespace Discore_Selfbot
     public class InfoModule : ModuleBase
     {
         [Command("test")]
-        public async Task test()
+        public async Task Test()
         {
             await Program.SendMessage(Context.Message as IUserMessage, $"Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}");
         }
+
         [Command("neko")]
-        public async Task neko()
+        [RequireUserPermission(ChannelPermission.EmbedLinks)]
+        public async Task Neko()
         {
             var RandomValue = Program.RandomGenerator.Next(1, 11);
             var embed = new EmbedBuilder();
@@ -726,8 +837,9 @@ namespace Discore_Selfbot
         }
 
         [Command("clean")]
-        public async Task clean(int Ammount)
+        public async Task Clean(int Ammount)
         {
+            await Context.Message.DeleteAsync();
             if (Ammount == 0)
             {
                 await Program.SendMessage(Context.Message as IUserMessage, "Clean ammount cannot be 0");
@@ -758,13 +870,9 @@ namespace Discore_Selfbot
         }
 
         [Command("guild")]
-        public async Task guild()
+        [RequireContext(ContextType.Guild)]
+        public async Task Guild()
         {
-            if (Context.Channel is IPrivateChannel)
-            {
-                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
-                return;
-            }
             int Members = 0;
             int Bots = 0;
             int MembersOnline = 0;
@@ -833,7 +941,7 @@ namespace Discore_Selfbot
         }
 
         [Command("ping")]
-        public async Task ping(string IP = "")
+        public async Task Ping(string IP = "")
         {
             if (IP == "")
             {
@@ -849,46 +957,21 @@ namespace Discore_Selfbot
         }
 
         [Command("uptime")]
-        public async Task uptime()
+        public async Task Uptime()
         {
             await Program.SendMessage(Context.Message, $"Uptime {Program.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}");
         }
 
         [Command("calc")]
-        public async Task calc(int Num1, string Func, int Num2)
+        public async Task Calc([Remainder] string Math)
         {
-            string Message = "";
-            int Result = 0;
-            switch (Func)
-            {
-                case "+":
-                    Result = Num1 + Num2;
-                    Message = $"{Num1} {Func} {Num2} = {Result}";
-                    break;
-                case "-":
-                    Result = Num1 - Num2;
-                    Message = $"{Num1} {Func} {Num2} = {Result}";
-                    break;
-                case "*":
-                    Result = Num1 * Num2;
-                    Message = $"{Num1} {Func} {Num2} = {Result}";
-                    break;
-                case "x":
-                    Result = Num1 * Num2;
-                    Message = $"{Num1} {Func} {Num2} = {Result}";
-                    break;
-                case "/":
-                    Result = Num1 / Num2;
-                    Message = $"{Num1} {Func} {Num2} = {Result}";
-                    break;
-                default:
-                    Message = "Unknown Function Use | + - * /";
-                    break;
-            }
-            await Program.SendMessage(Context.Message as IUserMessage, Message);
+            var interpreter = new DynamicExpresso.Interpreter();
+            var result = interpreter.Eval(Math);
+            await Program.SendMessage(Context.Message as IUserMessage, $"{Math} = {result.ToString()}");
         }
+
         [Command("info")]
-        public async Task info()
+        public async Task Info()
         {
             var Guilds = await Context.Client.GetGuildsAsync();
             var embed = new EmbedBuilder()
@@ -914,7 +997,7 @@ namespace Discore_Selfbot
 
         [Command("cleanembed")]
         [Alias("cleanembeds")]
-        public async Task cleanembed()
+        public async Task Cleanembed()
         {
             await Context.Message.DeleteAsync();
             var Messages = await Context.Channel.GetMessagesAsync().Flatten();
@@ -932,14 +1015,11 @@ namespace Discore_Selfbot
 
         [Command("form")]
         [Alias("gui")]
-        public async Task form()
+        public async Task Form()
         {
             await Context.Message.DeleteAsync();
             if (!Program.MyForm.Visible)
             {
-                Console.WriteLine("Opening gui");
-                GUI.SelectedGuild = 0;
-                GUI.SelectedChannel = 0;
                 Program.OpenGUI();
                 Program.MyForm.Activate();
             }
@@ -951,7 +1031,8 @@ namespace Discore_Selfbot
         }
 
         [Command("embed")]
-        public async Task embed([Remainder] string Text)
+        [RequireUserPermission(ChannelPermission.EmbedLinks)]
+        public async Task Embed([Remainder] string Text)
         {
             var embed = new EmbedBuilder()
             {
@@ -969,7 +1050,8 @@ namespace Discore_Selfbot
         }
 
         [Command("tembed")]
-        public async Task tembed(string Title, [Remainder] string Text)
+        [RequireUserPermission(ChannelPermission.EmbedLinks)]
+        public async Task Tembed(string Title, [Remainder] string Text)
         {
             var embed = new EmbedBuilder()
             {
@@ -989,7 +1071,7 @@ namespace Discore_Selfbot
 
         [Command("bot")]
         [Alias("botinfo")]
-        public async Task botinfo()
+        public async Task Botinfo()
         {
             var embed = new EmbedBuilder()
             {
@@ -1008,7 +1090,7 @@ namespace Discore_Selfbot
         }
 
         [Command("lenny")]
-        public async Task lenny()
+        public async Task Lenny()
         {
             var CommandMessage = Context.Message as IUserMessage;
             if (Properties.Settings.Default.SendAction == "Edit")
@@ -1026,7 +1108,8 @@ namespace Discore_Selfbot
         }
 
         [Command("lewd")]
-        public async Task lewd([Remainder] string Text)
+        [RequireUserPermission(ChannelPermission.EmbedLinks)]
+        public async Task Lewd([Remainder] string Text)
         {
             var embed = new EmbedBuilder()
             {
@@ -1051,7 +1134,7 @@ namespace Discore_Selfbot
         }
 
         [Command("user")]
-        public async Task user(string ID)
+        public async Task User(string ID)
         {
             if (Context.IsPrivate)
             {
@@ -1108,7 +1191,7 @@ namespace Discore_Selfbot
         }
 
         [Command("find")]
-        public async Task find(string ID)
+        public async Task Find(string ID)
         {
             int GuildCount = 0;
             Console.WriteLine("----- Guilds Found -----");
@@ -1128,7 +1211,7 @@ namespace Discore_Selfbot
         }
 
         [Command("tag")]
-        public async Task tag([Remainder] string Tag) 
+        public async Task Tag([Remainder] string Tag) 
         {
             IGuildUser GuildUser = null;
             bool AllowedEmbeds = false;
@@ -1192,7 +1275,7 @@ namespace Discore_Selfbot
         }
 
         [Command("addtag")]
-        public async Task addtag(string Tag = "", string MessageID = "")
+        public async Task Addtag(string Tag = "", string MessageID = "")
         {
             await Context.Message.ModifyAsync(x =>
             {
@@ -1263,7 +1346,7 @@ namespace Discore_Selfbot
         }
 
         [Command("deltag")]
-        public async Task deltag([Remainder] string Tag)
+        public async Task Deltag([Remainder] string Tag)
         {
             if (Tag.Contains("-thumbnail"))
             {
@@ -1286,7 +1369,7 @@ namespace Discore_Selfbot
         }
 
         [Command("an bind")]
-        public async Task anbind()
+        public async Task Anbind()
         {
             if (Context.Channel is IPrivateChannel)
             {
@@ -1324,7 +1407,7 @@ namespace Discore_Selfbot
         }
 
         [Command("an add")]
-        public async Task anadd([Remainder] string Nickname)
+        public async Task Anadd([Remainder] string Nickname)
         {
             if (Context.Channel is IPrivateChannel)
             {
@@ -1349,7 +1432,7 @@ namespace Discore_Selfbot
         }
 
         [Command("an del")]
-        public async Task andel(string Nickname)
+        public async Task Andel(string Nickname)
         {
             if (Context.Channel is IPrivateChannel)
             {
@@ -1375,7 +1458,7 @@ namespace Discore_Selfbot
         }
 
         [Command("an list")]
-        public async Task anlist()
+        public async Task Anlist()
         {
             if (Context.Channel is IPrivateChannel)
             {
@@ -1413,7 +1496,7 @@ namespace Discore_Selfbot
         }
 
         [Command("tags")]
-        public async Task tags()
+        public async Task Tags()
         {
             List<string> TagList = new List<string>();
             var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
