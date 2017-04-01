@@ -1,11 +1,10 @@
 # What is this bot?
-Discore is a selfbot for discord that can do command and actions based on your response with an awesome GUI for info and other features
+Discore is a GUI selfbot for discord that atoumatically commands and acts based on users' response.
+It is implemented in Visual Studio with C# Made by xXBuilderBXx.
+## Why should I use this?
+The bot is easy to use and only need a token file and Windows .net framework 2.6.1 without any installation.
 
-Developed in Visual Studio with C# Made by xXBuilderBXx
-## Why should i use this?
-The bot is easy to use and requires no setup exept for a token file and Windows .net framework 2.6.1
-
-The bot combines a console and windows form (gui) that can communicate with each such as sending commands from the gui or getting certain information from a guild within the gui
+The bot combines a console and windows form (GUI) that can communicate with each such as sending commands from the GUI or getting certain information from a guild within the GUI.
 
 ![](http://i.imgur.com/OpXQJ2u.png)
 
@@ -39,12 +38,12 @@ The bot combines a console and windows form (gui) that can communicate with each
 ## How to download
 http://discore.blaze.ml/
 
-Windows smartscreen will tell you that this app is unrecognised because i dont have a code signing certificate which would cost me alot :/ just click more and run as shown in the link below
+If Windows smartscreen pop out an infomation that this app is unrecognised. Ignore it and click more to run as shown in the link below
 
 http://imgur.com/a/Hi2Nc
 
 ## Website
-For a list of commands visit the website 
+For a list of commands, visit the website.
 https://blaze.ml/discore-selfbot/
 
-If you have a suggestion/issue please use this github or join my guild WJTYdNb
+If you have a suggestion/issue please use this github or join my guild WJTYdNb.
