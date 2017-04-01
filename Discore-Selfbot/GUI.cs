@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
 using Discord;
+using System.Threading;
 
 namespace Discore_Selfbot
 {
@@ -29,15 +33,9 @@ namespace Discore_Selfbot
             this.kryptonContextMenuItem2.Click += KryptonContextMenuItem2_Click;
             this.kryptonContextMenuItem3.Click += KryptonContextMenuItem3_Click;
             this.kryptonContextMenuItem4.Click += KryptonContextMenuItem4_Click;
-            this.buttonSpecAny1.Click += ButtonSpecAny1_Click;
             
         }
-
-        private void ButtonSpecAny1_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
+        
         private void KryptonContextMenuItem4_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/LICENSE");
@@ -99,6 +97,7 @@ namespace Discore_Selfbot
             {
                 ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
+            ThemeManager.GlobalPalette = AprilFools;
             if (Program.Ready == false)
             {
                 return;
@@ -142,7 +141,7 @@ namespace Discore_Selfbot
 
         private void KryptonButton1_Click(object sender, EventArgs e)
         {
-            this.Palette = kryptonPalette1;
+            this.Palette = AprilFools;
             this.PaletteMode = PaletteMode.Custom;
         }
 
@@ -343,6 +342,8 @@ namespace Discore_Selfbot
 
         private void BtnThemeDefault_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("April Fools");
+            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
@@ -350,6 +351,8 @@ namespace Discore_Selfbot
 
         private void BtnThemeDark_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("April Fools");
+            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
@@ -357,6 +360,8 @@ namespace Discore_Selfbot
 
         private void BtnThemeSparkle_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("April Fools");
+            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
