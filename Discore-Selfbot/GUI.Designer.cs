@@ -102,7 +102,6 @@
             System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Sekobot");
             System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
             treeNode39});
-            this.AprilFools = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.BtnTopMin = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.kryptonBreadCrumbItem1 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
             this.ChannelList = new System.Windows.Forms.ComboBox();
@@ -234,44 +233,6 @@
             this.NavCustomPage.SuspendLayout();
             this.StatusActive.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // AprilFools
-            // 
-            this.AprilFools.ButtonStyles.ButtonStandalone.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.AprilFools.ButtonStyles.ButtonStandalone.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.AprilFools.ButtonStyles.ButtonStandalone.StateNormal.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.AprilFools.ButtonStyles.ButtonStandalone.StateNormal.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.AprilFools.Cargo.Color1 = System.Drawing.Color.Red;
-            this.AprilFools.Cargo.Color2 = System.Drawing.Color.Red;
-            this.AprilFools.Cargo.Color3 = System.Drawing.Color.Red;
-            this.AprilFools.Cargo.Color4 = System.Drawing.Color.Red;
-            this.AprilFools.Cargo.Color5 = System.Drawing.Color.Red;
-            this.AprilFools.Common.StateDisabled.Back.Color1 = System.Drawing.Color.Fuchsia;
-            this.AprilFools.Common.StateDisabled.Back.Color2 = System.Drawing.Color.Magenta;
-            this.AprilFools.Common.StateOthers.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.AprilFools.Common.StateOthers.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.AprilFools.FormStyles.FormMain.StateActive.Back.Color1 = System.Drawing.Color.Black;
-            this.AprilFools.FormStyles.FormMain.StateActive.Back.Color2 = System.Drawing.Color.Black;
-            this.AprilFools.FormStyles.FormMain.StateCommon.Back.Color1 = System.Drawing.Color.Blue;
-            this.AprilFools.FormStyles.FormMain.StateCommon.Back.Color2 = System.Drawing.Color.Magenta;
-            this.AprilFools.FormStyles.FormMain.StateCommon.Border.Color1 = System.Drawing.Color.Lime;
-            this.AprilFools.FormStyles.FormMain.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.AprilFools.HeaderStyles.HeaderForm.StateDisabled.Back.Color1 = System.Drawing.Color.Green;
-            this.AprilFools.HeaderStyles.HeaderForm.StateDisabled.Back.Color2 = System.Drawing.Color.Yellow;
-            this.AprilFools.HeaderStyles.HeaderForm.StateDisabled.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.AprilFools.HeaderStyles.HeaderForm.StateDisabled.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.AprilFools.HeaderStyles.HeaderForm.StateNormal.Back.Color1 = System.Drawing.Color.Green;
-            this.AprilFools.HeaderStyles.HeaderForm.StateNormal.Back.Color2 = System.Drawing.Color.Yellow;
-            this.AprilFools.LabelStyles.LabelNormalControl.OverrideNotVisited.ShortText.Color1 = System.Drawing.Color.Olive;
-            this.AprilFools.LabelStyles.LabelNormalControl.OverrideNotVisited.ShortText.Color2 = System.Drawing.Color.Black;
-            this.AprilFools.LabelStyles.LabelNormalControl.StateCommon.ShortText.Color1 = System.Drawing.Color.Red;
-            this.AprilFools.LabelStyles.LabelNormalControl.StateDisabled.ShortText.Color1 = System.Drawing.Color.Red;
-            this.AprilFools.LabelStyles.LabelNormalControl.StateNormal.LongText.Color1 = System.Drawing.Color.Red;
-            this.AprilFools.LabelStyles.LabelNormalControl.StateNormal.ShortText.Color1 = System.Drawing.Color.Red;
-            this.AprilFools.TabStyles.TabDock.StateNormal.Back.Color1 = System.Drawing.Color.Yellow;
-            this.AprilFools.TabStyles.TabDock.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             // 
             // BtnTopMin
             // 
@@ -495,7 +456,7 @@
             this.NavInfoSettings,
             this.NavInfoBots,
             this.NavCustomPage});
-            this.NavInfo.SelectedIndex = 1;
+            this.NavInfo.SelectedIndex = 2;
             this.NavInfo.Size = new System.Drawing.Size(234, 396);
             this.NavInfo.TabIndex = 28;
             this.NavInfo.Text = "kryptonNavigator1";
@@ -1512,7 +1473,6 @@
         }
 
         #endregion
-        private ComponentFactory.Krypton.Toolkit.KryptonPalette AprilFools;
         private ComponentFactory.Krypton.Toolkit.ButtonSpecAny BtnTopMin;
         private ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem kryptonBreadCrumbItem1;
         public System.Windows.Forms.ToolStrip GuildList;

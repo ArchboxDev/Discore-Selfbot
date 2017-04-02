@@ -62,8 +62,7 @@ namespace Discore_Selfbot
             DisableConsoleQuickEdit.Go();
             StartupTime = DateTime.Now;
             Notif();
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("April Fools Ahahaha");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore - Selfbot - User Token Required";
             string Token = "";
             Directory.CreateDirectory(SelfbotDir);

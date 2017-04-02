@@ -117,11 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="AprilFools.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>36, 18</value>
-  </metadata>
   <data name="Changelog.Text" xml:space="preserve">
-    <value>Some more spoopy GUI changes 0_o
+    <value>Fixed the memory leak aka april fools :D
+
+Some more spoopy GUI changes 0_o
 
 GUI Change for some great updates ;) also click that test button above and fixed the self form command
 

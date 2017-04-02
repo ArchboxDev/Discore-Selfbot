@@ -97,7 +97,6 @@ namespace Discore_Selfbot
             {
                 ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
-            ThemeManager.GlobalPalette = AprilFools;
             if (Program.Ready == false)
             {
                 return;
@@ -138,13 +137,6 @@ namespace Discore_Selfbot
                 this.Icon = i;
             }
         }
-
-        private void KryptonButton1_Click(object sender, EventArgs e)
-        {
-            this.Palette = AprilFools;
-            this.PaletteMode = PaletteMode.Custom;
-        }
-
         public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
         {
             box.SelectionStart = box.TextLength;
@@ -342,8 +334,6 @@ namespace Discore_Selfbot
 
         private void BtnThemeDefault_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("April Fools");
-            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
@@ -351,8 +341,6 @@ namespace Discore_Selfbot
 
         private void BtnThemeDark_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("April Fools");
-            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
@@ -360,8 +348,6 @@ namespace Discore_Selfbot
 
         private void BtnThemeSparkle_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("April Fools");
-            return;
             ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
