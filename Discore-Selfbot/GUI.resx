@@ -118,7 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Changelog.Text" xml:space="preserve">
-    <value>Fixed the memory leak aka april fools :D
+    <value>Overhauled the selfbot with performance tweaks, added commands &gt; avatar / cat / calc &lt; fixed lewd command and disabled custom commands for rework
+
+Fixed the memory leak aka april fools :D
 
 Some more spoopy GUI changes 0_o
 

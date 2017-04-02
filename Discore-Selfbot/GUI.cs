@@ -478,6 +478,8 @@ namespace Discore_Selfbot
         
         private void CustomAddCustomAdd_LinkClicked(object sender, EventArgs e)
         {
+            MessageBox.Show("Custom commands disabled > Under construction");
+            return;
                 var Custom = new CustomCommand();
                 Custom.Show();
         }
@@ -486,6 +488,8 @@ namespace Discore_Selfbot
         {
             if (CustomCommandsList.SelectedIndex == -1)
             {
+                MessageBox.Show("Custom commands disabled > Under construction");
+                return;
                 MessageBox.Show("No item selected");
                 return;
             }
