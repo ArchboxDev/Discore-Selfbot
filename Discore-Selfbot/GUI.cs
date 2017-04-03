@@ -101,6 +101,8 @@ namespace Discore_Selfbot
             {
                 return;
             }
+            BtnFavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            BtnFavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
             WebClient WBC = new WebClient();
             Program.GuildIDs.Clear();
             foreach (var Guild in Program.client.Guilds)
@@ -379,18 +381,7 @@ namespace Discore_Selfbot
 
         private void BtnFavColor_Click(object sender, EventArgs e)
         {
-            ColorDialog FavColorForm = OpenFavoriteColor;
-            if (FavColorForm.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default.FavoriteColor = FavColorForm.Color;
-                Program.FavoriteColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
-            }
-            else
-            {
-                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
-                Program.FavoriteColor = new Discord.Color();
-            }
-            Properties.Settings.Default.Save();
+
         }
 
         private void BtnAN1_Click(object sender, EventArgs e)
@@ -572,6 +563,53 @@ namespace Discore_Selfbot
         private void BtnHideConsoleNo_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.HideConsole = "No";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnFavColor1_Click(object sender, EventArgs e)
+        {
+            ColorDialog FavColorForm = OpenFavoriteColor;
+            if (FavColorForm.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.FavoriteColor = FavColorForm.Color;
+                Program.FavoriteColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
+            }
+            else
+            {
+                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
+                Program.FavoriteColor = new Discord.Color();
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnFavColor_SelectedColorChanged(object sender, ColorEventArgs e)
+        {
+            if (e.Color.IsEmpty)
+            {
+                BtnFavColor.StateNormal.Back.Color1 = e.Color;
+                BtnFavColor.OverrideDefault.Back.Color1 = e.Color;
+                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
+                Program.FavoriteColor = new Discord.Color();
+            }
+            else
+            {
+                BtnFavColor.StateNormal.Back.Color1 = e.Color;
+                BtnFavColor.OverrideDefault.Back.Color1 = e.Color;
+                Properties.Settings.Default.FavoriteColor = e.Color;
+                Program.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnRoleColorYes_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RoleColor = "Yes";
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnRoleColorNo_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RoleColor = "No";
             Properties.Settings.Default.Save();
         }
     }

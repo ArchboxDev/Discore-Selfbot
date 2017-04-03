@@ -129,5 +129,17 @@ namespace Discore_Selfbot.Properties {
                 this["HideConsole"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No")]
+        public string RoleColor {
+            get {
+                return ((string)(this["RoleColor"]));
+            }
+            set {
+                this["RoleColor"] = value;
+            }
+        }
     }
 }

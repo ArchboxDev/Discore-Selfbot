@@ -31,24 +31,24 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("self form");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("self test");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("self info");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("self bot");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("self uptime");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("self ping");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("self ping (IP)");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("self guild");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("self user (User ID)");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("self user @Mention");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("self avatar (User ID)");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("self avatar @Mention");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("self calc 1 + 10 - 5");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("self find (User ID)");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("self find @Mention");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("self clean (Ammount)");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("self cleanembed");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Info", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("self snip");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("self test");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("self info");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("self bot");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("self uptime");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("self ping");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("self ping (IP)");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("self guild");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("self user (User ID)");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("self user @Mention");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("self avatar (User ID)");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("self avatar @Mention");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("self calc 1 + 10 - 5");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("self find (User ID)");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("self find @Mention");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("self clean (Ammount)");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("self cleanembed");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Info", new System.Windows.Forms.TreeNode[] {
             treeNode3,
             treeNode4,
             treeNode5,
@@ -63,57 +63,58 @@
             treeNode14,
             treeNode15,
             treeNode16,
-            treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("self cat");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("self neko");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("self lenny");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("self lewd (Text)");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("self bang");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("self embed (Text)");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("self tembed (Title) (Text)");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Fun", new System.Windows.Forms.TreeNode[] {
-            treeNode19,
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("self cat");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("self neko");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("self lenny");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("self lewd (Text)");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("self bang");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("self embed (Text)");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("self tembed (Title) (Text)");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Fun", new System.Windows.Forms.TreeNode[] {
             treeNode20,
             treeNode21,
             treeNode22,
             treeNode23,
             treeNode24,
-            treeNode25});
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("self tags");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("self tag (Tag)");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Message ID)");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Text)");
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("self deltag (Tag)");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Tags", new System.Windows.Forms.TreeNode[] {
-            treeNode27,
+            treeNode25,
+            treeNode26});
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("self tags");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("self tag (Tag)");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Message ID)");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Text)");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("self deltag (Tag)");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Tags", new System.Windows.Forms.TreeNode[] {
             treeNode28,
             treeNode29,
             treeNode30,
-            treeNode31});
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("self an add (Nickname)");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("self an bind");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("self an del (Nickname)");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("self an list");
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Auto Nickname", new System.Windows.Forms.TreeNode[] {
-            treeNode33,
+            treeNode31,
+            treeNode32});
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("self an add (Nickname)");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("self an bind");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("self an del (Nickname)");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("self an list");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Auto Nickname", new System.Windows.Forms.TreeNode[] {
             treeNode34,
             treeNode35,
-            treeNode36});
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("PixelBot");
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Minotaur");
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode38,
-            treeNode39});
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Discord Cards");
-            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Casino Bot");
-            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Discord RPG");
-            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode41,
+            treeNode36,
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("PixelBot");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Minotaur");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode39,
+            treeNode40});
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("Discord Cards");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Casino Bot");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Discord RPG");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
             treeNode42,
-            treeNode43});
-            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Sekobot");
-            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode45});
+            treeNode43,
+            treeNode44});
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Sekobot");
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode46});
             this.BtnTopMin = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.kryptonBreadCrumbItem1 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
             this.ChannelList = new System.Windows.Forms.ComboBox();
@@ -146,11 +147,15 @@
             this.TextCommandInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.ViewCommandsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.NavInfoThemes = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.BtnFavColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
             this.BtnThemeSparkle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnThemeDark = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnThemeDefault = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BorderTheme = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.NavInfoSettings = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.BtnRoleColorNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.TextForceRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.BtnRoleColorYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.HelpHideConsole = new System.Windows.Forms.TextBox();
             this.TitleHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.BtnHideConsoleNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -164,12 +169,10 @@
             this.TitleFavoriteColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.TitleCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.TextFavColor = new System.Windows.Forms.TextBox();
             this.BtnAN5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAN1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnFavColor = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.BtnAFNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.BtnAFYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -608,116 +611,120 @@
             treeNode1.Name = "self form";
             treeNode1.Text = "self form";
             treeNode1.ToolTipText = "Open the GUI form";
-            treeNode2.Name = "self test";
-            treeNode2.Text = "self test";
-            treeNode2.ToolTipText = "Test if selfbot is working";
-            treeNode3.Name = "self info";
-            treeNode3.Text = "self info";
-            treeNode3.ToolTipText = "Get info about yourself and the selfbot";
-            treeNode4.Name = "self bot";
-            treeNode4.Text = "self bot";
-            treeNode4.ToolTipText = "Get info about the selfbot project and creator";
-            treeNode5.Name = "self uptime";
-            treeNode5.Text = "self uptime";
-            treeNode5.ToolTipText = "Get the uptime and total uptime of the bot";
-            treeNode6.Name = "self ping";
-            treeNode6.Text = "self ping";
-            treeNode6.ToolTipText = "Ping the network and discord";
-            treeNode7.Name = "self ping (IP)";
-            treeNode7.Text = "self ping (IP)";
-            treeNode7.ToolTipText = "Ping another IP address";
-            treeNode8.Name = "self guild";
-            treeNode8.Text = "self guild";
-            treeNode8.ToolTipText = "Get info about the guild";
-            treeNode9.Name = "self user (User ID)";
-            treeNode9.Text = "self user (User ID)";
-            treeNode9.ToolTipText = "Get info about a user";
-            treeNode10.Name = "self user @Mention";
-            treeNode10.Text = "self user @Mention";
+            treeNode2.Name = "self snip";
+            treeNode2.Text = "self snip";
+            treeNode2.ToolTipText = "Open up windows snipping tools";
+            treeNode3.Name = "self test";
+            treeNode3.Text = "self test";
+            treeNode3.ToolTipText = "Test if selfbot is working";
+            treeNode4.Name = "self info";
+            treeNode4.Text = "self info";
+            treeNode4.ToolTipText = "Get info about yourself and the selfbot";
+            treeNode5.Name = "self bot";
+            treeNode5.Text = "self bot";
+            treeNode5.ToolTipText = "Get info about the selfbot project and creator";
+            treeNode6.Name = "self uptime";
+            treeNode6.Text = "self uptime";
+            treeNode6.ToolTipText = "Get the uptime and total uptime of the bot";
+            treeNode7.Name = "self ping";
+            treeNode7.Text = "self ping";
+            treeNode7.ToolTipText = "Ping the network and discord";
+            treeNode8.Name = "self ping (IP)";
+            treeNode8.Text = "self ping (IP)";
+            treeNode8.ToolTipText = "Ping another IP address";
+            treeNode9.Name = "self guild";
+            treeNode9.Text = "self guild";
+            treeNode9.ToolTipText = "Get info about the guild";
+            treeNode10.Name = "self user (User ID)";
+            treeNode10.Text = "self user (User ID)";
             treeNode10.ToolTipText = "Get info about a user";
-            treeNode11.Name = "self avatar (User ID)";
-            treeNode11.Text = "self avatar (User ID)";
-            treeNode11.ToolTipText = "Get a users avatar pic";
-            treeNode12.Name = "self avatar @Mention";
-            treeNode12.Text = "self avatar @Mention";
+            treeNode11.Name = "self user @Mention";
+            treeNode11.Text = "self user @Mention";
+            treeNode11.ToolTipText = "Get info about a user";
+            treeNode12.Name = "self avatar (User ID)";
+            treeNode12.Text = "self avatar (User ID)";
             treeNode12.ToolTipText = "Get a users avatar pic";
-            treeNode13.Name = "self calc 1 + 10 - 5";
-            treeNode13.Text = "self calc 1 + 10 - 5";
-            treeNode13.ToolTipText = "Do some calculations";
-            treeNode14.Name = "self find (User ID)";
-            treeNode14.Text = "self find (User ID)";
-            treeNode14.ToolTipText = "Usefull in finding DM advertisers";
-            treeNode15.Name = "self find @Mention";
-            treeNode15.Text = "self find @Mention";
+            treeNode13.Name = "self avatar @Mention";
+            treeNode13.Text = "self avatar @Mention";
+            treeNode13.ToolTipText = "Get a users avatar pic";
+            treeNode14.Name = "self calc 1 + 10 - 5";
+            treeNode14.Text = "self calc 1 + 10 - 5";
+            treeNode14.ToolTipText = "Do some calculations";
+            treeNode15.Name = "self find (User ID)";
+            treeNode15.Text = "self find (User ID)";
             treeNode15.ToolTipText = "Usefull in finding DM advertisers";
-            treeNode16.Name = "self clean (Ammount)";
-            treeNode16.Text = "self clean (Ammount)";
-            treeNode16.ToolTipText = "Cleanup an ammount of messages made by you MAX 30";
-            treeNode17.Name = "self cleanembed";
-            treeNode17.Text = "self cleanembed";
-            treeNode17.ToolTipText = "Cleanup all your embeds";
-            treeNode18.Name = "Info";
-            treeNode18.Text = "Info";
-            treeNode19.Name = "self cat";
-            treeNode19.Text = "self cat";
-            treeNode19.ToolTipText = "Post a random cat pic from online";
-            treeNode20.Name = "self neko";
-            treeNode20.Text = "self neko";
-            treeNode20.ToolTipText = "Post a random neko image in embed form";
-            treeNode21.Name = "self lenny";
-            treeNode21.Text = "self lenny";
-            treeNode21.ToolTipText = "Lenny face";
-            treeNode22.Name = "self lewd (Text)";
-            treeNode22.Text = "self lewd (Text)";
-            treeNode22.ToolTipText = "You are lewd";
-            treeNode23.Name = "self bang";
-            treeNode23.Text = "self bang";
-            treeNode23.ToolTipText = "Bang you are dead ;)";
-            treeNode24.Name = "self embed (Text)";
-            treeNode24.Text = "self embed (Text)";
-            treeNode24.ToolTipText = "Turn text into an embed";
-            treeNode25.Name = "self tembed (Title) (Text)";
-            treeNode25.Text = "self tembed (Title) (Text)";
-            treeNode25.ToolTipText = "Send an embed with a title and text";
-            treeNode26.Name = "Fun";
-            treeNode26.Text = "Fun";
-            treeNode27.Name = "self tags";
-            treeNode27.Text = "self tags";
-            treeNode27.ToolTipText = "Get a list of tags";
-            treeNode28.Name = "self tag (Tag)";
-            treeNode28.Text = "self tag (Tag)";
-            treeNode28.ToolTipText = "Get the created tag";
-            treeNode29.Name = "self addtag (Tag) (Message ID)";
-            treeNode29.Text = "self addtag (Tag) (Message ID)";
-            treeNode29.ToolTipText = "Add another users message as a tag";
-            treeNode30.Name = "self addtag (Tag) (Text)";
-            treeNode30.Text = "self addtag (Tag) (Text)";
-            treeNode30.ToolTipText = "Add text to a tag";
-            treeNode31.Name = "self deltag (Tag)";
-            treeNode31.Text = "self deltag (Tag)";
-            treeNode31.ToolTipText = "Broken right now";
-            treeNode32.Name = "Tags";
-            treeNode32.Text = "Tags";
-            treeNode33.Name = "self an add (Nickname)";
-            treeNode33.Text = "self an add (Nickname)";
-            treeNode33.ToolTipText = "Add a per guild nickname";
-            treeNode34.Name = "self an bind";
-            treeNode34.Text = "self an bind";
-            treeNode34.ToolTipText = "Add the guild to the autonickname";
-            treeNode35.Name = "self an del (Nickname)";
-            treeNode35.Text = "self an del (Nickname)";
-            treeNode35.ToolTipText = "Delete a per guild nickname";
-            treeNode36.Name = "self an list";
-            treeNode36.Text = "self an list";
-            treeNode36.ToolTipText = "List all per guild nicknames";
-            treeNode37.Name = "Auto Nickname";
-            treeNode37.Text = "Auto Nickname";
+            treeNode16.Name = "self find @Mention";
+            treeNode16.Text = "self find @Mention";
+            treeNode16.ToolTipText = "Usefull in finding DM advertisers";
+            treeNode17.Name = "self clean (Ammount)";
+            treeNode17.Text = "self clean (Ammount)";
+            treeNode17.ToolTipText = "Cleanup an ammount of messages made by you MAX 30";
+            treeNode18.Name = "self cleanembed";
+            treeNode18.Text = "self cleanembed";
+            treeNode18.ToolTipText = "Cleanup all your embeds";
+            treeNode19.Name = "Info";
+            treeNode19.Text = "Info";
+            treeNode20.Name = "self cat";
+            treeNode20.Text = "self cat";
+            treeNode20.ToolTipText = "Post a random cat pic from online";
+            treeNode21.Name = "self neko";
+            treeNode21.Text = "self neko";
+            treeNode21.ToolTipText = "Post a random neko image in embed form";
+            treeNode22.Name = "self lenny";
+            treeNode22.Text = "self lenny";
+            treeNode22.ToolTipText = "Lenny face";
+            treeNode23.Name = "self lewd (Text)";
+            treeNode23.Text = "self lewd (Text)";
+            treeNode23.ToolTipText = "You are lewd";
+            treeNode24.Name = "self bang";
+            treeNode24.Text = "self bang";
+            treeNode24.ToolTipText = "Bang you are dead ;)";
+            treeNode25.Name = "self embed (Text)";
+            treeNode25.Text = "self embed (Text)";
+            treeNode25.ToolTipText = "Turn text into an embed";
+            treeNode26.Name = "self tembed (Title) (Text)";
+            treeNode26.Text = "self tembed (Title) (Text)";
+            treeNode26.ToolTipText = "Send an embed with a title and text";
+            treeNode27.Name = "Fun";
+            treeNode27.Text = "Fun";
+            treeNode28.Name = "self tags";
+            treeNode28.Text = "self tags";
+            treeNode28.ToolTipText = "Get a list of tags";
+            treeNode29.Name = "self tag (Tag)";
+            treeNode29.Text = "self tag (Tag)";
+            treeNode29.ToolTipText = "Get the created tag";
+            treeNode30.Name = "self addtag (Tag) (Message ID)";
+            treeNode30.Text = "self addtag (Tag) (Message ID)";
+            treeNode30.ToolTipText = "Add another users message as a tag";
+            treeNode31.Name = "self addtag (Tag) (Text)";
+            treeNode31.Text = "self addtag (Tag) (Text)";
+            treeNode31.ToolTipText = "Add text to a tag";
+            treeNode32.Name = "self deltag (Tag)";
+            treeNode32.Text = "self deltag (Tag)";
+            treeNode32.ToolTipText = "Broken right now";
+            treeNode33.Name = "Tags";
+            treeNode33.Text = "Tags";
+            treeNode34.Name = "self an add (Nickname)";
+            treeNode34.Text = "self an add (Nickname)";
+            treeNode34.ToolTipText = "Add a per guild nickname";
+            treeNode35.Name = "self an bind";
+            treeNode35.Text = "self an bind";
+            treeNode35.ToolTipText = "Add the guild to the autonickname";
+            treeNode36.Name = "self an del (Nickname)";
+            treeNode36.Text = "self an del (Nickname)";
+            treeNode36.ToolTipText = "Delete a per guild nickname";
+            treeNode37.Name = "self an list";
+            treeNode37.Text = "self an list";
+            treeNode37.ToolTipText = "List all per guild nicknames";
+            treeNode38.Name = "Auto Nickname";
+            treeNode38.Text = "Auto Nickname";
             this.ViewCommandsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
-            treeNode18,
-            treeNode26,
-            treeNode32,
-            treeNode37});
+            treeNode2,
+            treeNode19,
+            treeNode27,
+            treeNode33,
+            treeNode38});
             this.ViewCommandsList.Size = new System.Drawing.Size(230, 309);
             this.ViewCommandsList.TabIndex = 3;
             this.ViewCommandsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewCommandsList_AfterSelect);
@@ -725,6 +732,7 @@
             // NavInfoThemes
             // 
             this.NavInfoThemes.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavInfoThemes.Controls.Add(this.BtnFavColor);
             this.NavInfoThemes.Controls.Add(this.BtnThemeSparkle);
             this.NavInfoThemes.Controls.Add(this.BtnThemeDark);
             this.NavInfoThemes.Controls.Add(this.BtnThemeDefault);
@@ -737,6 +745,24 @@
             this.NavInfoThemes.Text = "Theme";
             this.NavInfoThemes.ToolTipTitle = "Page ToolTip";
             this.NavInfoThemes.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
+            // 
+            // BtnFavColor
+            // 
+            this.BtnFavColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BtnFavColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Bottom;
+            this.BtnFavColor.Location = new System.Drawing.Point(7, 175);
+            this.BtnFavColor.Name = "BtnFavColor";
+            this.BtnFavColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.BtnFavColor.SelectedColor = System.Drawing.Color.Empty;
+            this.BtnFavColor.Size = new System.Drawing.Size(93, 60);
+            this.BtnFavColor.Splitter = false;
+            this.BtnFavColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.BtnFavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.BtnFavColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.BtnFavColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.BtnFavColor.TabIndex = 158;
+            this.BtnFavColor.Values.Text = "Favorite Color";
+            this.BtnFavColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.BtnFavColor_SelectedColorChanged);
             // 
             // BtnThemeSparkle
             // 
@@ -779,6 +805,9 @@
             // NavInfoSettings
             // 
             this.NavInfoSettings.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.NavInfoSettings.Controls.Add(this.BtnRoleColorNo);
+            this.NavInfoSettings.Controls.Add(this.TextForceRoleColor);
+            this.NavInfoSettings.Controls.Add(this.BtnRoleColorYes);
             this.NavInfoSettings.Controls.Add(this.HelpHideConsole);
             this.NavInfoSettings.Controls.Add(this.TitleHideConsole);
             this.NavInfoSettings.Controls.Add(this.BtnHideConsoleNo);
@@ -792,12 +821,10 @@
             this.NavInfoSettings.Controls.Add(this.TitleFavoriteColor);
             this.NavInfoSettings.Controls.Add(this.TitleAutoForm);
             this.NavInfoSettings.Controls.Add(this.TitleCommandMessage);
-            this.NavInfoSettings.Controls.Add(this.TextFavColor);
             this.NavInfoSettings.Controls.Add(this.BtnAN5);
             this.NavInfoSettings.Controls.Add(this.BtnAN10);
             this.NavInfoSettings.Controls.Add(this.BtnAN1);
             this.NavInfoSettings.Controls.Add(this.TextAutoNickname);
-            this.NavInfoSettings.Controls.Add(this.BtnFavColor);
             this.NavInfoSettings.Controls.Add(this.BtnAFNo);
             this.NavInfoSettings.Controls.Add(this.TextAutoForm);
             this.NavInfoSettings.Controls.Add(this.BtnAFYes);
@@ -813,6 +840,35 @@
             this.NavInfoSettings.Text = "Settings";
             this.NavInfoSettings.ToolTipTitle = "Page ToolTip";
             this.NavInfoSettings.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
+            // 
+            // BtnRoleColorNo
+            // 
+            this.BtnRoleColorNo.Location = new System.Drawing.Point(104, 253);
+            this.BtnRoleColorNo.Name = "BtnRoleColorNo";
+            this.BtnRoleColorNo.Size = new System.Drawing.Size(70, 40);
+            this.BtnRoleColorNo.TabIndex = 160;
+            this.BtnRoleColorNo.Values.Text = "No";
+            this.BtnRoleColorNo.Click += new System.EventHandler(this.BtnRoleColorNo_Click);
+            // 
+            // TextForceRoleColor
+            // 
+            this.TextForceRoleColor.AutoSize = false;
+            this.TextForceRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "RoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.TextForceRoleColor.Location = new System.Drawing.Point(180, 253);
+            this.TextForceRoleColor.Name = "TextForceRoleColor";
+            this.TextForceRoleColor.Size = new System.Drawing.Size(49, 40);
+            this.TextForceRoleColor.TabIndex = 159;
+            this.TextForceRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.RoleColor;
+            this.TextForceRoleColor.Values.Text = "Yes";
+            // 
+            // BtnRoleColorYes
+            // 
+            this.BtnRoleColorYes.Location = new System.Drawing.Point(5, 253);
+            this.BtnRoleColorYes.Name = "BtnRoleColorYes";
+            this.BtnRoleColorYes.Size = new System.Drawing.Size(70, 40);
+            this.BtnRoleColorYes.TabIndex = 158;
+            this.BtnRoleColorYes.Values.Text = "Yes";
+            this.BtnRoleColorYes.Click += new System.EventHandler(this.BtnRoleColorYes_Click);
             // 
             // HelpHideConsole
             // 
@@ -882,7 +938,7 @@
             this.HelpFavoriteColor.TabIndex = 150;
             this.HelpFavoriteColor.Text = "?";
             this.HelpFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpFavoriteColor, "Choose your favorite color for embeds");
+            this.ToolTipManager.SetToolTip(this.HelpFavoriteColor, "This will color embeds in your role color and will override favorite color");
             // 
             // HelpAutoForm
             // 
@@ -951,7 +1007,7 @@
             this.TitleFavoriteColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.TitleFavoriteColor.TabIndex = 141;
             this.TitleFavoriteColor.Values.Description = "";
-            this.TitleFavoriteColor.Values.Heading = "Favorite Color";
+            this.TitleFavoriteColor.Values.Heading = "Force Role Color";
             this.TitleFavoriteColor.Values.Image = null;
             // 
             // TitleAutoForm
@@ -983,17 +1039,6 @@
             this.TitleCommandMessage.Values.Description = "";
             this.TitleCommandMessage.Values.Heading = "Command Message";
             this.TitleCommandMessage.Values.Image = null;
-            // 
-            // TextFavColor
-            // 
-            this.TextFavColor.BackColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.TextFavColor.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.TextFavColor.DataBindings.Add(new System.Windows.Forms.Binding("BackColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextFavColor.Location = new System.Drawing.Point(180, 267);
-            this.TextFavColor.Name = "TextFavColor";
-            this.TextFavColor.ReadOnly = true;
-            this.TextFavColor.Size = new System.Drawing.Size(50, 20);
-            this.TextFavColor.TabIndex = 138;
             // 
             // BtnAN5
             // 
@@ -1032,16 +1077,6 @@
             this.TextAutoNickname.TabIndex = 134;
             this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
             this.TextAutoNickname.Values.Text = "1";
-            // 
-            // BtnFavColor
-            // 
-            this.BtnFavColor.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.BtnFavColor.Location = new System.Drawing.Point(104, 253);
-            this.BtnFavColor.Name = "BtnFavColor";
-            this.BtnFavColor.Size = new System.Drawing.Size(70, 40);
-            this.BtnFavColor.TabIndex = 133;
-            this.BtnFavColor.Values.Text = "Color";
-            this.BtnFavColor.Click += new System.EventHandler(this.BtnFavColor_Click);
             // 
             // BtnAFNo
             // 
@@ -1168,28 +1203,28 @@
             this.ViewBotsList.ItemStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.ListItem;
             this.ViewBotsList.Location = new System.Drawing.Point(0, 0);
             this.ViewBotsList.Name = "ViewBotsList";
-            treeNode38.Name = "PixelBot";
-            treeNode38.Text = "PixelBot";
-            treeNode39.Name = "Minotaur";
-            treeNode39.Text = "Minotaur";
-            treeNode40.Name = "My Bots";
-            treeNode40.Text = "My Bots";
-            treeNode41.Name = "Discord Cards";
-            treeNode41.Text = "Discord Cards";
-            treeNode42.Name = "Casino Bot";
-            treeNode42.Text = "Casino Bot";
-            treeNode43.Name = "Discord RPG";
-            treeNode43.Text = "Discord RPG";
-            treeNode44.Name = "Fun Bots";
-            treeNode44.Text = "Fun Bots";
-            treeNode45.Name = "Sekoboto";
-            treeNode45.Text = "Sekobot";
-            treeNode46.Name = "Other Bots";
-            treeNode46.Text = "Other Bots";
+            treeNode39.Name = "PixelBot";
+            treeNode39.Text = "PixelBot";
+            treeNode40.Name = "Minotaur";
+            treeNode40.Text = "Minotaur";
+            treeNode41.Name = "My Bots";
+            treeNode41.Text = "My Bots";
+            treeNode42.Name = "Discord Cards";
+            treeNode42.Text = "Discord Cards";
+            treeNode43.Name = "Casino Bot";
+            treeNode43.Text = "Casino Bot";
+            treeNode44.Name = "Discord RPG";
+            treeNode44.Text = "Discord RPG";
+            treeNode45.Name = "Fun Bots";
+            treeNode45.Text = "Fun Bots";
+            treeNode46.Name = "Sekoboto";
+            treeNode46.Text = "Sekobot";
+            treeNode47.Name = "Other Bots";
+            treeNode47.Text = "Other Bots";
             this.ViewBotsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode40,
-            treeNode44,
-            treeNode46});
+            treeNode41,
+            treeNode45,
+            treeNode47});
             this.ViewBotsList.Size = new System.Drawing.Size(232, 258);
             this.ViewBotsList.TabIndex = 9;
             this.ViewBotsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewBotsList_AfterSelect);
@@ -1549,12 +1584,10 @@
         private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleFavoriteColor;
         private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleAutoForm;
         private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleCommandMessage;
-        private System.Windows.Forms.TextBox TextFavColor;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN5;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN10;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel TextAutoNickname;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnFavColor;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAFNo;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel TextAutoForm;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAFYes;
@@ -1604,5 +1637,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleNo;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel TextHideConsole;
         private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleYes;
+        private ComponentFactory.Krypton.Toolkit.KryptonColorButton BtnFavColor;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnRoleColorNo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextForceRoleColor;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnRoleColorYes;
     }
 }

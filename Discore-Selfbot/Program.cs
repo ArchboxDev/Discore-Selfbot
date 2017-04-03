@@ -575,14 +575,29 @@ namespace Discore_Selfbot
             }
             throw new Exception();
         }
-        public static Discord.Color GetEmbedColor()
+        public static Discord.Color GetEmbedColor(ICommandContext CommandMessage)
         {
             Discord.Color Color = new Discord.Color(0);
-            if (GUI.EmbedColor.RawValue == 0)
-            {
                 Color = Program.FavoriteColor;
+            if (CommandMessage.Channel is IPrivateChannel)
+            {
+
             }
             else
+            {
+                IGuildUser GuildUser = CommandMessage.User as IGuildUser;
+                if (GuildUser.RoleIds.Count != 0 & Properties.Settings.Default.RoleColor == "Yes")
+                {
+                    foreach (var Role in GuildUser.Guild.Roles.OrderBy(x => x.Position))
+                    {
+                        if (GuildUser.RoleIds.Contains(Role.Id))
+                        {
+                            Color = Role.Color;
+                        }
+                    }
+                }
+            }
+            if (GUI.EmbedColor.RawValue != 0)
             {
                 Color = GUI.EmbedColor;
             }
@@ -766,10 +781,39 @@ namespace Discore_Selfbot
             }
         }
 
+        [Command("snip")]
+        public async Task Snip()
+        {
+            if (!Environment.Is64BitProcess)
+                Process.Start("C:\\Windows\\sysnative\\SnippingTool.exe");
+            else
+                Process.Start("C:\\Windows\\system32\\SnippingTool.exe");
+            await Context.Message.DeleteAsync();
+        }
+
         [Command("cat")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Cat()
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             WebRequest request = WebRequest.Create("http://random.cat/meow");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
@@ -780,7 +824,7 @@ namespace Discore_Selfbot
                 Title = "Selfbot | Random Cat :cat:",
                 Url = Item.file,
                 ImageUrl = Item.file,
-                Color = Program.GetEmbedColor()
+                Color = Program.GetEmbedColor(Context)
             };
             reader.Close();
             response.Close();
@@ -824,22 +868,34 @@ namespace Discore_Selfbot
         }
 
         [Command("neko")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Neko()
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             var RandomValue = Program.RandomGenerator.Next(1, 11);
             var embed = new EmbedBuilder()
             {
-                Title = "Selfbot | Random Neko :cat:"
+                Title = "Selfbot | Random Neko :cat:",
+                Color = Program.GetEmbedColor(Context)
             };
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             switch (RandomValue)
             {
                 case 1:
@@ -995,16 +1051,9 @@ namespace Discore_Selfbot
                 Footer = new EmbedFooterBuilder()
                 {
                     Text = $"Created {Context.Guild.CreatedAt.Date.Day} {Context.Guild.CreatedAt.Date.DayOfWeek} {Context.Guild.CreatedAt.Year}"
-                }
+                },
+                Color = Program.GetEmbedColor(Context)
             };
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -1097,6 +1146,26 @@ namespace Discore_Selfbot
         [Command("info")]
         public async Task Info()
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             string OSV = "32 Bit";
             if (System.Environment.Is64BitOperatingSystem)
             {
@@ -1130,6 +1199,7 @@ namespace Discore_Selfbot
                     IconUrl = Context.Client.CurrentUser.GetAvatarUrl(),
                     Url = Context.Client.CurrentUser.GetAvatarUrl()
                 },
+                Color = Program.GetEmbedColor(Context),
                 Description = $"```md" + Environment.NewLine + $"<Guilds {Guilds.Count()}> <Created {Context.Client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {Context.Client.CurrentUser.Id}>```",
             };
             embed.AddField(x =>
@@ -1182,14 +1252,6 @@ namespace Discore_Selfbot
             {
                 x.Name = "Uptime"; x.Value = $":hourglass: {Program.Uptime} minutes"; x.IsInline = true;
             });
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -1241,21 +1303,33 @@ namespace Discore_Selfbot
         }
 
         [Command("embed")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Embed([Remainder] string Text)
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             var embed = new EmbedBuilder()
             {
                 Description = Text,
+                Color = Program.GetEmbedColor(Context)
             };
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -1272,22 +1346,34 @@ namespace Discore_Selfbot
         }
 
         [Command("tembed")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Tembed(string Title, [Remainder] string Text)
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             var embed = new EmbedBuilder()
             {
                 Title = Title,
-                Description = Text
+                Description = Text,
+                Color = Program.GetEmbedColor(Context)
             };
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -1305,22 +1391,34 @@ namespace Discore_Selfbot
 
         [Command("bot")]
         [Alias("botinfo")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Botinfo()
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             var embed = new EmbedBuilder()
             {
                 Title = "Discore Selfbot Info",
                 Description = $"Selfbot made by xXBuilderBXx#9113 [Github](https://github.com/ArchboxDev/Discore-Selfbot)",
+                Color = Program.GetEmbedColor(Context)
             };
-            if (GUI.EmbedColor.RawValue == 0)
-            {
-                embed.Color = Program.FavoriteColor;
-            }
-            else
-            {
-                embed.Color = GUI.EmbedColor;
-            }
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -1355,9 +1453,28 @@ namespace Discore_Selfbot
         }
 
         [Command("lewd")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Lewd([Remainder] string Text = "")
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             var embed = new EmbedBuilder()
             {
                 Description = "LEWD",
@@ -1393,9 +1510,28 @@ namespace Discore_Selfbot
         }
 
         [Command("avatar")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task Avatar(string ID = "")
         {
+            if (!Context.IsPrivate)
+            {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                    return;
+                }
+            }
             string UserID = ID;
             if (ID == "")
             {
@@ -1422,7 +1558,8 @@ namespace Discore_Selfbot
                 {
                     Title = $"Selfbot | Avatar for {User.Username}#{User.Discriminator}",
                     ImageUrl = User.GetAvatarUrl(),
-                    Url = User.GetAvatarUrl()
+                    Url = User.GetAvatarUrl(),
+                    Color = Program.GetEmbedColor(Context)
                 };
                 if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
                 {
@@ -1446,7 +1583,6 @@ namespace Discore_Selfbot
         }
 
         [Command("user")]
-        [RequireUserPermission(ChannelPermission.EmbedLinks)]
         public async Task User(string ID)
         {
             if (Context.IsPrivate)
@@ -1454,6 +1590,23 @@ namespace Discore_Selfbot
                 await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
                 return;
             }
+                IGuildUser ThisUser = Context.User as IGuildUser;
+                if (!ThisUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                    }
+                return;
+                }
             string User = ID;
             if (User.StartsWith("<@"))
             {
@@ -1485,16 +1638,9 @@ namespace Discore_Selfbot
                         IconUrl = GuildUser.GetAvatarUrl()
                     },
                     Description = $"{GuildUser.Mention} - {GuildUser.Id}" + Environment.NewLine + $"Created {GuildUser.CreatedAt.Date.ToShortDateString()} | Joined Guild {GuildUser.JoinedAt.Value.Date.ToShortDateString()}" + Environment.NewLine + $"I am in {Count} Guilds with {Context.Message.Author.Username}",
-                    Url = GuildUser.GetAvatarUrl()
+                    Url = GuildUser.GetAvatarUrl(),
+                    Color = Program.GetEmbedColor(Context)
                 };
-                if (GUI.EmbedColor.RawValue == 0)
-                {
-                    embed.Color = Program.FavoriteColor;
-                }
-                else
-                {
-                    embed.Color = GUI.EmbedColor;
-                }
                 if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
@@ -1825,7 +1971,6 @@ namespace Discore_Selfbot
         }
 
         [Command("an bind")]
-        [RequireUserPermission(GuildPermission.ChangeNickname)]
         public async Task Anbind()
         {
             if (Context.Channel is IPrivateChannel)
@@ -1875,7 +2020,6 @@ namespace Discore_Selfbot
         }
 
         [Command("an add")]
-        [RequireUserPermission(GuildPermission.ChangeNickname)]
         public async Task Anadd([Remainder] string Nickname)
         {
             if (Context.Channel is IPrivateChannel)
@@ -1934,7 +2078,6 @@ namespace Discore_Selfbot
         }
 
         [Command("an del")]
-        [RequireUserPermission(GuildPermission.ChangeNickname)]
         public async Task Andel(string Nickname)
         {
             if (Context.Channel is IPrivateChannel)
@@ -1994,7 +2137,6 @@ namespace Discore_Selfbot
         }
 
         [Command("an list")]
-        [RequireUserPermission(GuildPermission.ChangeNickname)]
         public async Task Anlist()
         {
             if (Context.Channel is IPrivateChannel)

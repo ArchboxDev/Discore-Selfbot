@@ -51,6 +51,8 @@
             this.EmbedTitleInfo = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.CustomGallery = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.kryptonSplitContainer3 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.GalleryFormat = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GalleryImages = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.GallerySelect = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.GalleryFolder = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.GalleryCommand = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -59,21 +61,19 @@
             this.GalleryTitleMessage = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.GalleryInfo = new System.Windows.Forms.TextBox();
             this.GalleryTitleInfo = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GallerySelector = new System.Windows.Forms.FolderBrowserDialog();
-            this.GalleryImages = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GalleryFormat = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.CustomLinkImage = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.kryptonSplitContainer4 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.LinkUrl = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.LinkMyUrl = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.LinkTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.LinkMyTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.LinkCommand = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.LinkSelf = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.LinkEnter = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.LinkTitleMessage = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.LinkInfo = new System.Windows.Forms.TextBox();
             this.LinkTitleInfo = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.LinkTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.LinkMyTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.LinkUrl = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.LinkMyUrl = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GallerySelector = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonDockableNavigator1)).BeginInit();
             this.kryptonDockableNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CustomTextPage)).BeginInit();
@@ -123,7 +123,7 @@
             this.CustomEmbedPage,
             this.CustomGallery,
             this.CustomLinkImage});
-            this.kryptonDockableNavigator1.SelectedIndex = 3;
+            this.kryptonDockableNavigator1.SelectedIndex = 0;
             this.kryptonDockableNavigator1.Size = new System.Drawing.Size(284, 261);
             this.kryptonDockableNavigator1.TabIndex = 0;
             this.kryptonDockableNavigator1.Text = "kryptonDockableNavigator1";
@@ -413,6 +413,24 @@
             this.kryptonSplitContainer3.SplitterDistance = 140;
             this.kryptonSplitContainer3.TabIndex = 2;
             // 
+            // GalleryFormat
+            // 
+            this.GalleryFormat.AutoSize = false;
+            this.GalleryFormat.Location = new System.Drawing.Point(2, 154);
+            this.GalleryFormat.Name = "GalleryFormat";
+            this.GalleryFormat.Size = new System.Drawing.Size(134, 40);
+            this.GalleryFormat.TabIndex = 153;
+            this.GalleryFormat.Values.Text = "Supported Formats\r\nPNG | JPG | GIF";
+            // 
+            // GalleryImages
+            // 
+            this.GalleryImages.AutoSize = false;
+            this.GalleryImages.Location = new System.Drawing.Point(2, 125);
+            this.GalleryImages.Name = "GalleryImages";
+            this.GalleryImages.Size = new System.Drawing.Size(134, 23);
+            this.GalleryImages.TabIndex = 152;
+            this.GalleryImages.Values.Text = "Images: 0";
+            // 
             // GallerySelect
             // 
             this.GallerySelect.Location = new System.Drawing.Point(3, 57);
@@ -502,24 +520,6 @@
             this.GalleryTitleInfo.Values.Heading = "Info";
             this.GalleryTitleInfo.Values.Image = null;
             // 
-            // GalleryImages
-            // 
-            this.GalleryImages.AutoSize = false;
-            this.GalleryImages.Location = new System.Drawing.Point(2, 125);
-            this.GalleryImages.Name = "GalleryImages";
-            this.GalleryImages.Size = new System.Drawing.Size(134, 23);
-            this.GalleryImages.TabIndex = 152;
-            this.GalleryImages.Values.Text = "Images: 0";
-            // 
-            // GalleryFormat
-            // 
-            this.GalleryFormat.AutoSize = false;
-            this.GalleryFormat.Location = new System.Drawing.Point(2, 154);
-            this.GalleryFormat.Name = "GalleryFormat";
-            this.GalleryFormat.Size = new System.Drawing.Size(134, 40);
-            this.GalleryFormat.TabIndex = 153;
-            this.GalleryFormat.Values.Text = "Supported Formats\r\nPNG | JPG | GIF";
-            // 
             // CustomLinkImage
             // 
             this.CustomLinkImage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -558,6 +558,38 @@
             this.kryptonSplitContainer4.Size = new System.Drawing.Size(282, 234);
             this.kryptonSplitContainer4.SplitterDistance = 140;
             this.kryptonSplitContainer4.TabIndex = 3;
+            // 
+            // LinkUrl
+            // 
+            this.LinkUrl.Location = new System.Drawing.Point(38, 86);
+            this.LinkUrl.Name = "LinkUrl";
+            this.LinkUrl.Size = new System.Drawing.Size(98, 23);
+            this.LinkUrl.TabIndex = 153;
+            // 
+            // LinkMyUrl
+            // 
+            this.LinkMyUrl.Location = new System.Drawing.Point(2, 86);
+            this.LinkMyUrl.Name = "LinkMyUrl";
+            this.LinkMyUrl.ReadOnly = true;
+            this.LinkMyUrl.Size = new System.Drawing.Size(30, 23);
+            this.LinkMyUrl.TabIndex = 152;
+            this.LinkMyUrl.Text = "Url";
+            // 
+            // LinkTitle
+            // 
+            this.LinkTitle.Location = new System.Drawing.Point(38, 57);
+            this.LinkTitle.Name = "LinkTitle";
+            this.LinkTitle.Size = new System.Drawing.Size(98, 23);
+            this.LinkTitle.TabIndex = 151;
+            // 
+            // LinkMyTitle
+            // 
+            this.LinkMyTitle.Location = new System.Drawing.Point(2, 57);
+            this.LinkMyTitle.Name = "LinkMyTitle";
+            this.LinkMyTitle.ReadOnly = true;
+            this.LinkMyTitle.Size = new System.Drawing.Size(30, 23);
+            this.LinkMyTitle.TabIndex = 150;
+            this.LinkMyTitle.Text = "Title";
             // 
             // LinkCommand
             // 
@@ -627,38 +659,6 @@
             this.LinkTitleInfo.Values.Description = "";
             this.LinkTitleInfo.Values.Heading = "Info";
             this.LinkTitleInfo.Values.Image = null;
-            // 
-            // LinkTitle
-            // 
-            this.LinkTitle.Location = new System.Drawing.Point(38, 57);
-            this.LinkTitle.Name = "LinkTitle";
-            this.LinkTitle.Size = new System.Drawing.Size(98, 23);
-            this.LinkTitle.TabIndex = 151;
-            // 
-            // LinkMyTitle
-            // 
-            this.LinkMyTitle.Location = new System.Drawing.Point(2, 57);
-            this.LinkMyTitle.Name = "LinkMyTitle";
-            this.LinkMyTitle.ReadOnly = true;
-            this.LinkMyTitle.Size = new System.Drawing.Size(30, 23);
-            this.LinkMyTitle.TabIndex = 150;
-            this.LinkMyTitle.Text = "Title";
-            // 
-            // LinkUrl
-            // 
-            this.LinkUrl.Location = new System.Drawing.Point(38, 86);
-            this.LinkUrl.Name = "LinkUrl";
-            this.LinkUrl.Size = new System.Drawing.Size(98, 23);
-            this.LinkUrl.TabIndex = 153;
-            // 
-            // LinkMyUrl
-            // 
-            this.LinkMyUrl.Location = new System.Drawing.Point(2, 86);
-            this.LinkMyUrl.Name = "LinkMyUrl";
-            this.LinkMyUrl.ReadOnly = true;
-            this.LinkMyUrl.Size = new System.Drawing.Size(30, 23);
-            this.LinkMyUrl.TabIndex = 152;
-            this.LinkMyUrl.Text = "Url";
             // 
             // CustomCommand
             // 
