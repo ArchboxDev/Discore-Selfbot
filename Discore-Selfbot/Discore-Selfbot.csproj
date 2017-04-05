@@ -285,6 +285,7 @@
     <EmbeddedResource Include="NotifyMenu.resx">
       <DependentUpon>NotifyMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -304,10 +305,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\001-folder.png" />
-    <None Include="Resources\002-arrows.png" />
-    <None Include="Resources\003-paint-brush.png" />
-    <None Include="Resources\chat.png" />
     <Content Include="System.IO.Compression.dll" />
     <Content Include="System.Net.Http.dll" />
     <Content Include="System.Runtime.Serialization.Primitives.dll" />
