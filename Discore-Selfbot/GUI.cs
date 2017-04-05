@@ -23,9 +23,11 @@ namespace Discore_Selfbot
         public static ulong SelectedChannel = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
+        public static EmbedPopup GlobalFormEmbedPopup;
         public GUI()
         {
             InitializeComponent();
+            
             this.BtnTopMin.Click += BtnTopMin_Click;
             this.BtnOnTop.Click += BtnOnTop_Click;
             this.NavInfo.SelectedPageChanged += NavInfo_SelectedPageChanged;
@@ -33,9 +35,23 @@ namespace Discore_Selfbot
             this.kryptonContextMenuItem2.Click += KryptonContextMenuItem2_Click;
             this.kryptonContextMenuItem3.Click += KryptonContextMenuItem3_Click;
             this.kryptonContextMenuItem4.Click += KryptonContextMenuItem4_Click;
-            
+            Properties.Settings.Default.PropertyChanged += Default_PropertyChanged;
         }
-        
+        public void UpdateActive(string Guild = "MyGuild", string Channel = "MyGuild")
+        {
+                ActiveGuild.Text = Guild;
+                ActiveChannel.Text = Channel;
+                if (GlobalFormEmbedPopup != null)
+                {
+                    GlobalFormEmbedPopup.ActiveGuild.Text = Guild;
+                    GlobalFormEmbedPopup.ActiveChannel.Text = Channel;
+                }
+        }
+        private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Console.WriteLine(e.PropertyName);
+        }
+
         private void KryptonContextMenuItem4_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/LICENSE");
@@ -89,6 +105,7 @@ namespace Discore_Selfbot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            GuildList.Refresh();
             if (Properties.Settings.Default.Theme == "Dark")
             {
                 ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
@@ -100,6 +117,12 @@ namespace Discore_Selfbot
             if (Program.Ready == false)
             {
                 return;
+            }
+            ActiveGuild.Text = Program.ActiveGuild;
+            ActiveChannel.Text = Program.ActiveChannel;
+            foreach(var Item in Program.MentionLog)
+            {
+                ChannelLogs.Items.Add(Item);
             }
             BtnFavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
             BtnFavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
@@ -114,9 +137,22 @@ namespace Discore_Selfbot
                     using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        var Item = GuildList.Items.Add(Guild.Name, Image);
-                        Item.AccessibleDescription = Guild.Id.ToString();
-                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
+                        GuildButton.AccessibleDescription = Guild.Id.ToString();
+                        GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        {
+                            using (Graphics Grap = Graphics.FromImage(Image))
+                            {
+                                Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
+                            }
+                            GuildButton.Image = Image;
+                            GuildList.Items.Insert(0, (GuildButton));
+                        }
+                        else
+                        {
+                            GuildList.Items.Add(GuildButton);
+                        }
                     }
                 }
                 else
@@ -124,9 +160,22 @@ namespace Discore_Selfbot
                     using (Stream ImageStream = WBC.OpenRead(Guild.IconUrl))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        var Item = GuildList.Items.Add(Guild.Name, Image);
-                        Item.AccessibleDescription = Guild.Id.ToString();
-                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
+                        GuildButton.AccessibleDescription = Guild.Id.ToString();
+                        GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        {
+                            using (Graphics Grap = Graphics.FromImage(Image))
+                            {
+                                Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
+                            }
+                            GuildButton.Image = Image;
+                            GuildList.Items.Insert(0, (GuildButton));
+                        }
+                        else
+                        {
+                            GuildList.Items.Add(GuildButton);
+                        }
                     }
                 }
             }
@@ -139,6 +188,7 @@ namespace Discore_Selfbot
                 this.Icon = i;
             }
         }
+
         public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
         {
             box.SelectionStart = box.TextLength;
@@ -152,6 +202,12 @@ namespace Discore_Selfbot
 
         private void GuildList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            foreach(ToolStripButton ToolButton in GuildList.Items)
+            {
+                ToolButton.Checked = false;
+            }
+            ToolStripButton TSB = e.ClickedItem as ToolStripButton;
+            TSB.Checked = true;
             BtnSendSelected.Enabled = false;
             BtnSendSelected.Text = "Selected";
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
@@ -217,8 +273,6 @@ namespace Discore_Selfbot
             }
         }
 
-        
-
         private async void BtnSendSelected_Click(object sender, EventArgs e)
         {
             if (SelectedGuild == 0)
@@ -262,13 +316,13 @@ namespace Discore_Selfbot
             {
                 if (Program.ActiveGuildID == 0)
                 {
-                    MessageBox.Show("No guild selected");
+                    MessageBox.Show("No active guild");
                     return;
                 }
             }
             if (Program.ActiveChannelID == 0)
             {
-                MessageBox.Show("No channel selected");
+                MessageBox.Show("No active channel");
                 return;
             }
             if (EmbedTitle.Text == LastEmbedTitle)
@@ -291,7 +345,7 @@ namespace Discore_Selfbot
                     Text = EmbedFooter.Text
                 }
             };
-            if (BtnSendActive.Text == "Active")
+            if (ActiveGuild.Text != "DM" & ActiveChannel.Text.Contains("@"))
             {
                 var Guild = Program.client.GetGuild(Program.ActiveGuildID);
                 var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
@@ -494,14 +548,12 @@ namespace Discore_Selfbot
         {
             if (e.Color.IsEmpty)
             {
-                BtnEmbedColor.StateNormal.Back.Color1 = e.Color;
-                BtnEmbedColor.OverrideDefault.Back.Color1 = e.Color;
+                EmbedColorStrip.BackColor = new System.Drawing.Color();
                 EmbedColor = new Discord.Color();
             }
             else
             {
-                BtnEmbedColor.StateNormal.Back.Color1 = e.Color;
-                BtnEmbedColor.OverrideDefault.Back.Color1 = e.Color;
+                EmbedColorStrip.BackColor = e.Color;
                 EmbedColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
         }
@@ -611,6 +663,38 @@ namespace Discore_Selfbot
         {
             Properties.Settings.Default.RoleColor = "No";
             Properties.Settings.Default.Save();
+        }
+        
+
+        private void EmbedPaint_Click(object sender, EventArgs e)
+        {
+            BtnEmbedColor.PerformDropDown();
+        }
+
+        private void EmbedClear_Click(object sender, EventArgs e)
+        {
+            EmbedFirstClick = true;
+            EmbedTitle.Text = "";
+            EmbedText.Text = "";
+            EmbedFooter.Text = "";
+        }
+
+        private void EmbedPopup_Click(object sender, EventArgs e)
+        {
+            GlobalFormEmbedPopup = new EmbedPopup();
+            GlobalFormEmbedPopup.ShowDialog();
+            GlobalFormEmbedPopup.ActiveGuild.Text = Program.ActiveGuild;
+            GlobalFormEmbedPopup.ActiveChannel.Text = Program.ActiveChannel;
+        }
+
+        private void ActiveGuildName_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

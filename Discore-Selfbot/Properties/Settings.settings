@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Yes</Value>
     </Setting>
     <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">WindowText</Value>
+      <Value Profile="(Default)">ControlText</Value>
     </Setting>
     <Setting Name="ANGuildsList" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />

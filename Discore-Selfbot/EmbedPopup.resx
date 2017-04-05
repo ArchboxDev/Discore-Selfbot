@@ -118,59 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 57</value>
+    <value>17, 17</value>
   </metadata>
-  <data name="Changelog.Text" xml:space="preserve">
-    <value>Major GUI changes, added dog command with upcoming features soon so please wait
-
-Fixed command with embeds not working in DMs, added snip command and force role color for all embeds
-
-Overhauled the selfbot with performance tweaks, added commands &gt; avatar / cat / calc &lt; fixed lewd command and disabled custom commands for rework
-
-Fixed the memory leak aka april fools :D
-
-Some more spoopy GUI changes 0_o
-
-GUI Change for some great updates ;) also click that test button above and fixed the self form command
-
-Changed alot of code for faster guild adding in the GUI, Fixed a bunch of issues and adding a warning for bad token and making commands always edit in DMs so users dont get 2 messages at once
-
-More GUI changes including command groups, help menus, selfbot folder button, self clean command and an app icon
-
-Finally fixed the freezing issue and fixed the emoji count in self guild
-
-Few changes to the GUI, disabled some elements based on the actions and made the embed text boxes clear all
-
-Fixed a bunch of stuff,  tested all commands and added TotalUptime and TotalRuns on self uptime 
-
-Added more commands uptime/guild/neko
-
-Fixed showing embed color and favorite color
-
-Custom themes added
-
-Major overhaul of the GUI
-</value>
-  </data>
-  <metadata name="ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>681, 18</value>
-  </metadata>
-  <metadata name="OpenFavoriteColor.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>272, 18</value>
-  </metadata>
-  <metadata name="ThemeManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>544, 18</value>
-  </metadata>
-  <metadata name="MenuLinks.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>935, 18</value>
-  </metadata>
-  <metadata name="kryptonPalette1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>122, 57</value>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
   <metadata name="ActiveStatus.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>432, 14</value>
-  </metadata>
-  <metadata name="GuildList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>174, 18</value>
+    <value>550, 14</value>
   </metadata>
 </root>

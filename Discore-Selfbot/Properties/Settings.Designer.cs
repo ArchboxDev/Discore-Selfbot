@@ -49,7 +49,7 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("WindowText")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
         public global::System.Drawing.Color FavoriteColor {
             get {
                 return ((global::System.Drawing.Color)(this["FavoriteColor"]));

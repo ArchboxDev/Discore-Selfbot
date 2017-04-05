@@ -161,7 +161,7 @@
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.TextLogic);
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.TextTitleInfo);
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(282, 234);
-            this.kryptonSplitContainer1.SplitterDistance = 140;
+            this.kryptonSplitContainer1.SplitterDistance = 138;
             this.kryptonSplitContainer1.TabIndex = 0;
             // 
             // TextMessage
@@ -170,7 +170,7 @@
             this.TextMessage.Location = new System.Drawing.Point(0, 63);
             this.TextMessage.Multiline = true;
             this.TextMessage.Name = "TextMessage";
-            this.TextMessage.Size = new System.Drawing.Size(140, 131);
+            this.TextMessage.Size = new System.Drawing.Size(138, 131);
             this.TextMessage.TabIndex = 147;
             // 
             // TextCommand
@@ -194,7 +194,7 @@
             this.TextEnter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.TextEnter.Location = new System.Drawing.Point(0, 194);
             this.TextEnter.Name = "TextEnter";
-            this.TextEnter.Size = new System.Drawing.Size(140, 40);
+            this.TextEnter.Size = new System.Drawing.Size(138, 40);
             this.TextEnter.TabIndex = 144;
             this.TextEnter.Values.Text = "Add Command";
             this.TextEnter.Click += new System.EventHandler(this.BtnTextAdd_Click);
@@ -206,7 +206,7 @@
             this.TextTitleMessage.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
             this.TextTitleMessage.Location = new System.Drawing.Point(0, 0);
             this.TextTitleMessage.Name = "TextTitleMessage";
-            this.TextTitleMessage.Size = new System.Drawing.Size(140, 22);
+            this.TextTitleMessage.Size = new System.Drawing.Size(138, 22);
             this.TextTitleMessage.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextTitleMessage.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.TextTitleMessage.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
@@ -222,7 +222,7 @@
             this.TextLogic.Multiline = true;
             this.TextLogic.Name = "TextLogic";
             this.TextLogic.ReadOnly = true;
-            this.TextLogic.Size = new System.Drawing.Size(137, 206);
+            this.TextLogic.Size = new System.Drawing.Size(139, 206);
             this.TextLogic.TabIndex = 148;
             this.TextLogic.Text = "Logic Commands\r\n\r\n%G% - Guild Count";
             // 
@@ -233,7 +233,7 @@
             this.TextTitleInfo.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
             this.TextTitleInfo.Location = new System.Drawing.Point(0, 0);
             this.TextTitleInfo.Name = "TextTitleInfo";
-            this.TextTitleInfo.Size = new System.Drawing.Size(137, 22);
+            this.TextTitleInfo.Size = new System.Drawing.Size(139, 22);
             this.TextTitleInfo.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextTitleInfo.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.TextTitleInfo.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
