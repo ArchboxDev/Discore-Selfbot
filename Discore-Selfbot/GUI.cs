@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
 using Discord;
-using System.Threading;
 
 namespace Discore_Selfbot
 {
@@ -23,65 +18,53 @@ namespace Discore_Selfbot
         public static ulong SelectedChannel = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
-        public static EmbedPopup GlobalFormEmbedPopup;
+        public static EmbedPopup FormEmbedPopup;
         public GUI()
         {
             InitializeComponent();
-            
-            this.BtnTopMin.Click += BtnTopMin_Click;
-            this.BtnOnTop.Click += BtnOnTop_Click;
-            this.NavInfo.SelectedPageChanged += NavInfo_SelectedPageChanged;
-            this.kryptonContextMenuItem1.Click += KryptonContextMenuItem1_Click;
-            this.kryptonContextMenuItem2.Click += KryptonContextMenuItem2_Click;
-            this.kryptonContextMenuItem3.Click += KryptonContextMenuItem3_Click;
-            this.kryptonContextMenuItem4.Click += KryptonContextMenuItem4_Click;
-            Properties.Settings.Default.PropertyChanged += Default_PropertyChanged;
+            this.GUI_Minimize.Click += BtnTopMin_Click;
+            this.GUI_OnTop.Click += BtnOnTop_Click;
+            this.GUI_NavMain.SelectedPageChanged += NavInfo_SelectedPageChanged;
+            this.GUI_LinkWebsite.Click += LinkWebsite_Click;
+            this.GUI_LinkGithub.Click += LinkGithub_Click;
+            this.GUI_LinkMyGuild.Click += LinkMyGuild_Click;
         }
         public void UpdateActive(string Guild = "MyGuild", string Channel = "MyGuild")
         {
-                ActiveGuild.Text = Guild;
-                ActiveChannel.Text = Channel;
-                if (GlobalFormEmbedPopup != null)
+                GUI_ActiveGuildName.Text = Guild;
+                GUI_ActiveChannelName.Text = Channel;
+                if (FormEmbedPopup != null)
                 {
-                    GlobalFormEmbedPopup.ActiveGuild.Text = Guild;
-                    GlobalFormEmbedPopup.ActiveChannel.Text = Channel;
+                    FormEmbedPopup.ActiveGuild.Text = Guild;
+                    FormEmbedPopup.ActiveChannel.Text = Channel;
                 }
         }
-        private void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            Console.WriteLine(e.PropertyName);
-        }
 
-        private void KryptonContextMenuItem4_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/LICENSE");
-        }
-
-        private void KryptonContextMenuItem3_Click(object sender, EventArgs e)
+        private void LinkMyGuild_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://discord.gg/WJTYdNb");
         }
 
-        private void KryptonContextMenuItem2_Click(object sender, EventArgs e)
+        private void LinkGithub_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/ArchboxDev/Discore-Selfbot");
         }
 
-        private void KryptonContextMenuItem1_Click(object sender, EventArgs e)
+        private void LinkWebsite_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://blaze.ml/");
         }
 
         private void NavInfo_SelectedPageChanged(object sender, EventArgs e)
         {
-           if (NavInfo.SelectedPage.Name == "NavCustomPage")
+           if (GUI_NavMain.SelectedPage.Name == "NavCustomPage")
             {
-                CustomCommandsList.Items.Clear();
+                GUI_CCList.Items.Clear();
                 foreach (var File in Directory.GetFiles(Program.SelfbotDir + "Custom\\"))
                 {
                     if (!File.Contains(".message"))
                     {
-                        CustomCommandsList.Items.Add(File.Replace(Program.SelfbotDir + "Custom\\", "").Replace(".txt", ""));
+                        GUI_CCList.Items.Add(File.Replace(Program.SelfbotDir + "Custom\\", "").Replace(".txt", ""));
                     }
                 }
             }
@@ -93,7 +76,7 @@ namespace Discore_Selfbot
         }
         private void BtnOnTop_Click(object sender, EventArgs e)
         {
-            if (BtnOnTop.Checked == ButtonCheckState.Unchecked)
+            if (GUI_OnTop.Checked == ButtonCheckState.Unchecked)
             {
                 this.TopMost = false;
             }
@@ -105,27 +88,27 @@ namespace Discore_Selfbot
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GuildList.Refresh();
+            GUI_Guilds.Refresh();
             if (Properties.Settings.Default.Theme == "Dark")
             {
-                ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+                //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             }
             if (Properties.Settings.Default.Theme == "Dark Sparkle")
             {
-                ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+                //ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
             if (Program.Ready == false)
             {
                 return;
             }
-            ActiveGuild.Text = Program.ActiveGuild;
-            ActiveChannel.Text = Program.ActiveChannel;
+            GUI_ActiveGuildName.Text = Program.ActiveGuild;
+            GUI_ActiveChannelName.Text = Program.ActiveChannel;
             foreach(var Item in Program.MentionLog)
             {
-                ChannelLogs.Items.Add(Item);
+                GUI_Mentions.Items.Add(Item);
             }
-            BtnFavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
-            BtnFavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            GUI_FavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            GUI_FavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
             WebClient WBC = new WebClient();
             Program.GuildIDs.Clear();
             foreach (var Guild in Program.client.Guilds)
@@ -147,11 +130,11 @@ namespace Discore_Selfbot
                                 Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
                             }
                             GuildButton.Image = Image;
-                            GuildList.Items.Insert(0, (GuildButton));
+                            GUI_Guilds.Items.Insert(0, (GuildButton));
                         }
                         else
                         {
-                            GuildList.Items.Add(GuildButton);
+                            GUI_Guilds.Items.Add(GuildButton);
                         }
                     }
                 }
@@ -170,11 +153,11 @@ namespace Discore_Selfbot
                                 Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
                             }
                             GuildButton.Image = Image;
-                            GuildList.Items.Insert(0, (GuildButton));
+                            GUI_Guilds.Items.Insert(0, (GuildButton));
                         }
                         else
                         {
-                            GuildList.Items.Add(GuildButton);
+                            GUI_Guilds.Items.Add(GuildButton);
                         }
                     }
                 }
@@ -202,14 +185,14 @@ namespace Discore_Selfbot
 
         private void GuildList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            foreach(ToolStripButton ToolButton in GuildList.Items)
+            foreach(ToolStripButton ToolButton in GUI_Guilds.Items)
             {
                 ToolButton.Checked = false;
             }
             ToolStripButton TSB = e.ClickedItem as ToolStripButton;
             TSB.Checked = true;
-            BtnSendSelected.Enabled = false;
-            BtnSendSelected.Text = "Selected";
+            GUI_EmbedSendSelected.Enabled = false;
+            GUI_EmbedSendSelected.Text = "Selected";
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
             Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
             var Guild = Program.client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
@@ -218,31 +201,31 @@ namespace Discore_Selfbot
                 Console.WriteLine("Unable to get guild");
                 return;
             }
-            TextGuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {Guild.Users.Where(x => !x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => !x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Bots: Online {Guild.Users.Where(x => x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
+            GUI_GuildInfo.Text = $"ID: {Guild.Id}" + Environment.NewLine + $"Owner: {Guild.Owner.Username} - {Guild.Owner.Id}" + Environment.NewLine + $"Users: Online {Guild.Users.Where(x => !x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => !x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Bots: Online {Guild.Users.Where(x => x.IsBot & x.Status != UserStatus.Offline).Count()}/{Guild.Users.Where(x => x.IsBot & x.Status == UserStatus.Offline).Count()} Offline" + Environment.NewLine + $"Roles: {Guild.Roles.Count - 1} Emojis: {Guild.Emojis.Count}" + Environment.NewLine + $"Created: {Guild.CreatedAt.Date.ToShortDateString()}";
             SelectedGuild = Convert.ToUInt64(e.ClickedItem.AccessibleDescription);
-            ChannelList.Items.Clear();
-            ChannelList.Visible = true;
+            GUI_Channels.Items.Clear();
+            GUI_Channels.Visible = true;
             Program.ChannelsID.Clear();
             foreach (var Chan in Guild.TextChannels)
             {
-                ChannelList.Items.Add($"{Chan.Name}");
+                GUI_Channels.Items.Add($"{Chan.Name}");
                 Program.ChannelsID.Add(Chan.Id);
             }
-            ChannelList.Enabled = true;
-            TextGuildRoles.Clear();
+            GUI_Channels.Enabled = true;
+            GUI_GuildRoles.Clear();
             foreach (var Role in Guild.Roles)
             {
                 if (Role != Guild.EveryoneRole)
                 {
                     if (Role.Color.R == 0)
                     {
-                        AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
+                        AppendText(GUI_GuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
                     }
                     else
                     {
-                        AppendText(TextGuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(Role.Color.R, Role.Color.G, Role.Color.B));
+                        AppendText(GUI_GuildRoles, Role.Name + Environment.NewLine, System.Drawing.Color.FromArgb(Role.Color.R, Role.Color.G, Role.Color.B));
                     }
-                    AppendText(TextGuildRoles, Role.Id + Environment.NewLine + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
+                    AppendText(GUI_GuildRoles, Role.Id + Environment.NewLine + Environment.NewLine, System.Drawing.Color.FromArgb(255, 255, 255));
                 }
             }
             List<string> EmojiList = new List<string>();
@@ -250,26 +233,26 @@ namespace Discore_Selfbot
             {
                 EmojiList.Add(Emoji.Name);
             }
-            TextGuildEmojis.Text = string.Join(Environment.NewLine, EmojiList.ToArray());
+            GUI_GuildEmojis.Text = string.Join(Environment.NewLine, EmojiList.ToArray());
         }
 
         private void ChannelList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine($"Selected Channel {ChannelList.SelectedItem}");
-            int Index = ChannelList.SelectedIndex;
+            Console.WriteLine($"Selected Channel {GUI_Channels.SelectedItem}");
+            int Index = GUI_Channels.SelectedIndex;
             SelectedChannel = Program.ChannelsID[Index];
             var Guild = Program.client.GetGuild(SelectedGuild);
             var Chan = Guild.GetChannel(SelectedChannel) as ITextChannel;
             var User = Guild.GetUser(Program.CurrentUserID);
             if (User.GuildPermissions.EmbedLinks || User.GetPermissions(Chan).EmbedLinks)
             {
-                BtnSendSelected.Enabled = true;
-                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + ChannelList.SelectedItem;
+                GUI_EmbedSendSelected.Enabled = true;
+                GUI_EmbedSendSelected.Values.Text = "Selected" + Environment.NewLine + GUI_Channels.SelectedItem;
             }
             else
             {
-                BtnSendSelected.Enabled = false;
-                BtnSendSelected.Values.Text = "Selected" + Environment.NewLine + "No Perms";
+                GUI_EmbedSendSelected.Enabled = false;
+                GUI_EmbedSendSelected.Values.Text = "Selected" + Environment.NewLine + "No Perms";
             }
         }
 
@@ -285,26 +268,26 @@ namespace Discore_Selfbot
                 MessageBox.Show("No channel selected");
                 return;
             }
-            if (EmbedTitle.Text == LastEmbedTitle)
+            if (GUI_EmbedTitle.Text == LastEmbedTitle)
             {
-                if (EmbedText.Text == LastEmbedText)
+                if (GUI_EmbedText.Text == LastEmbedText)
                 {
                     MessageBox.Show("You already send this message");
                     return;
                 }
             }
-            LastEmbedTitle = EmbedTitle.Text;
-            LastEmbedText = EmbedText.Text;
+            LastEmbedTitle = GUI_EmbedTitle.Text;
+            LastEmbedText = GUI_EmbedText.Text;
             var Guild = Program.client.GetGuild(SelectedGuild);
             var Chan = Guild.GetChannel(SelectedChannel) as ITextChannel;
             var embed = new EmbedBuilder()
             {
-                Title = EmbedTitle.Text,
-                Description = EmbedText.Text,
+                Title = GUI_EmbedTitle.Text,
+                Description = GUI_EmbedText.Text,
                 Color = EmbedColor,
                 Footer = new EmbedFooterBuilder()
                 {
-                    Text = EmbedFooter.Text
+                    Text = GUI_EmbedFooter.Text
                 }
             };
             await Chan.SendMessageAsync("", false, embed);
@@ -312,7 +295,7 @@ namespace Discore_Selfbot
 
         private async void BtnSendActive_Click(object sender, EventArgs e)
         {
-            if (BtnSendActive.Text == "Active")
+            if (GUI_EmbedSendActive.Text == "Active")
             {
                 if (Program.ActiveGuildID == 0)
                 {
@@ -325,27 +308,27 @@ namespace Discore_Selfbot
                 MessageBox.Show("No active channel");
                 return;
             }
-            if (EmbedTitle.Text == LastEmbedTitle)
+            if (GUI_EmbedTitle.Text == LastEmbedTitle)
             {
-                if (EmbedText.Text == LastEmbedText)
+                if (GUI_EmbedText.Text == LastEmbedText)
                 {
                     MessageBox.Show("You already send this message");
                     return;
                 }
             }
-            LastEmbedTitle = EmbedTitle.Text;
-            LastEmbedText = EmbedText.Text;
+            LastEmbedTitle = GUI_EmbedTitle.Text;
+            LastEmbedText = GUI_EmbedText.Text;
             var embed = new EmbedBuilder()
             {
-                Title = EmbedTitle.Text,
-                Description = EmbedText.Text,
+                Title = GUI_EmbedTitle.Text,
+                Description = GUI_EmbedText.Text,
                 Color = EmbedColor,
                 Footer = new EmbedFooterBuilder()
                 {
-                    Text = EmbedFooter.Text
+                    Text = GUI_EmbedFooter.Text
                 }
             };
-            if (ActiveGuild.Text != "DM" & ActiveChannel.Text.Contains("@"))
+            if (GUI_ActiveGuildName.Text != "DM" & GUI_ActiveChannelName.Text.Contains("@"))
             {
                 var Guild = Program.client.GetGuild(Program.ActiveGuildID);
                 var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
@@ -385,26 +368,26 @@ namespace Discore_Selfbot
 
         private void ViewCommandsList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TextCommandInfo.Text = e.Node.ToolTipText;
+            GUI_CommandsInfo.Text = e.Node.ToolTipText;
         }
 
         private void BtnThemeDefault_Click(object sender, EventArgs e)
         {
-            ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
+            //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
 
         private void BtnThemeDark_Click(object sender, EventArgs e)
         {
-            ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+            //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
 
         private void BtnThemeSparkle_Click(object sender, EventArgs e)
         {
-            ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+            //ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
@@ -463,97 +446,97 @@ namespace Discore_Selfbot
         {
             if (e.Node.Name == "PixelBot")
             {
-                TextBotInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
-                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
+                GUI_BotsWebLink.AccessibleDescription = "https://blaze.ml";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
+                GUI_BotsWebLink.Visible = true;
+                GUI_BotsInviteLink.Visible = true;
             }
             if (e.Node.Name == "Minotaur")
             {
-                TextBotInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
-                HyperlinkBotWebsite.AccessibleDescription = "https://blaze.ml";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
+                GUI_BotsWebLink.AccessibleDescription = "https://blaze.ml";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
+                GUI_BotsWebLink.Visible = true;
+                GUI_BotsInviteLink.Visible = true;
             }
             if (e.Node.Name == "Discord Cards")
             {
-                TextBotInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
-                HyperlinkBotWebsite.AccessibleDescription = "";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
-                HyperlinkBotWebsite.Visible = false;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "Buy/Trade/Collect all of the rare cards featured around discord";
+                GUI_BotsWebLink.AccessibleDescription = "";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=275388037817696287&scope=bot";
+                GUI_BotsWebLink.Visible = false;
+                GUI_BotsInviteLink.Visible = true;
             }
             if (e.Node.Name == "Casino Bot")
             {
-                TextBotInfo.Text = "Spin the wheel and get the JACKPOT!";
-                HyperlinkBotWebsite.AccessibleDescription = "";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
-                HyperlinkBotWebsite.Visible = false;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "Spin the wheel and get the JACKPOT!";
+                GUI_BotsWebLink.AccessibleDescription = "";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=263330369409908736&scope=bot&permissions=19456";
+                GUI_BotsWebLink.Visible = false;
+                GUI_BotsInviteLink.Visible = true;
             }
             if (e.Node.Name == "Discord RPG")
             {
-                TextBotInfo.Text = "Who dosent love a good RPG bot?";
-                HyperlinkBotWebsite.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "Who dosent love a good RPG bot?";
+                GUI_BotsWebLink.AccessibleDescription = "https://wiki.discorddungeons.me/Home";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=170915256833540097&scope=bot&permissions=0";
+                GUI_BotsWebLink.Visible = true;
+                GUI_BotsInviteLink.Visible = true;
             }
             if (e.Node.Name == "Sekoboto")
             {
-                TextBotInfo.Text = "A cool bot with random and usefull commands it also her per guild/channel configs";
-                HyperlinkBotWebsite.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
-                HyperlinkBotInvite.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
-                HyperlinkBotWebsite.Visible = true;
-                HyperlinkBotInvite.Visible = true;
+                GUI_BotsInfo.Text = "A cool bot with random and usefull commands it also her per guild/channel configs";
+                GUI_BotsWebLink.AccessibleDescription = "https://sekusuikuto.archbox.pro/";
+                GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?client_id=217215738753056768&scope=bot&permissions=1518657";
+                GUI_BotsWebLink.Visible = true;
+                GUI_BotsInviteLink.Visible = true;
             }
         }
 
         private void HyperlinkBotWebsite_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(HyperlinkBotWebsite.AccessibleDescription);
+            System.Diagnostics.Process.Start(GUI_BotsWebLink.AccessibleDescription);
         }
 
         private void HyperlinkBotInvite_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(HyperlinkBotInvite.AccessibleDescription);
+            System.Diagnostics.Process.Start(GUI_BotsInviteLink.AccessibleDescription);
         }
         
         private void CustomAddCustomAdd_LinkClicked(object sender, EventArgs e)
         {
             MessageBox.Show("Custom commands disabled > Under construction");
             return;
-                var Custom = new CustomCommand();
-                Custom.Show();
+                //var Custom = new CustomCommand();
+                //Custom.Show();
         }
 
         private void CustomDelete_LinkClicked(object sender, EventArgs e)
         {
-            if (CustomCommandsList.SelectedIndex == -1)
+            if (GUI_CCList.SelectedIndex == -1)
             {
                 MessageBox.Show("Custom commands disabled > Under construction");
                 return;
                 MessageBox.Show("No item selected");
                 return;
             }
-            string Selected = CustomCommandsList.SelectedItem.ToString();
+            string Selected = GUI_CCList.SelectedItem.ToString();
             File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".txt");
             File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".message.txt");
-            CustomCommandsList.Items.RemoveAt(CustomCommandsList.SelectedIndex);
+            GUI_CCList.Items.RemoveAt(GUI_CCList.SelectedIndex);
         }
 
         private void KryptonColorButton1_SelectedColorChanged(object sender, ColorEventArgs e)
         {
             if (e.Color.IsEmpty)
             {
-                EmbedColorStrip.BackColor = new System.Drawing.Color();
+                GUI_EmbedColorStrip.BackColor = new System.Drawing.Color();
                 EmbedColor = new Discord.Color();
             }
             else
             {
-                EmbedColorStrip.BackColor = e.Color;
+                GUI_EmbedColorStrip.BackColor = e.Color;
                 EmbedColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
         }
@@ -578,9 +561,9 @@ namespace Discore_Selfbot
             if (EmbedFirstClick == false)
             {
                 EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
+                GUI_EmbedTitle.Text = "";
+                GUI_EmbedText.Text = "";
+                GUI_EmbedFooter.Text = "";
             }
         }
 
@@ -589,9 +572,9 @@ namespace Discore_Selfbot
             if (EmbedFirstClick == false)
             {
                 EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
+                GUI_EmbedTitle.Text = "";
+                GUI_EmbedText.Text = "";
+                GUI_EmbedFooter.Text = "";
             }
         }
 
@@ -600,9 +583,9 @@ namespace Discore_Selfbot
             if (EmbedFirstClick == false)
             {
                 EmbedFirstClick = true;
-                EmbedTitle.Text = "";
-                EmbedText.Text = "";
-                EmbedFooter.Text = "";
+                GUI_EmbedTitle.Text = "";
+                GUI_EmbedText.Text = "";
+                GUI_EmbedFooter.Text = "";
             }
         }
 
@@ -618,35 +601,19 @@ namespace Discore_Selfbot
             Properties.Settings.Default.Save();
         }
 
-        private void BtnFavColor1_Click(object sender, EventArgs e)
-        {
-            ColorDialog FavColorForm = OpenFavoriteColor;
-            if (FavColorForm.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default.FavoriteColor = FavColorForm.Color;
-                Program.FavoriteColor = new Discord.Color(FavColorForm.Color.R, FavColorForm.Color.G, FavColorForm.Color.B);
-            }
-            else
-            {
-                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
-                Program.FavoriteColor = new Discord.Color();
-            }
-            Properties.Settings.Default.Save();
-        }
-
         private void BtnFavColor_SelectedColorChanged(object sender, ColorEventArgs e)
         {
             if (e.Color.IsEmpty)
             {
-                BtnFavColor.StateNormal.Back.Color1 = e.Color;
-                BtnFavColor.OverrideDefault.Back.Color1 = e.Color;
+                GUI_FavColor.StateNormal.Back.Color1 = e.Color;
+                GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
                 Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
                 Program.FavoriteColor = new Discord.Color();
             }
             else
             {
-                BtnFavColor.StateNormal.Back.Color1 = e.Color;
-                BtnFavColor.OverrideDefault.Back.Color1 = e.Color;
+                GUI_FavColor.StateNormal.Back.Color1 = e.Color;
+                GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
                 Properties.Settings.Default.FavoriteColor = e.Color;
                 Program.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
@@ -664,27 +631,26 @@ namespace Discore_Selfbot
             Properties.Settings.Default.RoleColor = "No";
             Properties.Settings.Default.Save();
         }
-        
 
         private void EmbedPaint_Click(object sender, EventArgs e)
         {
-            BtnEmbedColor.PerformDropDown();
+            GUI_EmbedColorMenu.PerformDropDown();
         }
 
         private void EmbedClear_Click(object sender, EventArgs e)
         {
             EmbedFirstClick = true;
-            EmbedTitle.Text = "";
-            EmbedText.Text = "";
-            EmbedFooter.Text = "";
+            GUI_EmbedTitle.Text = "";
+            GUI_EmbedText.Text = "";
+            GUI_EmbedFooter.Text = "";
         }
 
         private void EmbedPopup_Click(object sender, EventArgs e)
         {
-            GlobalFormEmbedPopup = new EmbedPopup();
-            GlobalFormEmbedPopup.ShowDialog();
-            GlobalFormEmbedPopup.ActiveGuild.Text = Program.ActiveGuild;
-            GlobalFormEmbedPopup.ActiveChannel.Text = Program.ActiveChannel;
+            FormEmbedPopup = new EmbedPopup();
+            FormEmbedPopup.ShowDialog();
+            FormEmbedPopup.ActiveGuild.Text = Program.ActiveGuild;
+            FormEmbedPopup.ActiveChannel.Text = Program.ActiveChannel;
         }
 
         private void ActiveGuildName_Click(object sender, EventArgs e)

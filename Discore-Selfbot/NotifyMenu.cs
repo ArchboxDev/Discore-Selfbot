@@ -15,19 +15,19 @@ namespace Discore_Selfbot
 
         private void BtnOpenGUI_Click(object sender, EventArgs e)
         {
-            if (Program.MyForm == null)
+            if (Program.MyGUI == null)
             {
                 MessageBox.Show("Selfbot has not fully loaded cannot open GUI");
                 return;
             }
-            if (!Program.MyForm.Visible)
+            if (!Program.MyGUI.Visible)
             {
                 Program.OpenGUI();
-                Program.MyForm.Activate();
+                Program.MyGUI.Activate();
             }
             else
             {
-                Program.MyForm.Activate();
+                Program.MyGUI.Activate();
                 Console.WriteLine("Gui already open");
             }
         }

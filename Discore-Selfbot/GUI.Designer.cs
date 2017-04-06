@@ -30,1596 +30,1559 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
-            System.Windows.Forms.TreeNode treeNode97 = new System.Windows.Forms.TreeNode("self form");
-            System.Windows.Forms.TreeNode treeNode98 = new System.Windows.Forms.TreeNode("self snip");
-            System.Windows.Forms.TreeNode treeNode99 = new System.Windows.Forms.TreeNode("self test");
-            System.Windows.Forms.TreeNode treeNode100 = new System.Windows.Forms.TreeNode("self info");
-            System.Windows.Forms.TreeNode treeNode101 = new System.Windows.Forms.TreeNode("self bot");
-            System.Windows.Forms.TreeNode treeNode102 = new System.Windows.Forms.TreeNode("self uptime");
-            System.Windows.Forms.TreeNode treeNode103 = new System.Windows.Forms.TreeNode("self ping");
-            System.Windows.Forms.TreeNode treeNode104 = new System.Windows.Forms.TreeNode("self ping (IP)");
-            System.Windows.Forms.TreeNode treeNode105 = new System.Windows.Forms.TreeNode("self guild");
-            System.Windows.Forms.TreeNode treeNode106 = new System.Windows.Forms.TreeNode("self user (User ID)");
-            System.Windows.Forms.TreeNode treeNode107 = new System.Windows.Forms.TreeNode("self user @Mention");
-            System.Windows.Forms.TreeNode treeNode108 = new System.Windows.Forms.TreeNode("self avatar (User ID)");
-            System.Windows.Forms.TreeNode treeNode109 = new System.Windows.Forms.TreeNode("self avatar @Mention");
-            System.Windows.Forms.TreeNode treeNode110 = new System.Windows.Forms.TreeNode("self calc 1 + 10 - 5");
-            System.Windows.Forms.TreeNode treeNode111 = new System.Windows.Forms.TreeNode("self find (User ID)");
-            System.Windows.Forms.TreeNode treeNode112 = new System.Windows.Forms.TreeNode("self find @Mention");
-            System.Windows.Forms.TreeNode treeNode113 = new System.Windows.Forms.TreeNode("self clean (Ammount)");
-            System.Windows.Forms.TreeNode treeNode114 = new System.Windows.Forms.TreeNode("self cleanembed");
-            System.Windows.Forms.TreeNode treeNode115 = new System.Windows.Forms.TreeNode("Info", new System.Windows.Forms.TreeNode[] {
-            treeNode99,
-            treeNode100,
-            treeNode101,
-            treeNode102,
-            treeNode103,
-            treeNode104,
-            treeNode105,
-            treeNode106,
-            treeNode107,
-            treeNode108,
-            treeNode109,
-            treeNode110,
-            treeNode111,
-            treeNode112,
-            treeNode113,
-            treeNode114});
-            System.Windows.Forms.TreeNode treeNode116 = new System.Windows.Forms.TreeNode("self dog");
-            System.Windows.Forms.TreeNode treeNode117 = new System.Windows.Forms.TreeNode("self cat");
-            System.Windows.Forms.TreeNode treeNode118 = new System.Windows.Forms.TreeNode("self neko");
-            System.Windows.Forms.TreeNode treeNode119 = new System.Windows.Forms.TreeNode("self lenny");
-            System.Windows.Forms.TreeNode treeNode120 = new System.Windows.Forms.TreeNode("self lewd (Text)");
-            System.Windows.Forms.TreeNode treeNode121 = new System.Windows.Forms.TreeNode("self bang");
-            System.Windows.Forms.TreeNode treeNode122 = new System.Windows.Forms.TreeNode("self embed (Text)");
-            System.Windows.Forms.TreeNode treeNode123 = new System.Windows.Forms.TreeNode("self tembed (Title) (Text)");
-            System.Windows.Forms.TreeNode treeNode124 = new System.Windows.Forms.TreeNode("Fun", new System.Windows.Forms.TreeNode[] {
-            treeNode116,
-            treeNode117,
-            treeNode118,
-            treeNode119,
-            treeNode120,
-            treeNode121,
-            treeNode122,
-            treeNode123});
-            System.Windows.Forms.TreeNode treeNode125 = new System.Windows.Forms.TreeNode("self tags");
-            System.Windows.Forms.TreeNode treeNode126 = new System.Windows.Forms.TreeNode("self tag (Tag)");
-            System.Windows.Forms.TreeNode treeNode127 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Message ID)");
-            System.Windows.Forms.TreeNode treeNode128 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Text)");
-            System.Windows.Forms.TreeNode treeNode129 = new System.Windows.Forms.TreeNode("self deltag (Tag)");
-            System.Windows.Forms.TreeNode treeNode130 = new System.Windows.Forms.TreeNode("Tags", new System.Windows.Forms.TreeNode[] {
-            treeNode125,
-            treeNode126,
-            treeNode127,
-            treeNode128,
-            treeNode129});
-            System.Windows.Forms.TreeNode treeNode131 = new System.Windows.Forms.TreeNode("self an add (Nickname)");
-            System.Windows.Forms.TreeNode treeNode132 = new System.Windows.Forms.TreeNode("self an bind");
-            System.Windows.Forms.TreeNode treeNode133 = new System.Windows.Forms.TreeNode("self an del (Nickname)");
-            System.Windows.Forms.TreeNode treeNode134 = new System.Windows.Forms.TreeNode("self an list");
-            System.Windows.Forms.TreeNode treeNode135 = new System.Windows.Forms.TreeNode("Auto Nickname", new System.Windows.Forms.TreeNode[] {
-            treeNode131,
-            treeNode132,
-            treeNode133,
-            treeNode134});
-            System.Windows.Forms.TreeNode treeNode136 = new System.Windows.Forms.TreeNode("PixelBot");
-            System.Windows.Forms.TreeNode treeNode137 = new System.Windows.Forms.TreeNode("Minotaur");
-            System.Windows.Forms.TreeNode treeNode138 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode136,
-            treeNode137});
-            System.Windows.Forms.TreeNode treeNode139 = new System.Windows.Forms.TreeNode("Discord Cards");
-            System.Windows.Forms.TreeNode treeNode140 = new System.Windows.Forms.TreeNode("Casino Bot");
-            System.Windows.Forms.TreeNode treeNode141 = new System.Windows.Forms.TreeNode("Discord RPG");
-            System.Windows.Forms.TreeNode treeNode142 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode139,
-            treeNode140,
-            treeNode141});
-            System.Windows.Forms.TreeNode treeNode143 = new System.Windows.Forms.TreeNode("Sekobot");
-            System.Windows.Forms.TreeNode treeNode144 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
-            treeNode143});
-            this.BtnTopMin = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
-            this.kryptonBreadCrumbItem1 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
-            this.ChannelList = new System.Windows.Forms.ComboBox();
-            this.NavGuild = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.NavEmbedPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.EmbedText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.EmbedColorStrip = new System.Windows.Forms.TextBox();
-            this.BtnEmbedColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
-            this.BorderEmbed = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.EmbedTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.EmbedPaint = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.EmbedClear = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.EmbedPopup = new System.Windows.Forms.ToolStripButton();
-            this.EmbedFooter = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.NavGuildInfoPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildInfo = new System.Windows.Forms.RichTextBox();
-            this.NavRolesPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildRoles = new System.Windows.Forms.RichTextBox();
-            this.NavPageEmoji = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextGuildEmojis = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.BtnSendActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnSendSelected = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BorderMain = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.NavInfo = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.NavMain = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.NavMoreInfo = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
-            this.NavInfoPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.Changelog = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.BtnOpenSelfbotFolder = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.LinkDownload = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.InfoBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.NavCommandsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.ViewCommandsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
-            this.TextCommandInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.NavInfoThemes = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.BtnFavColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
-            this.BtnThemeSparkle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnThemeDark = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnThemeDefault = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BorderTheme = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.NavInfoSettings = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.BtnRoleColorNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.TextForceRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnRoleColorYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.HelpHideConsole = new System.Windows.Forms.TextBox();
-            this.TitleHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.BtnHideConsoleNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.TextHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnHideConsoleYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.HelpFavoriteColor = new System.Windows.Forms.TextBox();
-            this.HelpAutoForm = new System.Windows.Forms.TextBox();
-            this.HelpCommandMessage = new System.Windows.Forms.TextBox();
-            this.HelpAutoNickname = new System.Windows.Forms.TextBox();
-            this.TitleAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.TitleFavoriteColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.TitleAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.TitleCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.BtnAN5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnAN10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnAN1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnAFNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnAFYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BtnCMDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.TextCommandMessage = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.BtnCMEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.BorderSettings = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.NavInfoBots = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.TextBotInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.HyperlinkBotInvite = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.HyperlinkBotWebsite = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.ViewBotsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
-            this.BorderBots = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.NavCustomPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.CustomEdit = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.CustomDelete = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.CustomAddCustomAdd = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
-            this.CustomCommandsList = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
-            this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.OpenFavoriteColor = new System.Windows.Forms.ColorDialog();
-            this.ToolTipManager = new System.Windows.Forms.ToolTip(this.components);
-            this.ThemeManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
-            this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.BtnOnTop = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
-            this.ChannelLogs = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
-            this.BtnLinks = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
-            this.MenuLinks = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
-            this.kryptonContextMenuItems3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem3 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuItem4 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonBreadCrumbItem2 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
-            this.kryptonBreadCrumbItem3 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
-            this.kryptonBreadCrumbItem4 = new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("self form");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("self snip");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("self test");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("self info");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("self bot");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("self uptime");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("self ping");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("self ping (IP)");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("self guild");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("self user (User ID)");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("self user @Mention");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("self avatar (User ID)");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("self avatar @Mention");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("self calc 1 + 10 - 5");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("self find (User ID)");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("self find @Mention");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("self clean (Ammount)");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("self cleanembed");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Info", new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("self dog");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("self cat");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("self neko");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("self lenny");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("self lewd (Text)");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("self bang");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("self embed (Text)");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("self tembed (Title) (Text)");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Fun", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode25,
+            treeNode26,
+            treeNode27});
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("self tags");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("self tag (Tag)");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Message ID)");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("self addtag (Tag) (Text)");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("self deltag (Tag)");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Tags", new System.Windows.Forms.TreeNode[] {
+            treeNode29,
+            treeNode30,
+            treeNode31,
+            treeNode32,
+            treeNode33});
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("self an add (Nickname)");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("self an bind");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("self an del (Nickname)");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("self an list");
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Auto Nickname", new System.Windows.Forms.TreeNode[] {
+            treeNode35,
+            treeNode36,
+            treeNode37,
+            treeNode38});
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("PixelBot");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Minotaur");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("My Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode40,
+            treeNode41});
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Discord Cards");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Casino Bot");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Discord RPG");
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Fun Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode43,
+            treeNode44,
+            treeNode45});
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Sekobot");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Other Bots", new System.Windows.Forms.TreeNode[] {
+            treeNode47});
+            this.GUI_Minimize = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
+            this.GUI_Channels = new System.Windows.Forms.ComboBox();
+            this.GUI_NavGuild = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
+            this.GUI_NavEmbedPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_EmbedInline = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
+            this.GUI_EmbedText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_EmbedColorStrip = new System.Windows.Forms.TextBox();
+            this.GUI_EmbedColorMenu = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
+            this.GUI_EmbedBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_EmbedTitle = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_EmbedBar = new System.Windows.Forms.ToolStrip();
+            this.GUI_EmbedOpenColor = new System.Windows.Forms.ToolStripButton();
+            this.GUI_EmbedStrip1 = new System.Windows.Forms.ToolStripSeparator();
+            this.GUI_EmbedClear = new System.Windows.Forms.ToolStripButton();
+            this.GUI_EmbedStrip2 = new System.Windows.Forms.ToolStripSeparator();
+            this.GUI_EmbedPopup = new System.Windows.Forms.ToolStripButton();
+            this.GUI_EmbedFooter = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_NavGuildInfo = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_GuildInfo = new System.Windows.Forms.RichTextBox();
+            this.GUI_NavGuildRoles = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_GuildRoles = new System.Windows.Forms.RichTextBox();
+            this.GUI_NavGuildEmojis = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_GuildEmojis = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_EmbedSendActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_EmbedSendSelected = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_NavMain = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
+            this.GUI_NavMainPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_NavInfo = new ComponentFactory.Krypton.Navigator.KryptonNavigator();
+            this.GUI_NavInfoPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_InfoUpdate = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_InfoLib = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_InfoMade = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_InfoCreated = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_Changelog = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_BtnOpenSelfbotFolder = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_LinkDownload = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_InfoBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_NavCommandsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_CommandsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
+            this.GUI_CommandsInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_NavThemesPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_FavColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
+            this.GUI_ThemeSparkle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_ThemeDark = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_ThemeDefault = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_ThemesBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_NavSettingsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_BtnRoleColorNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TextRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_BtnRoleColorYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_HelpHideConsole = new System.Windows.Forms.TextBox();
+            this.GUI_TitleHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.GUI_BtnHideConsoleNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TextHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_BtnHideConsoleYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_HelpRoleColor = new System.Windows.Forms.TextBox();
+            this.GUI_HelpAutoForm = new System.Windows.Forms.TextBox();
+            this.GUI_HelpCM = new System.Windows.Forms.TextBox();
+            this.GUI_HelpAutoNickname = new System.Windows.Forms.TextBox();
+            this.GUI_TitleAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.GUI_TitleRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.GUI_TitleAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.GUI_TitleCM = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.GUI_BtnAutoNickname5 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_BtnAutoNickname10 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_BtnAutoNickname1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TextAutoNickname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_BtnAutoFormNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_BtnAutoFormYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_BtnCMDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TextCM = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.GUI_BtnCMEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_SettingsBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_NavBotsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_BotsInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_BotsInviteLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_BotsWebLink = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_BotsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
+            this.GUI_BotsBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_NavCustomPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
+            this.GUI_BtnCCEdit = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_BtnCCDelete = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_BtnCCAdd = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
+            this.GUI_CCList = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
+            this.GUI_CCBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_ToolTipManager = new System.Windows.Forms.ToolTip(this.components);
+            this.GUI_OnTop = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
+            this.GUI_Mentions = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
+            this.GUI_Links = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
+            this.GUI_MenuLinks = new ComponentFactory.Krypton.Toolkit.KryptonContextMenu();
+            this.GUI_LinkMenu = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
+            this.GUI_LinkWebsite = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.GUI_LinkGithub = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.GUI_LinkMyGuild = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
-            this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
-            this.ActiveStatus = new System.Windows.Forms.ToolStrip();
-            this.ActiveTitle = new System.Windows.Forms.ToolStripLabel();
-            this.ActiveTitleG = new System.Windows.Forms.ToolStripLabel();
-            this.ActiveGuild = new System.Windows.Forms.ToolStripLabel();
-            this.ActiveSep = new System.Windows.Forms.ToolStripSeparator();
-            this.ActiveTitleC = new System.Windows.Forms.ToolStripLabel();
-            this.ActiveChannel = new System.Windows.Forms.ToolStripLabel();
-            this.GuildList = new System.Windows.Forms.ToolStrip();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).BeginInit();
-            this.NavGuild.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavEmbedPage)).BeginInit();
-            this.NavEmbedPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
-            this.kryptonGroup1.Panel.SuspendLayout();
-            this.kryptonGroup1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavGuildInfoPage)).BeginInit();
-            this.NavGuildInfoPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavRolesPage)).BeginInit();
-            this.NavRolesPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavPageEmoji)).BeginInit();
-            this.NavPageEmoji.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).BeginInit();
-            this.NavInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavMain)).BeginInit();
-            this.NavMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).BeginInit();
-            this.NavMoreInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoPage)).BeginInit();
-            this.NavInfoPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).BeginInit();
-            this.NavCommandsPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).BeginInit();
-            this.NavInfoThemes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).BeginInit();
-            this.NavInfoSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).BeginInit();
-            this.NavInfoBots.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavCustomPage)).BeginInit();
-            this.NavCustomPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
-            this.kryptonSplitContainer1.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
-            this.kryptonSplitContainer1.Panel2.SuspendLayout();
-            this.kryptonSplitContainer1.SuspendLayout();
-            this.ActiveStatus.SuspendLayout();
+            this.GUI_ComboPanelGuild = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.GUI_ActiveStatus = new System.Windows.Forms.ToolStrip();
+            this.GUI_ActiveTitle = new System.Windows.Forms.ToolStripLabel();
+            this.GUI_ActiveGuildTitle = new System.Windows.Forms.ToolStripLabel();
+            this.GUI_ActiveGuildName = new System.Windows.Forms.ToolStripLabel();
+            this.GUI_ActiveStrip = new System.Windows.Forms.ToolStripSeparator();
+            this.GUI_ActiveChannelTitle = new System.Windows.Forms.ToolStripLabel();
+            this.GUI_ActiveChannelName = new System.Windows.Forms.ToolStripLabel();
+            this.GUI_Guilds = new System.Windows.Forms.ToolStrip();
+            this.GUI_Loading = new System.Windows.Forms.ProgressBar();
+            this.GUI_MainBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
+            this.GUI_ThemeManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuild)).BeginInit();
+            this.GUI_NavGuild.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavEmbedPage)).BeginInit();
+            this.GUI_NavEmbedPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_EmbedInline)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_EmbedInline.Panel)).BeginInit();
+            this.GUI_EmbedInline.Panel.SuspendLayout();
+            this.GUI_EmbedInline.SuspendLayout();
+            this.GUI_EmbedBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildInfo)).BeginInit();
+            this.GUI_NavGuildInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildRoles)).BeginInit();
+            this.GUI_NavGuildRoles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildEmojis)).BeginInit();
+            this.GUI_NavGuildEmojis.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavMain)).BeginInit();
+            this.GUI_NavMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavMainPage)).BeginInit();
+            this.GUI_NavMainPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavInfo)).BeginInit();
+            this.GUI_NavInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavInfoPage)).BeginInit();
+            this.GUI_NavInfoPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavCommandsPage)).BeginInit();
+            this.GUI_NavCommandsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavThemesPage)).BeginInit();
+            this.GUI_NavThemesPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavSettingsPage)).BeginInit();
+            this.GUI_NavSettingsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavBotsPage)).BeginInit();
+            this.GUI_NavBotsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavCustomPage)).BeginInit();
+            this.GUI_NavCustomPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild.Panel1)).BeginInit();
+            this.GUI_ComboPanelGuild.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild.Panel2)).BeginInit();
+            this.GUI_ComboPanelGuild.Panel2.SuspendLayout();
+            this.GUI_ComboPanelGuild.SuspendLayout();
+            this.GUI_ActiveStatus.SuspendLayout();
             this.SuspendLayout();
             // 
-            // BtnTopMin
-            // 
-            this.BtnTopMin.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.PendantMin;
-            this.BtnTopMin.UniqueName = "9F7590E624C945CF989332B94D5B1AAB";
-            // 
-            // kryptonBreadCrumbItem1
-            // 
-            this.kryptonBreadCrumbItem1.ShortText = "ListItem";
-            // 
-            // ChannelList
-            // 
-            this.ChannelList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ChannelList.Enabled = false;
-            this.ChannelList.FormattingEnabled = true;
-            this.ChannelList.Location = new System.Drawing.Point(10, 49);
-            this.ChannelList.Name = "ChannelList";
-            this.ChannelList.Size = new System.Drawing.Size(220, 21);
-            this.ChannelList.TabIndex = 24;
-            this.ChannelList.SelectedIndexChanged += new System.EventHandler(this.ChannelList_SelectedIndexChanged);
-            // 
-            // NavGuild
-            // 
-            this.NavGuild.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
-            this.NavGuild.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
-            this.NavGuild.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
-            this.NavGuild.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NavGuild.Location = new System.Drawing.Point(0, 0);
-            this.NavGuild.Name = "NavGuild";
-            this.NavGuild.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
-            this.NavEmbedPage,
-            this.NavGuildInfoPage,
-            this.NavRolesPage,
-            this.NavPageEmoji});
-            this.NavGuild.SelectedIndex = 0;
-            this.NavGuild.Size = new System.Drawing.Size(220, 168);
-            this.NavGuild.TabIndex = 25;
-            this.NavGuild.Text = "kryptonNavigator1";
-            // 
-            // NavEmbedPage
-            // 
-            this.NavEmbedPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavEmbedPage.Controls.Add(this.kryptonGroup1);
-            this.NavEmbedPage.Controls.Add(this.BorderEmbed);
-            this.NavEmbedPage.Controls.Add(this.EmbedTitle);
-            this.NavEmbedPage.Controls.Add(this.toolStrip1);
-            this.NavEmbedPage.Controls.Add(this.EmbedFooter);
-            this.NavEmbedPage.Flags = 65534;
-            this.NavEmbedPage.LastVisibleSet = true;
-            this.NavEmbedPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavEmbedPage.Name = "NavEmbedPage";
-            this.NavEmbedPage.Size = new System.Drawing.Size(218, 141);
-            this.NavEmbedPage.Text = "Embed";
-            this.NavEmbedPage.ToolTipTitle = "Page ToolTip";
-            this.NavEmbedPage.UniqueName = "D0784325A0CE45D21CA18507410A4550";
-            // 
-            // kryptonGroup1
-            // 
-            this.kryptonGroup1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonGroup1.Location = new System.Drawing.Point(0, 48);
-            this.kryptonGroup1.Name = "kryptonGroup1";
-            // 
-            // kryptonGroup1.Panel
-            // 
-            this.kryptonGroup1.Panel.Controls.Add(this.EmbedText);
-            this.kryptonGroup1.Panel.Controls.Add(this.EmbedColorStrip);
-            this.kryptonGroup1.Panel.Controls.Add(this.BtnEmbedColor);
-            this.kryptonGroup1.Size = new System.Drawing.Size(218, 70);
-            this.kryptonGroup1.TabIndex = 34;
-            // 
-            // EmbedText
-            // 
-            this.EmbedText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EmbedText.Location = new System.Drawing.Point(10, 0);
-            this.EmbedText.Multiline = true;
-            this.EmbedText.Name = "EmbedText";
-            this.EmbedText.Size = new System.Drawing.Size(206, 68);
-            this.EmbedText.TabIndex = 11;
-            this.EmbedText.Text = "Text";
-            this.EmbedText.TextChanged += new System.EventHandler(this.EmbedText_TextChanged);
-            // 
-            // EmbedColorStrip
-            // 
-            this.EmbedColorStrip.BackColor = System.Drawing.Color.White;
-            this.EmbedColorStrip.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.EmbedColorStrip.Dock = System.Windows.Forms.DockStyle.Left;
-            this.EmbedColorStrip.Location = new System.Drawing.Point(0, 0);
-            this.EmbedColorStrip.Multiline = true;
-            this.EmbedColorStrip.Name = "EmbedColorStrip";
-            this.EmbedColorStrip.ReadOnly = true;
-            this.EmbedColorStrip.Size = new System.Drawing.Size(10, 68);
-            this.EmbedColorStrip.TabIndex = 37;
-            // 
-            // BtnEmbedColor
-            // 
-            this.BtnEmbedColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BtnEmbedColor.DropDownOrientation = ComponentFactory.Krypton.Toolkit.VisualOrientation.Left;
-            this.BtnEmbedColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Left;
-            this.BtnEmbedColor.Location = new System.Drawing.Point(177, -24);
-            this.BtnEmbedColor.Name = "BtnEmbedColor";
-            this.BtnEmbedColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.BtnEmbedColor.SelectedColor = System.Drawing.Color.Empty;
-            this.BtnEmbedColor.Size = new System.Drawing.Size(40, 81);
-            this.BtnEmbedColor.Splitter = false;
-            this.BtnEmbedColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.BtnEmbedColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnEmbedColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnEmbedColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnEmbedColor.TabIndex = 23;
-            this.BtnEmbedColor.Values.Text = "Embed\r\nColor\r\n";
-            this.BtnEmbedColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.KryptonColorButton1_SelectedColorChanged);
-            // 
-            // BorderEmbed
-            // 
-            this.BorderEmbed.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BorderEmbed.Location = new System.Drawing.Point(0, 48);
-            this.BorderEmbed.Name = "BorderEmbed";
-            this.BorderEmbed.Size = new System.Drawing.Size(218, 70);
-            this.BorderEmbed.Text = "kryptonBorderEdge7";
-            // 
-            // EmbedTitle
-            // 
-            this.EmbedTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.EmbedTitle.Location = new System.Drawing.Point(0, 25);
-            this.EmbedTitle.Name = "EmbedTitle";
-            this.EmbedTitle.Size = new System.Drawing.Size(218, 23);
-            this.EmbedTitle.TabIndex = 9;
-            this.EmbedTitle.Text = "Title";
-            this.EmbedTitle.TextChanged += new System.EventHandler(this.EmbedTitle_TextChanged);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.CanOverflow = false;
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.EmbedPaint,
-            this.toolStripSeparator1,
-            this.EmbedClear,
-            this.toolStripSeparator2,
-            this.EmbedPopup});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.MaximumSize = new System.Drawing.Size(0, 25);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.ShowItemToolTips = false;
-            this.toolStrip1.Size = new System.Drawing.Size(218, 25);
-            this.toolStrip1.TabIndex = 25;
-            this.toolStrip1.Text = "ToolstripEmbedCreator";
-            // 
-            // EmbedPaint
-            // 
-            this.EmbedPaint.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EmbedPaint.Name = "EmbedPaint";
-            this.EmbedPaint.Size = new System.Drawing.Size(40, 22);
-            this.EmbedPaint.Text = "Color";
-            this.EmbedPaint.Click += new System.EventHandler(this.EmbedPaint_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // EmbedClear
-            // 
-            this.EmbedClear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EmbedClear.Name = "EmbedClear";
-            this.EmbedClear.Size = new System.Drawing.Size(38, 22);
-            this.EmbedClear.Text = "Clear";
-            this.EmbedClear.Click += new System.EventHandler(this.EmbedClear_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // EmbedPopup
-            // 
-            this.EmbedPopup.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EmbedPopup.Name = "EmbedPopup";
-            this.EmbedPopup.Size = new System.Drawing.Size(86, 22);
-            this.EmbedPopup.Text = "Embed Popup";
-            this.EmbedPopup.Click += new System.EventHandler(this.EmbedPopup_Click);
-            // 
-            // EmbedFooter
-            // 
-            this.EmbedFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.EmbedFooter.Location = new System.Drawing.Point(0, 118);
-            this.EmbedFooter.Name = "EmbedFooter";
-            this.EmbedFooter.Size = new System.Drawing.Size(218, 23);
-            this.EmbedFooter.TabIndex = 12;
-            this.EmbedFooter.Text = "Footer";
-            this.EmbedFooter.TextChanged += new System.EventHandler(this.EmbedFooter_TextChanged);
-            // 
-            // NavGuildInfoPage
-            // 
-            this.NavGuildInfoPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavGuildInfoPage.Controls.Add(this.TextGuildInfo);
-            this.NavGuildInfoPage.Flags = 65534;
-            this.NavGuildInfoPage.LastVisibleSet = true;
-            this.NavGuildInfoPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavGuildInfoPage.Name = "NavGuildInfoPage";
-            this.NavGuildInfoPage.Size = new System.Drawing.Size(218, 141);
-            this.NavGuildInfoPage.Text = "Guild Info";
-            this.NavGuildInfoPage.ToolTipTitle = "Page ToolTip";
-            this.NavGuildInfoPage.UniqueName = "15405AE8C3F64B0DFA9BB3419545B5E6";
-            // 
-            // TextGuildInfo
-            // 
-            this.TextGuildInfo.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.TextGuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildInfo.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildInfo.Name = "TextGuildInfo";
-            this.TextGuildInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.TextGuildInfo.Size = new System.Drawing.Size(218, 141);
-            this.TextGuildInfo.TabIndex = 1;
-            this.TextGuildInfo.Text = "";
-            // 
-            // NavRolesPage
-            // 
-            this.NavRolesPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavRolesPage.Controls.Add(this.TextGuildRoles);
-            this.NavRolesPage.Flags = 65534;
-            this.NavRolesPage.LastVisibleSet = true;
-            this.NavRolesPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavRolesPage.Name = "NavRolesPage";
-            this.NavRolesPage.Size = new System.Drawing.Size(218, 245);
-            this.NavRolesPage.Text = "Roles";
-            this.NavRolesPage.ToolTipTitle = "Page ToolTip";
-            this.NavRolesPage.UniqueName = "21AAC88369604DAAF087F3A82510D49D";
-            // 
-            // TextGuildRoles
-            // 
-            this.TextGuildRoles.BackColor = System.Drawing.Color.Black;
-            this.TextGuildRoles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildRoles.ForeColor = System.Drawing.Color.White;
-            this.TextGuildRoles.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildRoles.Name = "TextGuildRoles";
-            this.TextGuildRoles.Size = new System.Drawing.Size(218, 245);
-            this.TextGuildRoles.TabIndex = 2;
-            this.TextGuildRoles.Text = "";
-            // 
-            // NavPageEmoji
-            // 
-            this.NavPageEmoji.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavPageEmoji.Controls.Add(this.TextGuildEmojis);
-            this.NavPageEmoji.Flags = 65534;
-            this.NavPageEmoji.LastVisibleSet = true;
-            this.NavPageEmoji.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavPageEmoji.Name = "NavPageEmoji";
-            this.NavPageEmoji.Size = new System.Drawing.Size(218, 240);
-            this.NavPageEmoji.Text = "Emojis";
-            this.NavPageEmoji.ToolTipTitle = "Page ToolTip";
-            this.NavPageEmoji.UniqueName = "14F93E3889E740C4CA8379603DCB6820";
-            // 
-            // TextGuildEmojis
-            // 
-            this.TextGuildEmojis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextGuildEmojis.Location = new System.Drawing.Point(0, 0);
-            this.TextGuildEmojis.Multiline = true;
-            this.TextGuildEmojis.Name = "TextGuildEmojis";
-            this.TextGuildEmojis.ReadOnly = true;
-            this.TextGuildEmojis.Size = new System.Drawing.Size(218, 240);
-            this.TextGuildEmojis.TabIndex = 1;
-            // 
-            // BtnSendActive
-            // 
-            this.BtnSendActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnSendActive.Enabled = false;
-            this.BtnSendActive.Location = new System.Drawing.Point(12, 391);
-            this.BtnSendActive.Name = "BtnSendActive";
-            this.BtnSendActive.Size = new System.Drawing.Size(87, 40);
-            this.BtnSendActive.TabIndex = 14;
-            this.BtnSendActive.Values.Text = "Active";
-            this.BtnSendActive.Click += new System.EventHandler(this.BtnSendActive_Click);
-            // 
-            // BtnSendSelected
-            // 
-            this.BtnSendSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BtnSendSelected.Enabled = false;
-            this.BtnSendSelected.Location = new System.Drawing.Point(142, 391);
-            this.BtnSendSelected.Name = "BtnSendSelected";
-            this.BtnSendSelected.Size = new System.Drawing.Size(88, 40);
-            this.BtnSendSelected.TabIndex = 13;
-            this.BtnSendSelected.Values.Text = "Selected";
-            this.BtnSendSelected.Click += new System.EventHandler(this.BtnSendSelected_Click);
-            // 
-            // BorderMain
-            // 
-            this.BorderMain.BorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.ButtonCustom1;
-            this.BorderMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BorderMain.Location = new System.Drawing.Point(0, 0);
-            this.BorderMain.Name = "BorderMain";
-            this.BorderMain.Size = new System.Drawing.Size(484, 461);
-            this.BorderMain.Text = "kryptonBorderEdge1";
-            // 
-            // NavInfo
-            // 
-            this.NavInfo.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
-            this.NavInfo.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
-            this.NavInfo.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
-            this.NavInfo.Location = new System.Drawing.Point(239, 49);
-            this.NavInfo.Name = "NavInfo";
-            this.NavInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
-            this.NavMain,
-            this.NavInfoThemes,
-            this.NavInfoSettings,
-            this.NavInfoBots,
-            this.NavCustomPage});
-            this.NavInfo.SelectedIndex = 0;
-            this.NavInfo.Size = new System.Drawing.Size(234, 384);
-            this.NavInfo.TabIndex = 28;
-            this.NavInfo.Text = "kryptonNavigator1";
-            // 
-            // NavMain
-            // 
-            this.NavMain.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavMain.Controls.Add(this.NavMoreInfo);
-            this.NavMain.Flags = 65534;
-            this.NavMain.LastVisibleSet = true;
-            this.NavMain.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavMain.Name = "NavMain";
-            this.NavMain.Size = new System.Drawing.Size(232, 357);
-            this.NavMain.Text = "Main";
-            this.NavMain.ToolTipTitle = "Page ToolTip";
-            this.NavMain.UniqueName = "478032B78A96411C7996B476B5C7B4F2";
-            // 
-            // NavMoreInfo
-            // 
-            this.NavMoreInfo.Bar.CheckButtonStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.CalendarDay;
-            this.NavMoreInfo.Bar.ItemSizing = ComponentFactory.Krypton.Navigator.BarItemSizing.SameWidth;
-            this.NavMoreInfo.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
-            this.NavMoreInfo.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
-            this.NavMoreInfo.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
-            this.NavMoreInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NavMoreInfo.Header.HeaderStyleBar = ComponentFactory.Krypton.Toolkit.HeaderStyle.Primary;
-            this.NavMoreInfo.Location = new System.Drawing.Point(0, 0);
-            this.NavMoreInfo.Name = "NavMoreInfo";
-            this.NavMoreInfo.NavigatorMode = ComponentFactory.Krypton.Navigator.NavigatorMode.HeaderBarCheckButtonGroup;
-            this.NavMoreInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
-            this.NavInfoPage,
-            this.NavCommandsPage});
-            this.NavMoreInfo.SelectedIndex = 0;
-            this.NavMoreInfo.Size = new System.Drawing.Size(232, 357);
-            this.NavMoreInfo.TabIndex = 8;
-            this.NavMoreInfo.Text = "kryptonNavigator1";
-            // 
-            // NavInfoPage
-            // 
-            this.NavInfoPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavInfoPage.Controls.Add(this.kryptonLabel4);
-            this.NavInfoPage.Controls.Add(this.kryptonLabel3);
-            this.NavInfoPage.Controls.Add(this.kryptonLabel2);
-            this.NavInfoPage.Controls.Add(this.kryptonLabel1);
-            this.NavInfoPage.Controls.Add(this.Changelog);
-            this.NavInfoPage.Controls.Add(this.BtnOpenSelfbotFolder);
-            this.NavInfoPage.Controls.Add(this.LinkDownload);
-            this.NavInfoPage.Controls.Add(this.InfoBorder);
-            this.NavInfoPage.Flags = 65534;
-            this.NavInfoPage.LastVisibleSet = true;
-            this.NavInfoPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavInfoPage.Name = "NavInfoPage";
-            this.NavInfoPage.Size = new System.Drawing.Size(230, 327);
-            this.NavInfoPage.Text = "Info";
-            this.NavInfoPage.ToolTipTitle = "Page ToolTip";
-            this.NavInfoPage.UniqueName = "1635D269C129459CCC8871C0CAB66A63";
-            // 
-            // kryptonLabel4
-            // 
-            this.kryptonLabel4.Location = new System.Drawing.Point(1, 81);
-            this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(230, 20);
-            this.kryptonLabel4.TabIndex = 30;
-            this.kryptonLabel4.Values.Text = "Selfbot will check for updates on startup";
-            // 
-            // kryptonLabel3
-            // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(16, 55);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(196, 20);
-            this.kryptonLabel3.TabIndex = 29;
-            this.kryptonLabel3.Values.Text = "Language C# | Library Discord.Net";
-            // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(24, 29);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(166, 20);
-            this.kryptonLabel2.TabIndex = 28;
-            this.kryptonLabel2.Values.Text = "Made in | Visual Studio 2017";
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(16, 3);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(186, 20);
-            this.kryptonLabel1.TabIndex = 27;
-            this.kryptonLabel1.Values.Text = "Created by | xXBuilderBXx=9113";
-            // 
-            // Changelog
-            // 
-            this.Changelog.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Changelog.Location = new System.Drawing.Point(0, 179);
-            this.Changelog.Multiline = true;
-            this.Changelog.Name = "Changelog";
-            this.Changelog.ReadOnly = true;
-            this.Changelog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Changelog.Size = new System.Drawing.Size(230, 148);
-            this.Changelog.TabIndex = 25;
-            this.Changelog.Text = resources.GetString("Changelog.Text");
-            // 
-            // BtnOpenSelfbotFolder
-            // 
-            this.BtnOpenSelfbotFolder.Location = new System.Drawing.Point(6, 133);
-            this.BtnOpenSelfbotFolder.Name = "BtnOpenSelfbotFolder";
-            this.BtnOpenSelfbotFolder.Size = new System.Drawing.Size(219, 40);
-            this.BtnOpenSelfbotFolder.TabIndex = 20;
-            this.BtnOpenSelfbotFolder.Values.Text = "Open Selfbot Folder";
-            this.BtnOpenSelfbotFolder.Click += new System.EventHandler(this.BtnOpenSelfbotFolder_Click);
-            // 
-            // LinkDownload
-            // 
-            this.LinkDownload.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LinkDownload.Location = new System.Drawing.Point(24, 107);
-            this.LinkDownload.Name = "LinkDownload";
-            this.LinkDownload.Size = new System.Drawing.Size(158, 20);
-            this.LinkDownload.TabIndex = 19;
-            this.LinkDownload.Values.Text = "Download/Update Website";
-            this.LinkDownload.LinkClicked += new System.EventHandler(this.LinkDownload_LinkClicked);
-            // 
-            // InfoBorder
-            // 
-            this.InfoBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InfoBorder.Location = new System.Drawing.Point(0, 0);
-            this.InfoBorder.Name = "InfoBorder";
-            this.InfoBorder.Size = new System.Drawing.Size(230, 327);
-            // 
-            // NavCommandsPage
-            // 
-            this.NavCommandsPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavCommandsPage.Controls.Add(this.ViewCommandsList);
-            this.NavCommandsPage.Controls.Add(this.TextCommandInfo);
-            this.NavCommandsPage.Flags = 65534;
-            this.NavCommandsPage.LastVisibleSet = true;
-            this.NavCommandsPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavCommandsPage.Name = "NavCommandsPage";
-            this.NavCommandsPage.Size = new System.Drawing.Size(230, 327);
-            this.NavCommandsPage.Text = "Selfbot Commands";
-            this.NavCommandsPage.ToolTipTitle = "Page ToolTip";
-            this.NavCommandsPage.UniqueName = "E1FF2C7914C34B417AA8BFF17BFB6E40";
-            // 
-            // ViewCommandsList
-            // 
-            this.ViewCommandsList.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.InputControlStandalone;
-            this.ViewCommandsList.BorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.InputControlStandalone;
-            this.ViewCommandsList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ViewCommandsList.HotTracking = true;
-            this.ViewCommandsList.ItemHeight = 21;
-            this.ViewCommandsList.ItemStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.ListItem;
-            this.ViewCommandsList.Location = new System.Drawing.Point(0, 46);
-            this.ViewCommandsList.Name = "ViewCommandsList";
-            treeNode97.Name = "self form";
-            treeNode97.Text = "self form";
-            treeNode97.ToolTipText = "Open the GUI form";
-            treeNode98.Name = "self snip";
-            treeNode98.Text = "self snip";
-            treeNode98.ToolTipText = "Open up windows snipping tools";
-            treeNode99.Name = "self test";
-            treeNode99.Text = "self test";
-            treeNode99.ToolTipText = "Test if selfbot is working";
-            treeNode100.Name = "self info";
-            treeNode100.Text = "self info";
-            treeNode100.ToolTipText = "Get info about yourself and the selfbot";
-            treeNode101.Name = "self bot";
-            treeNode101.Text = "self bot";
-            treeNode101.ToolTipText = "Get info about the selfbot project and creator";
-            treeNode102.Name = "self uptime";
-            treeNode102.Text = "self uptime";
-            treeNode102.ToolTipText = "Get the uptime and total uptime of the bot";
-            treeNode103.Name = "self ping";
-            treeNode103.Text = "self ping";
-            treeNode103.ToolTipText = "Ping the network and discord";
-            treeNode104.Name = "self ping (IP)";
-            treeNode104.Text = "self ping (IP)";
-            treeNode104.ToolTipText = "Ping another IP address";
-            treeNode105.Name = "self guild";
-            treeNode105.Text = "self guild";
-            treeNode105.ToolTipText = "Get info about the guild";
-            treeNode106.Name = "self user (User ID)";
-            treeNode106.Text = "self user (User ID)";
-            treeNode106.ToolTipText = "Get info about a user";
-            treeNode107.Name = "self user @Mention";
-            treeNode107.Text = "self user @Mention";
-            treeNode107.ToolTipText = "Get info about a user";
-            treeNode108.Name = "self avatar (User ID)";
-            treeNode108.Text = "self avatar (User ID)";
-            treeNode108.ToolTipText = "Get a users avatar pic";
-            treeNode109.Name = "self avatar @Mention";
-            treeNode109.Text = "self avatar @Mention";
-            treeNode109.ToolTipText = "Get a users avatar pic";
-            treeNode110.Name = "self calc 1 + 10 - 5";
-            treeNode110.Text = "self calc 1 + 10 - 5";
-            treeNode110.ToolTipText = "Do some calculations";
-            treeNode111.Name = "self find (User ID)";
-            treeNode111.Text = "self find (User ID)";
-            treeNode111.ToolTipText = "Usefull in finding DM advertisers";
-            treeNode112.Name = "self find @Mention";
-            treeNode112.Text = "self find @Mention";
-            treeNode112.ToolTipText = "Usefull in finding DM advertisers";
-            treeNode113.Name = "self clean (Ammount)";
-            treeNode113.Text = "self clean (Ammount)";
-            treeNode113.ToolTipText = "Cleanup an ammount of messages made by you MAX 30";
-            treeNode114.Name = "self cleanembed";
-            treeNode114.Text = "self cleanembed";
-            treeNode114.ToolTipText = "Cleanup all your embeds";
-            treeNode115.Name = "Info";
-            treeNode115.Text = "Info";
-            treeNode116.Name = "self dog";
-            treeNode116.Text = "self dog";
-            treeNode116.ToolTipText = "Post a random dog pic from online";
-            treeNode117.Name = "self cat";
-            treeNode117.Text = "self cat";
-            treeNode117.ToolTipText = "Post a random cat pic from online";
-            treeNode118.Name = "self neko";
-            treeNode118.Text = "self neko";
-            treeNode118.ToolTipText = "Post a random neko image in embed form";
-            treeNode119.Name = "self lenny";
-            treeNode119.Text = "self lenny";
-            treeNode119.ToolTipText = "Lenny face";
-            treeNode120.Name = "self lewd (Text)";
-            treeNode120.Text = "self lewd (Text)";
-            treeNode120.ToolTipText = "You are lewd";
-            treeNode121.Name = "self bang";
-            treeNode121.Text = "self bang";
-            treeNode121.ToolTipText = "Bang you are dead ;)";
-            treeNode122.Name = "self embed (Text)";
-            treeNode122.Text = "self embed (Text)";
-            treeNode122.ToolTipText = "Turn text into an embed";
-            treeNode123.Name = "self tembed (Title) (Text)";
-            treeNode123.Text = "self tembed (Title) (Text)";
-            treeNode123.ToolTipText = "Send an embed with a title and text";
-            treeNode124.Name = "Fun";
-            treeNode124.Text = "Fun";
-            treeNode125.Name = "self tags";
-            treeNode125.Text = "self tags";
-            treeNode125.ToolTipText = "Get a list of tags";
-            treeNode126.Name = "self tag (Tag)";
-            treeNode126.Text = "self tag (Tag)";
-            treeNode126.ToolTipText = "Get the created tag";
-            treeNode127.Name = "self addtag (Tag) (Message ID)";
-            treeNode127.Text = "self addtag (Tag) (Message ID)";
-            treeNode127.ToolTipText = "Add another users message as a tag";
-            treeNode128.Name = "self addtag (Tag) (Text)";
-            treeNode128.Text = "self addtag (Tag) (Text)";
-            treeNode128.ToolTipText = "Add text to a tag";
-            treeNode129.Name = "self deltag (Tag)";
-            treeNode129.Text = "self deltag (Tag)";
-            treeNode129.ToolTipText = "Broken right now";
-            treeNode130.Name = "Tags";
-            treeNode130.Text = "Tags";
-            treeNode131.Name = "self an add (Nickname)";
-            treeNode131.Text = "self an add (Nickname)";
-            treeNode131.ToolTipText = "Add a per guild nickname";
-            treeNode132.Name = "self an bind";
-            treeNode132.Text = "self an bind";
-            treeNode132.ToolTipText = "Add the guild to the autonickname";
-            treeNode133.Name = "self an del (Nickname)";
-            treeNode133.Text = "self an del (Nickname)";
-            treeNode133.ToolTipText = "Delete a per guild nickname";
-            treeNode134.Name = "self an list";
-            treeNode134.Text = "self an list";
-            treeNode134.ToolTipText = "List all per guild nicknames";
-            treeNode135.Name = "Auto Nickname";
-            treeNode135.Text = "Auto Nickname";
-            this.ViewCommandsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode97,
-            treeNode98,
-            treeNode115,
-            treeNode124,
-            treeNode130,
-            treeNode135});
-            this.ViewCommandsList.Size = new System.Drawing.Size(230, 281);
-            this.ViewCommandsList.TabIndex = 3;
-            this.ViewCommandsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewCommandsList_AfterSelect);
-            // 
-            // TextCommandInfo
-            // 
-            this.TextCommandInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextCommandInfo.Location = new System.Drawing.Point(0, 0);
-            this.TextCommandInfo.Multiline = true;
-            this.TextCommandInfo.Name = "TextCommandInfo";
-            this.TextCommandInfo.ReadOnly = true;
-            this.TextCommandInfo.Size = new System.Drawing.Size(230, 327);
-            this.TextCommandInfo.TabIndex = 4;
-            this.TextCommandInfo.Text = "Select a command\r";
-            // 
-            // NavInfoThemes
-            // 
-            this.NavInfoThemes.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavInfoThemes.Controls.Add(this.BtnFavColor);
-            this.NavInfoThemes.Controls.Add(this.BtnThemeSparkle);
-            this.NavInfoThemes.Controls.Add(this.BtnThemeDark);
-            this.NavInfoThemes.Controls.Add(this.BtnThemeDefault);
-            this.NavInfoThemes.Controls.Add(this.BorderTheme);
-            this.NavInfoThemes.Flags = 65534;
-            this.NavInfoThemes.LastVisibleSet = true;
-            this.NavInfoThemes.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavInfoThemes.Name = "NavInfoThemes";
-            this.NavInfoThemes.Size = new System.Drawing.Size(232, 357);
-            this.NavInfoThemes.Text = "Theme";
-            this.NavInfoThemes.ToolTipTitle = "Page ToolTip";
-            this.NavInfoThemes.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
-            // 
-            // BtnFavColor
-            // 
-            this.BtnFavColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BtnFavColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Bottom;
-            this.BtnFavColor.Location = new System.Drawing.Point(7, 175);
-            this.BtnFavColor.Name = "BtnFavColor";
-            this.BtnFavColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.BtnFavColor.SelectedColor = System.Drawing.Color.Empty;
-            this.BtnFavColor.Size = new System.Drawing.Size(93, 60);
-            this.BtnFavColor.Splitter = false;
-            this.BtnFavColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.BtnFavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnFavColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnFavColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.BtnFavColor.TabIndex = 158;
-            this.BtnFavColor.Values.Text = "Favorite Color";
-            this.BtnFavColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.BtnFavColor_SelectedColorChanged);
-            // 
-            // BtnThemeSparkle
-            // 
-            this.BtnThemeSparkle.Location = new System.Drawing.Point(7, 119);
-            this.BtnThemeSparkle.Name = "BtnThemeSparkle";
-            this.BtnThemeSparkle.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue;
-            this.BtnThemeSparkle.Size = new System.Drawing.Size(214, 50);
-            this.BtnThemeSparkle.TabIndex = 6;
-            this.BtnThemeSparkle.Values.Text = "Dark Sparkle";
-            this.BtnThemeSparkle.Click += new System.EventHandler(this.BtnThemeSparkle_Click);
-            // 
-            // BtnThemeDark
-            // 
-            this.BtnThemeDark.Location = new System.Drawing.Point(7, 63);
-            this.BtnThemeDark.Name = "BtnThemeDark";
-            this.BtnThemeDark.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
-            this.BtnThemeDark.Size = new System.Drawing.Size(214, 50);
-            this.BtnThemeDark.TabIndex = 5;
-            this.BtnThemeDark.Values.Text = "Dark Theme";
-            this.BtnThemeDark.Click += new System.EventHandler(this.BtnThemeDark_Click);
-            // 
-            // BtnThemeDefault
-            // 
-            this.BtnThemeDefault.Location = new System.Drawing.Point(7, 7);
-            this.BtnThemeDefault.Name = "BtnThemeDefault";
-            this.BtnThemeDefault.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
-            this.BtnThemeDefault.Size = new System.Drawing.Size(214, 50);
-            this.BtnThemeDefault.TabIndex = 4;
-            this.BtnThemeDefault.Values.Text = "Default Theme";
-            this.BtnThemeDefault.Click += new System.EventHandler(this.BtnThemeDefault_Click);
-            // 
-            // BorderTheme
-            // 
-            this.BorderTheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BorderTheme.Location = new System.Drawing.Point(0, 0);
-            this.BorderTheme.Name = "BorderTheme";
-            this.BorderTheme.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.BorderTheme.Size = new System.Drawing.Size(232, 357);
-            // 
-            // NavInfoSettings
-            // 
-            this.NavInfoSettings.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavInfoSettings.Controls.Add(this.BtnRoleColorNo);
-            this.NavInfoSettings.Controls.Add(this.TextForceRoleColor);
-            this.NavInfoSettings.Controls.Add(this.BtnRoleColorYes);
-            this.NavInfoSettings.Controls.Add(this.HelpHideConsole);
-            this.NavInfoSettings.Controls.Add(this.TitleHideConsole);
-            this.NavInfoSettings.Controls.Add(this.BtnHideConsoleNo);
-            this.NavInfoSettings.Controls.Add(this.TextHideConsole);
-            this.NavInfoSettings.Controls.Add(this.BtnHideConsoleYes);
-            this.NavInfoSettings.Controls.Add(this.HelpFavoriteColor);
-            this.NavInfoSettings.Controls.Add(this.HelpAutoForm);
-            this.NavInfoSettings.Controls.Add(this.HelpCommandMessage);
-            this.NavInfoSettings.Controls.Add(this.HelpAutoNickname);
-            this.NavInfoSettings.Controls.Add(this.TitleAutoNickname);
-            this.NavInfoSettings.Controls.Add(this.TitleFavoriteColor);
-            this.NavInfoSettings.Controls.Add(this.TitleAutoForm);
-            this.NavInfoSettings.Controls.Add(this.TitleCommandMessage);
-            this.NavInfoSettings.Controls.Add(this.BtnAN5);
-            this.NavInfoSettings.Controls.Add(this.BtnAN10);
-            this.NavInfoSettings.Controls.Add(this.BtnAN1);
-            this.NavInfoSettings.Controls.Add(this.TextAutoNickname);
-            this.NavInfoSettings.Controls.Add(this.BtnAFNo);
-            this.NavInfoSettings.Controls.Add(this.TextAutoForm);
-            this.NavInfoSettings.Controls.Add(this.BtnAFYes);
-            this.NavInfoSettings.Controls.Add(this.BtnCMDelete);
-            this.NavInfoSettings.Controls.Add(this.TextCommandMessage);
-            this.NavInfoSettings.Controls.Add(this.BtnCMEdit);
-            this.NavInfoSettings.Controls.Add(this.BorderSettings);
-            this.NavInfoSettings.Flags = 65534;
-            this.NavInfoSettings.LastVisibleSet = true;
-            this.NavInfoSettings.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavInfoSettings.Name = "NavInfoSettings";
-            this.NavInfoSettings.Size = new System.Drawing.Size(232, 357);
-            this.NavInfoSettings.Text = "Settings";
-            this.NavInfoSettings.ToolTipTitle = "Page ToolTip";
-            this.NavInfoSettings.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
-            // 
-            // BtnRoleColorNo
-            // 
-            this.BtnRoleColorNo.Location = new System.Drawing.Point(104, 245);
-            this.BtnRoleColorNo.Name = "BtnRoleColorNo";
-            this.BtnRoleColorNo.Size = new System.Drawing.Size(70, 40);
-            this.BtnRoleColorNo.TabIndex = 160;
-            this.BtnRoleColorNo.Values.Text = "No";
-            this.BtnRoleColorNo.Click += new System.EventHandler(this.BtnRoleColorNo_Click);
-            // 
-            // TextForceRoleColor
-            // 
-            this.TextForceRoleColor.AutoSize = false;
-            this.TextForceRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "RoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextForceRoleColor.Location = new System.Drawing.Point(180, 245);
-            this.TextForceRoleColor.Name = "TextForceRoleColor";
-            this.TextForceRoleColor.Size = new System.Drawing.Size(49, 40);
-            this.TextForceRoleColor.TabIndex = 159;
-            this.TextForceRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.RoleColor;
-            this.TextForceRoleColor.Values.Text = "Yes";
-            // 
-            // BtnRoleColorYes
-            // 
-            this.BtnRoleColorYes.Location = new System.Drawing.Point(4, 245);
-            this.BtnRoleColorYes.Name = "BtnRoleColorYes";
-            this.BtnRoleColorYes.Size = new System.Drawing.Size(70, 40);
-            this.BtnRoleColorYes.TabIndex = 158;
-            this.BtnRoleColorYes.Values.Text = "Yes";
-            this.BtnRoleColorYes.Click += new System.EventHandler(this.BtnRoleColorYes_Click);
-            // 
-            // HelpHideConsole
-            // 
-            this.HelpHideConsole.Cursor = System.Windows.Forms.Cursors.Help;
-            this.HelpHideConsole.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpHideConsole.Location = new System.Drawing.Point(-1, 147);
-            this.HelpHideConsole.Name = "HelpHideConsole";
-            this.HelpHideConsole.ReadOnly = true;
-            this.HelpHideConsole.Size = new System.Drawing.Size(20, 20);
-            this.HelpHideConsole.TabIndex = 156;
-            this.HelpHideConsole.Text = "?";
-            this.HelpHideConsole.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpHideConsole, "WARNING! This will hide the console window on startup");
-            // 
-            // TitleHideConsole
-            // 
-            this.TitleHideConsole.AutoSize = false;
-            this.TitleHideConsole.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleHideConsole.Location = new System.Drawing.Point(25, 147);
-            this.TitleHideConsole.Name = "TitleHideConsole";
-            this.TitleHideConsole.Size = new System.Drawing.Size(208, 20);
-            this.TitleHideConsole.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleHideConsole.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.TitleHideConsole.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.TitleHideConsole.TabIndex = 155;
-            this.TitleHideConsole.Values.Description = "";
-            this.TitleHideConsole.Values.Heading = "Hide Console On Startup";
-            this.TitleHideConsole.Values.Image = null;
-            // 
-            // BtnHideConsoleNo
-            // 
-            this.BtnHideConsoleNo.Location = new System.Drawing.Point(104, 173);
-            this.BtnHideConsoleNo.Name = "BtnHideConsoleNo";
-            this.BtnHideConsoleNo.Size = new System.Drawing.Size(70, 40);
-            this.BtnHideConsoleNo.TabIndex = 154;
-            this.BtnHideConsoleNo.Values.Text = "No";
-            this.BtnHideConsoleNo.Click += new System.EventHandler(this.BtnHideConsoleNo_Click);
-            // 
-            // TextHideConsole
-            // 
-            this.TextHideConsole.AutoSize = false;
-            this.TextHideConsole.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "HideConsole", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextHideConsole.Location = new System.Drawing.Point(180, 173);
-            this.TextHideConsole.Name = "TextHideConsole";
-            this.TextHideConsole.Size = new System.Drawing.Size(49, 40);
-            this.TextHideConsole.TabIndex = 153;
-            this.TextHideConsole.Text = global::Discore_Selfbot.Properties.Settings.Default.HideConsole;
-            this.TextHideConsole.Values.Text = "No";
-            // 
-            // BtnHideConsoleYes
-            // 
-            this.BtnHideConsoleYes.Location = new System.Drawing.Point(4, 173);
-            this.BtnHideConsoleYes.Name = "BtnHideConsoleYes";
-            this.BtnHideConsoleYes.Size = new System.Drawing.Size(70, 40);
-            this.BtnHideConsoleYes.TabIndex = 152;
-            this.BtnHideConsoleYes.Values.Text = "Yes";
-            this.BtnHideConsoleYes.Click += new System.EventHandler(this.BtnHideConsoleYes_Click);
-            // 
-            // HelpFavoriteColor
-            // 
-            this.HelpFavoriteColor.Cursor = System.Windows.Forms.Cursors.Help;
-            this.HelpFavoriteColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpFavoriteColor.Location = new System.Drawing.Point(-2, 219);
-            this.HelpFavoriteColor.Name = "HelpFavoriteColor";
-            this.HelpFavoriteColor.ReadOnly = true;
-            this.HelpFavoriteColor.Size = new System.Drawing.Size(20, 20);
-            this.HelpFavoriteColor.TabIndex = 150;
-            this.HelpFavoriteColor.Text = "?";
-            this.HelpFavoriteColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpFavoriteColor, "This will color embeds in your role color and will override favorite color");
-            // 
-            // HelpAutoForm
-            // 
-            this.HelpAutoForm.Cursor = System.Windows.Forms.Cursors.Help;
-            this.HelpAutoForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpAutoForm.Location = new System.Drawing.Point(-1, 75);
-            this.HelpAutoForm.Name = "HelpAutoForm";
-            this.HelpAutoForm.ReadOnly = true;
-            this.HelpAutoForm.Size = new System.Drawing.Size(20, 20);
-            this.HelpAutoForm.TabIndex = 149;
-            this.HelpAutoForm.Text = "?";
-            this.HelpAutoForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpAutoForm, "Open the GUI when you start the selfbot");
-            // 
-            // HelpCommandMessage
-            // 
-            this.HelpCommandMessage.Cursor = System.Windows.Forms.Cursors.Help;
-            this.HelpCommandMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpCommandMessage.Location = new System.Drawing.Point(-1, 3);
-            this.HelpCommandMessage.Name = "HelpCommandMessage";
-            this.HelpCommandMessage.ReadOnly = true;
-            this.HelpCommandMessage.Size = new System.Drawing.Size(20, 20);
-            this.HelpCommandMessage.TabIndex = 148;
-            this.HelpCommandMessage.Text = "?";
-            this.HelpCommandMessage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpCommandMessage, "Edit or delete the message of the selfbot command");
-            // 
-            // HelpAutoNickname
-            // 
-            this.HelpAutoNickname.Cursor = System.Windows.Forms.Cursors.Help;
-            this.HelpAutoNickname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HelpAutoNickname.Location = new System.Drawing.Point(-1, 291);
-            this.HelpAutoNickname.Name = "HelpAutoNickname";
-            this.HelpAutoNickname.ReadOnly = true;
-            this.HelpAutoNickname.Size = new System.Drawing.Size(20, 20);
-            this.HelpAutoNickname.TabIndex = 147;
-            this.HelpAutoNickname.Text = "?";
-            this.HelpAutoNickname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ToolTipManager.SetToolTip(this.HelpAutoNickname, "Set how long the auto nickname feature should trigger");
-            // 
-            // TitleAutoNickname
-            // 
-            this.TitleAutoNickname.AllowButtonSpecToolTips = true;
-            this.TitleAutoNickname.AutoSize = false;
-            this.TitleAutoNickname.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleAutoNickname.Location = new System.Drawing.Point(25, 291);
-            this.TitleAutoNickname.Name = "TitleAutoNickname";
-            this.TitleAutoNickname.Size = new System.Drawing.Size(209, 20);
-            this.TitleAutoNickname.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleAutoNickname.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.TitleAutoNickname.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.TitleAutoNickname.TabIndex = 140;
-            this.TitleAutoNickname.Values.Description = "";
-            this.TitleAutoNickname.Values.Heading = "Auto Nickname Timer";
-            this.TitleAutoNickname.Values.Image = null;
-            // 
-            // TitleFavoriteColor
-            // 
-            this.TitleFavoriteColor.AutoSize = false;
-            this.TitleFavoriteColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleFavoriteColor.Location = new System.Drawing.Point(25, 219);
-            this.TitleFavoriteColor.Name = "TitleFavoriteColor";
-            this.TitleFavoriteColor.Size = new System.Drawing.Size(209, 20);
-            this.TitleFavoriteColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleFavoriteColor.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.TitleFavoriteColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.TitleFavoriteColor.TabIndex = 141;
-            this.TitleFavoriteColor.Values.Description = "";
-            this.TitleFavoriteColor.Values.Heading = "Force Role Color";
-            this.TitleFavoriteColor.Values.Image = null;
-            // 
-            // TitleAutoForm
-            // 
-            this.TitleAutoForm.AutoSize = false;
-            this.TitleAutoForm.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleAutoForm.Location = new System.Drawing.Point(25, 75);
-            this.TitleAutoForm.Name = "TitleAutoForm";
-            this.TitleAutoForm.Size = new System.Drawing.Size(208, 20);
-            this.TitleAutoForm.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleAutoForm.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.TitleAutoForm.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.TitleAutoForm.TabIndex = 139;
-            this.TitleAutoForm.Values.Description = "";
-            this.TitleAutoForm.Values.Heading = "Open Form On Startup";
-            this.TitleAutoForm.Values.Image = null;
-            // 
-            // TitleCommandMessage
-            // 
-            this.TitleCommandMessage.AutoSize = false;
-            this.TitleCommandMessage.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.TitleCommandMessage.Location = new System.Drawing.Point(25, 3);
-            this.TitleCommandMessage.Name = "TitleCommandMessage";
-            this.TitleCommandMessage.Size = new System.Drawing.Size(209, 20);
-            this.TitleCommandMessage.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleCommandMessage.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.TitleCommandMessage.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.TitleCommandMessage.TabIndex = 142;
-            this.TitleCommandMessage.Values.Description = "";
-            this.TitleCommandMessage.Values.Heading = "Command Message";
-            this.TitleCommandMessage.Values.Image = null;
-            // 
-            // BtnAN5
-            // 
-            this.BtnAN5.Location = new System.Drawing.Point(79, 317);
-            this.BtnAN5.Name = "BtnAN5";
-            this.BtnAN5.Size = new System.Drawing.Size(50, 40);
-            this.BtnAN5.TabIndex = 137;
-            this.BtnAN5.Values.Text = "5 Min";
-            this.BtnAN5.Click += new System.EventHandler(this.BtnAN5_Click);
-            // 
-            // BtnAN10
-            // 
-            this.BtnAN10.Location = new System.Drawing.Point(153, 317);
-            this.BtnAN10.Name = "BtnAN10";
-            this.BtnAN10.Size = new System.Drawing.Size(50, 40);
-            this.BtnAN10.TabIndex = 136;
-            this.BtnAN10.Values.Text = "10 Min\r\n";
-            this.BtnAN10.Click += new System.EventHandler(this.BtnAN10_Click);
-            // 
-            // BtnAN1
-            // 
-            this.BtnAN1.Location = new System.Drawing.Point(4, 317);
-            this.BtnAN1.Name = "BtnAN1";
-            this.BtnAN1.Size = new System.Drawing.Size(50, 40);
-            this.BtnAN1.TabIndex = 135;
-            this.BtnAN1.Values.Text = "1 Min";
-            this.BtnAN1.Click += new System.EventHandler(this.BtnAN1_Click);
-            // 
-            // TextAutoNickname
-            // 
-            this.TextAutoNickname.AutoSize = false;
-            this.TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoNickname.Location = new System.Drawing.Point(211, 317);
-            this.TextAutoNickname.Name = "TextAutoNickname";
-            this.TextAutoNickname.Size = new System.Drawing.Size(20, 40);
-            this.TextAutoNickname.TabIndex = 134;
-            this.TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
-            this.TextAutoNickname.Values.Text = "1";
-            // 
-            // BtnAFNo
-            // 
-            this.BtnAFNo.Location = new System.Drawing.Point(104, 101);
-            this.BtnAFNo.Name = "BtnAFNo";
-            this.BtnAFNo.Size = new System.Drawing.Size(70, 40);
-            this.BtnAFNo.TabIndex = 132;
-            this.BtnAFNo.Values.Text = "No";
-            this.BtnAFNo.Click += new System.EventHandler(this.BtnAFNo_Click);
-            // 
-            // TextAutoForm
-            // 
-            this.TextAutoForm.AutoSize = false;
-            this.TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextAutoForm.Location = new System.Drawing.Point(180, 101);
-            this.TextAutoForm.Name = "TextAutoForm";
-            this.TextAutoForm.Size = new System.Drawing.Size(49, 40);
-            this.TextAutoForm.TabIndex = 131;
-            this.TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.TextAutoForm.Values.Text = "Yes";
-            // 
-            // BtnAFYes
-            // 
-            this.BtnAFYes.Location = new System.Drawing.Point(4, 101);
-            this.BtnAFYes.Name = "BtnAFYes";
-            this.BtnAFYes.Size = new System.Drawing.Size(70, 40);
-            this.BtnAFYes.TabIndex = 130;
-            this.BtnAFYes.Values.Text = "Yes";
-            this.BtnAFYes.Click += new System.EventHandler(this.BtnAFYes_Click);
-            // 
-            // BtnCMDelete
-            // 
-            this.BtnCMDelete.Location = new System.Drawing.Point(104, 29);
-            this.BtnCMDelete.Name = "BtnCMDelete";
-            this.BtnCMDelete.Size = new System.Drawing.Size(70, 40);
-            this.BtnCMDelete.TabIndex = 129;
-            this.BtnCMDelete.Values.Text = "Delete";
-            this.BtnCMDelete.Click += new System.EventHandler(this.BtnCMDelete_Click);
-            // 
-            // TextCommandMessage
-            // 
-            this.TextCommandMessage.AutoSize = false;
-            this.TextCommandMessage.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.TextCommandMessage.Location = new System.Drawing.Point(180, 29);
-            this.TextCommandMessage.Name = "TextCommandMessage";
-            this.TextCommandMessage.Size = new System.Drawing.Size(50, 40);
-            this.TextCommandMessage.TabIndex = 128;
-            this.TextCommandMessage.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.TextCommandMessage.Values.Text = "Edit";
-            // 
-            // BtnCMEdit
-            // 
-            this.BtnCMEdit.Location = new System.Drawing.Point(4, 29);
-            this.BtnCMEdit.Name = "BtnCMEdit";
-            this.BtnCMEdit.Size = new System.Drawing.Size(70, 40);
-            this.BtnCMEdit.TabIndex = 127;
-            this.BtnCMEdit.Values.Text = "Edit";
-            this.BtnCMEdit.Click += new System.EventHandler(this.BtnCMEdit_Click);
-            // 
-            // BorderSettings
-            // 
-            this.BorderSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BorderSettings.Location = new System.Drawing.Point(0, 0);
-            this.BorderSettings.Name = "BorderSettings";
-            this.BorderSettings.Size = new System.Drawing.Size(232, 357);
-            this.BorderSettings.Text = "kryptonBorderEdge3";
-            // 
-            // NavInfoBots
-            // 
-            this.NavInfoBots.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavInfoBots.Controls.Add(this.TextBotInfo);
-            this.NavInfoBots.Controls.Add(this.HyperlinkBotInvite);
-            this.NavInfoBots.Controls.Add(this.HyperlinkBotWebsite);
-            this.NavInfoBots.Controls.Add(this.ViewBotsList);
-            this.NavInfoBots.Controls.Add(this.BorderBots);
-            this.NavInfoBots.Flags = 65534;
-            this.NavInfoBots.LastVisibleSet = true;
-            this.NavInfoBots.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavInfoBots.Name = "NavInfoBots";
-            this.NavInfoBots.Size = new System.Drawing.Size(232, 357);
-            this.NavInfoBots.Text = "Bots";
-            this.NavInfoBots.ToolTipTitle = "Page ToolTip";
-            this.NavInfoBots.UniqueName = "BB6C782F33E64B9FB49FF924F7F68668";
-            // 
-            // TextBotInfo
-            // 
-            this.TextBotInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TextBotInfo.Location = new System.Drawing.Point(0, 278);
-            this.TextBotInfo.Multiline = true;
-            this.TextBotInfo.Name = "TextBotInfo";
-            this.TextBotInfo.ReadOnly = true;
-            this.TextBotInfo.Size = new System.Drawing.Size(232, 79);
-            this.TextBotInfo.TabIndex = 12;
-            this.TextBotInfo.Text = "Select a bot above";
-            // 
-            // HyperlinkBotInvite
-            // 
-            this.HyperlinkBotInvite.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.HyperlinkBotInvite.Location = new System.Drawing.Point(160, 252);
-            this.HyperlinkBotInvite.Name = "HyperlinkBotInvite";
-            this.HyperlinkBotInvite.Size = new System.Drawing.Size(66, 20);
-            this.HyperlinkBotInvite.TabIndex = 11;
-            this.HyperlinkBotInvite.Values.Text = "Invite Link";
-            this.HyperlinkBotInvite.Visible = false;
-            this.HyperlinkBotInvite.LinkClicked += new System.EventHandler(this.HyperlinkBotInvite_LinkClicked);
-            // 
-            // HyperlinkBotWebsite
-            // 
-            this.HyperlinkBotWebsite.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.HyperlinkBotWebsite.Location = new System.Drawing.Point(7, 252);
-            this.HyperlinkBotWebsite.Name = "HyperlinkBotWebsite";
-            this.HyperlinkBotWebsite.Size = new System.Drawing.Size(55, 20);
-            this.HyperlinkBotWebsite.TabIndex = 10;
-            this.HyperlinkBotWebsite.Values.Text = "Website";
-            this.HyperlinkBotWebsite.Visible = false;
-            this.HyperlinkBotWebsite.LinkClicked += new System.EventHandler(this.HyperlinkBotWebsite_LinkClicked);
-            // 
-            // ViewBotsList
-            // 
-            this.ViewBotsList.BackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.InputControlStandalone;
-            this.ViewBotsList.BorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.InputControlStandalone;
-            this.ViewBotsList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ViewBotsList.ItemHeight = 21;
-            this.ViewBotsList.ItemStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.ListItem;
-            this.ViewBotsList.Location = new System.Drawing.Point(0, 0);
-            this.ViewBotsList.Name = "ViewBotsList";
-            treeNode136.Name = "PixelBot";
-            treeNode136.Text = "PixelBot";
-            treeNode137.Name = "Minotaur";
-            treeNode137.Text = "Minotaur";
-            treeNode138.Name = "My Bots";
-            treeNode138.Text = "My Bots";
-            treeNode139.Name = "Discord Cards";
-            treeNode139.Text = "Discord Cards";
-            treeNode140.Name = "Casino Bot";
-            treeNode140.Text = "Casino Bot";
-            treeNode141.Name = "Discord RPG";
-            treeNode141.Text = "Discord RPG";
-            treeNode142.Name = "Fun Bots";
-            treeNode142.Text = "Fun Bots";
-            treeNode143.Name = "Sekoboto";
-            treeNode143.Text = "Sekobot";
-            treeNode144.Name = "Other Bots";
-            treeNode144.Text = "Other Bots";
-            this.ViewBotsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode138,
-            treeNode142,
-            treeNode144});
-            this.ViewBotsList.Size = new System.Drawing.Size(232, 246);
-            this.ViewBotsList.TabIndex = 9;
-            this.ViewBotsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewBotsList_AfterSelect);
-            // 
-            // BorderBots
-            // 
-            this.BorderBots.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BorderBots.Location = new System.Drawing.Point(0, 0);
-            this.BorderBots.Name = "BorderBots";
-            this.BorderBots.Size = new System.Drawing.Size(232, 357);
-            this.BorderBots.Text = "kryptonBorderEdge2";
-            // 
-            // NavCustomPage
-            // 
-            this.NavCustomPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.NavCustomPage.Controls.Add(this.CustomEdit);
-            this.NavCustomPage.Controls.Add(this.CustomDelete);
-            this.NavCustomPage.Controls.Add(this.CustomAddCustomAdd);
-            this.NavCustomPage.Controls.Add(this.CustomCommandsList);
-            this.NavCustomPage.Controls.Add(this.kryptonBorderEdge1);
-            this.NavCustomPage.Flags = 65534;
-            this.NavCustomPage.LastVisibleSet = true;
-            this.NavCustomPage.MinimumSize = new System.Drawing.Size(50, 50);
-            this.NavCustomPage.Name = "NavCustomPage";
-            this.NavCustomPage.Size = new System.Drawing.Size(232, 357);
-            this.NavCustomPage.Text = "Custom";
-            this.NavCustomPage.ToolTipTitle = "Page ToolTip";
-            this.NavCustomPage.UniqueName = "73E3D7DECE594F89C78B9DB7BB8B0A07";
-            // 
-            // CustomEdit
-            // 
-            this.CustomEdit.Location = new System.Drawing.Point(98, 3);
-            this.CustomEdit.Name = "CustomEdit";
-            this.CustomEdit.Size = new System.Drawing.Size(31, 20);
-            this.CustomEdit.TabIndex = 6;
-            this.CustomEdit.Values.Text = "Edit";
-            this.CustomEdit.Visible = false;
-            // 
-            // CustomDelete
-            // 
-            this.CustomDelete.Location = new System.Drawing.Point(183, 3);
-            this.CustomDelete.Name = "CustomDelete";
-            this.CustomDelete.Size = new System.Drawing.Size(46, 20);
-            this.CustomDelete.TabIndex = 5;
-            this.CustomDelete.Values.Text = "Delete";
-            this.CustomDelete.LinkClicked += new System.EventHandler(this.CustomDelete_LinkClicked);
-            // 
-            // CustomAddCustomAdd
-            // 
-            this.CustomAddCustomAdd.Location = new System.Drawing.Point(2, 3);
-            this.CustomAddCustomAdd.Name = "CustomAddCustomAdd";
-            this.CustomAddCustomAdd.Size = new System.Drawing.Size(33, 20);
-            this.CustomAddCustomAdd.TabIndex = 4;
-            this.CustomAddCustomAdd.Values.Text = "Add";
-            this.CustomAddCustomAdd.LinkClicked += new System.EventHandler(this.CustomAddCustomAdd_LinkClicked);
-            // 
-            // CustomCommandsList
-            // 
-            this.CustomCommandsList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.CustomCommandsList.Location = new System.Drawing.Point(0, 29);
-            this.CustomCommandsList.Name = "CustomCommandsList";
-            this.CustomCommandsList.Size = new System.Drawing.Size(232, 328);
-            this.CustomCommandsList.TabIndex = 0;
-            // 
-            // kryptonBorderEdge1
-            // 
-            this.kryptonBorderEdge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonBorderEdge1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonBorderEdge1.Name = "kryptonBorderEdge1";
-            this.kryptonBorderEdge1.Size = new System.Drawing.Size(232, 357);
-            this.kryptonBorderEdge1.Text = "kryptonBorderEdge3";
-            // 
-            // BtnOnTop
-            // 
-            this.BtnOnTop.Checked = ComponentFactory.Krypton.Toolkit.ButtonCheckState.Unchecked;
-            this.BtnOnTop.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.PinVertical;
-            this.BtnOnTop.UniqueName = "555AF5C49B6D42E7BB90D774F9B167FD";
-            // 
-            // ChannelLogs
-            // 
-            this.ChannelLogs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ChannelLogs.Items.AddRange(new object[] {
+            // GUI_Minimize
+            // 
+            this.GUI_Minimize.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.PendantMin;
+            this.GUI_Minimize.UniqueName = "9F7590E624C945CF989332B94D5B1AAB";
+            // 
+            // GUI_Channels
+            // 
+            this.GUI_Channels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GUI_Channels.Enabled = false;
+            this.GUI_Channels.FormattingEnabled = true;
+            this.GUI_Channels.Location = new System.Drawing.Point(10, 49);
+            this.GUI_Channels.Name = "GUI_Channels";
+            this.GUI_Channels.Size = new System.Drawing.Size(220, 21);
+            this.GUI_Channels.TabIndex = 24;
+            this.GUI_Channels.SelectedIndexChanged += new System.EventHandler(this.ChannelList_SelectedIndexChanged);
+            // 
+            // GUI_NavGuild
+            // 
+            this.GUI_NavGuild.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
+            this.GUI_NavGuild.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
+            this.GUI_NavGuild.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.GUI_NavGuild.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_NavGuild.Location = new System.Drawing.Point(0, 0);
+            this.GUI_NavGuild.Name = "GUI_NavGuild";
+            this.GUI_NavGuild.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
+            this.GUI_NavEmbedPage,
+            this.GUI_NavGuildInfo,
+            this.GUI_NavGuildRoles,
+            this.GUI_NavGuildEmojis});
+            this.GUI_NavGuild.SelectedIndex = 0;
+            this.GUI_NavGuild.Size = new System.Drawing.Size(220, 168);
+            this.GUI_NavGuild.TabIndex = 25;
+            this.GUI_NavGuild.Text = "kryptonNavigator1";
+            // 
+            // GUI_NavEmbedPage
+            // 
+            this.GUI_NavEmbedPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavEmbedPage.Controls.Add(this.GUI_EmbedInline);
+            this.GUI_NavEmbedPage.Controls.Add(this.GUI_EmbedBorder);
+            this.GUI_NavEmbedPage.Controls.Add(this.GUI_EmbedTitle);
+            this.GUI_NavEmbedPage.Controls.Add(this.GUI_EmbedBar);
+            this.GUI_NavEmbedPage.Controls.Add(this.GUI_EmbedFooter);
+            this.GUI_NavEmbedPage.Flags = 65534;
+            this.GUI_NavEmbedPage.LastVisibleSet = true;
+            this.GUI_NavEmbedPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavEmbedPage.Name = "GUI_NavEmbedPage";
+            this.GUI_NavEmbedPage.Size = new System.Drawing.Size(218, 142);
+            this.GUI_NavEmbedPage.Text = "Embed";
+            this.GUI_NavEmbedPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavEmbedPage.UniqueName = "D0784325A0CE45D21CA18507410A4550";
+            // 
+            // GUI_EmbedInline
+            // 
+            this.GUI_EmbedInline.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_EmbedInline.Location = new System.Drawing.Point(0, 48);
+            this.GUI_EmbedInline.Name = "GUI_EmbedInline";
+            // 
+            // GUI_EmbedInline.Panel
+            // 
+            this.GUI_EmbedInline.Panel.Controls.Add(this.GUI_EmbedText);
+            this.GUI_EmbedInline.Panel.Controls.Add(this.GUI_EmbedColorStrip);
+            this.GUI_EmbedInline.Panel.Controls.Add(this.GUI_EmbedColorMenu);
+            this.GUI_EmbedInline.Size = new System.Drawing.Size(218, 71);
+            this.GUI_EmbedInline.TabIndex = 34;
+            // 
+            // GUI_EmbedText
+            // 
+            this.GUI_EmbedText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_EmbedText.Location = new System.Drawing.Point(10, 0);
+            this.GUI_EmbedText.Multiline = true;
+            this.GUI_EmbedText.Name = "GUI_EmbedText";
+            this.GUI_EmbedText.Size = new System.Drawing.Size(206, 69);
+            this.GUI_EmbedText.TabIndex = 11;
+            this.GUI_EmbedText.Text = "Text";
+            this.GUI_EmbedText.TextChanged += new System.EventHandler(this.EmbedText_TextChanged);
+            // 
+            // GUI_EmbedColorStrip
+            // 
+            this.GUI_EmbedColorStrip.BackColor = System.Drawing.Color.White;
+            this.GUI_EmbedColorStrip.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.GUI_EmbedColorStrip.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GUI_EmbedColorStrip.Location = new System.Drawing.Point(0, 0);
+            this.GUI_EmbedColorStrip.Multiline = true;
+            this.GUI_EmbedColorStrip.Name = "GUI_EmbedColorStrip";
+            this.GUI_EmbedColorStrip.ReadOnly = true;
+            this.GUI_EmbedColorStrip.Size = new System.Drawing.Size(10, 69);
+            this.GUI_EmbedColorStrip.TabIndex = 37;
+            // 
+            // GUI_EmbedColorMenu
+            // 
+            this.GUI_EmbedColorMenu.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GUI_EmbedColorMenu.DropDownOrientation = ComponentFactory.Krypton.Toolkit.VisualOrientation.Left;
+            this.GUI_EmbedColorMenu.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Left;
+            this.GUI_EmbedColorMenu.Location = new System.Drawing.Point(177, -24);
+            this.GUI_EmbedColorMenu.Name = "GUI_EmbedColorMenu";
+            this.GUI_EmbedColorMenu.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_EmbedColorMenu.SelectedColor = System.Drawing.Color.Empty;
+            this.GUI_EmbedColorMenu.Size = new System.Drawing.Size(40, 81);
+            this.GUI_EmbedColorMenu.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_EmbedColorMenu.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_EmbedColorMenu.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_EmbedColorMenu.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_EmbedColorMenu.TabIndex = 23;
+            this.GUI_EmbedColorMenu.Values.Text = "Embed\r\nColor\r\n";
+            this.GUI_EmbedColorMenu.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.KryptonColorButton1_SelectedColorChanged);
+            // 
+            // GUI_EmbedBorder
+            // 
+            this.GUI_EmbedBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_EmbedBorder.Location = new System.Drawing.Point(0, 48);
+            this.GUI_EmbedBorder.Name = "GUI_EmbedBorder";
+            this.GUI_EmbedBorder.Size = new System.Drawing.Size(218, 71);
+            this.GUI_EmbedBorder.Text = "kryptonBorderEdge7";
+            // 
+            // GUI_EmbedTitle
+            // 
+            this.GUI_EmbedTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GUI_EmbedTitle.Location = new System.Drawing.Point(0, 25);
+            this.GUI_EmbedTitle.Name = "GUI_EmbedTitle";
+            this.GUI_EmbedTitle.Size = new System.Drawing.Size(218, 23);
+            this.GUI_EmbedTitle.TabIndex = 9;
+            this.GUI_EmbedTitle.Text = "Title";
+            this.GUI_EmbedTitle.TextChanged += new System.EventHandler(this.EmbedTitle_TextChanged);
+            // 
+            // GUI_EmbedBar
+            // 
+            this.GUI_EmbedBar.CanOverflow = false;
+            this.GUI_EmbedBar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GUI_EmbedBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.GUI_EmbedBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GUI_EmbedOpenColor,
+            this.GUI_EmbedStrip1,
+            this.GUI_EmbedClear,
+            this.GUI_EmbedStrip2,
+            this.GUI_EmbedPopup});
+            this.GUI_EmbedBar.Location = new System.Drawing.Point(0, 0);
+            this.GUI_EmbedBar.MaximumSize = new System.Drawing.Size(0, 25);
+            this.GUI_EmbedBar.Name = "GUI_EmbedBar";
+            this.GUI_EmbedBar.ShowItemToolTips = false;
+            this.GUI_EmbedBar.Size = new System.Drawing.Size(218, 25);
+            this.GUI_EmbedBar.TabIndex = 25;
+            this.GUI_EmbedBar.Text = "ToolstripEmbedCreator";
+            // 
+            // GUI_EmbedOpenColor
+            // 
+            this.GUI_EmbedOpenColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GUI_EmbedOpenColor.Name = "GUI_EmbedOpenColor";
+            this.GUI_EmbedOpenColor.Size = new System.Drawing.Size(40, 22);
+            this.GUI_EmbedOpenColor.Text = "Color";
+            this.GUI_EmbedOpenColor.Click += new System.EventHandler(this.EmbedPaint_Click);
+            // 
+            // GUI_EmbedStrip1
+            // 
+            this.GUI_EmbedStrip1.Name = "GUI_EmbedStrip1";
+            this.GUI_EmbedStrip1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // GUI_EmbedClear
+            // 
+            this.GUI_EmbedClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GUI_EmbedClear.Name = "GUI_EmbedClear";
+            this.GUI_EmbedClear.Size = new System.Drawing.Size(38, 22);
+            this.GUI_EmbedClear.Text = "Clear";
+            this.GUI_EmbedClear.Click += new System.EventHandler(this.EmbedClear_Click);
+            // 
+            // GUI_EmbedStrip2
+            // 
+            this.GUI_EmbedStrip2.Name = "GUI_EmbedStrip2";
+            this.GUI_EmbedStrip2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // GUI_EmbedPopup
+            // 
+            this.GUI_EmbedPopup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GUI_EmbedPopup.Name = "GUI_EmbedPopup";
+            this.GUI_EmbedPopup.Size = new System.Drawing.Size(86, 22);
+            this.GUI_EmbedPopup.Text = "Embed Popup";
+            this.GUI_EmbedPopup.Click += new System.EventHandler(this.EmbedPopup_Click);
+            // 
+            // GUI_EmbedFooter
+            // 
+            this.GUI_EmbedFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_EmbedFooter.Location = new System.Drawing.Point(0, 119);
+            this.GUI_EmbedFooter.Name = "GUI_EmbedFooter";
+            this.GUI_EmbedFooter.Size = new System.Drawing.Size(218, 23);
+            this.GUI_EmbedFooter.TabIndex = 12;
+            this.GUI_EmbedFooter.Text = "Footer";
+            this.GUI_EmbedFooter.TextChanged += new System.EventHandler(this.EmbedFooter_TextChanged);
+            // 
+            // GUI_NavGuildInfo
+            // 
+            this.GUI_NavGuildInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavGuildInfo.Controls.Add(this.GUI_GuildInfo);
+            this.GUI_NavGuildInfo.Flags = 65534;
+            this.GUI_NavGuildInfo.LastVisibleSet = true;
+            this.GUI_NavGuildInfo.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavGuildInfo.Name = "GUI_NavGuildInfo";
+            this.GUI_NavGuildInfo.Size = new System.Drawing.Size(218, 142);
+            this.GUI_NavGuildInfo.Text = "Guild Info";
+            this.GUI_NavGuildInfo.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavGuildInfo.UniqueName = "15405AE8C3F64B0DFA9BB3419545B5E6";
+            // 
+            // GUI_GuildInfo
+            // 
+            this.GUI_GuildInfo.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.GUI_GuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_GuildInfo.Location = new System.Drawing.Point(0, 0);
+            this.GUI_GuildInfo.Name = "GUI_GuildInfo";
+            this.GUI_GuildInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.GUI_GuildInfo.Size = new System.Drawing.Size(218, 142);
+            this.GUI_GuildInfo.TabIndex = 1;
+            this.GUI_GuildInfo.Text = "";
+            // 
+            // GUI_NavGuildRoles
+            // 
+            this.GUI_NavGuildRoles.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavGuildRoles.Controls.Add(this.GUI_GuildRoles);
+            this.GUI_NavGuildRoles.Flags = 65534;
+            this.GUI_NavGuildRoles.LastVisibleSet = true;
+            this.GUI_NavGuildRoles.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavGuildRoles.Name = "GUI_NavGuildRoles";
+            this.GUI_NavGuildRoles.Size = new System.Drawing.Size(218, 142);
+            this.GUI_NavGuildRoles.Text = "Roles";
+            this.GUI_NavGuildRoles.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavGuildRoles.UniqueName = "21AAC88369604DAAF087F3A82510D49D";
+            // 
+            // GUI_GuildRoles
+            // 
+            this.GUI_GuildRoles.BackColor = System.Drawing.Color.Black;
+            this.GUI_GuildRoles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_GuildRoles.ForeColor = System.Drawing.Color.White;
+            this.GUI_GuildRoles.Location = new System.Drawing.Point(0, 0);
+            this.GUI_GuildRoles.Name = "GUI_GuildRoles";
+            this.GUI_GuildRoles.Size = new System.Drawing.Size(218, 142);
+            this.GUI_GuildRoles.TabIndex = 2;
+            this.GUI_GuildRoles.Text = "";
+            // 
+            // GUI_NavGuildEmojis
+            // 
+            this.GUI_NavGuildEmojis.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavGuildEmojis.Controls.Add(this.GUI_GuildEmojis);
+            this.GUI_NavGuildEmojis.Flags = 65534;
+            this.GUI_NavGuildEmojis.LastVisibleSet = true;
+            this.GUI_NavGuildEmojis.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavGuildEmojis.Name = "GUI_NavGuildEmojis";
+            this.GUI_NavGuildEmojis.Size = new System.Drawing.Size(218, 142);
+            this.GUI_NavGuildEmojis.Text = "Emojis";
+            this.GUI_NavGuildEmojis.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavGuildEmojis.UniqueName = "14F93E3889E740C4CA8379603DCB6820";
+            // 
+            // GUI_GuildEmojis
+            // 
+            this.GUI_GuildEmojis.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_GuildEmojis.Location = new System.Drawing.Point(0, 0);
+            this.GUI_GuildEmojis.Multiline = true;
+            this.GUI_GuildEmojis.Name = "GUI_GuildEmojis";
+            this.GUI_GuildEmojis.ReadOnly = true;
+            this.GUI_GuildEmojis.Size = new System.Drawing.Size(218, 142);
+            this.GUI_GuildEmojis.TabIndex = 1;
+            // 
+            // GUI_EmbedSendActive
+            // 
+            this.GUI_EmbedSendActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.GUI_EmbedSendActive.Enabled = false;
+            this.GUI_EmbedSendActive.Location = new System.Drawing.Point(143, 390);
+            this.GUI_EmbedSendActive.Name = "GUI_EmbedSendActive";
+            this.GUI_EmbedSendActive.Size = new System.Drawing.Size(87, 40);
+            this.GUI_EmbedSendActive.TabIndex = 14;
+            this.GUI_EmbedSendActive.Values.Text = "Active";
+            this.GUI_EmbedSendActive.Click += new System.EventHandler(this.BtnSendActive_Click);
+            // 
+            // GUI_EmbedSendSelected
+            // 
+            this.GUI_EmbedSendSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.GUI_EmbedSendSelected.Enabled = false;
+            this.GUI_EmbedSendSelected.Location = new System.Drawing.Point(12, 390);
+            this.GUI_EmbedSendSelected.Name = "GUI_EmbedSendSelected";
+            this.GUI_EmbedSendSelected.Size = new System.Drawing.Size(88, 40);
+            this.GUI_EmbedSendSelected.TabIndex = 13;
+            this.GUI_EmbedSendSelected.Values.Text = "Selected";
+            this.GUI_EmbedSendSelected.Click += new System.EventHandler(this.BtnSendSelected_Click);
+            // 
+            // GUI_NavMain
+            // 
+            this.GUI_NavMain.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
+            this.GUI_NavMain.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
+            this.GUI_NavMain.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.GUI_NavMain.Location = new System.Drawing.Point(239, 49);
+            this.GUI_NavMain.Name = "GUI_NavMain";
+            this.GUI_NavMain.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
+            this.GUI_NavMainPage,
+            this.GUI_NavThemesPage,
+            this.GUI_NavSettingsPage,
+            this.GUI_NavBotsPage,
+            this.GUI_NavCustomPage});
+            this.GUI_NavMain.SelectedIndex = 0;
+            this.GUI_NavMain.Size = new System.Drawing.Size(234, 384);
+            this.GUI_NavMain.TabIndex = 28;
+            this.GUI_NavMain.Text = "kryptonNavigator1";
+            // 
+            // GUI_NavMainPage
+            // 
+            this.GUI_NavMainPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavMainPage.Controls.Add(this.GUI_NavInfo);
+            this.GUI_NavMainPage.Flags = 65534;
+            this.GUI_NavMainPage.LastVisibleSet = true;
+            this.GUI_NavMainPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavMainPage.Name = "GUI_NavMainPage";
+            this.GUI_NavMainPage.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavMainPage.Text = "Main";
+            this.GUI_NavMainPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavMainPage.UniqueName = "478032B78A96411C7996B476B5C7B4F2";
+            // 
+            // GUI_NavInfo
+            // 
+            this.GUI_NavInfo.Bar.CheckButtonStyle = ComponentFactory.Krypton.Toolkit.ButtonStyle.CalendarDay;
+            this.GUI_NavInfo.Bar.ItemSizing = ComponentFactory.Krypton.Navigator.BarItemSizing.SameWidth;
+            this.GUI_NavInfo.Button.ButtonDisplayLogic = ComponentFactory.Krypton.Navigator.ButtonDisplayLogic.None;
+            this.GUI_NavInfo.Button.CloseButtonAction = ComponentFactory.Krypton.Navigator.CloseButtonAction.None;
+            this.GUI_NavInfo.Button.CloseButtonDisplay = ComponentFactory.Krypton.Navigator.ButtonDisplay.Hide;
+            this.GUI_NavInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_NavInfo.Header.HeaderStyleBar = ComponentFactory.Krypton.Toolkit.HeaderStyle.Primary;
+            this.GUI_NavInfo.Location = new System.Drawing.Point(0, 0);
+            this.GUI_NavInfo.Name = "GUI_NavInfo";
+            this.GUI_NavInfo.NavigatorMode = ComponentFactory.Krypton.Navigator.NavigatorMode.BarCheckButtonGroupOutside;
+            this.GUI_NavInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
+            this.GUI_NavInfoPage,
+            this.GUI_NavCommandsPage});
+            this.GUI_NavInfo.SelectedIndex = 0;
+            this.GUI_NavInfo.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavInfo.TabIndex = 8;
+            this.GUI_NavInfo.Text = "kryptonNavigator1";
+            // 
+            // GUI_NavInfoPage
+            // 
+            this.GUI_NavInfoPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_InfoUpdate);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_InfoLib);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_InfoMade);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_InfoCreated);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_Changelog);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_BtnOpenSelfbotFolder);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_LinkDownload);
+            this.GUI_NavInfoPage.Controls.Add(this.GUI_InfoBorder);
+            this.GUI_NavInfoPage.Flags = 65534;
+            this.GUI_NavInfoPage.LastVisibleSet = true;
+            this.GUI_NavInfoPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavInfoPage.Name = "GUI_NavInfoPage";
+            this.GUI_NavInfoPage.Size = new System.Drawing.Size(230, 332);
+            this.GUI_NavInfoPage.Text = "Info";
+            this.GUI_NavInfoPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavInfoPage.UniqueName = "1635D269C129459CCC8871C0CAB66A63";
+            // 
+            // GUI_InfoUpdate
+            // 
+            this.GUI_InfoUpdate.Location = new System.Drawing.Point(1, 81);
+            this.GUI_InfoUpdate.Name = "GUI_InfoUpdate";
+            this.GUI_InfoUpdate.Size = new System.Drawing.Size(230, 20);
+            this.GUI_InfoUpdate.TabIndex = 30;
+            this.GUI_InfoUpdate.Values.Text = "Selfbot will check for updates on startup";
+            // 
+            // GUI_InfoLib
+            // 
+            this.GUI_InfoLib.Location = new System.Drawing.Point(16, 55);
+            this.GUI_InfoLib.Name = "GUI_InfoLib";
+            this.GUI_InfoLib.Size = new System.Drawing.Size(196, 20);
+            this.GUI_InfoLib.TabIndex = 29;
+            this.GUI_InfoLib.Values.Text = "Language C# | Library Discord.Net";
+            // 
+            // GUI_InfoMade
+            // 
+            this.GUI_InfoMade.Location = new System.Drawing.Point(24, 29);
+            this.GUI_InfoMade.Name = "GUI_InfoMade";
+            this.GUI_InfoMade.Size = new System.Drawing.Size(166, 20);
+            this.GUI_InfoMade.TabIndex = 28;
+            this.GUI_InfoMade.Values.Text = "Made in | Visual Studio 2017";
+            // 
+            // GUI_InfoCreated
+            // 
+            this.GUI_InfoCreated.Location = new System.Drawing.Point(16, 3);
+            this.GUI_InfoCreated.Name = "GUI_InfoCreated";
+            this.GUI_InfoCreated.Size = new System.Drawing.Size(186, 20);
+            this.GUI_InfoCreated.TabIndex = 27;
+            this.GUI_InfoCreated.Values.Text = "Created by | xXBuilderBXx=9113";
+            // 
+            // GUI_Changelog
+            // 
+            this.GUI_Changelog.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_Changelog.Location = new System.Drawing.Point(0, 184);
+            this.GUI_Changelog.Multiline = true;
+            this.GUI_Changelog.Name = "GUI_Changelog";
+            this.GUI_Changelog.ReadOnly = true;
+            this.GUI_Changelog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.GUI_Changelog.Size = new System.Drawing.Size(230, 148);
+            this.GUI_Changelog.TabIndex = 25;
+            this.GUI_Changelog.Text = resources.GetString("GUI_Changelog.Text");
+            // 
+            // GUI_BtnOpenSelfbotFolder
+            // 
+            this.GUI_BtnOpenSelfbotFolder.Location = new System.Drawing.Point(6, 133);
+            this.GUI_BtnOpenSelfbotFolder.Name = "GUI_BtnOpenSelfbotFolder";
+            this.GUI_BtnOpenSelfbotFolder.Size = new System.Drawing.Size(219, 40);
+            this.GUI_BtnOpenSelfbotFolder.TabIndex = 20;
+            this.GUI_BtnOpenSelfbotFolder.Values.Text = "Open Selfbot Folder";
+            this.GUI_BtnOpenSelfbotFolder.Click += new System.EventHandler(this.BtnOpenSelfbotFolder_Click);
+            // 
+            // GUI_LinkDownload
+            // 
+            this.GUI_LinkDownload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GUI_LinkDownload.Location = new System.Drawing.Point(24, 107);
+            this.GUI_LinkDownload.Name = "GUI_LinkDownload";
+            this.GUI_LinkDownload.Size = new System.Drawing.Size(158, 20);
+            this.GUI_LinkDownload.TabIndex = 19;
+            this.GUI_LinkDownload.Values.Text = "Download/Update Website";
+            this.GUI_LinkDownload.LinkClicked += new System.EventHandler(this.LinkDownload_LinkClicked);
+            // 
+            // GUI_InfoBorder
+            // 
+            this.GUI_InfoBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_InfoBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_InfoBorder.Name = "GUI_InfoBorder";
+            this.GUI_InfoBorder.Size = new System.Drawing.Size(230, 332);
+            // 
+            // GUI_NavCommandsPage
+            // 
+            this.GUI_NavCommandsPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavCommandsPage.Controls.Add(this.GUI_CommandsList);
+            this.GUI_NavCommandsPage.Controls.Add(this.GUI_CommandsInfo);
+            this.GUI_NavCommandsPage.Flags = 65534;
+            this.GUI_NavCommandsPage.LastVisibleSet = true;
+            this.GUI_NavCommandsPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavCommandsPage.Name = "GUI_NavCommandsPage";
+            this.GUI_NavCommandsPage.Size = new System.Drawing.Size(230, 332);
+            this.GUI_NavCommandsPage.Text = "Selfbot Commands";
+            this.GUI_NavCommandsPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavCommandsPage.UniqueName = "E1FF2C7914C34B417AA8BFF17BFB6E40";
+            // 
+            // GUI_CommandsList
+            // 
+            this.GUI_CommandsList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_CommandsList.HotTracking = true;
+            this.GUI_CommandsList.ItemHeight = 21;
+            this.GUI_CommandsList.Location = new System.Drawing.Point(0, 51);
+            this.GUI_CommandsList.Name = "GUI_CommandsList";
+            treeNode1.Name = "self form";
+            treeNode1.Text = "self form";
+            treeNode1.ToolTipText = "Open the GUI form";
+            treeNode2.Name = "self snip";
+            treeNode2.Text = "self snip";
+            treeNode2.ToolTipText = "Open up windows snipping tools";
+            treeNode3.Name = "self test";
+            treeNode3.Text = "self test";
+            treeNode3.ToolTipText = "Test if selfbot is working";
+            treeNode4.Name = "self info";
+            treeNode4.Text = "self info";
+            treeNode4.ToolTipText = "Get info about yourself and the selfbot";
+            treeNode5.Name = "self bot";
+            treeNode5.Text = "self bot";
+            treeNode5.ToolTipText = "Get info about the selfbot project and creator";
+            treeNode6.Name = "self uptime";
+            treeNode6.Text = "self uptime";
+            treeNode6.ToolTipText = "Get the uptime and total uptime of the bot";
+            treeNode7.Name = "self ping";
+            treeNode7.Text = "self ping";
+            treeNode7.ToolTipText = "Ping the network and discord";
+            treeNode8.Name = "self ping (IP)";
+            treeNode8.Text = "self ping (IP)";
+            treeNode8.ToolTipText = "Ping another IP address";
+            treeNode9.Name = "self guild";
+            treeNode9.Text = "self guild";
+            treeNode9.ToolTipText = "Get info about the guild";
+            treeNode10.Name = "self user (User ID)";
+            treeNode10.Text = "self user (User ID)";
+            treeNode10.ToolTipText = "Get info about a user";
+            treeNode11.Name = "self user @Mention";
+            treeNode11.Text = "self user @Mention";
+            treeNode11.ToolTipText = "Get info about a user";
+            treeNode12.Name = "self avatar (User ID)";
+            treeNode12.Text = "self avatar (User ID)";
+            treeNode12.ToolTipText = "Get a users avatar pic";
+            treeNode13.Name = "self avatar @Mention";
+            treeNode13.Text = "self avatar @Mention";
+            treeNode13.ToolTipText = "Get a users avatar pic";
+            treeNode14.Name = "self calc 1 + 10 - 5";
+            treeNode14.Text = "self calc 1 + 10 - 5";
+            treeNode14.ToolTipText = "Do some calculations";
+            treeNode15.Name = "self find (User ID)";
+            treeNode15.Text = "self find (User ID)";
+            treeNode15.ToolTipText = "Usefull in finding DM advertisers";
+            treeNode16.Name = "self find @Mention";
+            treeNode16.Text = "self find @Mention";
+            treeNode16.ToolTipText = "Usefull in finding DM advertisers";
+            treeNode17.Name = "self clean (Ammount)";
+            treeNode17.Text = "self clean (Ammount)";
+            treeNode17.ToolTipText = "Cleanup an ammount of messages made by you MAX 30";
+            treeNode18.Name = "self cleanembed";
+            treeNode18.Text = "self cleanembed";
+            treeNode18.ToolTipText = "Cleanup all your embeds";
+            treeNode19.Name = "Info";
+            treeNode19.Text = "Info";
+            treeNode20.Name = "self dog";
+            treeNode20.Text = "self dog";
+            treeNode20.ToolTipText = "Post a random dog pic from online";
+            treeNode21.Name = "self cat";
+            treeNode21.Text = "self cat";
+            treeNode21.ToolTipText = "Post a random cat pic from online";
+            treeNode22.Name = "self neko";
+            treeNode22.Text = "self neko";
+            treeNode22.ToolTipText = "Post a random neko image in embed form";
+            treeNode23.Name = "self lenny";
+            treeNode23.Text = "self lenny";
+            treeNode23.ToolTipText = "Lenny face";
+            treeNode24.Name = "self lewd (Text)";
+            treeNode24.Text = "self lewd (Text)";
+            treeNode24.ToolTipText = "You are lewd";
+            treeNode25.Name = "self bang";
+            treeNode25.Text = "self bang";
+            treeNode25.ToolTipText = "Bang you are dead ;)";
+            treeNode26.Name = "self embed (Text)";
+            treeNode26.Text = "self embed (Text)";
+            treeNode26.ToolTipText = "Turn text into an embed";
+            treeNode27.Name = "self tembed (Title) (Text)";
+            treeNode27.Text = "self tembed (Title) (Text)";
+            treeNode27.ToolTipText = "Send an embed with a title and text";
+            treeNode28.Name = "Fun";
+            treeNode28.Text = "Fun";
+            treeNode29.Name = "self tags";
+            treeNode29.Text = "self tags";
+            treeNode29.ToolTipText = "Get a list of tags";
+            treeNode30.Name = "self tag (Tag)";
+            treeNode30.Text = "self tag (Tag)";
+            treeNode30.ToolTipText = "Get the created tag";
+            treeNode31.Name = "self addtag (Tag) (Message ID)";
+            treeNode31.Text = "self addtag (Tag) (Message ID)";
+            treeNode31.ToolTipText = "Add another users message as a tag";
+            treeNode32.Name = "self addtag (Tag) (Text)";
+            treeNode32.Text = "self addtag (Tag) (Text)";
+            treeNode32.ToolTipText = "Add text to a tag";
+            treeNode33.Name = "self deltag (Tag)";
+            treeNode33.Text = "self deltag (Tag)";
+            treeNode33.ToolTipText = "Broken right now";
+            treeNode34.Name = "Tags";
+            treeNode34.Text = "Tags";
+            treeNode35.Name = "self an add (Nickname)";
+            treeNode35.Text = "self an add (Nickname)";
+            treeNode35.ToolTipText = "Add a per guild nickname";
+            treeNode36.Name = "self an bind";
+            treeNode36.Text = "self an bind";
+            treeNode36.ToolTipText = "Add the guild to the autonickname";
+            treeNode37.Name = "self an del (Nickname)";
+            treeNode37.Text = "self an del (Nickname)";
+            treeNode37.ToolTipText = "Delete a per guild nickname";
+            treeNode38.Name = "self an list";
+            treeNode38.Text = "self an list";
+            treeNode38.ToolTipText = "List all per guild nicknames";
+            treeNode39.Name = "Auto Nickname";
+            treeNode39.Text = "Auto Nickname";
+            this.GUI_CommandsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode19,
+            treeNode28,
+            treeNode34,
+            treeNode39});
+            this.GUI_CommandsList.Size = new System.Drawing.Size(230, 281);
+            this.GUI_CommandsList.TabIndex = 3;
+            this.GUI_CommandsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewCommandsList_AfterSelect);
+            // 
+            // GUI_CommandsInfo
+            // 
+            this.GUI_CommandsInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_CommandsInfo.Location = new System.Drawing.Point(0, 0);
+            this.GUI_CommandsInfo.Multiline = true;
+            this.GUI_CommandsInfo.Name = "GUI_CommandsInfo";
+            this.GUI_CommandsInfo.ReadOnly = true;
+            this.GUI_CommandsInfo.Size = new System.Drawing.Size(230, 332);
+            this.GUI_CommandsInfo.TabIndex = 4;
+            this.GUI_CommandsInfo.Text = "Select a command\r";
+            // 
+            // GUI_NavThemesPage
+            // 
+            this.GUI_NavThemesPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavThemesPage.Controls.Add(this.GUI_FavColor);
+            this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeSparkle);
+            this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeDark);
+            this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeDefault);
+            this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemesBorder);
+            this.GUI_NavThemesPage.Flags = 65534;
+            this.GUI_NavThemesPage.LastVisibleSet = true;
+            this.GUI_NavThemesPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavThemesPage.Name = "GUI_NavThemesPage";
+            this.GUI_NavThemesPage.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavThemesPage.Text = "Theme";
+            this.GUI_NavThemesPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavThemesPage.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
+            // 
+            // GUI_FavColor
+            // 
+            this.GUI_FavColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GUI_FavColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Bottom;
+            this.GUI_FavColor.Location = new System.Drawing.Point(7, 175);
+            this.GUI_FavColor.Name = "GUI_FavColor";
+            this.GUI_FavColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_FavColor.SelectedColor = System.Drawing.Color.Empty;
+            this.GUI_FavColor.Size = new System.Drawing.Size(93, 60);
+            this.GUI_FavColor.Splitter = false;
+            this.GUI_FavColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_FavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.TabIndex = 158;
+            this.GUI_FavColor.Values.Text = "Favorite Color";
+            this.GUI_FavColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.BtnFavColor_SelectedColorChanged);
+            // 
+            // GUI_ThemeSparkle
+            // 
+            this.GUI_ThemeSparkle.Location = new System.Drawing.Point(7, 119);
+            this.GUI_ThemeSparkle.Name = "GUI_ThemeSparkle";
+            this.GUI_ThemeSparkle.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue;
+            this.GUI_ThemeSparkle.Size = new System.Drawing.Size(214, 50);
+            this.GUI_ThemeSparkle.TabIndex = 6;
+            this.GUI_ThemeSparkle.Values.Text = "Dark Sparkle";
+            this.GUI_ThemeSparkle.Click += new System.EventHandler(this.BtnThemeSparkle_Click);
+            // 
+            // GUI_ThemeDark
+            // 
+            this.GUI_ThemeDark.Location = new System.Drawing.Point(7, 63);
+            this.GUI_ThemeDark.Name = "GUI_ThemeDark";
+            this.GUI_ThemeDark.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
+            this.GUI_ThemeDark.Size = new System.Drawing.Size(214, 50);
+            this.GUI_ThemeDark.TabIndex = 5;
+            this.GUI_ThemeDark.Values.Text = "Dark Theme";
+            this.GUI_ThemeDark.Click += new System.EventHandler(this.BtnThemeDark_Click);
+            // 
+            // GUI_ThemeDefault
+            // 
+            this.GUI_ThemeDefault.Location = new System.Drawing.Point(7, 7);
+            this.GUI_ThemeDefault.Name = "GUI_ThemeDefault";
+            this.GUI_ThemeDefault.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
+            this.GUI_ThemeDefault.Size = new System.Drawing.Size(214, 50);
+            this.GUI_ThemeDefault.TabIndex = 4;
+            this.GUI_ThemeDefault.Values.Text = "Default Theme";
+            this.GUI_ThemeDefault.Click += new System.EventHandler(this.BtnThemeDefault_Click);
+            // 
+            // GUI_ThemesBorder
+            // 
+            this.GUI_ThemesBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_ThemesBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_ThemesBorder.Name = "GUI_ThemesBorder";
+            this.GUI_ThemesBorder.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.GUI_ThemesBorder.Size = new System.Drawing.Size(232, 358);
+            // 
+            // GUI_NavSettingsPage
+            // 
+            this.GUI_NavSettingsPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnRoleColorNo);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnRoleColorYes);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpHideConsole);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleHideConsole);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnHideConsoleNo);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextHideConsole);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnHideConsoleYes);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpAutoForm);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpCM);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpAutoNickname);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleAutoNickname);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleAutoForm);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleCM);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoNickname5);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoNickname10);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoNickname1);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextAutoNickname);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoFormNo);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextAutoForm);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoFormYes);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnCMDelete);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextCM);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnCMEdit);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_SettingsBorder);
+            this.GUI_NavSettingsPage.Flags = 65534;
+            this.GUI_NavSettingsPage.LastVisibleSet = true;
+            this.GUI_NavSettingsPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavSettingsPage.Name = "GUI_NavSettingsPage";
+            this.GUI_NavSettingsPage.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavSettingsPage.Text = "Settings";
+            this.GUI_NavSettingsPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavSettingsPage.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
+            // 
+            // GUI_BtnRoleColorNo
+            // 
+            this.GUI_BtnRoleColorNo.Location = new System.Drawing.Point(104, 245);
+            this.GUI_BtnRoleColorNo.Name = "GUI_BtnRoleColorNo";
+            this.GUI_BtnRoleColorNo.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnRoleColorNo.TabIndex = 160;
+            this.GUI_BtnRoleColorNo.Values.Text = "No";
+            this.GUI_BtnRoleColorNo.Click += new System.EventHandler(this.BtnRoleColorNo_Click);
+            // 
+            // GUI_TextRoleColor
+            // 
+            this.GUI_TextRoleColor.AutoSize = false;
+            this.GUI_TextRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "RoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextRoleColor.Location = new System.Drawing.Point(180, 245);
+            this.GUI_TextRoleColor.Name = "GUI_TextRoleColor";
+            this.GUI_TextRoleColor.Size = new System.Drawing.Size(49, 40);
+            this.GUI_TextRoleColor.TabIndex = 159;
+            this.GUI_TextRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.RoleColor;
+            this.GUI_TextRoleColor.Values.Text = "Yes";
+            // 
+            // GUI_BtnRoleColorYes
+            // 
+            this.GUI_BtnRoleColorYes.Location = new System.Drawing.Point(4, 245);
+            this.GUI_BtnRoleColorYes.Name = "GUI_BtnRoleColorYes";
+            this.GUI_BtnRoleColorYes.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnRoleColorYes.TabIndex = 158;
+            this.GUI_BtnRoleColorYes.Values.Text = "Yes";
+            this.GUI_BtnRoleColorYes.Click += new System.EventHandler(this.BtnRoleColorYes_Click);
+            // 
+            // GUI_HelpHideConsole
+            // 
+            this.GUI_HelpHideConsole.Cursor = System.Windows.Forms.Cursors.Help;
+            this.GUI_HelpHideConsole.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_HelpHideConsole.Location = new System.Drawing.Point(-1, 147);
+            this.GUI_HelpHideConsole.Name = "GUI_HelpHideConsole";
+            this.GUI_HelpHideConsole.ReadOnly = true;
+            this.GUI_HelpHideConsole.Size = new System.Drawing.Size(20, 20);
+            this.GUI_HelpHideConsole.TabIndex = 156;
+            this.GUI_HelpHideConsole.Text = "?";
+            this.GUI_HelpHideConsole.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpHideConsole, "WARNING! This will hide the console window on startup");
+            // 
+            // GUI_TitleHideConsole
+            // 
+            this.GUI_TitleHideConsole.AutoSize = false;
+            this.GUI_TitleHideConsole.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleHideConsole.Location = new System.Drawing.Point(25, 147);
+            this.GUI_TitleHideConsole.Name = "GUI_TitleHideConsole";
+            this.GUI_TitleHideConsole.Size = new System.Drawing.Size(208, 20);
+            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleHideConsole.TabIndex = 155;
+            this.GUI_TitleHideConsole.Values.Description = "";
+            this.GUI_TitleHideConsole.Values.Heading = "Hide Console On Startup";
+            this.GUI_TitleHideConsole.Values.Image = null;
+            // 
+            // GUI_BtnHideConsoleNo
+            // 
+            this.GUI_BtnHideConsoleNo.Location = new System.Drawing.Point(104, 173);
+            this.GUI_BtnHideConsoleNo.Name = "GUI_BtnHideConsoleNo";
+            this.GUI_BtnHideConsoleNo.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnHideConsoleNo.TabIndex = 154;
+            this.GUI_BtnHideConsoleNo.Values.Text = "No";
+            this.GUI_BtnHideConsoleNo.Click += new System.EventHandler(this.BtnHideConsoleNo_Click);
+            // 
+            // GUI_TextHideConsole
+            // 
+            this.GUI_TextHideConsole.AutoSize = false;
+            this.GUI_TextHideConsole.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "HideConsole", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextHideConsole.Location = new System.Drawing.Point(180, 173);
+            this.GUI_TextHideConsole.Name = "GUI_TextHideConsole";
+            this.GUI_TextHideConsole.Size = new System.Drawing.Size(49, 40);
+            this.GUI_TextHideConsole.TabIndex = 153;
+            this.GUI_TextHideConsole.Text = global::Discore_Selfbot.Properties.Settings.Default.HideConsole;
+            this.GUI_TextHideConsole.Values.Text = "No";
+            // 
+            // GUI_BtnHideConsoleYes
+            // 
+            this.GUI_BtnHideConsoleYes.Location = new System.Drawing.Point(4, 173);
+            this.GUI_BtnHideConsoleYes.Name = "GUI_BtnHideConsoleYes";
+            this.GUI_BtnHideConsoleYes.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnHideConsoleYes.TabIndex = 152;
+            this.GUI_BtnHideConsoleYes.Values.Text = "Yes";
+            this.GUI_BtnHideConsoleYes.Click += new System.EventHandler(this.BtnHideConsoleYes_Click);
+            // 
+            // GUI_HelpRoleColor
+            // 
+            this.GUI_HelpRoleColor.Cursor = System.Windows.Forms.Cursors.Help;
+            this.GUI_HelpRoleColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_HelpRoleColor.Location = new System.Drawing.Point(-2, 219);
+            this.GUI_HelpRoleColor.Name = "GUI_HelpRoleColor";
+            this.GUI_HelpRoleColor.ReadOnly = true;
+            this.GUI_HelpRoleColor.Size = new System.Drawing.Size(20, 20);
+            this.GUI_HelpRoleColor.TabIndex = 150;
+            this.GUI_HelpRoleColor.Text = "?";
+            this.GUI_HelpRoleColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpRoleColor, "This will color embeds in your role color and will override favorite color");
+            // 
+            // GUI_HelpAutoForm
+            // 
+            this.GUI_HelpAutoForm.Cursor = System.Windows.Forms.Cursors.Help;
+            this.GUI_HelpAutoForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_HelpAutoForm.Location = new System.Drawing.Point(-1, 75);
+            this.GUI_HelpAutoForm.Name = "GUI_HelpAutoForm";
+            this.GUI_HelpAutoForm.ReadOnly = true;
+            this.GUI_HelpAutoForm.Size = new System.Drawing.Size(20, 20);
+            this.GUI_HelpAutoForm.TabIndex = 149;
+            this.GUI_HelpAutoForm.Text = "?";
+            this.GUI_HelpAutoForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpAutoForm, "Open the GUI when you start the selfbot");
+            // 
+            // GUI_HelpCM
+            // 
+            this.GUI_HelpCM.Cursor = System.Windows.Forms.Cursors.Help;
+            this.GUI_HelpCM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_HelpCM.Location = new System.Drawing.Point(-1, 3);
+            this.GUI_HelpCM.Name = "GUI_HelpCM";
+            this.GUI_HelpCM.ReadOnly = true;
+            this.GUI_HelpCM.Size = new System.Drawing.Size(20, 20);
+            this.GUI_HelpCM.TabIndex = 148;
+            this.GUI_HelpCM.Text = "?";
+            this.GUI_HelpCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpCM, "Edit or delete the message of the selfbot command");
+            // 
+            // GUI_HelpAutoNickname
+            // 
+            this.GUI_HelpAutoNickname.Cursor = System.Windows.Forms.Cursors.Help;
+            this.GUI_HelpAutoNickname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_HelpAutoNickname.Location = new System.Drawing.Point(-1, 291);
+            this.GUI_HelpAutoNickname.Name = "GUI_HelpAutoNickname";
+            this.GUI_HelpAutoNickname.ReadOnly = true;
+            this.GUI_HelpAutoNickname.Size = new System.Drawing.Size(20, 20);
+            this.GUI_HelpAutoNickname.TabIndex = 147;
+            this.GUI_HelpAutoNickname.Text = "?";
+            this.GUI_HelpAutoNickname.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpAutoNickname, "Set how long the auto nickname feature should trigger");
+            // 
+            // GUI_TitleAutoNickname
+            // 
+            this.GUI_TitleAutoNickname.AllowButtonSpecToolTips = true;
+            this.GUI_TitleAutoNickname.AutoSize = false;
+            this.GUI_TitleAutoNickname.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleAutoNickname.Location = new System.Drawing.Point(25, 291);
+            this.GUI_TitleAutoNickname.Name = "GUI_TitleAutoNickname";
+            this.GUI_TitleAutoNickname.Size = new System.Drawing.Size(209, 20);
+            this.GUI_TitleAutoNickname.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleAutoNickname.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleAutoNickname.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleAutoNickname.TabIndex = 140;
+            this.GUI_TitleAutoNickname.Values.Description = "";
+            this.GUI_TitleAutoNickname.Values.Heading = "Auto Nickname Timer";
+            this.GUI_TitleAutoNickname.Values.Image = null;
+            // 
+            // GUI_TitleRoleColor
+            // 
+            this.GUI_TitleRoleColor.AutoSize = false;
+            this.GUI_TitleRoleColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleRoleColor.Location = new System.Drawing.Point(25, 219);
+            this.GUI_TitleRoleColor.Name = "GUI_TitleRoleColor";
+            this.GUI_TitleRoleColor.Size = new System.Drawing.Size(209, 20);
+            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleRoleColor.TabIndex = 141;
+            this.GUI_TitleRoleColor.Values.Description = "";
+            this.GUI_TitleRoleColor.Values.Heading = "Force Role Color";
+            this.GUI_TitleRoleColor.Values.Image = null;
+            // 
+            // GUI_TitleAutoForm
+            // 
+            this.GUI_TitleAutoForm.AutoSize = false;
+            this.GUI_TitleAutoForm.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleAutoForm.Location = new System.Drawing.Point(25, 75);
+            this.GUI_TitleAutoForm.Name = "GUI_TitleAutoForm";
+            this.GUI_TitleAutoForm.Size = new System.Drawing.Size(208, 20);
+            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleAutoForm.TabIndex = 139;
+            this.GUI_TitleAutoForm.Values.Description = "";
+            this.GUI_TitleAutoForm.Values.Heading = "Open Form On Startup";
+            this.GUI_TitleAutoForm.Values.Image = null;
+            // 
+            // GUI_TitleCM
+            // 
+            this.GUI_TitleCM.AutoSize = false;
+            this.GUI_TitleCM.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleCM.Location = new System.Drawing.Point(25, 3);
+            this.GUI_TitleCM.Name = "GUI_TitleCM";
+            this.GUI_TitleCM.Size = new System.Drawing.Size(209, 20);
+            this.GUI_TitleCM.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleCM.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleCM.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleCM.TabIndex = 142;
+            this.GUI_TitleCM.Values.Description = "";
+            this.GUI_TitleCM.Values.Heading = "Command Message";
+            this.GUI_TitleCM.Values.Image = null;
+            // 
+            // GUI_BtnAutoNickname5
+            // 
+            this.GUI_BtnAutoNickname5.Location = new System.Drawing.Point(79, 317);
+            this.GUI_BtnAutoNickname5.Name = "GUI_BtnAutoNickname5";
+            this.GUI_BtnAutoNickname5.Size = new System.Drawing.Size(50, 40);
+            this.GUI_BtnAutoNickname5.TabIndex = 137;
+            this.GUI_BtnAutoNickname5.Values.Text = "5 Min";
+            this.GUI_BtnAutoNickname5.Click += new System.EventHandler(this.BtnAN5_Click);
+            // 
+            // GUI_BtnAutoNickname10
+            // 
+            this.GUI_BtnAutoNickname10.Location = new System.Drawing.Point(153, 317);
+            this.GUI_BtnAutoNickname10.Name = "GUI_BtnAutoNickname10";
+            this.GUI_BtnAutoNickname10.Size = new System.Drawing.Size(50, 40);
+            this.GUI_BtnAutoNickname10.TabIndex = 136;
+            this.GUI_BtnAutoNickname10.Values.Text = "10 Min\r\n";
+            this.GUI_BtnAutoNickname10.Click += new System.EventHandler(this.BtnAN10_Click);
+            // 
+            // GUI_BtnAutoNickname1
+            // 
+            this.GUI_BtnAutoNickname1.Location = new System.Drawing.Point(4, 317);
+            this.GUI_BtnAutoNickname1.Name = "GUI_BtnAutoNickname1";
+            this.GUI_BtnAutoNickname1.Size = new System.Drawing.Size(50, 40);
+            this.GUI_BtnAutoNickname1.TabIndex = 135;
+            this.GUI_BtnAutoNickname1.Values.Text = "1 Min";
+            this.GUI_BtnAutoNickname1.Click += new System.EventHandler(this.BtnAN1_Click);
+            // 
+            // GUI_TextAutoNickname
+            // 
+            this.GUI_TextAutoNickname.AutoSize = false;
+            this.GUI_TextAutoNickname.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ANTimer", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextAutoNickname.Location = new System.Drawing.Point(211, 317);
+            this.GUI_TextAutoNickname.Name = "GUI_TextAutoNickname";
+            this.GUI_TextAutoNickname.Size = new System.Drawing.Size(20, 40);
+            this.GUI_TextAutoNickname.TabIndex = 134;
+            this.GUI_TextAutoNickname.Text = global::Discore_Selfbot.Properties.Settings.Default.ANTimer;
+            this.GUI_TextAutoNickname.Values.Text = "1";
+            // 
+            // GUI_BtnAutoFormNo
+            // 
+            this.GUI_BtnAutoFormNo.Location = new System.Drawing.Point(104, 101);
+            this.GUI_BtnAutoFormNo.Name = "GUI_BtnAutoFormNo";
+            this.GUI_BtnAutoFormNo.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnAutoFormNo.TabIndex = 132;
+            this.GUI_BtnAutoFormNo.Values.Text = "No";
+            this.GUI_BtnAutoFormNo.Click += new System.EventHandler(this.BtnAFNo_Click);
+            // 
+            // GUI_TextAutoForm
+            // 
+            this.GUI_TextAutoForm.AutoSize = false;
+            this.GUI_TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextAutoForm.Location = new System.Drawing.Point(180, 101);
+            this.GUI_TextAutoForm.Name = "GUI_TextAutoForm";
+            this.GUI_TextAutoForm.Size = new System.Drawing.Size(49, 40);
+            this.GUI_TextAutoForm.TabIndex = 131;
+            this.GUI_TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
+            this.GUI_TextAutoForm.Values.Text = "Yes";
+            // 
+            // GUI_BtnAutoFormYes
+            // 
+            this.GUI_BtnAutoFormYes.Location = new System.Drawing.Point(4, 101);
+            this.GUI_BtnAutoFormYes.Name = "GUI_BtnAutoFormYes";
+            this.GUI_BtnAutoFormYes.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnAutoFormYes.TabIndex = 130;
+            this.GUI_BtnAutoFormYes.Values.Text = "Yes";
+            this.GUI_BtnAutoFormYes.Click += new System.EventHandler(this.BtnAFYes_Click);
+            // 
+            // GUI_BtnCMDelete
+            // 
+            this.GUI_BtnCMDelete.Location = new System.Drawing.Point(104, 29);
+            this.GUI_BtnCMDelete.Name = "GUI_BtnCMDelete";
+            this.GUI_BtnCMDelete.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnCMDelete.TabIndex = 129;
+            this.GUI_BtnCMDelete.Values.Text = "Delete";
+            this.GUI_BtnCMDelete.Click += new System.EventHandler(this.BtnCMDelete_Click);
+            // 
+            // GUI_TextCM
+            // 
+            this.GUI_TextCM.AutoSize = false;
+            this.GUI_TextCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextCM.Location = new System.Drawing.Point(180, 29);
+            this.GUI_TextCM.Name = "GUI_TextCM";
+            this.GUI_TextCM.Size = new System.Drawing.Size(50, 40);
+            this.GUI_TextCM.TabIndex = 128;
+            this.GUI_TextCM.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
+            this.GUI_TextCM.Values.Text = "Edit";
+            // 
+            // GUI_BtnCMEdit
+            // 
+            this.GUI_BtnCMEdit.Location = new System.Drawing.Point(4, 29);
+            this.GUI_BtnCMEdit.Name = "GUI_BtnCMEdit";
+            this.GUI_BtnCMEdit.Size = new System.Drawing.Size(70, 40);
+            this.GUI_BtnCMEdit.TabIndex = 127;
+            this.GUI_BtnCMEdit.Values.Text = "Edit";
+            this.GUI_BtnCMEdit.Click += new System.EventHandler(this.BtnCMEdit_Click);
+            // 
+            // GUI_SettingsBorder
+            // 
+            this.GUI_SettingsBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_SettingsBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_SettingsBorder.Name = "GUI_SettingsBorder";
+            this.GUI_SettingsBorder.Size = new System.Drawing.Size(232, 358);
+            this.GUI_SettingsBorder.Text = "kryptonBorderEdge3";
+            // 
+            // GUI_NavBotsPage
+            // 
+            this.GUI_NavBotsPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavBotsPage.Controls.Add(this.GUI_BotsInfo);
+            this.GUI_NavBotsPage.Controls.Add(this.GUI_BotsInviteLink);
+            this.GUI_NavBotsPage.Controls.Add(this.GUI_BotsWebLink);
+            this.GUI_NavBotsPage.Controls.Add(this.GUI_BotsList);
+            this.GUI_NavBotsPage.Controls.Add(this.GUI_BotsBorder);
+            this.GUI_NavBotsPage.Flags = 65534;
+            this.GUI_NavBotsPage.LastVisibleSet = true;
+            this.GUI_NavBotsPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavBotsPage.Name = "GUI_NavBotsPage";
+            this.GUI_NavBotsPage.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavBotsPage.Text = "Bots";
+            this.GUI_NavBotsPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavBotsPage.UniqueName = "BB6C782F33E64B9FB49FF924F7F68668";
+            // 
+            // GUI_BotsInfo
+            // 
+            this.GUI_BotsInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_BotsInfo.Location = new System.Drawing.Point(0, 279);
+            this.GUI_BotsInfo.Multiline = true;
+            this.GUI_BotsInfo.Name = "GUI_BotsInfo";
+            this.GUI_BotsInfo.ReadOnly = true;
+            this.GUI_BotsInfo.Size = new System.Drawing.Size(232, 79);
+            this.GUI_BotsInfo.TabIndex = 12;
+            this.GUI_BotsInfo.Text = "Select a bot above";
+            // 
+            // GUI_BotsInviteLink
+            // 
+            this.GUI_BotsInviteLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GUI_BotsInviteLink.Location = new System.Drawing.Point(160, 252);
+            this.GUI_BotsInviteLink.Name = "GUI_BotsInviteLink";
+            this.GUI_BotsInviteLink.Size = new System.Drawing.Size(66, 20);
+            this.GUI_BotsInviteLink.TabIndex = 11;
+            this.GUI_BotsInviteLink.Values.Text = "Invite Link";
+            this.GUI_BotsInviteLink.Visible = false;
+            this.GUI_BotsInviteLink.LinkClicked += new System.EventHandler(this.HyperlinkBotInvite_LinkClicked);
+            // 
+            // GUI_BotsWebLink
+            // 
+            this.GUI_BotsWebLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.GUI_BotsWebLink.Location = new System.Drawing.Point(7, 252);
+            this.GUI_BotsWebLink.Name = "GUI_BotsWebLink";
+            this.GUI_BotsWebLink.Size = new System.Drawing.Size(55, 20);
+            this.GUI_BotsWebLink.TabIndex = 10;
+            this.GUI_BotsWebLink.Values.Text = "Website";
+            this.GUI_BotsWebLink.Visible = false;
+            this.GUI_BotsWebLink.LinkClicked += new System.EventHandler(this.HyperlinkBotWebsite_LinkClicked);
+            // 
+            // GUI_BotsList
+            // 
+            this.GUI_BotsList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GUI_BotsList.ItemHeight = 21;
+            this.GUI_BotsList.Location = new System.Drawing.Point(0, 0);
+            this.GUI_BotsList.Name = "GUI_BotsList";
+            treeNode40.Name = "PixelBot";
+            treeNode40.Text = "PixelBot";
+            treeNode41.Name = "Minotaur";
+            treeNode41.Text = "Minotaur";
+            treeNode42.Name = "My Bots";
+            treeNode42.Text = "My Bots";
+            treeNode43.Name = "Discord Cards";
+            treeNode43.Text = "Discord Cards";
+            treeNode44.Name = "Casino Bot";
+            treeNode44.Text = "Casino Bot";
+            treeNode45.Name = "Discord RPG";
+            treeNode45.Text = "Discord RPG";
+            treeNode46.Name = "Fun Bots";
+            treeNode46.Text = "Fun Bots";
+            treeNode47.Name = "Sekoboto";
+            treeNode47.Text = "Sekobot";
+            treeNode48.Name = "Other Bots";
+            treeNode48.Text = "Other Bots";
+            this.GUI_BotsList.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode42,
+            treeNode46,
+            treeNode48});
+            this.GUI_BotsList.Size = new System.Drawing.Size(232, 246);
+            this.GUI_BotsList.TabIndex = 9;
+            this.GUI_BotsList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ViewBotsList_AfterSelect);
+            // 
+            // GUI_BotsBorder
+            // 
+            this.GUI_BotsBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_BotsBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_BotsBorder.Name = "GUI_BotsBorder";
+            this.GUI_BotsBorder.Size = new System.Drawing.Size(232, 358);
+            this.GUI_BotsBorder.Text = "kryptonBorderEdge2";
+            // 
+            // GUI_NavCustomPage
+            // 
+            this.GUI_NavCustomPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.GUI_NavCustomPage.Controls.Add(this.GUI_BtnCCEdit);
+            this.GUI_NavCustomPage.Controls.Add(this.GUI_BtnCCDelete);
+            this.GUI_NavCustomPage.Controls.Add(this.GUI_BtnCCAdd);
+            this.GUI_NavCustomPage.Controls.Add(this.GUI_CCList);
+            this.GUI_NavCustomPage.Controls.Add(this.GUI_CCBorder);
+            this.GUI_NavCustomPage.Flags = 65534;
+            this.GUI_NavCustomPage.LastVisibleSet = true;
+            this.GUI_NavCustomPage.MinimumSize = new System.Drawing.Size(50, 50);
+            this.GUI_NavCustomPage.Name = "GUI_NavCustomPage";
+            this.GUI_NavCustomPage.Size = new System.Drawing.Size(232, 358);
+            this.GUI_NavCustomPage.Text = "Custom";
+            this.GUI_NavCustomPage.ToolTipTitle = "Page ToolTip";
+            this.GUI_NavCustomPage.UniqueName = "73E3D7DECE594F89C78B9DB7BB8B0A07";
+            // 
+            // GUI_BtnCCEdit
+            // 
+            this.GUI_BtnCCEdit.Location = new System.Drawing.Point(98, 3);
+            this.GUI_BtnCCEdit.Name = "GUI_BtnCCEdit";
+            this.GUI_BtnCCEdit.Size = new System.Drawing.Size(31, 20);
+            this.GUI_BtnCCEdit.TabIndex = 6;
+            this.GUI_BtnCCEdit.Values.Text = "Edit";
+            this.GUI_BtnCCEdit.Visible = false;
+            // 
+            // GUI_BtnCCDelete
+            // 
+            this.GUI_BtnCCDelete.Location = new System.Drawing.Point(183, 3);
+            this.GUI_BtnCCDelete.Name = "GUI_BtnCCDelete";
+            this.GUI_BtnCCDelete.Size = new System.Drawing.Size(46, 20);
+            this.GUI_BtnCCDelete.TabIndex = 5;
+            this.GUI_BtnCCDelete.Values.Text = "Delete";
+            this.GUI_BtnCCDelete.LinkClicked += new System.EventHandler(this.CustomDelete_LinkClicked);
+            // 
+            // GUI_BtnCCAdd
+            // 
+            this.GUI_BtnCCAdd.Location = new System.Drawing.Point(2, 3);
+            this.GUI_BtnCCAdd.Name = "GUI_BtnCCAdd";
+            this.GUI_BtnCCAdd.Size = new System.Drawing.Size(33, 20);
+            this.GUI_BtnCCAdd.TabIndex = 4;
+            this.GUI_BtnCCAdd.Values.Text = "Add";
+            this.GUI_BtnCCAdd.LinkClicked += new System.EventHandler(this.CustomAddCustomAdd_LinkClicked);
+            // 
+            // GUI_CCList
+            // 
+            this.GUI_CCList.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_CCList.Location = new System.Drawing.Point(0, 30);
+            this.GUI_CCList.Name = "GUI_CCList";
+            this.GUI_CCList.Size = new System.Drawing.Size(232, 328);
+            this.GUI_CCList.TabIndex = 0;
+            // 
+            // GUI_CCBorder
+            // 
+            this.GUI_CCBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_CCBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_CCBorder.Name = "GUI_CCBorder";
+            this.GUI_CCBorder.Size = new System.Drawing.Size(232, 358);
+            this.GUI_CCBorder.Text = "kryptonBorderEdge3";
+            // 
+            // GUI_OnTop
+            // 
+            this.GUI_OnTop.Checked = ComponentFactory.Krypton.Toolkit.ButtonCheckState.Unchecked;
+            this.GUI_OnTop.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.PinVertical;
+            this.GUI_OnTop.UniqueName = "555AF5C49B6D42E7BB90D774F9B167FD";
+            // 
+            // GUI_Mentions
+            // 
+            this.GUI_Mentions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_Mentions.Items.AddRange(new object[] {
             "--- Recent Mentions ---"});
-            this.ChannelLogs.Location = new System.Drawing.Point(0, 0);
-            this.ChannelLogs.Name = "ChannelLogs";
-            this.ChannelLogs.Size = new System.Drawing.Size(220, 139);
-            this.ChannelLogs.TabIndex = 32;
+            this.GUI_Mentions.Location = new System.Drawing.Point(0, 0);
+            this.GUI_Mentions.Name = "GUI_Mentions";
+            this.GUI_Mentions.Size = new System.Drawing.Size(220, 139);
+            this.GUI_Mentions.TabIndex = 32;
             // 
-            // BtnLinks
+            // GUI_Links
             // 
-            this.BtnLinks.KryptonContextMenu = this.MenuLinks;
-            this.BtnLinks.Text = "Links";
-            this.BtnLinks.UniqueName = "A0589F644F97446D0D92E25027385088";
+            this.GUI_Links.KryptonContextMenu = this.GUI_MenuLinks;
+            this.GUI_Links.Text = "Links";
+            this.GUI_Links.UniqueName = "A0589F644F97446D0D92E25027385088";
             // 
-            // MenuLinks
+            // GUI_MenuLinks
             // 
-            this.MenuLinks.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
-            this.kryptonContextMenuItems3});
+            this.GUI_MenuLinks.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
+            this.GUI_LinkMenu});
             // 
-            // kryptonContextMenuItems3
+            // GUI_LinkMenu
             // 
-            this.kryptonContextMenuItems3.ImageColumn = false;
-            this.kryptonContextMenuItems3.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
-            this.kryptonContextMenuItem1,
-            this.kryptonContextMenuItem2,
-            this.kryptonContextMenuItem3,
-            this.kryptonContextMenuItem4});
+            this.GUI_LinkMenu.ImageColumn = false;
+            this.GUI_LinkMenu.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItemBase[] {
+            this.GUI_LinkWebsite,
+            this.GUI_LinkGithub,
+            this.GUI_LinkMyGuild});
             // 
-            // kryptonContextMenuItem1
+            // GUI_LinkWebsite
             // 
-            this.kryptonContextMenuItem1.Text = "Website";
+            this.GUI_LinkWebsite.Text = "Website";
             // 
-            // kryptonContextMenuItem2
+            // GUI_LinkGithub
             // 
-            this.kryptonContextMenuItem2.Text = "Github";
+            this.GUI_LinkGithub.Text = "Github";
             // 
-            // kryptonContextMenuItem3
+            // GUI_LinkMyGuild
             // 
-            this.kryptonContextMenuItem3.Text = "My Guild";
+            this.GUI_LinkMyGuild.Text = "My Guild";
             // 
-            // kryptonContextMenuItem4
+            // GUI_ComboPanelGuild
             // 
-            this.kryptonContextMenuItem4.Text = "License";
+            this.GUI_ComboPanelGuild.Cursor = System.Windows.Forms.Cursors.Default;
+            this.GUI_ComboPanelGuild.Location = new System.Drawing.Point(12, 73);
+            this.GUI_ComboPanelGuild.Name = "GUI_ComboPanelGuild";
+            this.GUI_ComboPanelGuild.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // kryptonBreadCrumbItem2
+            // GUI_ComboPanelGuild.Panel1
             // 
-            this.kryptonBreadCrumbItem2.LongText = "Minecraft";
-            this.kryptonBreadCrumbItem2.ShortText = "Mc";
+            this.GUI_ComboPanelGuild.Panel1.Controls.Add(this.GUI_Mentions);
             // 
-            // kryptonBreadCrumbItem3
+            // GUI_ComboPanelGuild.Panel2
             // 
-            this.kryptonBreadCrumbItem3.Items.AddRange(new ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem[] {
-            this.kryptonBreadCrumbItem4});
-            this.kryptonBreadCrumbItem3.LongText = "t";
-            this.kryptonBreadCrumbItem3.ShortText = "ListItem";
+            this.GUI_ComboPanelGuild.Panel2.Controls.Add(this.GUI_NavGuild);
+            this.GUI_ComboPanelGuild.Size = new System.Drawing.Size(220, 312);
+            this.GUI_ComboPanelGuild.SplitterDistance = 139;
+            this.GUI_ComboPanelGuild.TabIndex = 35;
             // 
-            // kryptonBreadCrumbItem4
+            // GUI_ActiveStatus
             // 
-            this.kryptonBreadCrumbItem4.LongText = "t";
-            this.kryptonBreadCrumbItem4.ShortText = "ListItem";
+            this.GUI_ActiveStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.GUI_ActiveStatus.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GUI_ActiveStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.GUI_ActiveStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GUI_ActiveTitle,
+            this.GUI_ActiveGuildTitle,
+            this.GUI_ActiveGuildName,
+            this.GUI_ActiveStrip,
+            this.GUI_ActiveChannelTitle,
+            this.GUI_ActiveChannelName});
+            this.GUI_ActiveStatus.Location = new System.Drawing.Point(0, 436);
+            this.GUI_ActiveStatus.Name = "GUI_ActiveStatus";
+            this.GUI_ActiveStatus.Size = new System.Drawing.Size(484, 25);
+            this.GUI_ActiveStatus.TabIndex = 51;
             // 
-            // kryptonSplitContainer1
+            // GUI_ActiveTitle
             // 
-            this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer1.Location = new System.Drawing.Point(12, 73);
-            this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
-            this.kryptonSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.GUI_ActiveTitle.Name = "GUI_ActiveTitle";
+            this.GUI_ActiveTitle.Size = new System.Drawing.Size(51, 22);
+            this.GUI_ActiveTitle.Text = "Active >";
             // 
-            // kryptonSplitContainer1.Panel1
+            // GUI_ActiveGuildTitle
             // 
-            this.kryptonSplitContainer1.Panel1.Controls.Add(this.ChannelLogs);
+            this.GUI_ActiveGuildTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.GUI_ActiveGuildTitle.Name = "GUI_ActiveGuildTitle";
+            this.GUI_ActiveGuildTitle.Size = new System.Drawing.Size(39, 22);
+            this.GUI_ActiveGuildTitle.Text = "Guild:";
             // 
-            // kryptonSplitContainer1.Panel2
+            // GUI_ActiveGuildName
             // 
-            this.kryptonSplitContainer1.Panel2.Controls.Add(this.NavGuild);
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(220, 312);
-            this.kryptonSplitContainer1.SplitterDistance = 139;
-            this.kryptonSplitContainer1.TabIndex = 35;
+            this.GUI_ActiveGuildName.Name = "GUI_ActiveGuildName";
+            this.GUI_ActiveGuildName.Size = new System.Drawing.Size(52, 22);
+            this.GUI_ActiveGuildName.Text = "MyGuild";
             // 
-            // ActiveStatus
+            // GUI_ActiveStrip
             // 
-            this.ActiveStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ActiveStatus.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ActiveStatus.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.ActiveStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ActiveTitle,
-            this.ActiveTitleG,
-            this.ActiveGuild,
-            this.ActiveSep,
-            this.ActiveTitleC,
-            this.ActiveChannel});
-            this.ActiveStatus.Location = new System.Drawing.Point(0, 436);
-            this.ActiveStatus.Name = "ActiveStatus";
-            this.ActiveStatus.Size = new System.Drawing.Size(484, 25);
-            this.ActiveStatus.TabIndex = 51;
+            this.GUI_ActiveStrip.Name = "GUI_ActiveStrip";
+            this.GUI_ActiveStrip.Size = new System.Drawing.Size(6, 25);
             // 
-            // ActiveTitle
+            // GUI_ActiveChannelTitle
             // 
-            this.ActiveTitle.Name = "ActiveTitle";
-            this.ActiveTitle.Size = new System.Drawing.Size(51, 22);
-            this.ActiveTitle.Text = "Active >";
+            this.GUI_ActiveChannelTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.GUI_ActiveChannelTitle.Name = "GUI_ActiveChannelTitle";
+            this.GUI_ActiveChannelTitle.Size = new System.Drawing.Size(54, 22);
+            this.GUI_ActiveChannelTitle.Text = "Channel:";
             // 
-            // ActiveTitleG
+            // GUI_ActiveChannelName
             // 
-            this.ActiveTitleG.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.ActiveTitleG.Name = "ActiveTitleG";
-            this.ActiveTitleG.Size = new System.Drawing.Size(39, 22);
-            this.ActiveTitleG.Text = "Guild:";
+            this.GUI_ActiveChannelName.Name = "GUI_ActiveChannelName";
+            this.GUI_ActiveChannelName.Size = new System.Drawing.Size(52, 22);
+            this.GUI_ActiveChannelName.Text = "MyChan";
             // 
-            // ActiveGuild
+            // GUI_Guilds
             // 
-            this.ActiveGuild.Name = "ActiveGuild";
-            this.ActiveGuild.Size = new System.Drawing.Size(52, 22);
-            this.ActiveGuild.Text = "MyGuild";
+            this.GUI_Guilds.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.GUI_Guilds.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.GUI_Guilds.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.GUI_Guilds.Location = new System.Drawing.Point(0, 10);
+            this.GUI_Guilds.Name = "GUI_Guilds";
+            this.GUI_Guilds.Padding = new System.Windows.Forms.Padding(0);
+            this.GUI_Guilds.Size = new System.Drawing.Size(484, 25);
+            this.GUI_Guilds.Stretch = true;
+            this.GUI_Guilds.TabIndex = 18;
+            this.GUI_Guilds.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
             // 
-            // ActiveSep
+            // GUI_Loading
             // 
-            this.ActiveSep.Name = "ActiveSep";
-            this.ActiveSep.Size = new System.Drawing.Size(6, 25);
+            this.GUI_Loading.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_Loading.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GUI_Loading.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.GUI_Loading.Location = new System.Drawing.Point(0, 0);
+            this.GUI_Loading.Name = "GUI_Loading";
+            this.GUI_Loading.Size = new System.Drawing.Size(484, 10);
+            this.GUI_Loading.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.GUI_Loading.TabIndex = 52;
             // 
-            // ActiveTitleC
+            // GUI_MainBorder
             // 
-            this.ActiveTitleC.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.ActiveTitleC.Name = "ActiveTitleC";
-            this.ActiveTitleC.Size = new System.Drawing.Size(54, 22);
-            this.ActiveTitleC.Text = "Channel:";
+            this.GUI_MainBorder.BorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.ButtonCustom1;
+            this.GUI_MainBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GUI_MainBorder.Location = new System.Drawing.Point(0, 0);
+            this.GUI_MainBorder.Name = "GUI_MainBorder";
+            this.GUI_MainBorder.Size = new System.Drawing.Size(484, 461);
+            this.GUI_MainBorder.Text = "kryptonBorderEdge1";
             // 
-            // ActiveChannel
+            // GUI_ThemeManager
             // 
-            this.ActiveChannel.Name = "ActiveChannel";
-            this.ActiveChannel.Size = new System.Drawing.Size(52, 22);
-            this.ActiveChannel.Text = "MyChan";
-            // 
-            // GuildList
-            // 
-            this.GuildList.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.GuildList.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.GuildList.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.GuildList.Location = new System.Drawing.Point(0, 10);
-            this.GuildList.Name = "GuildList";
-            this.GuildList.Padding = new System.Windows.Forms.Padding(0);
-            this.GuildList.Size = new System.Drawing.Size(484, 25);
-            this.GuildList.Stretch = true;
-            this.GuildList.TabIndex = 18;
-            this.GuildList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.progressBar1.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.progressBar1.Location = new System.Drawing.Point(0, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(484, 10);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 52;
+            this.GUI_ThemeManager.GlobalPaletteMode = ComponentFactory.Krypton.Toolkit.PaletteModeManager.SparkleBlue;
             // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ButtonSpecs.AddRange(new ComponentFactory.Krypton.Toolkit.ButtonSpecAny[] {
-            this.BtnLinks,
-            this.BtnOnTop,
-            this.BtnTopMin});
+            this.GUI_Links,
+            this.GUI_OnTop,
+            this.GUI_Minimize});
             this.ClientSize = new System.Drawing.Size(484, 461);
-            this.Controls.Add(this.GuildList);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.ActiveStatus);
-            this.Controls.Add(this.BtnSendActive);
-            this.Controls.Add(this.kryptonSplitContainer1);
-            this.Controls.Add(this.BtnSendSelected);
-            this.Controls.Add(this.NavInfo);
-            this.Controls.Add(this.ChannelList);
-            this.Controls.Add(this.BorderMain);
+            this.Controls.Add(this.GUI_Guilds);
+            this.Controls.Add(this.GUI_Loading);
+            this.Controls.Add(this.GUI_ActiveStatus);
+            this.Controls.Add(this.GUI_EmbedSendActive);
+            this.Controls.Add(this.GUI_ComboPanelGuild);
+            this.Controls.Add(this.GUI_EmbedSendSelected);
+            this.Controls.Add(this.GUI_NavMain);
+            this.Controls.Add(this.GUI_Channels);
+            this.Controls.Add(this.GUI_MainBorder);
             this.CustomCaptionArea = new System.Drawing.Rectangle(63, 0, 396, 25);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -1631,178 +1594,170 @@
             this.Text = "GUI";
             this.TextExtra = "";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.NavGuild)).EndInit();
-            this.NavGuild.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavEmbedPage)).EndInit();
-            this.NavEmbedPage.ResumeLayout(false);
-            this.NavEmbedPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
-            this.kryptonGroup1.Panel.ResumeLayout(false);
-            this.kryptonGroup1.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
-            this.kryptonGroup1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavGuildInfoPage)).EndInit();
-            this.NavGuildInfoPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavRolesPage)).EndInit();
-            this.NavRolesPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavPageEmoji)).EndInit();
-            this.NavPageEmoji.ResumeLayout(false);
-            this.NavPageEmoji.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfo)).EndInit();
-            this.NavInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavMain)).EndInit();
-            this.NavMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavMoreInfo)).EndInit();
-            this.NavMoreInfo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoPage)).EndInit();
-            this.NavInfoPage.ResumeLayout(false);
-            this.NavInfoPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavCommandsPage)).EndInit();
-            this.NavCommandsPage.ResumeLayout(false);
-            this.NavCommandsPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoThemes)).EndInit();
-            this.NavInfoThemes.ResumeLayout(false);
-            this.NavInfoThemes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoSettings)).EndInit();
-            this.NavInfoSettings.ResumeLayout(false);
-            this.NavInfoSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavInfoBots)).EndInit();
-            this.NavInfoBots.ResumeLayout(false);
-            this.NavInfoBots.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NavCustomPage)).EndInit();
-            this.NavCustomPage.ResumeLayout(false);
-            this.NavCustomPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
-            this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
-            this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
-            this.kryptonSplitContainer1.ResumeLayout(false);
-            this.ActiveStatus.ResumeLayout(false);
-            this.ActiveStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuild)).EndInit();
+            this.GUI_NavGuild.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavEmbedPage)).EndInit();
+            this.GUI_NavEmbedPage.ResumeLayout(false);
+            this.GUI_NavEmbedPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_EmbedInline.Panel)).EndInit();
+            this.GUI_EmbedInline.Panel.ResumeLayout(false);
+            this.GUI_EmbedInline.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_EmbedInline)).EndInit();
+            this.GUI_EmbedInline.ResumeLayout(false);
+            this.GUI_EmbedBar.ResumeLayout(false);
+            this.GUI_EmbedBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildInfo)).EndInit();
+            this.GUI_NavGuildInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildRoles)).EndInit();
+            this.GUI_NavGuildRoles.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavGuildEmojis)).EndInit();
+            this.GUI_NavGuildEmojis.ResumeLayout(false);
+            this.GUI_NavGuildEmojis.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavMain)).EndInit();
+            this.GUI_NavMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavMainPage)).EndInit();
+            this.GUI_NavMainPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavInfo)).EndInit();
+            this.GUI_NavInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavInfoPage)).EndInit();
+            this.GUI_NavInfoPage.ResumeLayout(false);
+            this.GUI_NavInfoPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavCommandsPage)).EndInit();
+            this.GUI_NavCommandsPage.ResumeLayout(false);
+            this.GUI_NavCommandsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavThemesPage)).EndInit();
+            this.GUI_NavThemesPage.ResumeLayout(false);
+            this.GUI_NavThemesPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavSettingsPage)).EndInit();
+            this.GUI_NavSettingsPage.ResumeLayout(false);
+            this.GUI_NavSettingsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavBotsPage)).EndInit();
+            this.GUI_NavBotsPage.ResumeLayout(false);
+            this.GUI_NavBotsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_NavCustomPage)).EndInit();
+            this.GUI_NavCustomPage.ResumeLayout(false);
+            this.GUI_NavCustomPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild.Panel1)).EndInit();
+            this.GUI_ComboPanelGuild.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild.Panel2)).EndInit();
+            this.GUI_ComboPanelGuild.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GUI_ComboPanelGuild)).EndInit();
+            this.GUI_ComboPanelGuild.ResumeLayout(false);
+            this.GUI_ActiveStatus.ResumeLayout(false);
+            this.GUI_ActiveStatus.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny BtnTopMin;
-        private ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem kryptonBreadCrumbItem1;
-        public System.Windows.Forms.ToolStrip GuildList;
-        public System.Windows.Forms.ComboBox ChannelList;
-        private ComponentFactory.Krypton.Navigator.KryptonNavigator NavGuild;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavEmbedPage;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavGuildInfoPage;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavRolesPage;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavPageEmoji;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge BorderMain;
-        private ComponentFactory.Krypton.Navigator.KryptonNavigator NavInfo;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavMain;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavInfoThemes;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavInfoSettings;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavInfoBots;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavCustomPage;
-        public ComponentFactory.Krypton.Toolkit.KryptonButton BtnSendActive;
-        public ComponentFactory.Krypton.Toolkit.KryptonButton BtnSendSelected;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedFooter;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedText;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox EmbedTitle;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge BorderEmbed;
-        private System.Windows.Forms.RichTextBox TextGuildInfo;
-        private System.Windows.Forms.RichTextBox TextGuildRoles;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox TextGuildEmojis;
-        private ComponentFactory.Krypton.Navigator.KryptonNavigator NavMoreInfo;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavInfoPage;
-        private ComponentFactory.Krypton.Navigator.KryptonPage NavCommandsPage;
-        public ComponentFactory.Krypton.Toolkit.KryptonButton BtnOpenSelfbotFolder;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel LinkDownload;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge InfoBorder;
-        private ComponentFactory.Krypton.Toolkit.KryptonTreeView ViewCommandsList;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnThemeSparkle;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnThemeDark;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnThemeDefault;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge BorderTheme;
-        private System.Windows.Forms.TextBox HelpFavoriteColor;
-        private System.Windows.Forms.TextBox HelpAutoForm;
-        private System.Windows.Forms.TextBox HelpCommandMessage;
-        private System.Windows.Forms.TextBox HelpAutoNickname;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleAutoNickname;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleFavoriteColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleAutoForm;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleCommandMessage;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN5;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN10;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAN1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextAutoNickname;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAFNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextAutoForm;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnAFYes;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnCMDelete;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextCommandMessage;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnCMEdit;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge BorderSettings;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox TextBotInfo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel HyperlinkBotInvite;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel HyperlinkBotWebsite;
-        private ComponentFactory.Krypton.Toolkit.KryptonTreeView ViewBotsList;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge BorderBots;
-        private System.Windows.Forms.ColorDialog OpenFavoriteColor;
-        private new System.Windows.Forms.ToolTip ToolTipManager;
-        private ComponentFactory.Krypton.Toolkit.KryptonManager ThemeManager;
-        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel CustomEdit;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel CustomDelete;
-        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel CustomAddCustomAdd;
-        public ComponentFactory.Krypton.Toolkit.KryptonListBox CustomCommandsList;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems1;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems2;
-        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny BtnOnTop;
-        public ComponentFactory.Krypton.Toolkit.KryptonListBox ChannelLogs;
-        private ComponentFactory.Krypton.Toolkit.KryptonColorButton BtnEmbedColor;
-        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny BtnLinks;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenu MenuLinks;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems3;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem1;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem2;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem3;
-        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem4;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox Changelog;
-        private System.Windows.Forms.TextBox HelpHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnHideConsoleYes;
-        private ComponentFactory.Krypton.Toolkit.KryptonColorButton BtnFavColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnRoleColorNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel TextForceRoleColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton BtnRoleColorYes;
-        private ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem kryptonBreadCrumbItem2;
-        private ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem kryptonBreadCrumbItem3;
-        private ComponentFactory.Krypton.Toolkit.KryptonBreadCrumbItem kryptonBreadCrumbItem4;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny GUI_Minimize;
+        public System.Windows.Forms.ToolStrip GUI_Guilds;
+        public System.Windows.Forms.ComboBox GUI_Channels;
+        private ComponentFactory.Krypton.Navigator.KryptonNavigator GUI_NavGuild;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavEmbedPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavGuildInfo;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavGuildRoles;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavGuildEmojis;
+        private ComponentFactory.Krypton.Navigator.KryptonNavigator GUI_NavMain;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavMainPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavThemesPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavSettingsPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavBotsPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavCustomPage;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton GUI_EmbedSendActive;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton GUI_EmbedSendSelected;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_EmbedFooter;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_EmbedText;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_EmbedTitle;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_EmbedBorder;
+        private System.Windows.Forms.RichTextBox GUI_GuildInfo;
+        private System.Windows.Forms.RichTextBox GUI_GuildRoles;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_GuildEmojis;
+        private ComponentFactory.Krypton.Navigator.KryptonNavigator GUI_NavInfo;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavInfoPage;
+        private ComponentFactory.Krypton.Navigator.KryptonPage GUI_NavCommandsPage;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnOpenSelfbotFolder;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_LinkDownload;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_InfoBorder;
+        private ComponentFactory.Krypton.Toolkit.KryptonTreeView GUI_CommandsList;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeSparkle;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeDark;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeDefault;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_ThemesBorder;
+        private System.Windows.Forms.TextBox GUI_HelpRoleColor;
+        private System.Windows.Forms.TextBox GUI_HelpAutoForm;
+        private System.Windows.Forms.TextBox GUI_HelpCM;
+        private System.Windows.Forms.TextBox GUI_HelpAutoNickname;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleAutoNickname;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleRoleColor;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleAutoForm;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleCM;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoNickname5;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoNickname10;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoNickname1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextAutoNickname;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoFormNo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextAutoForm;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoFormYes;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnCMDelete;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextCM;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnCMEdit;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_SettingsBorder;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_BotsInfo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BotsInviteLink;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BotsWebLink;
+        private ComponentFactory.Krypton.Toolkit.KryptonTreeView GUI_BotsList;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_BotsBorder;
+        private new System.Windows.Forms.ToolTip GUI_ToolTipManager;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_CCBorder;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BtnCCEdit;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BtnCCDelete;
+        private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BtnCCAdd;
+        public ComponentFactory.Krypton.Toolkit.KryptonListBox GUI_CCList;
+        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny GUI_OnTop;
+        public ComponentFactory.Krypton.Toolkit.KryptonListBox GUI_Mentions;
+        private ComponentFactory.Krypton.Toolkit.KryptonColorButton GUI_EmbedColorMenu;
+        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny GUI_Links;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenu GUI_MenuLinks;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems GUI_LinkMenu;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem GUI_LinkWebsite;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem GUI_LinkGithub;
+        private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem GUI_LinkMyGuild;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_Changelog;
+        private System.Windows.Forms.TextBox GUI_HelpHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnHideConsoleNo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextHideConsole;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnHideConsoleYes;
+        private ComponentFactory.Krypton.Toolkit.KryptonColorButton GUI_FavColor;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnRoleColorNo;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextRoleColor;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnRoleColorYes;
+        private System.Windows.Forms.ToolStrip GUI_EmbedBar;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
-        private System.Windows.Forms.ToolStripButton EmbedPaint;
-        private System.Windows.Forms.ToolStripButton EmbedClear;
-        private System.Windows.Forms.ToolStripButton EmbedPopup;
-        private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
-        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
-        private System.Windows.Forms.TextBox EmbedColorStrip;
-        private System.Windows.Forms.ToolStrip ActiveStatus;
-        private System.Windows.Forms.ToolStripLabel ActiveTitle;
-        private System.Windows.Forms.ToolStripLabel ActiveTitleG;
-        private System.Windows.Forms.ToolStripSeparator ActiveSep;
-        private System.Windows.Forms.ToolStripLabel ActiveTitleC;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox TextCommandInfo;
-        public System.Windows.Forms.ProgressBar progressBar1;
-        public System.Windows.Forms.ToolStripLabel ActiveGuild;
-        public System.Windows.Forms.ToolStripLabel ActiveChannel;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton GUI_EmbedOpenColor;
+        private System.Windows.Forms.ToolStripButton GUI_EmbedClear;
+        private System.Windows.Forms.ToolStripButton GUI_EmbedPopup;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroup GUI_EmbedInline;
+        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer GUI_ComboPanelGuild;
+        private System.Windows.Forms.TextBox GUI_EmbedColorStrip;
+        private System.Windows.Forms.ToolStrip GUI_ActiveStatus;
+        private System.Windows.Forms.ToolStripLabel GUI_ActiveTitle;
+        private System.Windows.Forms.ToolStripLabel GUI_ActiveGuildTitle;
+        private System.Windows.Forms.ToolStripSeparator GUI_ActiveStrip;
+        private System.Windows.Forms.ToolStripLabel GUI_ActiveChannelTitle;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_InfoUpdate;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_InfoLib;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_InfoMade;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_InfoCreated;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_CommandsInfo;
+        public System.Windows.Forms.ProgressBar GUI_Loading;
+        public System.Windows.Forms.ToolStripLabel GUI_ActiveGuildName;
+        public System.Windows.Forms.ToolStripLabel GUI_ActiveChannelName;
+        private System.Windows.Forms.ToolStripSeparator GUI_EmbedStrip1;
+        private System.Windows.Forms.ToolStripSeparator GUI_EmbedStrip2;
+        private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_MainBorder;
+        private ComponentFactory.Krypton.Toolkit.KryptonManager GUI_ThemeManager;
     }
 }

@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
 using Discord;
-using Discord.WebSocket;
-using System.Windows.Forms;
 using Discord.Commands;
-using System.Reflection;
 using System.IO;
-using System.Net;
-using System.Drawing;
-using Discord.Net.Providers.WS4Net;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using System.Timers;
 
 namespace Discore_Selfbot
 {

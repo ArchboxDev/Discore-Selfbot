@@ -47,7 +47,7 @@ namespace Discore_Selfbot
         public static ulong ActiveChannelID = 0;
         public static Icon Avatar;
         public static Discord.Color FavoriteColor;
-        public static GUI MyForm;
+        public static GUI MyGUI;
         public static NotifyIcon MyIcon;
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
         public static string CurrentUserName;
@@ -60,7 +60,6 @@ namespace Discore_Selfbot
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         public const int SW_HIDE = 0;
         public const int SW_SHOW = 5;
-
         [STAThread]
         static void Main()
         {
@@ -126,16 +125,17 @@ namespace Discore_Selfbot
         public static void OpenGUI()
         {
             GUI.CheckForIllegalCrossThreadCalls = false;
-            MyForm = new GUI();
+            MyGUI = new GUI();
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
             {
-                return;
+            return;
             }
             Console.WriteLine("Opening GUI");
             Task mytask = Task.Run(() =>
             {
-                MyForm.ShowDialog();
+            MyGUI.ShowDialog();
             });
+            
         }
 
         [STAThread]
@@ -180,12 +180,12 @@ namespace Discore_Selfbot
             {
                 if (GuildIDs.Contains(g.Id))
                 {
-                    if (MyForm.progressBar1.Value != 0)
+                    if (MyGUI.GUI_Loading.Value != 0)
                     {
-                        MyForm.progressBar1.Value--;
+                        MyGUI.GUI_Loading.Value--;
                     }
                     int Index = GuildIDs.IndexOf(g.Id);
-                    MyForm.GuildList.Items.RemoveAt(Index);
+                    MyGUI.GUI_Guilds.Items.RemoveAt(Index);
                     GuildIDs.Remove(g.Id);
                 }
                 return Task.CompletedTask;
@@ -206,21 +206,21 @@ namespace Discore_Selfbot
                         Avatar = i;
                         if (Properties.Settings.Default.AutoForm == "Yes")
                         {
-                            MyForm.Text = client.CurrentUser.Username;
-                            MyForm.Icon = i;
+                            MyGUI.Text = client.CurrentUser.Username;
+                            MyGUI.Icon = i;
                         }
                     }
-                    MyForm.progressBar1.Maximum = client.Guilds.Count;
+                    MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
                 }
                 StartupForm = true;
                 if (!GuildIDs.Contains(g.Id))
                 {
                     GuildIDs.Add(g.Id);
-                    if (MyForm.progressBar1.Value != client.Guilds.Count)
+                    if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
                     {
-                        MyForm.progressBar1.Value++;
+                        MyGUI.GUI_Loading.Value++;
                     }
-                    ToolStrip GuildList = MyForm.GuildList;
+                    ToolStrip GuildList = MyGUI.GUI_Guilds;
                     if (g.IconUrl == null)
                     {
                         var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
@@ -319,16 +319,16 @@ namespace Discore_Selfbot
             {
                 if (m.Author.Id == client.CurrentUser.Id)
                 {
-                    MyForm.BtnSendActive.Enabled = true;
+                    MyGUI.GUI_EmbedSendActive.Enabled = true;
                     if (m.Channel is IPrivateChannel)
                     {
                         ActiveGuildID = 0;
                         ActiveChannelID = m.Channel.Id;
                         ActiveGuild = "DM";
                         ActiveChannel = m.Channel.Name;
-                        MyForm.ChannelList.Visible = false;
-                        MyForm.UpdateActive("DM", m.Channel.Name);
-                        MyForm.BtnSendActive.Text = "Active DM";
+                        MyGUI.GUI_Channels.Visible = false;
+                        MyGUI.UpdateActive("DM", m.Channel.Name);
+                        MyGUI.GUI_EmbedSendActive.Text = "Active DM";
                     }
                     else
                     {
@@ -346,7 +346,7 @@ namespace Discore_Selfbot
                                 {
                                     ReplaceMessage = ReplaceMessage.Replace($"<@{client.CurrentUser.Id}>", "");
                                 }
-                                MyForm.ChannelLogs.Items.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
+                                MyGUI.GUI_Mentions.Items.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
                                 MentionLog.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
                             }
                         }
@@ -358,8 +358,8 @@ namespace Discore_Selfbot
                         ActiveChannelID = m.Channel.Id;
                         ActiveGuild = GU.Guild.Name;
                         ActiveChannel = m.Channel.Name;
-                        MyForm.UpdateActive(GU.Guild.Name, m.Channel.Name);
-                        MyForm.BtnSendActive.Text = "Active";
+                        MyGUI.UpdateActive(GU.Guild.Name, m.Channel.Name);
+                        MyGUI.GUI_EmbedSendActive.Text = "Active";
                         
                     }
                 }
@@ -369,10 +369,10 @@ namespace Discore_Selfbot
 
             client.JoinedGuild += (g) =>
             {
-                MyForm.progressBar1.Maximum = client.Guilds.Count;
-                if (MyForm.progressBar1.Value != client.Guilds.Count)
+                MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
+                if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
                 {
-                    MyForm.progressBar1.Value++;
+                    MyGUI.GUI_Loading.Value++;
                 }
                 Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 GuildIDs.Add(g.Id);
@@ -382,7 +382,7 @@ namespace Discore_Selfbot
                     using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyForm.GuildList;
+                        ToolStrip TS = MyGUI.GUI_Guilds;
                         var Item = TS.Items.Add(g.Name, Image);
                         Item.AccessibleDescription = g.Id.ToString();
                         Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -393,7 +393,7 @@ namespace Discore_Selfbot
                     using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyForm.GuildList;
+                        ToolStrip TS = MyGUI.GUI_Guilds;
                         var Item = TS.Items.Add(g.Name, Image);
                         Item.AccessibleDescription = g.Id.ToString();
                         Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -404,16 +404,16 @@ namespace Discore_Selfbot
 
             client.LeftGuild += (g) =>
             {
-                if (MyForm.progressBar1.Value != 0)
+                if (MyGUI.GUI_Loading.Value != 0)
                 {
-                    MyForm.progressBar1.Value--;
+                    MyGUI.GUI_Loading.Value--;
                 }
-                MyForm.progressBar1.Maximum = client.Guilds.Count;
+                MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
                 Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 if (GuildIDs.Contains(g.Id))
                 {
                     int Index = GuildIDs.IndexOf(g.Id);
-                    MyForm.GuildList.Items.RemoveAt(Index);
+                    MyGUI.GUI_Guilds.Items.RemoveAt(Index);
                     GuildIDs.Remove(g.Id);
                 }
                 return Task.CompletedTask;
@@ -443,7 +443,7 @@ namespace Discore_Selfbot
 
             client.Disconnected += (e) =>
             {
-                MyForm.GuildList.Items.Clear();
+                MyGUI.GUI_Guilds.Items.Clear();
                 GuildIDs.Clear();
                 Console.Title = "Discore - Selfbot - Offline!";
                 Console.WriteLine("DISCONNECTED!");
@@ -501,7 +501,7 @@ namespace Discore_Selfbot
                 await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
                 await client.StartAsync();
                 GUI.CheckForIllegalCrossThreadCalls = false;
-                MyForm = new GUI();
+                MyGUI = new GUI();
             }
             catch (Exception ex)
             {
@@ -1338,14 +1338,14 @@ public class InfoModule : ModuleBase
         public async Task Form()
         {
             await Context.Message.DeleteAsync();
-            if (!Program.MyForm.Visible)
+            if (!Program.MyGUI.Visible)
             {
                 Program.OpenGUI();
-                Program.MyForm.Activate();
+                Program.MyGUI.Activate();
             }
             else
             {
-                Program.MyForm.Activate();
+                Program.MyGUI.Activate();
                 Console.WriteLine("Gui already open");
             }
         }
