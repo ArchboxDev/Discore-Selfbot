@@ -29,6 +29,10 @@ namespace Discore_Selfbot
     }
     class Program
     {
+        public static string[] Commands = { "hex", "cat", "dog", "bang", "roulette", "neko", "clean", "guild", "help",
+        "info", "user", "ping", "uptime", "calc", "math", "cleanembed", "cleanembeds", "test", "form", "gui", "embed",
+        "e", "te", "tembed", "snip", "bot", "selfbot", "lenny", "avatar", "find", "tag", "addtag", "deltag", "removetag",
+        "deletetag", "an", "an bind", "an add", "an del", "an delete", "an remove", "tags" };
         public static bool Ready = false;
         private CommandService commands;
         public static DiscordSocketClient client;
@@ -135,7 +139,6 @@ namespace Discore_Selfbot
             {
             MyGUI.ShowDialog();
             });
-            
         }
 
         [STAThread]
@@ -172,10 +175,13 @@ namespace Discore_Selfbot
             commands = new CommandService();
             map = new DependencyMap();
             await InstallCommands();
+
             WebClient GuildIconDownload = new WebClient();
             WebClient AvatarIconDownload = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             int GuildCount = 0;
+            
+
             client.GuildUnavailable += (g) =>
             {
                 if (GuildIDs.Contains(g.Id))
@@ -605,13 +611,19 @@ namespace Discore_Selfbot
             else
             {
                 IGuildUser GuildUser = CommandMessage.User as IGuildUser;
-                if (GuildUser.RoleIds.Count != 0 & Properties.Settings.Default.RoleColor == "Yes")
+                if (GuildUser.RoleIds.Count == 1)
                 {
-                    foreach (var Role in GuildUser.Guild.Roles.OrderBy(x => x.Position))
+                }
+                else
+                {
+                    if (Properties.Settings.Default.RoleColor == "Yes")
                     {
-                        if (GuildUser.RoleIds.Contains(Role.Id))
+                        foreach (var Role in GuildUser.Guild.Roles.OrderBy(x => x.Position))
                         {
-                            Color = Role.Color;
+                            if (GuildUser.RoleIds.Contains(Role.Id))
+                            {
+                                Color = Role.Color;
+                            }
                         }
                     }
                 }
@@ -677,40 +689,82 @@ namespace Discore_Selfbot
     
 public class InfoModule : ModuleBase
     {
-        [Command("test")]
-        public async Task Test([Remainder] string Text)
+        [Command("hex")]
+        public async Task Color(string Text)
         {
+            if (!Text.Contains("#"))
+            {
+                Text = "#" + Text;
+            }
+            var color = ColorTranslator.FromHtml(Text);
+            var embed = new EmbedBuilder()
+            {
+                Description = $"Selfbot | Hex Color {Text}",
+                Color = new Discord.Color(color.R,color.G, color.B)
+            };
+            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+            {
+                await Context.Message.ModifyAsync(x =>
+                {
+                    x.Content = " ";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
+            }
+        }
+
+        [Command("help")]
+        public async Task Help()
+        {
+                IGuildUser GuildUser = Context.User as IGuildUser;
+                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+                {
+                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    {
+                        await Context.Message.ModifyAsync(x =>
+                        {
+                            x.Content = $"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`";
+                        });
+                    }
+                    else
+                    {
+                        await Context.Message.DeleteAsync();
+                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`");
+                    }
+                    return;
+                }
             
+            var embed = new EmbedBuilder()
+            {
+                Title = "Selfbot Help",
+                Description = $"For a list of commands see the GUI `self gui` or" + Environment.NewLine + "Visit the [Website](https://blaze.ml/discore-selfbot/)",
+                Color = Program.GetEmbedColor(Context)
+            };
+            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+            {
+                await Context.Message.ModifyAsync(x =>
+                {
+                    x.Content = " ";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
+            }
+        }
 
+        [Command("test")]
+        public async Task Test()
+        {
             //dynamic Item = Newtonsoft.Json.Linq.JObject.Parse(reader.ReadToEnd());
-
-            //Microsoft.Win32.RegistryKey rkApp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            //string startPath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + @"\Blaze\Discore.appref-ms";
-            //rkApp.SetValue("Discore-Selfbot", startPath);
-            //if (Text == "Del")
-            //{
-            //rkApp.DeleteValue("Discore-Selfbot");
-            //}
-
-            //CustomTextFormat movie = new CustomTextFormat()
-            //{
-            //Type = "Test Name",
-            //Year = "Year"
-            //};
-            //using (StreamWriter file = File.CreateText("movie.json"))
-            //{
-            //JsonSerializer serializer = new JsonSerializer();
-            //serializer.Serialize(file, movie);
-            //}
-            //using (StreamReader read = new StreamReader("movie.json"))
-            //{
-            //var Req = read.ReadToEnd();
-            //dynamic JA = Newtonsoft.Json.Linq.JObject.Parse(Req);
-            //Console.WriteLine(JA.Name);
-            //}
-
-            //var Mention = Context.Guild.GetRole(297306023713308672).Mention;
-            //var WebHook = new Discord.Webhook.DiscordWebhookClient(298341321805004810, "rjGyDiSPPeUFpDdD02Aj879g8OP5PSD9CUMeABIxxw5kyzUXssMs69dlDgAhXILNtBzy");
+            //var Mention = Context.Guild.GetRole().Mention;
+            //var WebHook = new Discord.Webhook.DiscordWebhookClient(, "");
             //await WebHook.SendMessageAsync(Mention + Text, false, null, "Discore-Selfbot");
             //await WebHook.SendMessageAsync("Test", false, null, "Test user");
 
@@ -726,6 +780,7 @@ public class InfoModule : ModuleBase
             await Context.Message.DeleteAsync();
             await Context.Message.Channel.SendMessageAsync($"`Selfbot | Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}`");
             }
+            IGuildUser GuildUser = Context.User as IGuildUser;
         }
 
         [Command("snip")]
@@ -821,7 +876,7 @@ public class InfoModule : ModuleBase
             Console.WriteLine(Item);
             var embed = new EmbedBuilder()
             {
-                Title = "Selfbot | Random Dat :dog:",
+                Title = "Selfbot | Random Dag :dog:",
                 Url = "http://random.dog/" + Item,
                 ImageUrl = "http://random.dog/" + Item,
                 Color = Program.GetEmbedColor(Context)
@@ -844,7 +899,7 @@ public class InfoModule : ModuleBase
         }
 
         [Command("bang")]
-        public async Task Bang([Remainder] string User)
+        public async Task Bang([Remainder] string User = "")
         {
             await Context.Message.ModifyAsync(x =>
             {
@@ -1173,6 +1228,7 @@ public class InfoModule : ModuleBase
         }
 
         [Command("calc")]
+        [Alias("math")]
         public async Task Calc([Remainder] string Math)
         {
             var interpreter = new DynamicExpresso.Interpreter();
@@ -1438,7 +1494,7 @@ public class InfoModule : ModuleBase
         }
 
         [Command("bot")]
-        [Alias("botinfo")]
+        [Alias("selfbot")]
         public async Task Botinfo()
         {
             if (!Context.IsPrivate)
@@ -1760,264 +1816,6 @@ public class InfoModule : ModuleBase
             }
         }
 
-        [Command("tag")]
-        public async Task Tag([Remainder] string Tag) 
-        {
-            IGuildUser GuildUser = null;
-            bool AllowedEmbeds = false;
-            if (Context.Channel is IPrivateChannel)
-            {
-                AllowedEmbeds = true;
-            }
-            else
-            {
-                GuildUser = Context.Message.Author as IGuildUser;
-                AllowedEmbeds = GuildUser.GetPermissions(Context.Channel as ITextChannel).EmbedLinks;
-            }
-            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
-            if (File.Exists(TagPath + Tag + ".txt"))
-            {
-                string TagMention = "";
-                string TagAuthor = "";
-                string TagContent = "";
-                using (Stream stream = File.Open(TagPath + Tag + ".txt", FileMode.Open))
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        TagMention = reader.ReadLine();
-                        TagAuthor = reader.ReadLine();
-                        TagContent = reader.ReadLine();
-                    }
-                }
-                if (AllowedEmbeds == true)
-                {
-                    string TagThumbnail = "";
-                    if (File.Exists(TagPath + Tag + "-thumbnail.txt"))
-                    {
-                        TagThumbnail = File.ReadAllText(TagPath + Tag + "-thumbnail.txt");
-                    }
-                    var embed = new EmbedBuilder()
-                    {
-                        Title = $"Selfbot Tag | {Tag}",
-                        Description = $"{TagMention} {TagAuthor}" + Environment.NewLine + TagContent,
-                        ThumbnailUrl = TagThumbnail,
-                        Url = TagThumbnail
-                    };
-                    if (GUI.EmbedColor.RawValue == 0)
-                    {
-                        embed.Color = Program.FavoriteColor;
-                    }
-                    else
-                    {
-                        embed.Color = GUI.EmbedColor;
-                    }
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = " ";
-                            x.Embed = embed.Build();
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
-                    }
-                }
-                else
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | " + TagAuthor + Environment.NewLine + TagContent + "`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | " + TagAuthor + Environment.NewLine + TagContent + "`");
-                    }
-                }
-            }
-            else
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | Tag {Tag} not found`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} not found`");
-                }
-            }
-        }
-
-        [Command("addtag")]
-        public async Task Addtag(string Tag = "", string MessageID = "")
-        {
-            await Context.Message.ModifyAsync(x =>
-            {
-                x.Content = "`Please Wait`";
-            });
-            string TagMention = "";
-            string TagAuthor = "";
-            string TagContent = "";
-            string TagImage = "";
-            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
-            bool Numeric = MessageID.All(char.IsDigit);
-            if (Numeric == true)
-            {
-                foreach (var Message in await Context.Channel.GetMessagesAsync().Flatten())
-                {
-                    if (Message.Id.ToString() == MessageID)
-                    {
-                        TagMention = Message.Author.Mention;
-                        TagAuthor = $"{Message.Author.Username}#{Message.Author.Discriminator} said";
-                        TagContent = Message.Content;
-                        if (Message.Attachments.Count == 1)
-                        {
-                            foreach(var Attachment in Message.Attachments)
-                            {
-                                TagImage = Attachment.Url;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                TagMention = Context.Message.Author.Mention;
-                TagAuthor = $"{Context.Message.Author.Username}#{Context.Message.Author.Discriminator} said";
-                TagContent = MessageID;
-            }
-            if (TagContent == "")
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | Tag content not set or found`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag content not set or found`");
-                }
-                return;
-            }
-            if (File.Exists(TagPath + Tag + ".txt"))
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | Tag {Tag} already exists`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} already exists`");
-                }
-            }
-            else
-            {
-                using (StreamWriter sw = File.CreateText(TagPath + Tag + ".txt"))
-                {
-                    sw.WriteLine(TagMention);
-                    sw.WriteLine(TagAuthor);
-                    sw.WriteLine(TagContent);
-                }
-                if (TagImage == "")
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | Tag {Tag} created`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} created`");
-                    }
-                }
-                else
-                {
-                    using (StreamWriter sw = File.CreateText(TagPath + Tag + "-thumbnail.txt"))
-                    {
-                        sw.WriteLine(TagImage);
-                    }
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | Tag {Tag} created with an image`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} created with an image`");
-                    }
-                }
-            }
-        }
-
-        [Command("deltag")]
-        public async Task Deltag([Remainder] string Tag)
-        {
-            if (Tag.Contains("-thumbnail"))
-            {
-                return;
-            }
-            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
-            if (File.Exists(TagPath + Tag + ".txt"))
-            {
-                if (File.Exists(TagPath + Tag + "-thumbnail.txt"))
-                {
-                    File.Delete(TagPath + Tag + "-thumbnail.txt");
-                }
-                File.Delete(TagPath + Tag + ".txt");
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | Tag {Tag} deleted`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} deleted`");
-                }
-            }
-            else
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | Tag {Tag} not found`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | Tag {Tag} not found`");
-                }
-            }
-        }
-
         [Command("an bind")]
         public async Task Anbind()
         {
@@ -2126,6 +1924,7 @@ public class InfoModule : ModuleBase
         }
 
         [Command("an del")]
+        [Alias("an delete", "an remove")]
         public async Task Andel(string Nickname)
         {
             if (Context.Channel is IPrivateChannel)
@@ -2230,34 +2029,6 @@ public class InfoModule : ModuleBase
             {
                 await Context.Message.DeleteAsync();
                 await Context.Message.Channel.SendMessageAsync("```List of auto nicknames" + Environment.NewLine + NicknameList + "```");
-            }
-        }
-
-        [Command("tags")]
-        public async Task Tags()
-        {
-            List<string> TagList = new List<string>();
-            var TagPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
-            foreach (var File in Directory.GetFiles(TagPath))
-            {
-                if (!File.Contains("-thumbnail"))
-                {
-                    TagList.Add(File.Replace(TagPath, "").Replace(".txt", ""));
-                }
-            }
-            string Tags = string.Join(" | ", TagList.ToArray());
-            if (Properties.Settings.Default.SendAction == "Edit")
-            {
-                var M = Context.Message as IUserMessage;
-                await M.ModifyAsync(x =>
-                {
-                    x.Content = $"Selfbot Tags" + Environment.NewLine + Tags;
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync($"```--- Selfbot Tags ---" + Environment.NewLine + Tags + "```");
             }
         }
     }

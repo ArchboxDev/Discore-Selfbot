@@ -88,15 +88,22 @@ namespace Discore_Selfbot
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GUI_Guilds.Refresh();
+            Microsoft.Win32.RegistryKey rkApp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            if (rkApp.GetValue("Discore-Selfbot") != null)
+            {
+                GUI_AutoStartText.Text = "Yes";
+            }
+            GUI_FavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            GUI_FavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
             if (Properties.Settings.Default.Theme == "Dark")
             {
-                //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+                GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             }
             if (Properties.Settings.Default.Theme == "Dark Sparkle")
             {
-                //ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+                GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
+            
             if (Program.Ready == false)
             {
                 return;
@@ -107,8 +114,7 @@ namespace Discore_Selfbot
             {
                 GUI_Mentions.Items.Add(Item);
             }
-            GUI_FavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
-            GUI_FavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            
             WebClient WBC = new WebClient();
             Program.GuildIDs.Clear();
             foreach (var Guild in Program.client.Guilds)
@@ -373,21 +379,21 @@ namespace Discore_Selfbot
 
         private void BtnThemeDefault_Click(object sender, EventArgs e)
         {
-            //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
+            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
 
         private void BtnThemeDark_Click(object sender, EventArgs e)
         {
-            //ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
+            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
 
         private void BtnThemeSparkle_Click(object sender, EventArgs e)
         {
-            //ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
+            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             Properties.Settings.Default.Theme = "Default";
             Properties.Settings.Default.Save();
         }
@@ -508,8 +514,8 @@ namespace Discore_Selfbot
         {
             MessageBox.Show("Custom commands disabled > Under construction");
             return;
-                //var Custom = new CustomCommand();
-                //Custom.Show();
+            var Custom = new CustomCommand();
+                Custom.Show();
         }
 
         private void CustomDelete_LinkClicked(object sender, EventArgs e)
@@ -661,6 +667,21 @@ namespace Discore_Selfbot
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void GUI_AutoStartYes_Click(object sender, EventArgs e)
+        {
+            Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            string DiscorePath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + @"\Blaze\Discore.appref-ms";
+            RegKey.SetValue("Discore-Selfbot", DiscorePath);
+            GUI_AutoStartText.Text = "Yes";
+        }
+
+        private void GUI_AutoStartNo_Click(object sender, EventArgs e)
+        {
+            Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            RegKey.DeleteValue("Discore-Selfbot");
+            GUI_AutoStartText.Text = "No";
         }
     }
 }

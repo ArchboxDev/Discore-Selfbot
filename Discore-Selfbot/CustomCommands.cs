@@ -34,15 +34,21 @@ namespace Discore_Selfbot
         }
         public static async Task CustomText(string File, ICommandContext Context)
         {
-            
-                    //using (Stream stream2 = File.Open(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".message.txt", FileMode.Open))
-                    //{
-                        //using (StreamReader reader2 = new StreamReader(stream2))
-                        //{
-                            //await Program.SendMessage(message as IUserMessage, reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString()));
-                        //}
-                    //}
-            
+            //using (StreamReader read = new StreamReader("movie.json"))
+            //{
+            //var Req = read.ReadToEnd();
+            //dynamic JA = Newtonsoft.Json.Linq.JObject.Parse(Req);
+            //Console.WriteLine(JA.Name);
+            //}
+
+            //using (Stream stream2 = File.Open(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".message.txt", FileMode.Open))
+            //{
+            //using (StreamReader reader2 = new StreamReader(stream2))
+            //{
+            //await Program.SendMessage(message as IUserMessage, reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString()));
+            //}
+            //}
+
         }
         public async Task CustomEmbed()
         {
