@@ -71,7 +71,7 @@ namespace Discore_Selfbot
             StartupTime = DateTime.Now;
             Notif();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Discore - Selfbot - User Token Required";
+            Console.Title = "Discore -t Selfbot - User Token Required";
             string Token = "";
             Directory.CreateDirectory(SelfbotDir);
             Directory.CreateDirectory(SelfbotDir + "Tags");
