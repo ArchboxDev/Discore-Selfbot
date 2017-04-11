@@ -40,7 +40,7 @@ namespace Discore_Selfbot
         public static List<string> MentionLog = new List<string>();
         public static string SelfbotDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public static bool DownloadGuilds = false;
-        public static List<ulong> GuildIDs = new List<ulong>();
+        public static List<ulong> GuildIDCache = new List<ulong>();
         public static List<string> Channels = new List<string>();
         public static List<ulong> ChannelsID = new List<ulong>();
         public static bool StartupForm = false;
@@ -54,9 +54,7 @@ namespace Discore_Selfbot
         public static GUI MyGUI;
         public static NotifyIcon MyIcon;
         public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
-        public static string CurrentUserName;
-        public static ulong CurrentUserID;
-        public static Random RandomGenerator = new Random((int)DateTime.Now.Ticks + DateTime.Now.Year);
+        public static Random RandomGenerator = new Random();
         public static DateTime StartupTime;
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetConsoleWindow();
@@ -68,6 +66,7 @@ namespace Discore_Selfbot
         [STAThread]
         static void Main()
         {
+            StartupTime = DateTime.Now;
             OperatingSystem os = Environment.OSVersion;
             PlatformID pid = os.Platform;
             switch (pid)
@@ -88,14 +87,10 @@ namespace Discore_Selfbot
             if (OS == "Windows")
             {
                 DisableConsoleQuickEdit.Go();
-            }
-            StartupTime = DateTime.Now;
-            if (OS == "Windows")
-            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Title = "Discore - Selfbot";
                 Notif();
             }
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Discore -t Selfbot - User Token Required";
             string Token = "";
             if (OS == "Windows")
             {
@@ -108,12 +103,14 @@ namespace Discore_Selfbot
                     Token = File.ReadAllText(SelfbotDir + "Token.txt");
                     if (Token == "")
                     {
+                        Console.Title = "Discore - Selfbot - User Token Required";
                         Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
                         Process.Start(SelfbotDir);
                     }
                 }
                 else
                 {
+                    Console.Title = "Discore - Selfbot - User Token Required";
                     File.CreateText(SelfbotDir + "Token.txt").Close();
                     Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
                     Console.WriteLine("And no i dont steal tokens you can view the code on github ");
@@ -157,9 +154,7 @@ namespace Discore_Selfbot
                 Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
             }
             Properties.Settings.Default.Save();
-            Console.Title = "Discore - Selfbot";
             Console.WriteLine("Token found Loading Bot");
-
             if (Properties.Settings.Default.HideConsole == "Yes")
             {
                 if (OS == "Windows")
@@ -169,18 +164,17 @@ namespace Discore_Selfbot
                     ShowWindow(handle, SW_HIDE);
                 }
             }
-            new Program().RunBot().GetAwaiter();
+            
+            new Program().RunBot().GetAwaiter().GetResult();
         }
 
         [STAThread]
         public static void OpenGUI()
         {
-            //Application.EnableVisualStyles();
-            //GUI.CheckForIllegalCrossThreadCalls = false;
             MyGUI = new GUI();
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
             {
-            return;
+                return;
             }
             Console.WriteLine("Opening GUI");
             Task mytask = Task.Run(() =>
@@ -234,7 +228,7 @@ namespace Discore_Selfbot
             {
                 if (OS == "Windows")
                 {
-                    if (GuildIDs.Contains(g.Id))
+                    if (GuildIDCache.Contains(g.Id))
                     {
                         if (MyGUI.GUI_Loading.Value != 0)
                         {
@@ -244,13 +238,13 @@ namespace Discore_Selfbot
                             }));
 
                         }
-                        int Index = GuildIDs.IndexOf(g.Id);
+                        int Index = GuildIDCache.IndexOf(g.Id);
                         Program.MyGUI.Invoke((Action)(() =>
                         {
                             MyGUI.GUI_Guilds.Items.RemoveAt(Index);
                         }));
 
-                        GuildIDs.Remove(g.Id);
+                        GuildIDCache.Remove(g.Id);
                     }
                 }
                 return Task.CompletedTask;
@@ -263,8 +257,8 @@ namespace Discore_Selfbot
                     if (StartupForm == false)
                     {
                         OpenGUI();
-                        CurrentUserName = client.CurrentUser.Username;
-                        CurrentUserID = client.CurrentUser.Id;
+                        //CurrentUserName = client.CurrentUser.Username;
+                        //CurrentUserID = client.CurrentUser.Id;
                         using (Stream ImageStream = AvatarIconDownload.OpenRead(client.CurrentUser.GetAvatarUrl()))
                         {
                             Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
@@ -287,9 +281,9 @@ namespace Discore_Selfbot
 
                     }
                     StartupForm = true;
-                    if (!GuildIDs.Contains(g.Id))
+                    if (!GuildIDCache.Contains(g.Id))
                     {
-                        GuildIDs.Add(g.Id);
+                        GuildIDCache.Add(g.Id);
                         if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
                         {
                             Program.MyGUI.Invoke((Action)(() =>
@@ -376,7 +370,7 @@ namespace Discore_Selfbot
                         }
                     }
                     string Message = "";
-                    switch (CurrentUserID)
+                    switch (client.CurrentUser.Id)
                     {
                         case 190590364871032834:
                             Message = "Hi master Builderb";
@@ -403,7 +397,7 @@ namespace Discore_Selfbot
                             Message = "Get back in the salt mines!";
                             break;
                         default:
-                            Message = $"Hi {CurrentUserName}";
+                            Message = $"Hi {client.CurrentUser.Username}";
                             break;
                     }
                     TimeSpan Startup = DateTime.Now - StartupTime;
@@ -492,7 +486,7 @@ namespace Discore_Selfbot
                         MyGUI.GUI_Loading.Value++;
                     }
                     Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
-                    GuildIDs.Add(g.Id);
+                    GuildIDCache.Add(g.Id);
                     if (g.IconUrl == null)
                     {
                         var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
@@ -530,11 +524,11 @@ namespace Discore_Selfbot
                     }
                     MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
                     Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
-                    if (GuildIDs.Contains(g.Id))
+                    if (GuildIDCache.Contains(g.Id))
                     {
-                        int Index = GuildIDs.IndexOf(g.Id);
+                        int Index = GuildIDCache.IndexOf(g.Id);
                         MyGUI.GUI_Guilds.Items.RemoveAt(Index);
-                        GuildIDs.Remove(g.Id);
+                        GuildIDCache.Remove(g.Id);
                     }
                 }
                 return Task.CompletedTask;
@@ -566,8 +560,11 @@ namespace Discore_Selfbot
             {
                 if (OS == "Windows")
                 {
-                    MyGUI.GUI_Guilds.Items.Clear();
-                    GuildIDs.Clear();
+                    MyGUI.Invoke((Action)(() =>
+                    {
+                        MyGUI.GUI_Guilds.Items.Clear();
+                    }));
+                    GuildIDCache.Clear();
                 }
                 Console.Title = "Discore - Selfbot - Offline!";
                 Console.WriteLine("DISCONNECTED!");
@@ -587,7 +584,7 @@ namespace Discore_Selfbot
                         }
                     }
                     string Message = "";
-                    switch (CurrentUserID)
+                    switch (client.CurrentUser.Id)
                     {
                         case 190590364871032834:
                             Message = "Hi master Builderb";
@@ -614,7 +611,7 @@ namespace Discore_Selfbot
                             Message = "Get back in the salt mines!";
                             break;
                         default:
-                            Message = $"Hi {CurrentUserName}";
+                            Message = $"Hi {client.CurrentUser.Username}";
                             break;
                     }
                     TimeSpan Startup = DateTime.Now - StartupTime;
@@ -629,8 +626,7 @@ namespace Discore_Selfbot
                 {
                     await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
                     await client.StartAsync();
-                    //GUI.CheckForIllegalCrossThreadCalls = false;
-                    //MyGUI = new GUI();
+                    MyGUI = new GUI();
                 }
                 else
                 {

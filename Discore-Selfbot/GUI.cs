@@ -95,6 +95,8 @@ namespace Discore_Selfbot
             }
             GUI_FavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
             GUI_FavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
+            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Silver;
+            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
             if (Properties.Settings.Default.Theme == "Dark")
             {
                 GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
@@ -116,10 +118,10 @@ namespace Discore_Selfbot
             }
             
             WebClient WBC = new WebClient();
-            Program.GuildIDs.Clear();
+            Program.GuildIDCache.Clear();
             foreach (var Guild in Program.client.Guilds)
             {
-                Program.GuildIDs.Add(Guild.Id);
+                Program.GuildIDCache.Add(Guild.Id);
                 if (Guild.IconUrl == null)
                 {
                     var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
@@ -168,7 +170,7 @@ namespace Discore_Selfbot
                     }
                 }
             }
-            this.Text = Program.CurrentUserName;
+            this.Text = Program.client.CurrentUser.Username;
             using (Stream ImageStream = WBC.OpenRead(Program.client.CurrentUser.GetAvatarUrl()))
             {
                 Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
@@ -249,7 +251,7 @@ namespace Discore_Selfbot
             SelectedChannel = Program.ChannelsID[Index];
             var Guild = Program.client.GetGuild(SelectedGuild);
             var Chan = Guild.GetChannel(SelectedChannel) as ITextChannel;
-            var User = Guild.GetUser(Program.CurrentUserID);
+            var User = Guild.GetUser(Program.client.CurrentUser.Id);
             if (User.GuildPermissions.EmbedLinks || User.GetPermissions(Chan).EmbedLinks)
             {
                 GUI_EmbedSendSelected.Enabled = true;
