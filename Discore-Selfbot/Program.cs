@@ -64,45 +64,89 @@ namespace Discore_Selfbot
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         public const int SW_HIDE = 0;
         public const int SW_SHOW = 5;
+        public static string OS = "";
         [STAThread]
         static void Main()
         {
-            DisableConsoleQuickEdit.Go();
+            OperatingSystem os = Environment.OSVersion;
+            PlatformID pid = os.Platform;
+            switch (pid)
+            {
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    OS = "Windows";
+                    break;
+                case PlatformID.Unix:
+                    OS = "Linux";
+                    break;
+                default:
+                    OS = "Windows";
+                    break;
+            }
+            if (OS == "Windows")
+            {
+                DisableConsoleQuickEdit.Go();
+            }
             StartupTime = DateTime.Now;
-            Notif();
+            if (OS == "Windows")
+            {
+                Notif();
+            }
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore -t Selfbot - User Token Required";
             string Token = "";
-            Directory.CreateDirectory(SelfbotDir);
-            Directory.CreateDirectory(SelfbotDir + "Tags");
-            Directory.CreateDirectory(SelfbotDir + "Nicknames");
-            Directory.CreateDirectory(SelfbotDir + "Custom");
-            if (File.Exists(SelfbotDir + "Token.txt"))
+            if (OS == "Windows")
             {
-                Token = File.ReadAllText(SelfbotDir + "Token.txt");
-                if (Token == "")
+                Directory.CreateDirectory(SelfbotDir);
+                Directory.CreateDirectory(SelfbotDir + "Tags");
+                Directory.CreateDirectory(SelfbotDir + "Nicknames");
+                Directory.CreateDirectory(SelfbotDir + "Custom");
+                if (File.Exists(SelfbotDir + "Token.txt"))
                 {
-                    Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                    Token = File.ReadAllText(SelfbotDir + "Token.txt");
+                    if (Token == "")
+                    {
+                        Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                        Process.Start(SelfbotDir);
+                    }
+                }
+                else
+                {
+                    File.CreateText(SelfbotDir + "Token.txt").Close();
+                    Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
+                    Console.WriteLine("And no i dont steal tokens you can view the code on github ");
                     Process.Start(SelfbotDir);
+                }
+                if (!File.Exists(SelfbotDir + "How-To-Get-User-Token.txt"))
+                {
+                    using (StreamWriter sw = File.CreateText(SelfbotDir + "How-To-Get-User-Token.txt"))
+                    {
+                        sw.WriteLine("Open this in your web browser");
+                        sw.WriteLine("");
+                        sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
+                        sw.Dispose();
+                    }
+
                 }
             }
             else
             {
-                File.CreateText(SelfbotDir + "Token.txt").Close();
-                Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
-                Console.WriteLine("And no i dont steal tokens you can view the code on github ");
-                Process.Start(SelfbotDir);
-            }
-            if (!File.Exists(SelfbotDir + "How-To-Get-User-Token.txt"))
-            {
-                using (StreamWriter sw = File.CreateText(SelfbotDir + "How-To-Get-User-Token.txt"))
+                if (File.Exists("Token.txt"))
                 {
-                    sw.WriteLine("Open this in your web browser");
-                    sw.WriteLine("");
-                    sw.WriteLine("https://github.com/ArchboxDev/Discore-Selfbot/blob/master/UserToken.md");
-                    sw.Dispose();
+                    Token = File.ReadAllText("Token.txt");
+                    if (Token == "")
+                    {
+                        Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                    }
                 }
-
+                else
+                {
+                    File.CreateText("Token.txt").Close();
+                    Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
+                    Console.WriteLine("And no i dont steal tokens you can view the code on github ");
+                }
             }
             while (Token == "")
             {
@@ -118,17 +162,21 @@ namespace Discore_Selfbot
 
             if (Properties.Settings.Default.HideConsole == "Yes")
             {
-                MyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
-                var handle = GetConsoleWindow();
-                ShowWindow(handle, SW_HIDE);
+                if (OS == "Windows")
+                {
+                    MyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
+                    var handle = GetConsoleWindow();
+                    ShowWindow(handle, SW_HIDE);
+                }
             }
-            new Program().RunBot().GetAwaiter().GetResult();
+            new Program().RunBot().GetAwaiter();
         }
 
         [STAThread]
         public static void OpenGUI()
         {
-            GUI.CheckForIllegalCrossThreadCalls = false;
+            //Application.EnableVisualStyles();
+            //GUI.CheckForIllegalCrossThreadCalls = false;
             MyGUI = new GUI();
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
             {
@@ -180,109 +228,152 @@ namespace Discore_Selfbot
             WebClient AvatarIconDownload = new WebClient();
             FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
             int GuildCount = 0;
-            
+
 
             client.GuildUnavailable += (g) =>
             {
-                if (GuildIDs.Contains(g.Id))
+                if (OS == "Windows")
                 {
-                    if (MyGUI.GUI_Loading.Value != 0)
+                    if (GuildIDs.Contains(g.Id))
                     {
-                        MyGUI.GUI_Loading.Value--;
+                        if (MyGUI.GUI_Loading.Value != 0)
+                        {
+                            Program.MyGUI.Invoke((Action)(() =>
+                            {
+                                MyGUI.GUI_Loading.Value--;
+                            }));
+
+                        }
+                        int Index = GuildIDs.IndexOf(g.Id);
+                        Program.MyGUI.Invoke((Action)(() =>
+                        {
+                            MyGUI.GUI_Guilds.Items.RemoveAt(Index);
+                        }));
+
+                        GuildIDs.Remove(g.Id);
                     }
-                    int Index = GuildIDs.IndexOf(g.Id);
-                    MyGUI.GUI_Guilds.Items.RemoveAt(Index);
-                    GuildIDs.Remove(g.Id);
                 }
                 return Task.CompletedTask;
             };
 
             client.GuildAvailable += (g) =>
             {
-                if (StartupForm == false)
+                if (OS == "Windows")
                 {
-                    OpenGUI();
-                    CurrentUserName = client.CurrentUser.Username;
-                    CurrentUserID = client.CurrentUser.Id;
-                    using (Stream ImageStream = AvatarIconDownload.OpenRead(client.CurrentUser.GetAvatarUrl()))
+                    if (StartupForm == false)
                     {
-                        Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
-                        IntPtr pIcon = b.GetHicon();
-                        Icon i = Icon.FromHandle(pIcon);
-                        Avatar = i;
-                        if (Properties.Settings.Default.AutoForm == "Yes")
+                        OpenGUI();
+                        CurrentUserName = client.CurrentUser.Username;
+                        CurrentUserID = client.CurrentUser.Id;
+                        using (Stream ImageStream = AvatarIconDownload.OpenRead(client.CurrentUser.GetAvatarUrl()))
                         {
-                            MyGUI.Text = client.CurrentUser.Username;
-                            MyGUI.Icon = i;
-                        }
-                    }
-                    MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
-                }
-                StartupForm = true;
-                if (!GuildIDs.Contains(g.Id))
-                {
-                    GuildIDs.Add(g.Id);
-                    if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
-                    {
-                        MyGUI.GUI_Loading.Value++;
-                    }
-                    ToolStrip GuildList = MyGUI.GUI_Guilds;
-                    if (g.IconUrl == null)
-                    {
-                        var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                        using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToUpper().ToCharArray()[0] + ".png"))
-                        {
-                            Bitmap Image = new Bitmap(ImageStream);
-                            ToolStripButton GuildButton = new ToolStripButton(g.Name, Image);
-                            GuildButton.AccessibleDescription = g.Id.ToString();
-                            GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                            if (g.OwnerId == client.CurrentUser.Id)
+                            Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
+                            IntPtr pIcon = b.GetHicon();
+                            Icon i = Icon.FromHandle(pIcon);
+                            Avatar = i;
+                            if (Properties.Settings.Default.AutoForm == "Yes")
                             {
-                                using (Graphics Grap = Graphics.FromImage(Image))
+                                Program.MyGUI.Invoke((Action)(() =>
                                 {
-                                    Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
-                                }
-                                GuildButton.Image = Image;
-                                GuildList.Items.Insert(0, (GuildButton));
-                            }
-                            else
-                            {
-                                GuildList.Items.Add(GuildButton);
+                                    MyGUI.Text = client.CurrentUser.Username;
+                                    MyGUI.Icon = i;
+                                }));
                             }
                         }
-                    }
-                    else
-                    {
-                        using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
+                        Program.MyGUI.Invoke((Action)(() =>
                         {
-                            Bitmap Image = new Bitmap(ImageStream);
-                            ToolStripButton GuildButton = new ToolStripButton(g.Name, Image);
-                            GuildButton.AccessibleDescription = g.Id.ToString();
-                            GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                            if (g.OwnerId == client.CurrentUser.Id)
+                            MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
+                        }));
+
+                    }
+                    StartupForm = true;
+                    if (!GuildIDs.Contains(g.Id))
+                    {
+                        GuildIDs.Add(g.Id);
+                        if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
+                        {
+                            Program.MyGUI.Invoke((Action)(() =>
                             {
-                                using (Graphics Grap = Graphics.FromImage(Image))
+                                MyGUI.GUI_Loading.Value++;
+                            }));
+
+                        }
+                        ToolStrip GuildList = MyGUI.GUI_Guilds;
+                        if (g.IconUrl == null)
+                        {
+                            var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
+                            using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToUpper().ToCharArray()[0] + ".png"))
+                            {
+                                Bitmap Image = new Bitmap(ImageStream);
+                                ToolStripButton GuildButton = new ToolStripButton(g.Name, Image);
+                                GuildButton.AccessibleDescription = g.Id.ToString();
+                                GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                                if (g.OwnerId == client.CurrentUser.Id)
                                 {
-                                    Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
+                                    using (Graphics Grap = Graphics.FromImage(Image))
+                                    {
+                                        Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
+                                    }
+                                    GuildButton.Image = Image;
+                                    Program.MyGUI.Invoke((Action)(() =>
+                                    {
+                                        GuildList.Items.Insert(0, (GuildButton));
+                                    }));
+
                                 }
-                                GuildButton.Image = Image;
-                                GuildList.Items.Insert(0, (GuildButton));
-                            }
-                            else
-                            {
-                                GuildList.Items.Add(GuildButton);
+                                else
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
+                                    {
+                                        GuildList.Items.Add(GuildButton);
+                                    }));
+
+                                }
                             }
                         }
+                        else
+                        {
+                            using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
+                            {
+                                Bitmap Image = new Bitmap(ImageStream);
+                                ToolStripButton GuildButton = new ToolStripButton(g.Name, Image);
+                                GuildButton.AccessibleDescription = g.Id.ToString();
+                                GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                                if (g.OwnerId == client.CurrentUser.Id)
+                                {
+                                    using (Graphics Grap = Graphics.FromImage(Image))
+                                    {
+                                        Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
+                                    }
+                                    GuildButton.Image = Image;
+                                    Program.MyGUI.Invoke((Action)(() =>
+                                    {
+                                        GuildList.Items.Insert(0, (GuildButton));
+                                    }));
+
+                                }
+                                else
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
+                                    {
+                                        GuildList.Items.Add(GuildButton);
+                                    }));
+
+                                }
+                            }
+                        }
+
                     }
-
-
                 }
                 if (Ready == false & GuildCount == client.Guilds.Count)
                 {
                     Ready = true;
                     if (Properties.Settings.Default.HideConsole == "Yes")
                     {
-                        MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        if (OS == "Windows")
+                        {
+                            MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        }
                     }
                     string Message = "";
                     switch (CurrentUserID)
@@ -323,50 +414,68 @@ namespace Discore_Selfbot
 
             client.MessageReceived += (m) =>
             {
-                if (m.Author.Id == client.CurrentUser.Id)
+                if (OS == "Windows")
                 {
-                    MyGUI.GUI_EmbedSendActive.Enabled = true;
-                    if (m.Channel is IPrivateChannel)
+                    if (m.Author.Id == client.CurrentUser.Id)
                     {
-                        ActiveGuildID = 0;
-                        ActiveChannelID = m.Channel.Id;
-                        ActiveGuild = "DM";
-                        ActiveChannel = m.Channel.Name;
-                        MyGUI.GUI_Channels.Visible = false;
-                        MyGUI.UpdateActive("DM", m.Channel.Name);
-                        MyGUI.GUI_EmbedSendActive.Text = "Active DM";
-                    }
-                    else
-                    {
-                        var GU = m.Author as IGuildUser;
-                        if (m.MentionedUsers.Count != 0)
+                        Program.MyGUI.Invoke((Action)(() =>
                         {
-                            if (m.MentionedUsers.First().ToString() == $"{client.CurrentUser.Username}#{client.CurrentUser.Discriminator}")
+                            MyGUI.GUI_EmbedSendActive.Enabled = true;
+                        }));
+
+                        if (m.Channel is IPrivateChannel)
+                        {
+                            ActiveGuildID = 0;
+                            ActiveChannelID = m.Channel.Id;
+                            ActiveGuild = "DM";
+                            ActiveChannel = m.Channel.Name;
+                            Program.MyGUI.Invoke((Action)(() =>
                             {
-                                string ReplaceMessage = m.Content;
-                                if (ReplaceMessage.Contains("<@!"))
-                                {
-                                    ReplaceMessage = ReplaceMessage.Replace($"<@!{client.CurrentUser.Id}>", "");
-                                }
-                                else
-                                {
-                                    ReplaceMessage = ReplaceMessage.Replace($"<@{client.CurrentUser.Id}>", "");
-                                }
-                                MyGUI.GUI_Mentions.Items.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
-                                MentionLog.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
-                            }
+                                MyGUI.GUI_Channels.Visible = false;
+                                MyGUI.UpdateActive("DM", m.Channel.Name);
+                                MyGUI.GUI_EmbedSendActive.Text = "Active DM";
+                            }));
                         }
-                        if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
+                        else
                         {
-                            //MyForm.BtnSendActive.Text = "Active";
+                            var GU = m.Author as IGuildUser;
+                            if (m.MentionedUsers.Count != 0)
+                            {
+                                if (m.MentionedUsers.First().ToString() == $"{client.CurrentUser.Username}#{client.CurrentUser.Discriminator}")
+                                {
+                                    string ReplaceMessage = m.Content;
+                                    if (ReplaceMessage.Contains("<@!"))
+                                    {
+                                        ReplaceMessage = ReplaceMessage.Replace($"<@!{client.CurrentUser.Id}>", "");
+                                    }
+                                    else
+                                    {
+                                        ReplaceMessage = ReplaceMessage.Replace($"<@{client.CurrentUser.Id}>", "");
+                                    }
+                                    Program.MyGUI.Invoke((Action)(() =>
+                                    {
+                                        MyGUI.GUI_Mentions.Items.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
+                                    }));
+
+                                    MentionLog.Add($"G: {GU.Guild.Name} | C: {m.Channel.Name} " + Environment.NewLine + $"{m.Author.Username}" + Environment.NewLine + ReplaceMessage);
+                                }
+                            }
+                            if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
+                            {
+                                //MyForm.BtnSendActive.Text = "Active";
+                            }
+                            ActiveGuildID = GU.Guild.Id;
+                            ActiveChannelID = m.Channel.Id;
+                            ActiveGuild = GU.Guild.Name;
+                            ActiveChannel = m.Channel.Name;
+                            Program.MyGUI.Invoke((Action)(() =>
+                            {
+                                MyGUI.UpdateActive(GU.Guild.Name, m.Channel.Name);
+                                MyGUI.GUI_EmbedSendActive.Text = "Active";
+                            }));
+
+
                         }
-                        ActiveGuildID = GU.Guild.Id;
-                        ActiveChannelID = m.Channel.Id;
-                        ActiveGuild = GU.Guild.Name;
-                        ActiveChannel = m.Channel.Name;
-                        MyGUI.UpdateActive(GU.Guild.Name, m.Channel.Name);
-                        MyGUI.GUI_EmbedSendActive.Text = "Active";
-                        
                     }
                 }
 
@@ -375,34 +484,37 @@ namespace Discore_Selfbot
 
             client.JoinedGuild += (g) =>
             {
-                MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
-                if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
+                if (OS == "Windows")
                 {
-                    MyGUI.GUI_Loading.Value++;
-                }
-                Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
-                GuildIDs.Add(g.Id);
-                if (g.IconUrl == null)
-                {
-                    var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
-                    using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                    MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
+                    if (MyGUI.GUI_Loading.Value != client.Guilds.Count)
                     {
-                        Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyGUI.GUI_Guilds;
-                        var Item = TS.Items.Add(g.Name, Image);
-                        Item.AccessibleDescription = g.Id.ToString();
-                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        MyGUI.GUI_Loading.Value++;
                     }
-                }
-                else
-                {
-                    using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
+                    Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                    GuildIDs.Add(g.Id);
+                    if (g.IconUrl == null)
                     {
-                        Bitmap Image = new Bitmap(ImageStream);
-                        ToolStrip TS = MyGUI.GUI_Guilds;
-                        var Item = TS.Items.Add(g.Name, Image);
-                        Item.AccessibleDescription = g.Id.ToString();
-                        Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
+                        using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
+                        {
+                            Bitmap Image = new Bitmap(ImageStream);
+                            ToolStrip TS = MyGUI.GUI_Guilds;
+                            var Item = TS.Items.Add(g.Name, Image);
+                            Item.AccessibleDescription = g.Id.ToString();
+                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        }
+                    }
+                    else
+                    {
+                        using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
+                        {
+                            Bitmap Image = new Bitmap(ImageStream);
+                            ToolStrip TS = MyGUI.GUI_Guilds;
+                            var Item = TS.Items.Add(g.Name, Image);
+                            Item.AccessibleDescription = g.Id.ToString();
+                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        }
                     }
                 }
                 return Task.CompletedTask;
@@ -410,17 +522,20 @@ namespace Discore_Selfbot
 
             client.LeftGuild += (g) =>
             {
-                if (MyGUI.GUI_Loading.Value != 0)
+                if (OS == "Windows")
                 {
-                    MyGUI.GUI_Loading.Value--;
-                }
-                MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
-                Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
-                if (GuildIDs.Contains(g.Id))
-                {
-                    int Index = GuildIDs.IndexOf(g.Id);
-                    MyGUI.GUI_Guilds.Items.RemoveAt(Index);
-                    GuildIDs.Remove(g.Id);
+                    if (MyGUI.GUI_Loading.Value != 0)
+                    {
+                        MyGUI.GUI_Loading.Value--;
+                    }
+                    MyGUI.GUI_Loading.Maximum = client.Guilds.Count;
+                    Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                    if (GuildIDs.Contains(g.Id))
+                    {
+                        int Index = GuildIDs.IndexOf(g.Id);
+                        MyGUI.GUI_Guilds.Items.RemoveAt(Index);
+                        GuildIDs.Remove(g.Id);
+                    }
                 }
                 return Task.CompletedTask;
             };
@@ -431,7 +546,7 @@ namespace Discore_Selfbot
                 Console.WriteLine("CONNECTED!");
                 if (Ready == false)
                 {
-                    
+
                     AutoNickname_Timer.Elapsed += (s, e) => Timer(s, e).SwallowException();
                     AutoNickname_Timer.Start();
                     AutoNickname_Timer.Interval = 60000;
@@ -449,8 +564,11 @@ namespace Discore_Selfbot
 
             client.Disconnected += (e) =>
             {
-                MyGUI.GUI_Guilds.Items.Clear();
-                GuildIDs.Clear();
+                if (OS == "Windows")
+                {
+                    MyGUI.GUI_Guilds.Items.Clear();
+                    GuildIDs.Clear();
+                }
                 Console.Title = "Discore - Selfbot - Offline!";
                 Console.WriteLine("DISCONNECTED!");
                 return Task.CompletedTask;
@@ -463,7 +581,10 @@ namespace Discore_Selfbot
                     Ready = true;
                     if (Properties.Settings.Default.HideConsole == "Yes")
                     {
-                        MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        if (OS == "Windows")
+                        {
+                            MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        }
                     }
                     string Message = "";
                     switch (CurrentUserID)
@@ -504,18 +625,29 @@ namespace Discore_Selfbot
 
             try
             {
-                await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
-                await client.StartAsync();
-                GUI.CheckForIllegalCrossThreadCalls = false;
-                MyGUI = new GUI();
+                if (OS == "Windows")
+                {
+                    await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
+                    await client.StartAsync();
+                    //GUI.CheckForIllegalCrossThreadCalls = false;
+                    //MyGUI = new GUI();
+                }
+                else
+                {
+                    await client.LoginAsync(TokenType.User, File.ReadAllText("Token.txt"));
+                    await client.StartAsync();
+                }
             }
             catch (Exception ex)
             {
                 if (Properties.Settings.Default.HideConsole == "Yes")
                 {
-                    MyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
-                    var handle = GetConsoleWindow();
-                    ShowWindow(handle, SW_SHOW);
+                    if (OS == "Windows")
+                    {
+                        MyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
+                        var handle = GetConsoleWindow();
+                        ShowWindow(handle, SW_SHOW);
+                    }
                 }
                 Console.ForegroundColor = ConsoleColor.Red;
                 if (ex.Message.Contains("401"))
@@ -767,7 +899,9 @@ public class InfoModule : ModuleBase
             //var WebHook = new Discord.Webhook.DiscordWebhookClient(, "");
             //await WebHook.SendMessageAsync(Mention + Text, false, null, "Discore-Selfbot");
             //await WebHook.SendMessageAsync("Test", false, null, "Test user");
-
+            Program.MyGUI.Invoke((Action)(() => {
+                
+            }));
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
             await Context.Message.ModifyAsync(x =>
@@ -796,7 +930,7 @@ public class InfoModule : ModuleBase
         [Command("cat")]
         public async Task Cat()
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -848,7 +982,7 @@ public class InfoModule : ModuleBase
         [Command("dog")]
         public async Task Dog()
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -973,7 +1107,7 @@ public class InfoModule : ModuleBase
         [Command("neko")]
         public async Task Neko()
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1084,7 +1218,7 @@ public class InfoModule : ModuleBase
         [Command("guild")]
         public async Task Guild()
         {
-            if (Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
                 {
@@ -1250,7 +1384,7 @@ public class InfoModule : ModuleBase
         [Command("info")]
         public async Task Info()
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1409,7 +1543,7 @@ public class InfoModule : ModuleBase
         [Command("embed")]
         public async Task Embed([Remainder] string Text)
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1452,7 +1586,7 @@ public class InfoModule : ModuleBase
         [Command("tembed")]
         public async Task Tembed(string Title, [Remainder] string Text)
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1497,7 +1631,7 @@ public class InfoModule : ModuleBase
         [Alias("selfbot")]
         public async Task Botinfo()
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1559,7 +1693,8 @@ public class InfoModule : ModuleBase
         [Command("lewd")]
         public async Task Lewd([Remainder] string Text = "")
         {
-            if (!Context.IsPrivate)
+
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1616,7 +1751,7 @@ public class InfoModule : ModuleBase
         [Command("avatar")]
         public async Task Avatar(string ID = "")
         {
-            if (!Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
@@ -1689,7 +1824,7 @@ public class InfoModule : ModuleBase
         [Command("user")]
         public async Task User(string ID)
         {
-            if (Context.IsPrivate)
+            if (Context.Guild != null)
             {
                 await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
                 return;
