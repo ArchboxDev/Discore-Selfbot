@@ -1,12 +1,10 @@
 # What is this bot?
-Discore is a GUI selfbot for discord that atoumatically commands and acts based on users' response.
-It is implemented in Visual Studio with C# Made by xXBuilderBXx.
-## Why should I use this?
-The bot is easy to use and only need a token file and Windows .net framework 2.6.1 without any installation.
+Discore-Selfbot is a discord selfbot with commands and features such as getting guild/user information, auto nickname and other fun commands. It also has a cool GUI which can communicate with the selfbot to send commands or get information.
 
-The bot combines a console and windows form (GUI) that can communicate with each such as sending commands from the GUI or getting certain information from a guild within the GUI.
-
+Linux version is available here without the GUI [Linux Version](https://github.com/ArchboxDev/Discore-Selfbot-Linux)
 ![](http://i.imgur.com/OpXQJ2u.png)
+## Why should I use this?
+The bot is easy to use and only need a token file and Windows .net framework 2.6.1.
 
 ## What does this bot do?
 
@@ -43,7 +41,6 @@ If Windows smartscreen pop out an infomation that this app is unrecognised. Igno
 http://imgur.com/a/Hi2Nc
 
 ## Website
-For a list of commands, visit the website.
 https://blaze.ml/discore-selfbot/
 
 If you have a suggestion/issue please use this github or join my guild WJTYdNb.
