@@ -83,6 +83,7 @@
             this.Text = "Discore-Selfbot Menu";
             this.TextExtra = "";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.NotifyMenu_Load);
             this.ResumeLayout(false);
 
         }

@@ -35,7 +35,9 @@
             this.EmbedColorStrip = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.EmbedPaint = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.EmbedClear = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.EmbedSend = new System.Windows.Forms.ToolStripButton();
             this.BtnEmbedColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
             this.ActiveStatus = new System.Windows.Forms.ToolStrip();
@@ -44,8 +46,6 @@
             this.ActiveSep = new System.Windows.Forms.ToolStripSeparator();
             this.ActiveTitleC = new System.Windows.Forms.ToolStripLabel();
             this.ActiveChannel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -131,6 +131,11 @@
             this.EmbedPaint.Text = "Color";
             this.EmbedPaint.Click += new System.EventHandler(this.EmbedPaint_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // EmbedClear
             // 
             this.EmbedClear.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -138,6 +143,11 @@
             this.EmbedClear.Size = new System.Drawing.Size(38, 22);
             this.EmbedClear.Text = "Clear";
             this.EmbedClear.Click += new System.EventHandler(this.EmbedClear_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // EmbedSend
             // 
@@ -213,16 +223,6 @@
             this.ActiveChannel.Size = new System.Drawing.Size(52, 22);
             this.ActiveChannel.Text = "MyChan";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // EmbedPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +237,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Embed Popup";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.EmbedPopup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
             this.kryptonPanel1.PerformLayout();

@@ -87,5 +87,10 @@ namespace Discore_Selfbot
                 await DMChan.SendMessageAsync("", false, embed);
             }
         }
+
+        private void EmbedPopup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

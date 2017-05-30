@@ -42,5 +42,10 @@ namespace Discore_Selfbot
             var handle = Program.GetConsoleWindow();
             Program.ShowWindow(handle, Program.SW_HIDE);
         }
+
+        private void NotifyMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
