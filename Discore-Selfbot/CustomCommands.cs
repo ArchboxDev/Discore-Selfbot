@@ -34,80 +34,15 @@ namespace Discore_Selfbot
         }
         public static async Task CustomText(string File, ICommandContext Context)
         {
-            //using (StreamReader read = new StreamReader("movie.json"))
-            //{
-            //var Req = read.ReadToEnd();
-            //dynamic JA = Newtonsoft.Json.Linq.JObject.Parse(Req);
-            //Console.WriteLine(JA.Name);
-            //}
-
-            //using (Stream stream2 = File.Open(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".message.txt", FileMode.Open))
-            //{
-            //using (StreamReader reader2 = new StreamReader(stream2))
-            //{
-            //await Program.SendMessage(message as IUserMessage, reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString()));
-            //}
-            //}
 
         }
         public async Task CustomEmbed()
         {
-            //string Title = reader.ReadLine();
-            //string Thumbnail = reader.ReadLine();
-            //string Image = reader.ReadLine();
-            if (File.Exists("tese"))
-                {
-                using (Stream stream2 = File.Open("Custom\\", FileMode.Open))
-                {
-                    using (StreamReader reader2 = new StreamReader(stream2))
-                    {
-                        var embed = new EmbedBuilder()
-                        {
-                            //Title = Title,
-                            //ThumbnailUrl = Thumbnail,
-                            //ImageUrl = Image,
-                            //Description = reader2.ReadToEnd().Replace("%G%", client.Guilds.Count.ToString())
-                        }.Build();
-                        //if (context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                        //{
-                        //await context.Message.ModifyAsync(x =>
-                        //{
-                        //x.Content = " ";
-                        //x.Embed = embed;
-                        //});
-                        //}
-                        //else
-                        //{
-                        //await context.Message.DeleteAsync();
-                        //await context.Message.Channel.SendMessageAsync("", false, embed);
-                        //}
-                    }
-                }
-            }
         
         }
         public async Task CustomGallery()
         {
-                //string Location = reader.ReadLine();
-                List<string> ImageList = new List<string>();
-                //foreach (var File in Directory.GetFiles(Location))
-                //{
-                    //if (File.ToLower().Contains(".png") || File.ToLower().Contains(".jpg") || File.ToLower().Contains(".gif"))
-                    //{
-                        //ImageList.Add(File);
-                    //}
-                //}
-                if (ImageList.Count == 0)
-                {
-                    //await Program.SendMessage(message as IUserMessage, "No images found in command gallery");
-                }
-                else
-                {
-                    var RandomValue = Program.RandomGenerator.Next(1, ImageList.Count);
-                    var RandomImage = ImageList[RandomValue];
-                    //await Program.SendAttachment(message, RandomImage);
-                }
-            }
+        }
         
     }
 }

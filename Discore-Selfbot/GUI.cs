@@ -271,7 +271,7 @@ namespace Discore_Selfbot
                     Text = Embed_SetFooter.Text
                 }
             };
-            if (Active_Guild.Text != "DM" & Active_Channel.Text.Contains("@"))
+            if (Active_Guild.Text != "DM" & !Active_Channel.Text.Contains("@"))
             {
                 var Guild = Program.client.GetGuild(Program.ActiveGuildID);
                 var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
@@ -362,27 +362,6 @@ namespace Discore_Selfbot
         private void BtnFavColor_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void BtnAN1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Auto nickname timer changed to 1 minute");
-            Properties.Settings.Default.ANTimer = "1";
-            Program.AutoNickname_Timer.Interval = 60000;
-        }
-
-        private void BtnAN5_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Auto nickname timer changed to 5 minute");
-            Properties.Settings.Default.ANTimer = "5";
-            Program.AutoNickname_Timer.Interval = 300000;
-        }
-
-        private void BtnAN10_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("Auto nickname timer changed to 10 minute");
-            Properties.Settings.Default.ANTimer = "10";
-            Program.AutoNickname_Timer.Interval = 600000;
         }
 
         private void ViewBotsList_AfterSelect(object sender, TreeViewEventArgs e)

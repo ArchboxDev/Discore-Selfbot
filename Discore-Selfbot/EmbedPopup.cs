@@ -75,7 +75,7 @@ namespace Discore_Selfbot
                     Text = EmbedFooter.Text
                 }
             };
-            if (ActiveGuild.Text != "DM" & ActiveChannel.Text.Contains("@"))
+            if (ActiveGuild.Text != "DM" & !ActiveChannel.Text.Contains("@"))
             {
                 var Guild = Program.client.GetGuild(Program.ActiveGuildID);
                 var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;

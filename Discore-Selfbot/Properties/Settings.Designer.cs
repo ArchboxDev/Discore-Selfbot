@@ -61,29 +61,6 @@ namespace Discore_Selfbot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection ANGuildsList {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ANGuildsList"]));
-            }
-            set {
-                this["ANGuildsList"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public string ANTimer {
-            get {
-                return ((string)(this["ANTimer"]));
-            }
-            set {
-                this["ANTimer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Default")]
         public string Theme {
             get {
@@ -139,18 +116,6 @@ namespace Discore_Selfbot.Properties {
             }
             set {
                 this["RoleColor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string t {
-            get {
-                return ((string)(this["t"]));
-            }
-            set {
-                this["t"] = value;
             }
         }
     }

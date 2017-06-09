@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.Net.Providers.WS4Net;
 using Discord.WebSocket;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,13 +18,21 @@ using System.Timers;
 using System.Windows.Forms;
 namespace Discore_Selfbot
 {
-    public static class TaskExtensions
+    public class Tag
     {
-        public static void SwallowException(this Task task)
-        {
-            task.ContinueWith(_ => { return; });
-        }
+        public string TagName { get; set; }
+        public string Url { get; set; }
+        public ulong GuildID { get; set; }
+        public ulong ChannelID { get; set; }
+        public string UserName { get; set; }
+        public ulong UserID { get; set; }
+        public string UserIcon { get; set; }
+        public string Message { get; set; }
+        public string Thumbnail { get; set; }
+        public string MainImage { get; set; }
+        public Discord.Color Color { get; set; }
     }
+
     class Program
     {
         public static bool Ready = false;
@@ -41,7 +50,7 @@ namespace Discore_Selfbot
         public static Discord.Color FavoriteColor;
         public static GUI_Form MyGUI;
         public static NotifyIcon MyIcon;
-        public static System.Timers.Timer AutoNickname_Timer = new System.Timers.Timer();
+        public static System.Timers.Timer _TimerUptime = new System.Timers.Timer();
         public static Random RandomGenerator = new Random();
         public static DateTime StartupTime;
         [DllImport("kernel32.dll")]
@@ -50,15 +59,30 @@ namespace Discore_Selfbot
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         public const int SW_HIDE = 0;
         public const int SW_SHOW = 5;
+        public static List<Tag> TagList = new List<Tag>();
+        public static List<IMessage> ErrorMessages = new List<IMessage>();
 
         [STAThread]
         static void Main()
         {
             StartupTime = DateTime.Now;
             DisableConsoleQuickEdit.Go();
+            TrayIconBuster.TrayIconBuster.RemovePhantomIcons();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore - Selfbot";
             Notif();
+            JsonSerializer serializer = new JsonSerializer();
+            foreach (var Files in Directory.GetFiles(SelfbotDir + "Tags\\"))
+            {
+                if (Files.ToString().EndsWith(".json"))
+                {
+                    using (StreamReader reader = new StreamReader(Files))
+                    {
+                        Tag Item = (Tag)serializer.Deserialize(reader, typeof(Tag));
+                        TagList.Add(Item);
+                    }
+                }
+            }
             string Token = "";
             Directory.CreateDirectory(SelfbotDir);
             Directory.CreateDirectory(SelfbotDir + "Tags");
@@ -97,10 +121,6 @@ namespace Discore_Selfbot
             {
             }
             Properties.Settings.Default.TotalRuns++;
-            if (Properties.Settings.Default.ANGuildsList == null)
-            {
-                Properties.Settings.Default.ANGuildsList = new System.Collections.Specialized.StringCollection();
-            }
             Properties.Settings.Default.Save();
             Console.WriteLine("Token found Loading Bot");
             if (Properties.Settings.Default.HideConsole == "Yes")
@@ -115,7 +135,9 @@ namespace Discore_Selfbot
         [STAThread]
         public static void OpenGUI()
         {
+            GUI_Form.CheckForIllegalCrossThreadCalls = false;
             MyGUI = new GUI_Form();
+            
             if (Properties.Settings.Default.AutoForm == "No" & Ready == false)
             {
                 return;
@@ -124,7 +146,9 @@ namespace Discore_Selfbot
             Task mytask = Task.Run(() =>
             {
             MyGUI.ShowDialog();
+
             });
+            MyGUI.WindowState = FormWindowState.Minimized;
         }
 
         [STAThread]
@@ -167,22 +191,28 @@ namespace Discore_Selfbot
             int GuildCount = 0;
             client.GuildUnavailable += (g) =>
             {
-                    if (GuildIDCache.Contains(g.Id))
+                if (GuildIDCache.Contains(g.Id))
+                {
+                    if (MyGUI.Guilds_Loading.Value != 0)
                     {
-                        if (MyGUI.Guilds_Loading.Value != 0)
+                        if (MyGUI.Handle != null)
                         {
                             Program.MyGUI.Invoke((Action)(() =>
                             {
                                 MyGUI.Guilds_Loading.Value--;
                             }));
                         }
-                        int Index = GuildIDCache.IndexOf(g.Id);
-                        Program.MyGUI.Invoke((Action)(() =>
-                        {
-                            MyGUI.Guilds_Bar.Items.RemoveAt(Index);
-                        }));
-                        GuildIDCache.Remove(g.Id);
                     }
+                    int Index = GuildIDCache.IndexOf(g.Id);
+                    if (MyGUI.Handle != null)
+                    {
+                        Program.MyGUI.Invoke((Action)(() =>
+                    {
+                        MyGUI.Guilds_Bar.Items.RemoveAt(Index);
+                    }));
+                    }
+                    GuildIDCache.Remove(g.Id);
+                }
                 return Task.CompletedTask;
             };
 
@@ -190,7 +220,7 @@ namespace Discore_Selfbot
             {
                 if (StartupForm == false)
                 {
-                    OpenGUI();
+
                     using (Stream ImageStream = AvatarIconDownload.OpenRead(client.CurrentUser.GetAvatarUrl()))
                     {
                         Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
@@ -199,12 +229,16 @@ namespace Discore_Selfbot
                         Avatar = i;
                         if (Properties.Settings.Default.AutoForm == "Yes")
                         {
-                            Program.MyGUI.Invoke((Action)(() =>
+                            if (MyGUI.Handle != null)
+                            {
+
+                                Program.MyGUI.Invoke((Action)(() =>
                             {
                                 MyGUI.Text = client.CurrentUser.Username;
                                 MyGUI.Icon = i;
                                 MyGUI.Guilds_Loading.Maximum = client.Guilds.Count;
                             }));
+                            }
                         }
                     }
                     StartupForm = true;
@@ -212,12 +246,16 @@ namespace Discore_Selfbot
                 if (!GuildIDCache.Contains(g.Id))
                 {
                     GuildIDCache.Add(g.Id);
-                    if (MyGUI.Guilds_Loading.Value != client.Guilds.Count)
+                    if (MyGUI.Handle != null)
                     {
-                        Program.MyGUI.Invoke((Action)(() =>
+                        if (MyGUI.Guilds_Loading.Value != client.Guilds.Count)
+                        {
+                            Program.MyGUI.Invoke((Action)(() =>
                         {
                             MyGUI.Guilds_Loading.Value++;
                         }));
+
+                        }
                     }
                     ToolStrip GuildList = MyGUI.Guilds_Bar;
                     if (g.IconUrl == null)
@@ -236,19 +274,25 @@ namespace Discore_Selfbot
                                     Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
                                 }
                                 GuildButton.Image = Image;
-                                Program.MyGUI.Invoke((Action)(() =>
+                                if (MyGUI.Handle != null)
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
                                 {
                                     GuildList.Items.Insert(0, (GuildButton));
                                 }));
+                                }
                                 GuildIDCache.Remove(g.Id);
                                 GuildIDCache.Insert(0, g.Id);
                             }
                             else
                             {
-                                Program.MyGUI.Invoke((Action)(() =>
+                                if (MyGUI.Handle != null)
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
                                 {
                                     GuildList.Items.Add(GuildButton);
                                 }));
+                                }
                             }
                         }
                     }
@@ -267,19 +311,25 @@ namespace Discore_Selfbot
                                     Grap.DrawRectangle(new Pen(Brushes.Gold, 10), new Rectangle(0, 0, Image.Width, Image.Height));
                                 }
                                 GuildButton.Image = Image;
-                                Program.MyGUI.Invoke((Action)(() =>
+                                if (MyGUI.Handle != null)
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
                                 {
                                     GuildList.Items.Insert(0, (GuildButton));
                                 }));
+                                }
                                 GuildIDCache.Remove(g.Id);
                                 GuildIDCache.Insert(0, g.Id);
                             }
                             else
                             {
-                                Program.MyGUI.Invoke((Action)(() =>
+                                if (MyGUI.Handle != null)
+                                {
+                                    Program.MyGUI.Invoke((Action)(() =>
                                 {
                                     GuildList.Items.Add(GuildButton);
                                 }));
+                                }
                             }
                         }
                     }
@@ -333,22 +383,27 @@ namespace Discore_Selfbot
             {
                 if (m.Author.Id == client.CurrentUser.Id)
                 {
-                    Program.MyGUI.Invoke((Action)(() =>
+                    if (MyGUI.Handle != null)
+                    {
+                        Program.MyGUI.Invoke((Action)(() =>
                     {
                         MyGUI.Embed_SendActive.Enabled = true;
                     }));
-
+                    }
                     if (m.Channel is IPrivateChannel)
                     {
                         ActiveGuildID = 0;
                         ActiveChannelID = m.Channel.Id;
                         ActiveGuild = "DM";
                         ActiveChannel = m.Channel.Name;
-                        Program.MyGUI.Invoke((Action)(() =>
+                        if (MyGUI.Handle != null)
+                        {
+                            Program.MyGUI.Invoke((Action)(() =>
                         {
                             MyGUI.UpdateActive("DM", m.Channel.Name);
                             MyGUI.Embed_SendActive.Text = "Active DM";
                         }));
+                        }
                     }
                     else
                     {
@@ -359,11 +414,14 @@ namespace Discore_Selfbot
                             ActiveChannelID = m.Channel.Id;
                             ActiveGuild = GU.Guild.Name;
                             ActiveChannel = m.Channel.Name;
-                            Program.MyGUI.Invoke((Action)(() =>
+                            if (MyGUI.Handle != null)
+                            {
+                                Program.MyGUI.Invoke((Action)(() =>
                             {
                                 MyGUI.UpdateActive(GU.Guild.Name, m.Channel.Name);
                                 MyGUI.Embed_SendActive.Text = "Active";
                             }));
+                            }
                         }
                         else
                         {
@@ -371,11 +429,14 @@ namespace Discore_Selfbot
                             ActiveChannelID = 0;
                             ActiveGuild = "Guild";
                             ActiveChannel = "Channel";
-                            Program.MyGUI.Invoke((Action)(() =>
+                            if (MyGUI.Handle != null)
+                            {
+                                Program.MyGUI.Invoke((Action)(() =>
                             {
                                 MyGUI.UpdateActive("Guild", "Channel");
                                 MyGUI.Embed_SendActive.Text = "No Perms";
                             }));
+                            }
                         }
                     }
                 }
@@ -384,44 +445,53 @@ namespace Discore_Selfbot
 
             client.JoinedGuild += (g) =>
             {
-                Program.MyGUI.Invoke((Action)(() =>
+                if (MyGUI.Handle != null)
                 {
-                    MyGUI.Guilds_Loading.Maximum = client.Guilds.Count;
-                    if (MyGUI.Guilds_Loading.Value != client.Guilds.Count)
+                    Program.MyGUI.Invoke((Action)(() =>
                     {
-                        MyGUI.Guilds_Loading.Value++;
-                    }
-                }));
-                Console.WriteLine($"Joined Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                        MyGUI.Guilds_Loading.Maximum = client.Guilds.Count;
+                        if (MyGUI.Guilds_Loading.Value != client.Guilds.Count)
+                        {
+                            MyGUI.Guilds_Loading.Value++;
+                        }
+                    }));
+                }
+                Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 GuildIDCache.Add(g.Id);
                 if (g.IconUrl == null)
                 {
                     var GuildNameFormat = new String(g.Name.Where(Char.IsLetter).ToArray());
                     using (Stream ImageStream = GuildIconDownload.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0].ToString().ToUpper() + ".png"))
                     {
-                        Program.MyGUI.Invoke((Action)(() =>
+                        if (MyGUI.Handle != null)
                         {
-                            Bitmap Image = new Bitmap(ImageStream);
-                            ToolStrip TS = MyGUI.Guilds_Bar;
-                            var Item = TS.Items.Add(g.Name, Image);
-                            Item.AccessibleDescription = g.Id.ToString();
-                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        }));
+                            Program.MyGUI.Invoke((Action)(() =>
+                            {
+                                Bitmap Image = new Bitmap(ImageStream);
+                                ToolStrip TS = MyGUI.Guilds_Bar;
+                                var Item = TS.Items.Add(g.Name, Image);
+                                Item.AccessibleDescription = g.Id.ToString();
+                                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                            }));
+                        }
                     }
                 }
                 else
                 {
                     using (Stream ImageStream = GuildIconDownload.OpenRead(g.IconUrl))
                     {
-                        Program.MyGUI.Invoke((Action)(() =>
+                        if (MyGUI.Handle != null)
                         {
-                            Bitmap Image = new Bitmap(ImageStream);
-                            ToolStrip TS = MyGUI.Guilds_Bar;
-                            var Item = TS.Items.Add(g.Name, Image);
-                            Item.AccessibleDescription = g.Id.ToString();
-                            Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        }));
-                        
+                            Program.MyGUI.Invoke((Action)(() =>
+                            {
+                                Bitmap Image = new Bitmap(ImageStream);
+                                ToolStrip TS = MyGUI.Guilds_Bar;
+                                var Item = TS.Items.Add(g.Name, Image);
+                                Item.AccessibleDescription = g.Id.ToString();
+                                Item.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                            }));
+                        }
+
                     }
                 }
                 return Task.CompletedTask;
@@ -432,58 +502,62 @@ namespace Discore_Selfbot
                 if (GuildIDCache.Contains(g.Id))
                 {
                     if (MyGUI.Guilds_Loading.Value != 0)
-                {
-                    Program.MyGUI.Invoke((Action)(() =>
                     {
-                        MyGUI.Guilds_Loading.Value--;
-                    }));
-                }
-                Program.MyGUI.Invoke((Action)(() =>
+                        if (MyGUI.Handle != null)
+                        {
+                            Program.MyGUI.Invoke((Action)(() =>
+                            {
+                                MyGUI.Guilds_Loading.Value--;
+                            }));
+                        }
+                    }
+                    if (MyGUI.Handle != null)
+                    {
+                        Program.MyGUI.Invoke((Action)(() =>
                 {
                     MyGUI.Guilds_Loading.Maximum = client.Guilds.Count;
                 }));
-                
+                    }
+
                     int Index = GuildIDCache.IndexOf(g.Id);
-                    Program.MyGUI.Invoke((Action)(() =>
+                    if (MyGUI.Handle != null)
+                    {
+                        Program.MyGUI.Invoke((Action)(() =>
                     {
                         MyGUI.Guilds_Bar.Items.RemoveAt(Index);
                     }));
+                    }
                     GuildIDCache.Remove(g.Id);
                 }
-                Console.WriteLine($"Left Guild > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 return Task.CompletedTask;
             };
 
             client.Connected += () =>
             {
-                Console.Title = "Discore - Selfbot - Online!!";
-                Console.WriteLine("CONNECTED!");
+                Console.Title = "[Discore Selfbot - Online!!";
+                Console.WriteLine("[Discore Selfbot] CONNECTED!");
                 if (Ready == false)
                 {
-                    AutoNickname_Timer.Elapsed += (s, e) => Timer(s, e).SwallowException();
-                    AutoNickname_Timer.Start();
-                    AutoNickname_Timer.Interval = 60000;
-                    if (Properties.Settings.Default.ANTimer == "5")
-                    {
-                        AutoNickname_Timer.Interval = 300000;
-                    }
-                    if (Properties.Settings.Default.ANTimer == "10")
-                    {
-                        AutoNickname_Timer.Interval = 600000;
-                    }
+                    _TimerUptime.Interval = 60000;
+                    _TimerUptime.Elapsed += UptimeTick;
+                    _TimerUptime.Start();
                 }
                 return Task.CompletedTask;
             };
 
             client.Disconnected += (e) =>
             {
+                if (MyGUI.Handle != null)
+                {
                     MyGUI.Invoke((Action)(() =>
                     {
                         MyGUI.Guilds_Bar.Items.Clear();
                     }));
-                    GuildIDCache.Clear();
-                Console.Title = "Discore - Selfbot - Offline!";
-                Console.WriteLine("DISCONNECTED!");
+                }
+                GuildIDCache.Clear();
+                Console.Title = "Discore Selfbot - Offline!";
+                Console.WriteLine("[Discore Selfbot] DISCONNECTED!");
                 return Task.CompletedTask;
             };
 
@@ -494,7 +568,7 @@ namespace Discore_Selfbot
                     Ready = true;
                     if (Properties.Settings.Default.HideConsole == "Yes")
                     {
-                            MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        MyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
                     }
                     string Message = "";
                     switch (client.CurrentUser.Id)
@@ -535,17 +609,17 @@ namespace Discore_Selfbot
 
             try
             {
-                    await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
-                    await client.StartAsync();
-                    MyGUI = new GUI_Form();
+                await client.LoginAsync(TokenType.User, File.ReadAllText(SelfbotDir + "Token.txt"));
+                await client.StartAsync();
+                OpenGUI();
             }
             catch (Exception ex)
             {
                 if (Properties.Settings.Default.HideConsole == "Yes")
                 {
-                        MyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
-                        var handle = GetConsoleWindow();
-                        ShowWindow(handle, SW_SHOW);
+                    MyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
+                    var handle = GetConsoleWindow();
+                    ShowWindow(handle, SW_SHOW);
                 }
                 Console.ForegroundColor = ConsoleColor.Red;
                 if (ex.Message.Contains("401"))
@@ -591,43 +665,11 @@ namespace Discore_Selfbot
                 Console.WriteLine("Could not send attachment: " + ex);
             }
         }
-        public static async Task Timer(object sender, ElapsedEventArgs e)
+        public static void UptimeTick(object sender, ElapsedEventArgs e)
         {
             Uptime++;
             Properties.Settings.Default.TotalUptime++;
             Properties.Settings.Default.Save();
-            if (Properties.Settings.Default.ANGuildsList.Count != 0)
-            {
-                List<string> NickList = new List<string>();
-                var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-                foreach (var Guild in Properties.Settings.Default.ANGuildsList)
-                {
-                    NickList.Clear();
-                    try
-                    {
-                        foreach (var Item in Directory.GetFiles(NicknamePath))
-                        {
-                            if (Item.StartsWith($"{NicknamePath + Guild}-"))
-                            {
-                                NickList.Add(Item.Replace($"{NicknamePath + Guild}-", ""));
-                            }
-                        }
-                        if (NickList.Count != 0)
-                        {
-                            int randomValue = Program.RandomGenerator.Next(0, NickList.Count);
-                            var DGuild = client.GetGuild(Convert.ToUInt64(Guild));
-                            var GuildUser = DGuild.GetUser(client.CurrentUser.Id);
-                            string Nickname = NickList[randomValue];
-                            await GuildUser.ModifyAsync(x => x.Nickname = Nickname);
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-            throw new Exception();
         }
         public static Discord.Color GetEmbedColor(ICommandContext CommandMessage)
         {
@@ -672,23 +714,15 @@ namespace Discore_Selfbot
         {
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
-
-            if (message.Author.Id != client.CurrentUser.Id)
-            {
-                if (message.Channel is IPrivateChannel)
-                {
-                }
-                else
-                {
-                    var GuildUser = message.Author as IGuildUser;
-
-                }
-                return;
-            }
+            if (message.Author.Id != client.CurrentUser.Id) return;
             if (message.Author.Id == client.CurrentUser.Id)
             {
                 int argPos = 0;
                 if (!(message.HasStringPrefix("self ", ref argPos))) return;
+                foreach (var Mes in Program.ErrorMessages)
+                {
+                    await Mes.DeleteAsync();
+                }
                 await message.ModifyAsync(x =>
                 {
                     x.Content = "`...`";
@@ -697,26 +731,28 @@ namespace Discore_Selfbot
                 var result = await commands.ExecuteAsync(context, argPos);
                 if (result.IsSuccess)
                 {
-                    Console.WriteLine($"Command > {message.Content}");
+                    Console.WriteLine($"[Command] Executed {message.Content}");
                     return;
                 }
                 else
                 {
-                    if (!File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
-                    {
-                        Console.WriteLine($"Command > {message.Content} | " + result.ErrorReason);
-                        await message.DeleteAsync();
-                    }
+                    //if (!File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
+                    //{
+
+
+                    //}
+                    Console.WriteLine($"[Command] Failed {message.Content} | " + result.ErrorReason);
+                    await message.DeleteAsync();
                 }
-                if (File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
-                {
-                    await CustomCommands.ParseFileAsync(message.Content.Replace("self ", ""), context);
-                }
+                //if (File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
+                //{
+                    //await CustomCommands.ParseFileAsync(message.Content.Replace("self ", ""), context);
+                //}
             }
         }
     }
-    
-public class InfoModule : ModuleBase
+
+    public class InfoModule : ModuleBase
     {
         [Command("hex")]
         public async Task Color(string Text)
@@ -729,7 +765,7 @@ public class InfoModule : ModuleBase
             var embed = new EmbedBuilder()
             {
                 Description = $"Selfbot | Hex Color {Text}",
-                Color = new Discord.Color(color.R,color.G, color.B)
+                Color = new Discord.Color(color.R, color.G, color.B)
             };
             if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
             {
@@ -745,6 +781,7 @@ public class InfoModule : ModuleBase
                 await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
             }
         }
+
         [Command("roll")]
         public async Task Roll()
         {
@@ -798,6 +835,7 @@ public class InfoModule : ModuleBase
                 }
             }
         }
+
         [Command("region")]
         public async Task Region()
         {
@@ -821,29 +859,30 @@ public class InfoModule : ModuleBase
                 await Context.Message.DeleteAsync();
                 await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
             }
-            
+
         }
+
         [Command("help")]
         public async Task Help()
         {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+            IGuildUser GuildUser = Context.User as IGuildUser;
+            if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+            {
+                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    await Context.Message.ModifyAsync(x =>
                     {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`");
-                    }
-                    return;
+                        x.Content = $"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`";
+                    });
                 }
-            
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | For a list of commands see the GUI `self gui` or visit the website`");
+                }
+                return;
+            }
+
             var embed = new EmbedBuilder()
             {
                 Title = "Selfbot Help",
@@ -868,7 +907,7 @@ public class InfoModule : ModuleBase
         [Command("test")]
         public async Task Test()
         {
-            
+
             //dynamic Item = Newtonsoft.Json.Linq.JObject.Parse(reader.ReadToEnd());
             //var Mention = Context.Guild.GetRole().Mention;
             //var WebHook = new Discord.Webhook.DiscordWebhookClient(, "");
@@ -895,9 +934,13 @@ public class InfoModule : ModuleBase
         public async Task Snip()
         {
             if (!Environment.Is64BitProcess)
+            {
                 Process.Start("C:\\Windows\\sysnative\\SnippingTool.exe");
+            }
             else
+            {
                 Process.Start("C:\\Windows\\system32\\SnippingTool.exe");
+            }
             await Context.Message.DeleteAsync();
         }
 
@@ -1172,7 +1215,7 @@ public class InfoModule : ModuleBase
             }
             int Count = Ammount;
             var Messages = await Context.Channel.GetMessagesAsync().Flatten();
-            foreach(var Message in Messages)
+            foreach (var Message in Messages)
             {
                 if (Message.Author.Id == Context.Client.CurrentUser.Id)
                 {
@@ -1459,7 +1502,7 @@ public class InfoModule : ModuleBase
             {
                 x.Name = "My Time"; x.Value = $"{TimeEmoji} {DateTime.Now.TimeOfDay.Hours.ToString().PadLeft(2, '0')}:{DateTime.Now.TimeOfDay.Minutes.ToString().PadLeft(2, '0')}"; x.IsInline = true;
             });
-            
+
             embed.AddField(x =>
             {
                 x.Name = "Uptime"; x.Value = $":hourglass: {Program.Uptime} minutes"; x.IsInline = true;
@@ -1803,23 +1846,23 @@ public class InfoModule : ModuleBase
                 await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
                 return;
             }
-                IGuildUser ThisUser = Context.User as IGuildUser;
-                if (!ThisUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+            IGuildUser ThisUser = Context.User as IGuildUser;
+            if (!ThisUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
+            {
+                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+                    await Context.Message.ModifyAsync(x =>
                     {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                return;
+                        x.Content = $"`Selfbot | You do not have permission Embed Links`";
+                    });
                 }
+                else
+                {
+                    await Context.Message.DeleteAsync();
+                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
+                }
+                return;
+            }
             string User = ID;
             if (User.StartsWith("<@"))
             {
@@ -1833,7 +1876,7 @@ public class InfoModule : ModuleBase
             {
                 var GuildUser = await Context.Guild.GetUserAsync(Convert.ToUInt64(User));
                 int Count = 0;
-                foreach(var Guild in await Context.Client.GetGuildsAsync())
+                foreach (var Guild in await Context.Client.GetGuildsAsync())
                 {
                     foreach (var Member in await Guild.GetUsersAsync())
                     {
@@ -1899,9 +1942,9 @@ public class InfoModule : ModuleBase
             }
             int GuildCount = 0;
             Console.WriteLine("----- Guilds Found -----");
-            foreach(var Guild in await Context.Client.GetGuildsAsync())
+            foreach (var Guild in await Context.Client.GetGuildsAsync())
             {
-                foreach(var User in await Guild.GetUsersAsync())
+                foreach (var User in await Guild.GetUsersAsync())
                 {
                     if (User.Id.ToString() == UserID)
                     {
@@ -1925,240 +1968,186 @@ public class InfoModule : ModuleBase
             }
         }
 
-        [Command("an bind")]
-        public async Task Anbind()
+        [Command("tag")]
+        public async Task Tag(string TagName = "")
         {
-            if (Context.Channel is IPrivateChannel)
+            if (TagName == "")
             {
-                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
-                return;
-            }
-            var GuildUser = Context.User as IGuildUser;
-            string Message = "";
-            if (Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
-            {
-                Message = "Guild removed from auto nickname list";
-                Properties.Settings.Default.ANGuildsList.Remove(Context.Guild.Id.ToString());
-                Properties.Settings.Default.Save();
+                Program.ErrorMessages.Add(Context.Message);
+                await Context.Message.ModifyAsync(x => x.Content = "`self tag (TagName) | for a list of tags do | self tags`");
             }
             else
             {
-                if (GuildUser.GuildPermissions.ChangeNickname == false)
+                if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
                 {
-                    Message = "You do not have perms for change nickname";
+                    Tag Tag = Program.TagList.First(x => x.TagName.ToLower() == TagName.ToLower());
+                    var embed = new EmbedBuilder()
+                    {
+                        Author = new EmbedAuthorBuilder()
+                        {
+                            Name = Tag.TagName,
+                            Url = Tag.Url
+                        },
+                        Description = Tag.Message,
+                        Footer = new EmbedFooterBuilder()
+                        {
+                            Text = Tag.UserName,
+                            IconUrl = Tag.UserIcon
+                        },
+                        ThumbnailUrl = Tag.Thumbnail,
+                        ImageUrl = Tag.MainImage,
+                        Color = Tag.Color
+                    };
+                    await Context.Message.ModifyAsync(x => x.Embed = embed.Build());
                 }
                 else
                 {
-                    if (Properties.Settings.Default.ANGuildsList.Count == 5)
+                    Program.ErrorMessages.Add(Context.Message);
+                    await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} does not exist`");
+                }
+            }
+        }
+
+        [Command("tags")]
+        public async Task Tags(string Option = "", ulong UserID = 0)
+        {
+            List<string> ListOfTags = new List<string>();
+            if (Context.Channel is IPrivateChannel || Option == "")
+            {
+                foreach (var Item in Program.TagList)
+                {
+                    ListOfTags.Add(Item.TagName);
+                }
+            }
+            else
+            {
+                if (Option.ToLower() == "guild")
+                {
+                    foreach (var Item in Program.TagList.Where(x => x.GuildID == Context.Guild.Id))
                     {
-                        Message = "5 Guilds is the max limit for auto nicknames";
+                        ListOfTags.Add(Item.TagName);
                     }
-                    else
+                }
+                if (Option.ToLower() == "channel")
+                {
+                    foreach (var Item in Program.TagList.Where(x => x.ChannelID == Context.Channel.Id))
                     {
-                        Message = "Guild added to auto nickname list";
-                        Properties.Settings.Default.ANGuildsList.Add(Context.Guild.Id.ToString());
-                        Properties.Settings.Default.Save();
+                        ListOfTags.Add(Item.TagName);
                     }
                 }
             }
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
+            if (Option.ToLower() == "user")
             {
-                await Context.Message.ModifyAsync(x =>
+                if (UserID == 0)
                 {
-                    x.Content = $"`Selfbot | {Message}`";
-                });
+                    await Context.Message.ModifyAsync(x => x.Content = $"`Selfbot | User ID not found`");
+                    Program.ErrorMessages.Add(Context.Message);
+                    return;
+                }
+                    foreach (var Item in Program.TagList.Where(x => x.UserID == UserID))
+                    {
+                        ListOfTags.Add(Item.TagName);
+                    }
+            }
+            string Tags = string.Join(" | ", ListOfTags);
+            await Context.Message.ModifyAsync(x => x.Content = "**List Of Tags**```md" + Environment.NewLine + $"{Tags}```");
+        }
+
+        [Command("addtag")]
+        [Alias("createtag")]
+        public async Task Addtag(string TagName = "", ulong MessageID = 0)
+        {
+            if (TagName == "" | MessageID == 0)
+            {
+                Program.ErrorMessages.Add(Context.Message);
+                await Context.Message.ModifyAsync(x => x.Content = $"`Use | self addtag (TagName) (MessageID)`");
+                return;
+            }
+            if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
+            {
+                Program.ErrorMessages.Add(Context.Message);
+                await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} already exists`");
+                return;
+            }
+            IMessage TagMessage = null;
+            var Messages = await Context.Channel.GetMessagesAsync(50).Flatten();
+           foreach(var Message in Messages)
+            {
+                if (Message.Id == MessageID)
+                {
+                    TagMessage = Message;
+                }
+            }
+            if (TagMessage == null)
+            {
+                Program.ErrorMessages.Add(Context.Message);
+                await Context.Message.ModifyAsync(x => x.Content = $"`Cannot find message by ID`");
+                return;
+            }
+            Tag Tag = new Tag();
+            if (TagMessage.Attachments.Count != 0)
+            {
+                if (TagMessage.Attachments.First().Url.Contains(".png") || TagMessage.Attachments.First().Url.Contains(".jpg"))
+                {
+                    Tag.MainImage = TagMessage.Attachments.First().Url;
+                    Tag.Url = TagMessage.Attachments.First().Url;
+                }
+            }
+            Tag.TagName = TagName;
+            Tag.ChannelID = Context.Channel.Id;
+            Tag.Color = new Discord.Color(0, 0, 0);
+            Tag.GuildID = Context.Guild.Id;
+            Tag.Message = TagMessage.Content;
+            Tag.UserIcon = TagMessage.Author.GetAvatarUrl();
+            Tag.UserID = TagMessage.Author.Id;
+            Tag.UserName = TagMessage.Author.Username + "#" + TagMessage.Author.Discriminator;
+            using (StreamWriter file = File.CreateText(Program.SelfbotDir + "Tags\\" + TagName.ToLower() + ".json"))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, Tag);
+            }
+            Program.TagList.Add(Tag);
+            if (TagMessage.Attachments.Count == 0)
+            {
+                await Context.Message.ModifyAsync(x => x.Content = $"`Created tag {TagName} to edit it use | self edittag`");
             }
             else
             {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync($"`Selfbot | {Message}`");
+                await Context.Message.ModifyAsync(x => x.Content = $"`Created tag {TagName} with an image to edit it use | self edittag`");
+            }
+            Program.ErrorMessages.Add(Context.Message);
+        }
+
+        [Command("deltag")]
+        [Alias("removetag")]
+        public async Task Deltag(string TagName = "")
+        {
+            if (TagName == "")
+            {
+                await Context.Message.ModifyAsync(x => x.Content = $"`Use | self deltag (TagName)`");
+                Program.ErrorMessages.Add(Context.Message);
+                return;
+            }
+            if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
+            {
+                File.Delete(Program.SelfbotDir + "Tags\\" + TagName.ToLower() + ".json");
+                Program.TagList.RemoveAll(x => x.TagName.ToLower() == TagName.ToLower());
+                await Context.Message.ModifyAsync(x => x.Content = $"`Deleted tag {TagName}`");
+                Program.ErrorMessages.Add(Context.Message);
+                return;
+            }
+            else
+            {
+                await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} does not exists`");
+                Program.ErrorMessages.Add(Context.Message);
             }
         }
 
-        [Command("an add")]
-        public async Task Anadd([Remainder] string Nickname)
+        [Command("edittag")]
+        public async Task Edittag()
         {
-            if (Context.Channel is IPrivateChannel)
-            {
-                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
-                return;
-            }
-            if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | This guild is not in the auto nickname list use > self an bind`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | This guild is not in the auto nickname list use > self an bind`");
-                }
-                return;
-            }
-            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-            if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | {Nickname} already exists`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | {Nickname} already exists`");
-                }
-            }
-            else
-            {
-                File.Create(NicknamePath + Context.Guild.Id + "-" + Nickname);
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | {Nickname} added to auto nickname list`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | {Nickname} added to auto nickname list`");
-                }
-            }
-        }
-
-        [Command("an del")]
-        [Alias("an delete", "an remove")]
-        public async Task Andel(string Nickname)
-        {
-            if (Context.Channel is IPrivateChannel)
-            {
-                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
-                return;
-            }
-            if (!Properties.Settings.Default.ANGuildsList.Contains(Context.Guild.Id.ToString()))
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | This guild is not in the auto nickname list use | self an bind`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | This guild is not in the auto nickname list use | self an bind`");
-                }
-                return;
-            }
-            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-            if (File.Exists(NicknamePath + Context.Guild.Id + "-" + Nickname))
-            {
-                File.Delete(NicknamePath + Context.Guild.Id + "-" + Nickname);
-                
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | {Nickname} deleted`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | {Nickname} deleted`");
-                }
-            }
-            else
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | {Nickname} does not exists`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | {Nickname} does not exists`");
-                }
-            }
-        }
-
-        [Command("an list")]
-        public async Task Anlist()
-        {
-            if (Context.Channel is IPrivateChannel)
-            {
-                await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
-                return;
-            }
-            List<string> ANList = new List<string>();
-            var NicknamePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Nicknames\\";
-            foreach (var Item in Directory.GetFiles(NicknamePath))
-            {
-                if (Item.StartsWith($"{NicknamePath + Context.Guild.Id}-"))
-                {
-                    ANList.Add(Item.Replace($"{NicknamePath + Context.Guild.Id}-", ""));
-                }
-            }
-            if (ANList.Count == 0)
-            {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | This guild does not have any nicknames set`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | This guild does not have any nicknames set`");
-                }
-                return;
-            }
-            string NicknameList = string.Join(" | ", ANList.ToArray());
-            if (Properties.Settings.Default.SendAction == "Edit")
-            {
-                var M = Context.Message as IUserMessage;
-                await M.ModifyAsync(x =>
-                {
-                    x.Content = "```List of auto nicknames" + Environment.NewLine + NicknameList + "```";
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync("```List of auto nicknames" + Environment.NewLine + NicknameList + "```");
-            }
-        }
-
-        [Command("an wipe")]
-        public async Task Anwipe()
-        {
-            Properties.Settings.Default.ANGuildsList.Clear();
-            Properties.Settings.Default.Save();
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.SendAction == "Edit")
-            {
-                await Context.Message.ModifyAsync(x =>
-                {
-                    x.Content = $"`Selfbot | Autonickname guilds have been cleared`";
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync($"`Selfbot | Autonickname guilds have been cleared`");
-            }
+            await Context.Message.ModifyAsync(x => x.Content = $"`Selfbot | Edittag command coming soon :(`");
+            Program.ErrorMessages.Add(Context.Message);
         }
     }
 }

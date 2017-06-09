@@ -11,12 +11,6 @@
     <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">ControlText</Value>
     </Setting>
-    <Setting Name="ANGuildsList" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ANTimer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
     <Setting Name="Theme" Type="System.String" Scope="User">
       <Value Profile="(Default)">Default</Value>
     </Setting>
@@ -31,9 +25,6 @@
     </Setting>
     <Setting Name="RoleColor" Type="System.String" Scope="User">
       <Value Profile="(Default)">No</Value>
-    </Setting>
-    <Setting Name="t" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
