@@ -119,6 +119,8 @@
   </resheader>
   <data name="GUI_Changelog.Text" xml:space="preserve">
     <value>--- Latest Update ---
+- Trying to fix GUI issues
+
 - Removed auto nickname feature
 - Fixed alot of the GUI loading code
 - Default minimize GUI windows on startup
@@ -129,9 +131,6 @@
 - Fully implement embed creator/popup and fixes
 - Add custom commands</value>
   </data>
-  <metadata name="GUI_ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>709, 17</value>
-  </metadata>
   <metadata name="GUI_ToolTipManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>709, 17</value>
   </metadata>

@@ -114,10 +114,10 @@ namespace Discore_Selfbot
             
             
             WebClient WBC = new WebClient();
-            Program.GuildIDCache.Clear();
+            _GUI.GuildIDCache.Clear();
             foreach (var Guild in Program.client.Guilds)
             {
-                Program.GuildIDCache.Add(Guild.Id);
+                _GUI.GuildIDCache.Add(Guild.Id);
                 if (Guild.IconUrl == null)
                 {
                     var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
@@ -618,6 +618,11 @@ namespace Discore_Selfbot
                 Embed_ColorStrip.BackColor = e.Color;
                 EmbedColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
+        }
+
+        private void Form_Close(object sender, FormClosedEventArgs e)
+        {
+            
         }
     }
 }
