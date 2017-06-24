@@ -213,7 +213,6 @@
             this.Active_CTitle = new System.Windows.Forms.ToolStripLabel();
             this.Active_Channel = new System.Windows.Forms.ToolStripLabel();
             this.Guilds_Bar = new System.Windows.Forms.ToolStrip();
-            this.Guilds_Loading = new System.Windows.Forms.ProgressBar();
             this.GUI_Back = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.GUI_ThemeManager = new ComponentFactory.Krypton.Toolkit.KryptonManager(this.components);
             this.GUI_Left = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
@@ -228,6 +227,7 @@
             this.GuildInfo_BarText = new System.Windows.Forms.ToolStripLabel();
             this.Embed_SetText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Embed_ColorStrip = new System.Windows.Forms.TextBox();
+            this.Guilds_Loading = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.GUI_Right)).BeginInit();
             this.GUI_Right.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GUI_NavMainPage)).BeginInit();
@@ -346,7 +346,7 @@
             this.GUI_NavSettingsPage,
             this.GUI_NavBotsPage,
             this.GUI_NavCustomPage});
-            this.GUI_Right.SelectedIndex = 0;
+            this.GUI_Right.SelectedIndex = 2;
             this.GUI_Right.Size = new System.Drawing.Size(234, 384);
             this.GUI_Right.TabIndex = 28;
             this.GUI_Right.Text = "kryptonNavigator1";
@@ -379,7 +379,7 @@
             this.GUI_NavInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.GUI_NavInfoPage,
             this.GUI_NavCommandsPage});
-            this.GUI_NavInfo.SelectedIndex = 0;
+            this.GUI_NavInfo.SelectedIndex = 1;
             this.GUI_NavInfo.Size = new System.Drawing.Size(232, 357);
             this.GUI_NavInfo.TabIndex = 8;
             this.GUI_NavInfo.Text = "kryptonNavigator1";
@@ -779,13 +779,13 @@
             // GUI_TextRoleColor
             // 
             this.GUI_TextRoleColor.AutoSize = false;
-            this.GUI_TextRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "RoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GUI_TextRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ForceRoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.GUI_TextRoleColor.Location = new System.Drawing.Point(180, 245);
             this.GUI_TextRoleColor.Name = "GUI_TextRoleColor";
             this.GUI_TextRoleColor.Size = new System.Drawing.Size(49, 40);
             this.GUI_TextRoleColor.TabIndex = 159;
-            this.GUI_TextRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.RoleColor;
-            this.GUI_TextRoleColor.Values.Text = "Yes";
+            this.GUI_TextRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.ForceRoleColor;
+            this.GUI_TextRoleColor.Values.Text = "No";
             // 
             // GUI_AutoStartText
             // 
@@ -1370,17 +1370,6 @@
             this.Guilds_Bar.TabIndex = 18;
             this.Guilds_Bar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.GuildList_ItemClicked);
             // 
-            // Guilds_Loading
-            // 
-            this.Guilds_Loading.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Guilds_Loading.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Guilds_Loading.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
-            this.Guilds_Loading.Location = new System.Drawing.Point(0, 0);
-            this.Guilds_Loading.Name = "Guilds_Loading";
-            this.Guilds_Loading.Size = new System.Drawing.Size(484, 10);
-            this.Guilds_Loading.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.Guilds_Loading.TabIndex = 52;
-            // 
             // GUI_Back
             // 
             this.GUI_Back.BorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.ButtonCustom1;
@@ -1542,6 +1531,17 @@
             this.Embed_ColorStrip.Name = "Embed_ColorStrip";
             this.Embed_ColorStrip.Size = new System.Drawing.Size(10, 140);
             this.Embed_ColorStrip.TabIndex = 16;
+            // 
+            // Guilds_Loading
+            // 
+            this.Guilds_Loading.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Guilds_Loading.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Guilds_Loading.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.Guilds_Loading.Location = new System.Drawing.Point(0, 0);
+            this.Guilds_Loading.Name = "Guilds_Loading";
+            this.Guilds_Loading.Size = new System.Drawing.Size(484, 10);
+            this.Guilds_Loading.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.Guilds_Loading.TabIndex = 52;
             // 
             // GUI_Form
             // 

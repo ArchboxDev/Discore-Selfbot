@@ -110,12 +110,36 @@ namespace Discore_Selfbot.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("No")]
-        public string RoleColor {
+        public string ForceRoleColor {
             get {
-                return ((string)(this["RoleColor"]));
+                return ((string)(this["ForceRoleColor"]));
             }
             set {
-                this["RoleColor"] = value;
+                this["ForceRoleColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StartupAction {
+            get {
+                return ((string)(this["StartupAction"]));
+            }
+            set {
+                this["StartupAction"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MessageAction {
+            get {
+                return ((string)(this["MessageAction"]));
+            }
+            set {
+                this["MessageAction"] = value;
             }
         }
     }

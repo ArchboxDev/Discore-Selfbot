@@ -23,7 +23,7 @@ public class _GUI
         _GUI.MyGUI = new GUI_Form();
         ThisTask = Task.Run(() =>
         {
-            if (Discore_Selfbot.Properties.Settings.Default.AutoForm == "No" & Program.Ready == false)
+            if (Discore_Selfbot.Properties.Settings.Default.AutoForm == "No" & Program._Bot.Ready == false)
             {
                 return;
             }
@@ -37,11 +37,11 @@ public class _GUI
         if (!GuildIDCache.Contains(Guild.Id))
         {
                 GuildIDCache.Add(Guild.Id);
-                if (MyGUI.Guilds_Loading.Value != Program.client.Guilds.Count)
+                if (MyGUI.Guilds_Loading.Value != Program._Client.Guilds.Count)
                 {
                     if (MyGUI.Handle != null)
                     {
-                        MyGUI.Guilds_Loading.Maximum = Program.client.Guilds.Count;
+                        MyGUI.Guilds_Loading.Maximum = Program._Client.Guilds.Count;
                         MyGUI.Guilds_Loading.Value++;
                     }
                 }
@@ -55,7 +55,7 @@ public class _GUI
                         ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
                         GuildButton.AccessibleDescription = Guild.Id.ToString();
                         GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
                             {
@@ -83,7 +83,7 @@ public class _GUI
                         ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
                         GuildButton.AccessibleDescription = Guild.Id.ToString();
                         GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
                             {
@@ -111,13 +111,13 @@ public class _GUI
         if (MyGUI.Guilds_Loading.Value != 0)
         {
             MyGUI.Guilds_Loading.Value--;
-            MyGUI.Guilds_Loading.Maximum = Program.client.Guilds.Count;
+            MyGUI.Guilds_Loading.Maximum = Program._Client.Guilds.Count;
         }
         ulong ID = 0;
         foreach (var GuildCache in GuildIDCache)
         {
             bool Found = false;
-            foreach(var GuildFound in Program.client.Guilds)
+            foreach(var GuildFound in Program._Client.Guilds)
             {
                 if (GuildFound.Id == GuildCache)
                 {

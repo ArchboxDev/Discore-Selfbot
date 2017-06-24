@@ -23,8 +23,14 @@
     <Setting Name="HideConsole" Type="System.String" Scope="User">
       <Value Profile="(Default)">No</Value>
     </Setting>
-    <Setting Name="RoleColor" Type="System.String" Scope="User">
+    <Setting Name="ForceRoleColor" Type="System.String" Scope="User">
       <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="StartupAction" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MessageAction" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

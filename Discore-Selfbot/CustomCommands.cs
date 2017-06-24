@@ -22,13 +22,13 @@ namespace Discore_Selfbot
     {
         public static async Task ParseFileAsync(string File, ICommandContext Context)
         {
-            using (StreamReader read = new StreamReader(Program.SelfbotDir + "Custom\\" + File + ".json"))
+            using (StreamReader read = new StreamReader(Program._Bot.PathCustom + File + ".json"))
             {
                 var Req = read.ReadToEnd();
                 dynamic json = Newtonsoft.Json.Linq.JObject.Parse(Req);
                 if (json.Type == "Text")
                 {
-                    await CustomText(Program.SelfbotDir + "Custom\\" + File + ".txt", Context);
+                    await CustomText(Program._Bot.PathCustom + File + ".txt", Context);
                 }
             }
         }

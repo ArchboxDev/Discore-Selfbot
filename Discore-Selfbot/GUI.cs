@@ -59,11 +59,11 @@ namespace Discore_Selfbot
            if (GUI_Right.SelectedPage.Name == "NavCustomPage")
             {
                 GUI_CCList.Items.Clear();
-                foreach (var File in Directory.GetFiles(Program.SelfbotDir + "Custom\\"))
+                foreach (var File in Directory.GetFiles(Program._Bot.PathCustom))
                 {
                     if (!File.Contains(".message"))
                     {
-                        GUI_CCList.Items.Add(File.Replace(Program.SelfbotDir + "Custom\\", "").Replace(".txt", ""));
+                        GUI_CCList.Items.Add(File.Replace(Program._Bot.PathCustom, "").Replace(".txt", ""));
                     }
                 }
             }
@@ -105,17 +105,17 @@ namespace Discore_Selfbot
                 GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
             
-            if (Program.Ready == false)
+            if (Program._Bot.Ready == false)
             {
                 return;
             }
-            Active_Guild.Text = Program.ActiveGuild;
-            Active_Channel.Text = Program.ActiveChannel;
+            Active_Guild.Text = Program._Gui.ActiveGuild;
+            Active_Channel.Text = Program._Gui.ActiveChannel;
             
             
             WebClient WBC = new WebClient();
             _GUI.GuildIDCache.Clear();
-            foreach (var Guild in Program.client.Guilds)
+            foreach (var Guild in Program._Client.Guilds)
             {
                 _GUI.GuildIDCache.Add(Guild.Id);
                 if (Guild.IconUrl == null)
@@ -127,7 +127,7 @@ namespace Discore_Selfbot
                         ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
                         GuildButton.AccessibleDescription = Guild.Id.ToString();
                         GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
                             {
@@ -150,7 +150,7 @@ namespace Discore_Selfbot
                         ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
                         GuildButton.AccessibleDescription = Guild.Id.ToString();
                         GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-                        if (Guild.OwnerId == Program.client.CurrentUser.Id)
+                        if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
                             {
@@ -166,8 +166,8 @@ namespace Discore_Selfbot
                     }
                 }
             }
-            this.Text = Program.client.CurrentUser.Username;
-            using (Stream ImageStream = WBC.OpenRead(Program.client.CurrentUser.GetAvatarUrl()))
+            this.Text = Program._Client.CurrentUser.Username;
+            using (Stream ImageStream = WBC.OpenRead(Program._Client.CurrentUser.GetAvatarUrl()))
             {
                 Bitmap b = (Bitmap)System.Drawing.Image.FromStream(ImageStream);
                 IntPtr pIcon = b.GetHicon();
@@ -196,8 +196,8 @@ namespace Discore_Selfbot
             ToolStripButton TSB = e.ClickedItem as ToolStripButton;
             TSB.Checked = true;
             Console.WriteLine($"Selected Guild {e.ClickedItem.ToolTipText}");
-            Text = Program.client.CurrentUser.Username + " - " + e.ClickedItem.Text;
-            var Guild = Program.client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
+            Text = Program._Client.CurrentUser.Username + " - " + e.ClickedItem.Text;
+            var Guild = Program._Client.GetGuild(Convert.ToUInt64(e.ClickedItem.AccessibleDescription));
             if (Guild == null)
             {
                 Console.WriteLine("Unable to get guild");
@@ -240,13 +240,13 @@ namespace Discore_Selfbot
         {
             if (Embed_SendActive.Text == "Active")
             {
-                if (Program.ActiveGuildID == 0)
+                if (Program._Gui.ActiveGuildID == 0)
                 {
                     MessageBox.Show("No active guild");
                     return;
                 }
             }
-            if (Program.ActiveChannelID == 0)
+            if (Program._Gui.ActiveChannelID == 0)
             {
                 MessageBox.Show("No active channel");
                 return;
@@ -273,13 +273,13 @@ namespace Discore_Selfbot
             };
             if (Active_Guild.Text != "DM" & !Active_Channel.Text.Contains("@"))
             {
-                var Guild = Program.client.GetGuild(Program.ActiveGuildID);
-                var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
+                var Guild = Program._Client.GetGuild(Program._Gui.ActiveGuildID);
+                var GuildChan = Guild.GetChannel(Program._Gui.ActiveChannelID) as ITextChannel;
                 await GuildChan.SendMessageAsync("", false, embed);
             }
             else
             {
-                IDMChannel DMChan = Program.client.GetChannel(Program.ActiveChannelID) as IDMChannel;
+                IDMChannel DMChan = Program._Client.GetChannel(Program._Gui.ActiveChannelID) as IDMChannel;
                 await DMChan.SendMessageAsync("", false, embed);
             }
         }
@@ -306,7 +306,7 @@ namespace Discore_Selfbot
 
         private void BtnOpenSelfbotFolder_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(Program.SelfbotDir);
+            System.Diagnostics.Process.Start(Program._Bot.Path);
         }
 
         private void ViewCommandsList_AfterSelect(object sender, TreeViewEventArgs e)
@@ -444,8 +444,8 @@ namespace Discore_Selfbot
                 return;
             }
             string Selected = GUI_CCList.SelectedItem.ToString();
-            File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".txt");
-            File.Delete(Program.SelfbotDir + "Custom\\" + Selected + ".message.txt");
+            File.Delete(Program._Bot.PathCustom + Selected + ".txt");
+            File.Delete(Program._Bot.PathCustom + Selected + ".message.txt");
             GUI_CCList.Items.RemoveAt(GUI_CCList.SelectedIndex);
         }
 
@@ -521,27 +521,27 @@ namespace Discore_Selfbot
                 GUI_FavColor.StateNormal.Back.Color1 = e.Color;
                 GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
                 Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
-                Program.FavoriteColor = new Discord.Color();
+                Program._Bot.FavoriteColor = new Discord.Color();
             }
             else
             {
                 GUI_FavColor.StateNormal.Back.Color1 = e.Color;
                 GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
                 Properties.Settings.Default.FavoriteColor = e.Color;
-                Program.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
+                Program._Bot.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
             Properties.Settings.Default.Save();
         }
 
         private void BtnRoleColorYes_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.RoleColor = "Yes";
+            Properties.Settings.Default.ForceRoleColor = "Yes";
             Properties.Settings.Default.Save();
         }
 
         private void BtnRoleColorNo_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.RoleColor = "No";
+            Properties.Settings.Default.ForceRoleColor = "No";
             Properties.Settings.Default.Save();
         }
 
@@ -602,8 +602,8 @@ namespace Discore_Selfbot
         {
             FormEmbedPopup = new EmbedPopup();
             FormEmbedPopup.ShowDialog();
-            FormEmbedPopup.ActiveGuild.Text = Program.ActiveGuild;
-            FormEmbedPopup.ActiveChannel.Text = Program.ActiveChannel;
+            FormEmbedPopup.ActiveGuild.Text = Program._Gui.ActiveGuild;
+            FormEmbedPopup.ActiveChannel.Text = Program._Gui.ActiveChannel;
         }
 
         private void Embed_ColorMenu_SelectedColorChanged(object sender, ColorEventArgs e)

@@ -50,7 +50,7 @@ namespace Discore_Selfbot
 
         private async void EmbedSend_Click(object sender, EventArgs e)
         {
-            if (ActiveGuild.Text == "MyGuild" || Program.ActiveGuildID == 0)
+            if (ActiveGuild.Text == "MyGuild" || Program._Gui.ActiveGuildID == 0)
             {
                     MessageBox.Show("No active guild");
                     return;
@@ -77,13 +77,13 @@ namespace Discore_Selfbot
             };
             if (ActiveGuild.Text != "DM" & !ActiveChannel.Text.Contains("@"))
             {
-                var Guild = Program.client.GetGuild(Program.ActiveGuildID);
-                var GuildChan = Guild.GetChannel(Program.ActiveChannelID) as ITextChannel;
+                var Guild = Program._Client.GetGuild(Program._Gui.ActiveGuildID);
+                var GuildChan = Guild.GetChannel(Program._Gui.ActiveChannelID) as ITextChannel;
                 await GuildChan.SendMessageAsync("", false, embed);
             }
             else
             {
-                IDMChannel DMChan = Program.client.GetChannel(Program.ActiveChannelID) as IDMChannel;
+                IDMChannel DMChan = Program._Client.GetChannel(Program._Gui.ActiveChannelID) as IDMChannel;
                 await DMChan.SendMessageAsync("", false, embed);
             }
         }
