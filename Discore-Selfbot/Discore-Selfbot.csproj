@@ -102,31 +102,31 @@
     <Compile Include="ClassFunctions.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Other\ConsoleFix.cs" />
-    <Compile Include="CustomCommand.cs">
+    <Compile Include="Gui\CustomCommand.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CustomCommand.Designer.cs">
+    <Compile Include="Gui\CustomCommand.Designer.cs">
       <DependentUpon>CustomCommand.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomCommands.cs" />
-    <Compile Include="EmbedPopup.cs">
+    <Compile Include="Gui\CustomCommands.cs" />
+    <Compile Include="Gui\EmbedPopup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EmbedPopup.Designer.cs">
+    <Compile Include="Gui\EmbedPopup.Designer.cs">
       <DependentUpon>EmbedPopup.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI.cs">
+    <Compile Include="Gui\GUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI.designer.cs">
+    <Compile Include="Gui\GUI.designer.cs">
       <DependentUpon>GUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Other\LP_Pinner.cs" />
     <Compile Include="Other\LP_Process.cs" />
-    <Compile Include="NotifyMenu.cs">
+    <Compile Include="Gui\NotifyMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NotifyMenu.Designer.cs">
+    <Compile Include="Gui\NotifyMenu.Designer.cs">
       <DependentUpon>NotifyMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -141,9 +141,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Other\TrayIconBuster.cs" />
-    <Compile Include="GUI-Tasks.cs" />
+    <Compile Include="Gui\GUI-Tasks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -151,16 +150,16 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CustomCommand.resx">
+    <EmbeddedResource Include="Gui\CustomCommand.resx">
       <DependentUpon>CustomCommand.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EmbedPopup.resx">
+    <EmbeddedResource Include="Gui\EmbedPopup.resx">
       <DependentUpon>EmbedPopup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI.resx">
+    <EmbeddedResource Include="Gui\GUI.resx">
       <DependentUpon>GUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NotifyMenu.resx">
+    <EmbeddedResource Include="Gui\NotifyMenu.resx">
       <DependentUpon>NotifyMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

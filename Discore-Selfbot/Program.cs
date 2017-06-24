@@ -296,6 +296,11 @@ namespace Discore_Selfbot
 
             _Client.Connected += () =>
             {
+                if (_Bot.FirstForm == false)
+                {
+                    _Bot.FirstForm = true;
+                    _GUI.Open();
+                }
                 Console.Title = "[Discore Selfbot - Online!!";
                 Console.WriteLine("[Discore Selfbot] CONNECTED!");
                 if (_Bot.Ready == false)
@@ -379,10 +384,6 @@ namespace Discore_Selfbot
             {
                 await _Client.LoginAsync(TokenType.User, _Bot.Token);
                 await _Client.StartAsync();
-                if (_Bot.Ready == false)
-                {
-                    _GUI.Open();
-                }
             }
             catch (Exception ex)
             {

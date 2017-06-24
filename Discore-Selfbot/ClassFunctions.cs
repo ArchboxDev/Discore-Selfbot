@@ -35,6 +35,7 @@ namespace Discore_Selfbot
     {
         public string Token = "";
         public bool Ready = false;
+        public bool FirstForm = false;
         public string Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\";
         public string FileSettings = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\" + "Settings.json";
         public string PathTags = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Tags\\";
