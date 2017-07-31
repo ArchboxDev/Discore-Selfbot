@@ -544,11 +544,19 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    if (message.Content.Contains("{lenny}"))
+                    var MessageText = "";
+                    if (message.Content.Contains("{lenny}") || message.Content.Contains("{fidget}"))
                     {
-                        await message.ModifyAsync(x => { x.Content = message.Content.Replace("{lenny}", "( ͡° ͜ʖ ͡°)"); });
-                    }
+                        if (MessageText == "")
+                        {
+                            MessageText = message.Content;
+                        }
+                        MessageText = MessageText.Replace("{lenny}", "( ͡° ͜ʖ ͡°)");
+                        MessageText = MessageText.Replace("{fidget}", "߷");
+                        await message.ModifyAsync(x => { x.Content = MessageText; });
+                    };
                 }
+            
             }
         }
     }
