@@ -266,6 +266,7 @@
             this.GUI_GuildInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GUI_GuildInfo.Location = new System.Drawing.Point(0, 0);
             this.GUI_GuildInfo.Name = "GUI_GuildInfo";
+            this.GUI_GuildInfo.ReadOnly = true;
             this.GUI_GuildInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.GUI_GuildInfo.Size = new System.Drawing.Size(218, 101);
             this.GUI_GuildInfo.TabIndex = 1;
@@ -278,6 +279,7 @@
             this.GUI_GuildRoles.ForeColor = System.Drawing.Color.White;
             this.GUI_GuildRoles.Location = new System.Drawing.Point(0, 0);
             this.GUI_GuildRoles.Name = "GUI_GuildRoles";
+            this.GUI_GuildRoles.ReadOnly = true;
             this.GUI_GuildRoles.Size = new System.Drawing.Size(218, 101);
             this.GUI_GuildRoles.TabIndex = 2;
             this.GUI_GuildRoles.Text = "";
@@ -1310,7 +1312,7 @@
             this.GuildInfo_Channels,
             this.GuildInfo_Roles,
             this.GuildInfo_Emotes});
-            this.Nav_GuildInfo.SelectedIndex = 1;
+            this.Nav_GuildInfo.SelectedIndex = 0;
             this.Nav_GuildInfo.Size = new System.Drawing.Size(220, 128);
             this.Nav_GuildInfo.TabIndex = 0;
             this.Nav_GuildInfo.Text = "kryptonNavigator1";
@@ -1347,6 +1349,7 @@
             this.GuildInfo_ChannelsBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GuildInfo_ChannelsBox.Location = new System.Drawing.Point(0, 0);
             this.GuildInfo_ChannelsBox.Name = "GuildInfo_ChannelsBox";
+            this.GuildInfo_ChannelsBox.ReadOnly = true;
             this.GuildInfo_ChannelsBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.GuildInfo_ChannelsBox.Size = new System.Drawing.Size(218, 101);
             this.GuildInfo_ChannelsBox.TabIndex = 2;
