@@ -218,7 +218,6 @@ namespace Discore_Selfbot
             box.SelectionLength = 0;
 
             box.SelectionColor = color;
-            //box.SelectionFont = font;
             box.AppendText(text);
             box.SelectionColor = box.ForeColor;
         }
@@ -243,6 +242,7 @@ namespace Discore_Selfbot
             SelectedGuild = Convert.ToUInt64(e.ClickedItem.AccessibleDescription);
             
             GUI_GuildRoles.Clear();
+            GuildInfo_ChannelsBox.Clear();
             foreach (var Chan in Guild.TextChannels)
             {
                 GuildInfo_ChannelsBox.AppendText($"{Chan.Name} - {Chan.Id}" + Environment.NewLine);

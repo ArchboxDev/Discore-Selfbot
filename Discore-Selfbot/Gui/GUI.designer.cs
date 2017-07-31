@@ -1310,7 +1310,7 @@
             this.GuildInfo_Channels,
             this.GuildInfo_Roles,
             this.GuildInfo_Emotes});
-            this.Nav_GuildInfo.SelectedIndex = 0;
+            this.Nav_GuildInfo.SelectedIndex = 1;
             this.Nav_GuildInfo.Size = new System.Drawing.Size(220, 128);
             this.Nav_GuildInfo.TabIndex = 0;
             this.Nav_GuildInfo.Text = "kryptonNavigator1";
