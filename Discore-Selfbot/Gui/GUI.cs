@@ -17,7 +17,8 @@ namespace Discore_Selfbot
         public static ulong SelectedGuild = 0;
         public string LastEmbedTitle = "";
         public string LastEmbedText = "";
-        public static EmbedPopup FormEmbedPopup;
+        public static EmbedPopup FormEmbedPopup = null;
+        public static bool Ready = false;
         public GUI_Form()
         {
             InitializeComponent();
@@ -28,16 +29,36 @@ namespace Discore_Selfbot
             this.GUI_LinkGithub.Click += LinkGithub_Click;
             this.GUI_LinkMyGuild.Click += LinkMyGuild_Click;
         }
-        public void UpdateActive(string Guild = "MyGuild", string Channel = "MyGuild")
+        public string ActiveGuild = "Guild";
+        public string ActiveChannel = "Channel";
+        public ulong ActiveGuildID = 0;
+        public ulong ActiveChannelID = 0;
+        public void SetActive(string Guild, ulong GuildID, string Channel, ulong ChannelID)
         {
-                Active_Guild.Text = Guild;
-                Active_Channel.Text = Channel;
-                if (FormEmbedPopup != null)
-                {
-                    FormEmbedPopup.ActiveGuild.Text = Guild;
-                    FormEmbedPopup.ActiveChannel.Text = Channel;
-                }
+            ActiveGuild = Guild; ActiveGuildID = GuildID; ActiveChannel = Channel; ActiveChannelID = ChannelID;
+            Active_Guild.Text = ActiveGuild;
+            Active_Channel.Text = ActiveChannel;
+            if (GuildID == 1)
+            {
+                Embed_SendActive.Text = "DM";
+                Embed_SendActive.Enabled = true;
+            } else if (GuildID == 2)
+            {
+                Embed_SendActive.Text = "No Perms";
+                Embed_SendActive.Enabled = false;
+            } else
+            {
+                Embed_SendActive.Text = "Active Guild";
+                Embed_SendActive.Enabled = true;
+            }
+            
+            if (FormEmbedPopup != null)
+            {
+                FormEmbedPopup.ActiveGuild.Text = Guild;
+                FormEmbedPopup.ActiveChannel.Text = Channel;
+            }
         }
+
 
         private void LinkMyGuild_Click(object sender, EventArgs e)
         {
@@ -87,20 +108,28 @@ namespace Discore_Selfbot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Ready = false;
+            
             Microsoft.Win32.RegistryKey rkApp = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             if (rkApp.GetValue("Discore-Selfbot") != null)
             {
-                GUI_AutoStartText.Text = "Yes";
+                Setting_WindowsStartup.SelectedItem = "Yes";
             }
-            GUI_FavColor.StateNormal.Back.Color1 = Properties.Settings.Default.FavoriteColor;
-            GUI_FavColor.OverrideDefault.Back.Color1 = Properties.Settings.Default.FavoriteColor;
-            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Silver;
-            GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
-            if (Properties.Settings.Default.Theme == "Dark")
+            else
+            {
+                Setting_WindowsStartup.SelectedItem = "No";
+            }
+            
+            Setting_CommandAction.SelectedItem = Program.Settings.MessageAction;
+            Settings_Startup.SelectedItem = Program.Settings.Startup;
+            Setting_ForceRoleColor.SelectedItem = Program.Settings.ForceRoleColor;
+            GUI_FavColor.StateNormal.Back.Color1 = Program.Settings.FavColor;
+            GUI_FavColor.OverrideDefault.Back.Color1 = Program.Settings.FavColor;
+            if (Program.Settings.Theme == "Dark")
             {
                 GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
             }
-            if (Properties.Settings.Default.Theme == "Dark Sparkle")
+            if (Program.Settings.Theme == "Dark Sparkle")
             {
                 GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
             }
@@ -109,24 +138,27 @@ namespace Discore_Selfbot
             {
                 return;
             }
-            Active_Guild.Text = Program._Gui.ActiveGuild;
-            Active_Channel.Text = Program._Gui.ActiveChannel;
+            Active_Guild.Text = ActiveGuild;
+            Active_Channel.Text = ActiveChannel;
             
             
             WebClient WBC = new WebClient();
-            _GUI.GuildIDCache.Clear();
+            
+            Program._GUI.GuildIDCache.Clear();
             foreach (var Guild in Program._Client.Guilds)
             {
-                _GUI.GuildIDCache.Add(Guild.Id);
+                Program._GUI.GuildIDCache.Add(Guild.Id);
                 if (Guild.IconUrl == null)
                 {
                     var GuildNameFormat = new String(Guild.Name.Where(Char.IsLetter).ToArray());
                     using (Stream ImageStream = WBC.OpenRead("http://dev.blaze.ml/Letters/" + GuildNameFormat.ToCharArray()[0] + ".png"))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
-                        GuildButton.AccessibleDescription = Guild.Id.ToString();
-                        GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image)
+                        {
+                            AccessibleDescription = Guild.Id.ToString(),
+                            DisplayStyle = ToolStripItemDisplayStyle.Image
+                        };
                         if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
@@ -147,9 +179,11 @@ namespace Discore_Selfbot
                     using (Stream ImageStream = WBC.OpenRead(Guild.IconUrl))
                     {
                         Bitmap Image = new Bitmap(ImageStream);
-                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image);
-                        GuildButton.AccessibleDescription = Guild.Id.ToString();
-                        GuildButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                        ToolStripButton GuildButton = new ToolStripButton(Guild.Name, Image)
+                        {
+                            AccessibleDescription = Guild.Id.ToString(),
+                            DisplayStyle = ToolStripItemDisplayStyle.Image
+                        };
                         if (Guild.OwnerId == Program._Client.CurrentUser.Id)
                         {
                             using (Graphics Grap = Graphics.FromImage(Image))
@@ -174,6 +208,8 @@ namespace Discore_Selfbot
                 Icon i = Icon.FromHandle(pIcon);
                 this.Icon = i;
             }
+            
+            Ready = true;
         }
 
         public void AppendText(RichTextBox box, string text, System.Drawing.Color color)
@@ -240,13 +276,13 @@ namespace Discore_Selfbot
         {
             if (Embed_SendActive.Text == "Active")
             {
-                if (Program._Gui.ActiveGuildID == 0)
+                if (this.ActiveGuildID == 0)
                 {
                     MessageBox.Show("No active guild");
                     return;
                 }
             }
-            if (Program._Gui.ActiveChannelID == 0)
+            if (this.ActiveChannelID == 0)
             {
                 MessageBox.Show("No active channel");
                 return;
@@ -273,13 +309,13 @@ namespace Discore_Selfbot
             };
             if (Active_Guild.Text != "DM" & !Active_Channel.Text.Contains("@"))
             {
-                var Guild = Program._Client.GetGuild(Program._Gui.ActiveGuildID);
-                var GuildChan = Guild.GetChannel(Program._Gui.ActiveChannelID) as ITextChannel;
+                var Guild = Program._Client.GetGuild(this.ActiveGuildID);
+                var GuildChan = Guild.GetChannel(this.ActiveChannelID) as ITextChannel;
                 await GuildChan.SendMessageAsync("", false, embed);
             }
             else
             {
-                IDMChannel DMChan = Program._Client.GetChannel(Program._Gui.ActiveChannelID) as IDMChannel;
+                IDMChannel DMChan = Program._Client.GetChannel(this.ActiveChannelID) as IDMChannel;
                 await DMChan.SendMessageAsync("", false, embed);
             }
         }
@@ -317,46 +353,44 @@ namespace Discore_Selfbot
         private void BtnThemeDefault_Click(object sender, EventArgs e)
         {
             GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Blue;
-            Properties.Settings.Default.Theme = "Default";
-            Properties.Settings.Default.Save();
+            Program.Settings.Theme = "Default";
+            Program.SaveSettings();
         }
 
         private void BtnThemeDark_Click(object sender, EventArgs e)
         {
             GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.Office2010Black;
-            Properties.Settings.Default.Theme = "Default";
-            Properties.Settings.Default.Save();
+            Program.Settings.Theme = "Dark";
+            Program.SaveSettings();
         }
 
         private void BtnThemeSparkle_Click(object sender, EventArgs e)
         {
             GUI_ThemeManager.GlobalPaletteMode = PaletteModeManager.SparkleBlue;
-            Properties.Settings.Default.Theme = "Default";
-            Properties.Settings.Default.Save();
+            Program.Settings.Theme = "Dark Sparkle";
+            Program.SaveSettings();
         }
 
         private void BtnCMEdit_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.SendAction = "Edit";
-            Properties.Settings.Default.Save();
+            Program.Settings.MessageAction = "Edit";
+            Program.SaveSettings();
         }
 
         private void BtnCMDelete_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.SendAction = "Delete";
-            Properties.Settings.Default.Save();
+            Program.Settings.MessageAction = "Delete";
+            Program.SaveSettings();
         }
 
         private void BtnAFYes_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AutoForm = "Yes";
-            Properties.Settings.Default.Save();
+          
         }
 
         private void BtnAFNo_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AutoForm = "No";
-            Properties.Settings.Default.Save();
+         
         }
 
         private void BtnFavColor_Click(object sender, EventArgs e)
@@ -429,9 +463,8 @@ namespace Discore_Selfbot
         private void CustomAddCustomAdd_LinkClicked(object sender, EventArgs e)
         {
             MessageBox.Show("Custom commands disabled > Under construction");
-            return;
-            var Custom = new CustomCommand();
-                Custom.Show();
+            //var Custom = new CustomCommand();
+                //Custom.Show();
         }
 
         private void CustomDelete_LinkClicked(object sender, EventArgs e)
@@ -440,8 +473,8 @@ namespace Discore_Selfbot
             {
                 MessageBox.Show("Custom commands disabled > Under construction");
                 return;
-                MessageBox.Show("No item selected");
-                return;
+                //MessageBox.Show("No item selected");
+                //return;
             }
             string Selected = GUI_CCList.SelectedItem.ToString();
             File.Delete(Program._Bot.PathCustom + Selected + ".txt");
@@ -504,14 +537,12 @@ namespace Discore_Selfbot
 
         private void BtnHideConsoleYes_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.HideConsole = "Yes";
-            Properties.Settings.Default.Save();
+            
         }
 
         private void BtnHideConsoleNo_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.HideConsole = "No";
-            Properties.Settings.Default.Save();
+            
         }
 
         private void BtnFavColor_SelectedColorChanged(object sender, ColorEventArgs e)
@@ -520,29 +551,29 @@ namespace Discore_Selfbot
             {
                 GUI_FavColor.StateNormal.Back.Color1 = e.Color;
                 GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
-                Properties.Settings.Default.FavoriteColor = System.Drawing.Color.Empty;
-                Program._Bot.FavoriteColor = new Discord.Color();
+                Program.Settings.FavColor = System.Drawing.Color.Empty;
+                    Program._Bot.FavoriteColor = new Discord.Color();
             }
             else
             {
                 GUI_FavColor.StateNormal.Back.Color1 = e.Color;
                 GUI_FavColor.OverrideDefault.Back.Color1 = e.Color;
-                Properties.Settings.Default.FavoriteColor = e.Color;
-                Program._Bot.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
+                Program.Settings.FavColor = e.Color;
+                    Program._Bot.FavoriteColor = new Discord.Color(e.Color.R, e.Color.G, e.Color.B);
             }
-            Properties.Settings.Default.Save();
+            Program.SaveSettings();
         }
 
         private void BtnRoleColorYes_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ForceRoleColor = "Yes";
-            Properties.Settings.Default.Save();
+            Program.Settings.ForceRoleColor = "Yes";
+            Program.SaveSettings();
         }
 
         private void BtnRoleColorNo_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.ForceRoleColor = "No";
-            Properties.Settings.Default.Save();
+            Program.Settings.ForceRoleColor = "No";
+            Program.SaveSettings();
         }
 
         private void EmbedPaint_Click(object sender, EventArgs e)
@@ -569,21 +600,7 @@ namespace Discore_Selfbot
         {
 
         }
-
-        private void GUI_AutoStartYes_Click(object sender, EventArgs e)
-        {
-            Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            string DiscorePath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + @"\Blaze\Discore.appref-ms";
-            RegKey.SetValue("Discore-Selfbot", DiscorePath);
-            GUI_AutoStartText.Text = "Yes";
-        }
-
-        private void GUI_AutoStartNo_Click(object sender, EventArgs e)
-        {
-            Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            RegKey.DeleteValue("Discore-Selfbot");
-            GUI_AutoStartText.Text = "No";
-        }
+        
 
         private void Embed_OpenColor_Click(object sender, EventArgs e)
         {
@@ -602,8 +619,8 @@ namespace Discore_Selfbot
         {
             FormEmbedPopup = new EmbedPopup();
             FormEmbedPopup.ShowDialog();
-            FormEmbedPopup.ActiveGuild.Text = Program._Gui.ActiveGuild;
-            FormEmbedPopup.ActiveChannel.Text = Program._Gui.ActiveChannel;
+            FormEmbedPopup.ActiveGuild.Text = this.ActiveGuild;
+            FormEmbedPopup.ActiveChannel.Text = this.ActiveChannel;
         }
 
         private void Embed_ColorMenu_SelectedColorChanged(object sender, ColorEventArgs e)
@@ -621,6 +638,64 @@ namespace Discore_Selfbot
         }
 
         private void Form_Close(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+        private void Settings_Startup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           if (Ready == true)
+            {
+                Program.Settings.Startup = Settings_Startup.SelectedItem.ToString();
+                Program.SaveSettings();
+            }
+        }
+
+        private void Setting_WindowsStartup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Ready == true)
+            {
+                if (Setting_WindowsStartup.SelectedText == "Yes")
+                {
+                    try
+                    {
+                        Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                        string DiscorePath = Environment.GetFolderPath(Environment.SpecialFolder.Programs) + @"\Blaze\Discore.appref-ms";
+                        RegKey.SetValue("Discore-Selfbot", DiscorePath);
+                    }
+                    catch { }
+                }
+                else
+                {
+                    try
+                    {
+                        Microsoft.Win32.RegistryKey RegKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+                        RegKey.DeleteValue("Discore-Selfbot");
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private void Setting_CommandAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Ready == true)
+            {
+                Program.Settings.MessageAction = Setting_CommandAction.SelectedItem.ToString();
+                Program.SaveSettings();
+            }
+        }
+
+        private void Setting_ForceRoleColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Ready == true)
+            {
+                Program.Settings.ForceRoleColor = Setting_ForceRoleColor.SelectedItem.ToString();
+                Program.SaveSettings();
+            }
+        }
+
+        private void GUI_NavSettingsPage_Click(object sender, EventArgs e)
         {
             
         }

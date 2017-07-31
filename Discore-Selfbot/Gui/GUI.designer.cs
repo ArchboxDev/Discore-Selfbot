@@ -145,38 +145,27 @@
             this.GUI_CommandsList = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.GUI_CommandsInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.GUI_NavThemesPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.GUI_FavText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.GUI_FavColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
             this.GUI_ThemeSparkle = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.GUI_ThemeDark = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.GUI_ThemeDefault = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.GUI_ThemesBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.GUI_NavSettingsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
-            this.GUI_AutoStartNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_BtnRoleColorNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_TextRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GUI_AutoStartText = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GUI_BtnRoleColorYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_HelpHideConsole = new System.Windows.Forms.TextBox();
-            this.GUI_AutoStartYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_TitleHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GUI_BtnHideConsoleNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_HelpAutoStart = new System.Windows.Forms.TextBox();
-            this.GUI_TextHideConsole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GUI_BtnHideConsoleYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_TitleAutoStart = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GUI_HelpRoleColor = new System.Windows.Forms.TextBox();
+            this.GUI_FavText = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.GUI_FavColor = new ComponentFactory.Krypton.Toolkit.KryptonColorButton();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.TitleFavColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.Setting_WindowsStartup = new System.Windows.Forms.ComboBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.TitleWindowsStartup = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.Setting_ForceRoleColor = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.TitleForceRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.Setting_CommandAction = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TitleCommandAction = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
+            this.Settings_Startup = new System.Windows.Forms.ComboBox();
             this.GUI_HelpAutoForm = new System.Windows.Forms.TextBox();
-            this.GUI_HelpCM = new System.Windows.Forms.TextBox();
-            this.GUI_TitleRoleColor = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GUI_TitleAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GUI_TitleCM = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
-            this.GUI_BtnAutoFormNo = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_TextAutoForm = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GUI_BtnAutoFormYes = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_BtnCMDelete = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.GUI_TextCM = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.GUI_BtnCMEdit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.GUI_TitleStartup = new ComponentFactory.Krypton.Toolkit.KryptonHeader();
             this.GUI_SettingsBorder = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.GUI_NavBotsPage = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.GUI_BotsInfo = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
@@ -379,7 +368,7 @@
             this.GUI_NavInfo.Pages.AddRange(new ComponentFactory.Krypton.Navigator.KryptonPage[] {
             this.GUI_NavInfoPage,
             this.GUI_NavCommandsPage});
-            this.GUI_NavInfo.SelectedIndex = 1;
+            this.GUI_NavInfo.SelectedIndex = 0;
             this.GUI_NavInfo.Size = new System.Drawing.Size(232, 357);
             this.GUI_NavInfo.TabIndex = 8;
             this.GUI_NavInfo.Text = "kryptonNavigator1";
@@ -483,7 +472,7 @@
             this.GUI_NavCommandsPage.LastVisibleSet = true;
             this.GUI_NavCommandsPage.MinimumSize = new System.Drawing.Size(50, 50);
             this.GUI_NavCommandsPage.Name = "GUI_NavCommandsPage";
-            this.GUI_NavCommandsPage.Size = new System.Drawing.Size(230, 331);
+            this.GUI_NavCommandsPage.Size = new System.Drawing.Size(230, 332);
             this.GUI_NavCommandsPage.Text = "Selfbot Commands";
             this.GUI_NavCommandsPage.ToolTipTitle = "Page ToolTip";
             this.GUI_NavCommandsPage.UniqueName = "E1FF2C7914C34B417AA8BFF17BFB6E40";
@@ -493,7 +482,7 @@
             this.GUI_CommandsList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.GUI_CommandsList.HotTracking = true;
             this.GUI_CommandsList.ItemHeight = 21;
-            this.GUI_CommandsList.Location = new System.Drawing.Point(0, 50);
+            this.GUI_CommandsList.Location = new System.Drawing.Point(0, 51);
             this.GUI_CommandsList.Name = "GUI_CommandsList";
             treeNode1.Name = "self gui | self form";
             treeNode1.Text = "self gui | self form";
@@ -631,15 +620,13 @@
             this.GUI_CommandsInfo.Multiline = true;
             this.GUI_CommandsInfo.Name = "GUI_CommandsInfo";
             this.GUI_CommandsInfo.ReadOnly = true;
-            this.GUI_CommandsInfo.Size = new System.Drawing.Size(230, 331);
+            this.GUI_CommandsInfo.Size = new System.Drawing.Size(230, 332);
             this.GUI_CommandsInfo.TabIndex = 4;
             this.GUI_CommandsInfo.Text = "Select a command\r";
             // 
             // GUI_NavThemesPage
             // 
             this.GUI_NavThemesPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.GUI_NavThemesPage.Controls.Add(this.GUI_FavText);
-            this.GUI_NavThemesPage.Controls.Add(this.GUI_FavColor);
             this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeSparkle);
             this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeDark);
             this.GUI_NavThemesPage.Controls.Add(this.GUI_ThemeDefault);
@@ -648,39 +635,10 @@
             this.GUI_NavThemesPage.LastVisibleSet = true;
             this.GUI_NavThemesPage.MinimumSize = new System.Drawing.Size(50, 50);
             this.GUI_NavThemesPage.Name = "GUI_NavThemesPage";
-            this.GUI_NavThemesPage.Size = new System.Drawing.Size(232, 357);
+            this.GUI_NavThemesPage.Size = new System.Drawing.Size(232, 358);
             this.GUI_NavThemesPage.Text = "Theme";
             this.GUI_NavThemesPage.ToolTipTitle = "Page ToolTip";
             this.GUI_NavThemesPage.UniqueName = "D9CF7C7E665A4C5EF0A5F9ED2C3255A3";
-            // 
-            // GUI_FavText
-            // 
-            this.GUI_FavText.Location = new System.Drawing.Point(106, 175);
-            this.GUI_FavText.Multiline = true;
-            this.GUI_FavText.Name = "GUI_FavText";
-            this.GUI_FavText.ReadOnly = true;
-            this.GUI_FavText.Size = new System.Drawing.Size(115, 110);
-            this.GUI_FavText.TabIndex = 160;
-            this.GUI_FavText.Text = "Favorite color will be used for the loading guild bar in the GUI and used in all " +
-    "embed message";
-            // 
-            // GUI_FavColor
-            // 
-            this.GUI_FavColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GUI_FavColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Bottom;
-            this.GUI_FavColor.Location = new System.Drawing.Point(7, 175);
-            this.GUI_FavColor.Name = "GUI_FavColor";
-            this.GUI_FavColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.GUI_FavColor.SelectedColor = System.Drawing.Color.Empty;
-            this.GUI_FavColor.Size = new System.Drawing.Size(93, 108);
-            this.GUI_FavColor.Splitter = false;
-            this.GUI_FavColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
-            this.GUI_FavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.GUI_FavColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.GUI_FavColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.GUI_FavColor.TabIndex = 158;
-            this.GUI_FavColor.Values.Text = "Favorite Color";
-            this.GUI_FavColor.SelectedColorChanged += new System.EventHandler<ComponentFactory.Krypton.Toolkit.ColorEventArgs>(this.BtnFavColor_SelectedColorChanged);
             // 
             // GUI_ThemeSparkle
             // 
@@ -689,7 +647,7 @@
             this.GUI_ThemeSparkle.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.SparkleBlue;
             this.GUI_ThemeSparkle.Size = new System.Drawing.Size(214, 50);
             this.GUI_ThemeSparkle.TabIndex = 6;
-            this.GUI_ThemeSparkle.Values.Text = "Dark Sparkle";
+            this.GUI_ThemeSparkle.Values.Text = "Sparkle";
             this.GUI_ThemeSparkle.Click += new System.EventHandler(this.BtnThemeSparkle_Click);
             // 
             // GUI_ThemeDark
@@ -699,7 +657,7 @@
             this.GUI_ThemeDark.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Black;
             this.GUI_ThemeDark.Size = new System.Drawing.Size(214, 50);
             this.GUI_ThemeDark.TabIndex = 5;
-            this.GUI_ThemeDark.Values.Text = "Dark Theme";
+            this.GUI_ThemeDark.Values.Text = "Dark";
             this.GUI_ThemeDark.Click += new System.EventHandler(this.BtnThemeDark_Click);
             // 
             // GUI_ThemeDefault
@@ -709,7 +667,7 @@
             this.GUI_ThemeDefault.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
             this.GUI_ThemeDefault.Size = new System.Drawing.Size(214, 50);
             this.GUI_ThemeDefault.TabIndex = 4;
-            this.GUI_ThemeDefault.Values.Text = "Default Theme";
+            this.GUI_ThemeDefault.Values.Text = "Default";
             this.GUI_ThemeDefault.Click += new System.EventHandler(this.BtnThemeDefault_Click);
             // 
             // GUI_ThemesBorder
@@ -718,36 +676,27 @@
             this.GUI_ThemesBorder.Location = new System.Drawing.Point(0, 0);
             this.GUI_ThemesBorder.Name = "GUI_ThemesBorder";
             this.GUI_ThemesBorder.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.GUI_ThemesBorder.Size = new System.Drawing.Size(232, 357);
+            this.GUI_ThemesBorder.Size = new System.Drawing.Size(232, 358);
             // 
             // GUI_NavSettingsPage
             // 
             this.GUI_NavSettingsPage.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_AutoStartNo);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnRoleColorNo);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextRoleColor);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_AutoStartText);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnRoleColorYes);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpHideConsole);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_AutoStartYes);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleHideConsole);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnHideConsoleNo);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpAutoStart);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextHideConsole);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnHideConsoleYes);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleAutoStart);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_FavText);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_FavColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.textBox4);
+            this.GUI_NavSettingsPage.Controls.Add(this.TitleFavColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.Setting_WindowsStartup);
+            this.GUI_NavSettingsPage.Controls.Add(this.textBox3);
+            this.GUI_NavSettingsPage.Controls.Add(this.TitleWindowsStartup);
+            this.GUI_NavSettingsPage.Controls.Add(this.Setting_ForceRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.textBox2);
+            this.GUI_NavSettingsPage.Controls.Add(this.TitleForceRoleColor);
+            this.GUI_NavSettingsPage.Controls.Add(this.Setting_CommandAction);
+            this.GUI_NavSettingsPage.Controls.Add(this.textBox1);
+            this.GUI_NavSettingsPage.Controls.Add(this.TitleCommandAction);
+            this.GUI_NavSettingsPage.Controls.Add(this.Settings_Startup);
             this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpAutoForm);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_HelpCM);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleRoleColor);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleAutoForm);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleCM);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoFormNo);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextAutoForm);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnAutoFormYes);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnCMDelete);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TextCM);
-            this.GUI_NavSettingsPage.Controls.Add(this.GUI_BtnCMEdit);
+            this.GUI_NavSettingsPage.Controls.Add(this.GUI_TitleStartup);
             this.GUI_NavSettingsPage.Controls.Add(this.GUI_SettingsBorder);
             this.GUI_NavSettingsPage.Flags = 65534;
             this.GUI_NavSettingsPage.LastVisibleSet = true;
@@ -757,289 +706,232 @@
             this.GUI_NavSettingsPage.Text = "Settings";
             this.GUI_NavSettingsPage.ToolTipTitle = "Page ToolTip";
             this.GUI_NavSettingsPage.UniqueName = "49ED9FB7DC7E4E4A978BC06114B986B4";
+            this.GUI_NavSettingsPage.Click += new System.EventHandler(this.GUI_NavSettingsPage_Click);
             // 
-            // GUI_AutoStartNo
+            // GUI_FavText
             // 
-            this.GUI_AutoStartNo.Location = new System.Drawing.Point(103, 317);
-            this.GUI_AutoStartNo.Name = "GUI_AutoStartNo";
-            this.GUI_AutoStartNo.Size = new System.Drawing.Size(70, 40);
-            this.GUI_AutoStartNo.TabIndex = 165;
-            this.GUI_AutoStartNo.Values.Text = "No";
-            this.GUI_AutoStartNo.Click += new System.EventHandler(this.GUI_AutoStartNo_Click);
+            this.GUI_FavText.Location = new System.Drawing.Point(113, 241);
+            this.GUI_FavText.Multiline = true;
+            this.GUI_FavText.Name = "GUI_FavText";
+            this.GUI_FavText.ReadOnly = true;
+            this.GUI_FavText.Size = new System.Drawing.Size(116, 112);
+            this.GUI_FavText.TabIndex = 181;
+            this.GUI_FavText.Text = "Favorite color will be used for the loading guild bar in the GUI and used in all " +
+    "embed message";
             // 
-            // GUI_BtnRoleColorNo
+            // GUI_FavColor
             // 
-            this.GUI_BtnRoleColorNo.Location = new System.Drawing.Point(104, 245);
-            this.GUI_BtnRoleColorNo.Name = "GUI_BtnRoleColorNo";
-            this.GUI_BtnRoleColorNo.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnRoleColorNo.TabIndex = 160;
-            this.GUI_BtnRoleColorNo.Values.Text = "No";
-            this.GUI_BtnRoleColorNo.Click += new System.EventHandler(this.BtnRoleColorNo_Click);
+            this.GUI_FavColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.GUI_FavColor.DropDownPosition = ComponentFactory.Krypton.Toolkit.VisualOrientation.Bottom;
+            this.GUI_FavColor.Location = new System.Drawing.Point(14, 241);
+            this.GUI_FavColor.Name = "GUI_FavColor";
+            this.GUI_FavColor.OverrideDefault.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_FavColor.SelectedColor = System.Drawing.Color.Empty;
+            this.GUI_FavColor.Size = new System.Drawing.Size(93, 108);
+            this.GUI_FavColor.Splitter = false;
+            this.GUI_FavColor.StateNormal.Back.ColorStyle = ComponentFactory.Krypton.Toolkit.PaletteColorStyle.Switch25;
+            this.GUI_FavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.StatePressed.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.StateTracking.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.GUI_FavColor.TabIndex = 180;
+            this.GUI_FavColor.Values.Text = "Favorite Color";
             // 
-            // GUI_TextRoleColor
+            // textBox4
             // 
-            this.GUI_TextRoleColor.AutoSize = false;
-            this.GUI_TextRoleColor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "ForceRoleColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GUI_TextRoleColor.Location = new System.Drawing.Point(180, 245);
-            this.GUI_TextRoleColor.Name = "GUI_TextRoleColor";
-            this.GUI_TextRoleColor.Size = new System.Drawing.Size(49, 40);
-            this.GUI_TextRoleColor.TabIndex = 159;
-            this.GUI_TextRoleColor.Text = global::Discore_Selfbot.Properties.Settings.Default.ForceRoleColor;
-            this.GUI_TextRoleColor.Values.Text = "No";
+            this.textBox4.Cursor = System.Windows.Forms.Cursors.Help;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(3, 215);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(20, 20);
+            this.textBox4.TabIndex = 179;
+            this.textBox4.Text = "?";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.textBox4, "Set your favorite color for embeds");
             // 
-            // GUI_AutoStartText
+            // TitleFavColor
             // 
-            this.GUI_AutoStartText.AutoSize = false;
-            this.GUI_AutoStartText.Location = new System.Drawing.Point(179, 317);
-            this.GUI_AutoStartText.Name = "GUI_AutoStartText";
-            this.GUI_AutoStartText.Size = new System.Drawing.Size(49, 40);
-            this.GUI_AutoStartText.TabIndex = 164;
-            this.GUI_AutoStartText.Values.Text = "No";
+            this.TitleFavColor.AutoSize = false;
+            this.TitleFavColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.TitleFavColor.Location = new System.Drawing.Point(29, 215);
+            this.TitleFavColor.Name = "TitleFavColor";
+            this.TitleFavColor.Size = new System.Drawing.Size(200, 20);
+            this.TitleFavColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleFavColor.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.TitleFavColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.TitleFavColor.TabIndex = 178;
+            this.TitleFavColor.Values.Description = "";
+            this.TitleFavColor.Values.Heading = "Favorite Color";
+            this.TitleFavColor.Values.Image = null;
             // 
-            // GUI_BtnRoleColorYes
+            // Setting_WindowsStartup
             // 
-            this.GUI_BtnRoleColorYes.Location = new System.Drawing.Point(4, 245);
-            this.GUI_BtnRoleColorYes.Name = "GUI_BtnRoleColorYes";
-            this.GUI_BtnRoleColorYes.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnRoleColorYes.TabIndex = 158;
-            this.GUI_BtnRoleColorYes.Values.Text = "Yes";
-            this.GUI_BtnRoleColorYes.Click += new System.EventHandler(this.BtnRoleColorYes_Click);
+            this.Setting_WindowsStartup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Setting_WindowsStartup.FormattingEnabled = true;
+            this.Setting_WindowsStartup.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Setting_WindowsStartup.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.Setting_WindowsStartup.Location = new System.Drawing.Point(3, 188);
+            this.Setting_WindowsStartup.Name = "Setting_WindowsStartup";
+            this.Setting_WindowsStartup.Size = new System.Drawing.Size(226, 21);
+            this.Setting_WindowsStartup.TabIndex = 177;
+            this.Setting_WindowsStartup.SelectedIndexChanged += new System.EventHandler(this.Setting_WindowsStartup_SelectedIndexChanged);
             // 
-            // GUI_HelpHideConsole
+            // textBox3
             // 
-            this.GUI_HelpHideConsole.Cursor = System.Windows.Forms.Cursors.Help;
-            this.GUI_HelpHideConsole.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_HelpHideConsole.Location = new System.Drawing.Point(-1, 147);
-            this.GUI_HelpHideConsole.Name = "GUI_HelpHideConsole";
-            this.GUI_HelpHideConsole.ReadOnly = true;
-            this.GUI_HelpHideConsole.Size = new System.Drawing.Size(20, 20);
-            this.GUI_HelpHideConsole.TabIndex = 156;
-            this.GUI_HelpHideConsole.Text = "?";
-            this.GUI_HelpHideConsole.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpHideConsole, "WARNING! This will hide the console window on startup");
+            this.textBox3.Cursor = System.Windows.Forms.Cursors.Help;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(3, 162);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(20, 20);
+            this.textBox3.TabIndex = 176;
+            this.textBox3.Text = "?";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.textBox3, "Start the bot when windows is loaded");
             // 
-            // GUI_AutoStartYes
+            // TitleWindowsStartup
             // 
-            this.GUI_AutoStartYes.Location = new System.Drawing.Point(2, 317);
-            this.GUI_AutoStartYes.Name = "GUI_AutoStartYes";
-            this.GUI_AutoStartYes.Size = new System.Drawing.Size(70, 40);
-            this.GUI_AutoStartYes.TabIndex = 163;
-            this.GUI_AutoStartYes.Values.Text = "Yes";
-            this.GUI_AutoStartYes.Click += new System.EventHandler(this.GUI_AutoStartYes_Click);
+            this.TitleWindowsStartup.AutoSize = false;
+            this.TitleWindowsStartup.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.TitleWindowsStartup.Location = new System.Drawing.Point(29, 162);
+            this.TitleWindowsStartup.Name = "TitleWindowsStartup";
+            this.TitleWindowsStartup.Size = new System.Drawing.Size(200, 20);
+            this.TitleWindowsStartup.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleWindowsStartup.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.TitleWindowsStartup.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.TitleWindowsStartup.TabIndex = 175;
+            this.TitleWindowsStartup.Values.Description = "";
+            this.TitleWindowsStartup.Values.Heading = "Start Bot On Windows Startup";
+            this.TitleWindowsStartup.Values.Image = null;
             // 
-            // GUI_TitleHideConsole
+            // Setting_ForceRoleColor
             // 
-            this.GUI_TitleHideConsole.AutoSize = false;
-            this.GUI_TitleHideConsole.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.GUI_TitleHideConsole.Location = new System.Drawing.Point(25, 147);
-            this.GUI_TitleHideConsole.Name = "GUI_TitleHideConsole";
-            this.GUI_TitleHideConsole.Size = new System.Drawing.Size(208, 20);
-            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.GUI_TitleHideConsole.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.GUI_TitleHideConsole.TabIndex = 155;
-            this.GUI_TitleHideConsole.Values.Description = "";
-            this.GUI_TitleHideConsole.Values.Heading = "Hide Console On Startup";
-            this.GUI_TitleHideConsole.Values.Image = null;
+            this.Setting_ForceRoleColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Setting_ForceRoleColor.FormattingEnabled = true;
+            this.Setting_ForceRoleColor.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Setting_ForceRoleColor.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.Setting_ForceRoleColor.Location = new System.Drawing.Point(3, 135);
+            this.Setting_ForceRoleColor.Name = "Setting_ForceRoleColor";
+            this.Setting_ForceRoleColor.Size = new System.Drawing.Size(226, 21);
+            this.Setting_ForceRoleColor.TabIndex = 174;
+            this.Setting_ForceRoleColor.SelectedIndexChanged += new System.EventHandler(this.Setting_ForceRoleColor_SelectedIndexChanged);
             // 
-            // GUI_BtnHideConsoleNo
+            // textBox2
             // 
-            this.GUI_BtnHideConsoleNo.Location = new System.Drawing.Point(104, 173);
-            this.GUI_BtnHideConsoleNo.Name = "GUI_BtnHideConsoleNo";
-            this.GUI_BtnHideConsoleNo.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnHideConsoleNo.TabIndex = 154;
-            this.GUI_BtnHideConsoleNo.Values.Text = "No";
-            this.GUI_BtnHideConsoleNo.Click += new System.EventHandler(this.BtnHideConsoleNo_Click);
+            this.textBox2.Cursor = System.Windows.Forms.Cursors.Help;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(3, 109);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(20, 20);
+            this.textBox2.TabIndex = 173;
+            this.textBox2.Text = "?";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.textBox2, "Force using role color instead of favorite color");
             // 
-            // GUI_HelpAutoStart
+            // TitleForceRoleColor
             // 
-            this.GUI_HelpAutoStart.Cursor = System.Windows.Forms.Cursors.Help;
-            this.GUI_HelpAutoStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_HelpAutoStart.Location = new System.Drawing.Point(-1, 291);
-            this.GUI_HelpAutoStart.Name = "GUI_HelpAutoStart";
-            this.GUI_HelpAutoStart.ReadOnly = true;
-            this.GUI_HelpAutoStart.Size = new System.Drawing.Size(20, 20);
-            this.GUI_HelpAutoStart.TabIndex = 162;
-            this.GUI_HelpAutoStart.Text = "?";
-            this.GUI_HelpAutoStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpAutoStart, "Start the selfbot when you load windows up");
+            this.TitleForceRoleColor.AutoSize = false;
+            this.TitleForceRoleColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.TitleForceRoleColor.Location = new System.Drawing.Point(29, 109);
+            this.TitleForceRoleColor.Name = "TitleForceRoleColor";
+            this.TitleForceRoleColor.Size = new System.Drawing.Size(200, 20);
+            this.TitleForceRoleColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleForceRoleColor.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.TitleForceRoleColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.TitleForceRoleColor.TabIndex = 172;
+            this.TitleForceRoleColor.Values.Description = "";
+            this.TitleForceRoleColor.Values.Heading = "Force Role Color";
+            this.TitleForceRoleColor.Values.Image = null;
             // 
-            // GUI_TextHideConsole
+            // Setting_CommandAction
             // 
-            this.GUI_TextHideConsole.AutoSize = false;
-            this.GUI_TextHideConsole.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "HideConsole", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GUI_TextHideConsole.Location = new System.Drawing.Point(180, 173);
-            this.GUI_TextHideConsole.Name = "GUI_TextHideConsole";
-            this.GUI_TextHideConsole.Size = new System.Drawing.Size(49, 40);
-            this.GUI_TextHideConsole.TabIndex = 153;
-            this.GUI_TextHideConsole.Text = global::Discore_Selfbot.Properties.Settings.Default.HideConsole;
-            this.GUI_TextHideConsole.Values.Text = "No";
+            this.Setting_CommandAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Setting_CommandAction.FormattingEnabled = true;
+            this.Setting_CommandAction.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Setting_CommandAction.Items.AddRange(new object[] {
+            "Edit",
+            "Delete"});
+            this.Setting_CommandAction.Location = new System.Drawing.Point(3, 82);
+            this.Setting_CommandAction.Name = "Setting_CommandAction";
+            this.Setting_CommandAction.Size = new System.Drawing.Size(226, 21);
+            this.Setting_CommandAction.TabIndex = 171;
+            this.Setting_CommandAction.SelectedIndexChanged += new System.EventHandler(this.Setting_CommandAction_SelectedIndexChanged);
             // 
-            // GUI_BtnHideConsoleYes
+            // textBox1
             // 
-            this.GUI_BtnHideConsoleYes.Location = new System.Drawing.Point(4, 173);
-            this.GUI_BtnHideConsoleYes.Name = "GUI_BtnHideConsoleYes";
-            this.GUI_BtnHideConsoleYes.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnHideConsoleYes.TabIndex = 152;
-            this.GUI_BtnHideConsoleYes.Values.Text = "Yes";
-            this.GUI_BtnHideConsoleYes.Click += new System.EventHandler(this.BtnHideConsoleYes_Click);
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.Help;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(3, 56);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(20, 20);
+            this.textBox1.TabIndex = 170;
+            this.textBox1.Text = "?";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GUI_ToolTipManager.SetToolTip(this.textBox1, "What action to take when a command is used");
             // 
-            // GUI_TitleAutoStart
+            // TitleCommandAction
             // 
-            this.GUI_TitleAutoStart.AutoSize = false;
-            this.GUI_TitleAutoStart.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.GUI_TitleAutoStart.Location = new System.Drawing.Point(25, 291);
-            this.GUI_TitleAutoStart.Name = "GUI_TitleAutoStart";
-            this.GUI_TitleAutoStart.Size = new System.Drawing.Size(206, 20);
-            this.GUI_TitleAutoStart.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_TitleAutoStart.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.GUI_TitleAutoStart.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.GUI_TitleAutoStart.TabIndex = 161;
-            this.GUI_TitleAutoStart.Values.Description = "";
-            this.GUI_TitleAutoStart.Values.Heading = "Load Selfbot On Windown Startup";
-            this.GUI_TitleAutoStart.Values.Image = null;
+            this.TitleCommandAction.AutoSize = false;
+            this.TitleCommandAction.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.TitleCommandAction.Location = new System.Drawing.Point(29, 56);
+            this.TitleCommandAction.Name = "TitleCommandAction";
+            this.TitleCommandAction.Size = new System.Drawing.Size(200, 20);
+            this.TitleCommandAction.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleCommandAction.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.TitleCommandAction.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.TitleCommandAction.TabIndex = 169;
+            this.TitleCommandAction.Values.Description = "";
+            this.TitleCommandAction.Values.Heading = "Command Action";
+            this.TitleCommandAction.Values.Image = null;
             // 
-            // GUI_HelpRoleColor
+            // Settings_Startup
             // 
-            this.GUI_HelpRoleColor.Cursor = System.Windows.Forms.Cursors.Help;
-            this.GUI_HelpRoleColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_HelpRoleColor.Location = new System.Drawing.Point(-2, 219);
-            this.GUI_HelpRoleColor.Name = "GUI_HelpRoleColor";
-            this.GUI_HelpRoleColor.ReadOnly = true;
-            this.GUI_HelpRoleColor.Size = new System.Drawing.Size(20, 20);
-            this.GUI_HelpRoleColor.TabIndex = 150;
-            this.GUI_HelpRoleColor.Text = "?";
-            this.GUI_HelpRoleColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpRoleColor, "This will color embeds in your role color and will override favorite color");
+            this.Settings_Startup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Settings_Startup.FormattingEnabled = true;
+            this.Settings_Startup.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.Settings_Startup.Items.AddRange(new object[] {
+            "Show GUI And Console",
+            "Show Console",
+            "Hide All"});
+            this.Settings_Startup.Location = new System.Drawing.Point(3, 29);
+            this.Settings_Startup.Name = "Settings_Startup";
+            this.Settings_Startup.Size = new System.Drawing.Size(226, 21);
+            this.Settings_Startup.TabIndex = 167;
+            this.Settings_Startup.SelectedIndexChanged += new System.EventHandler(this.Settings_Startup_SelectedIndexChanged);
             // 
             // GUI_HelpAutoForm
             // 
             this.GUI_HelpAutoForm.Cursor = System.Windows.Forms.Cursors.Help;
             this.GUI_HelpAutoForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_HelpAutoForm.Location = new System.Drawing.Point(-1, 75);
+            this.GUI_HelpAutoForm.Location = new System.Drawing.Point(3, 3);
             this.GUI_HelpAutoForm.Name = "GUI_HelpAutoForm";
             this.GUI_HelpAutoForm.ReadOnly = true;
             this.GUI_HelpAutoForm.Size = new System.Drawing.Size(20, 20);
             this.GUI_HelpAutoForm.TabIndex = 149;
             this.GUI_HelpAutoForm.Text = "?";
             this.GUI_HelpAutoForm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpAutoForm, "Open the GUI when you start the selfbot");
+            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpAutoForm, "What windows to open when you run the bot");
             // 
-            // GUI_HelpCM
+            // GUI_TitleStartup
             // 
-            this.GUI_HelpCM.Cursor = System.Windows.Forms.Cursors.Help;
-            this.GUI_HelpCM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_HelpCM.Location = new System.Drawing.Point(-1, 3);
-            this.GUI_HelpCM.Name = "GUI_HelpCM";
-            this.GUI_HelpCM.ReadOnly = true;
-            this.GUI_HelpCM.Size = new System.Drawing.Size(20, 20);
-            this.GUI_HelpCM.TabIndex = 148;
-            this.GUI_HelpCM.Text = "?";
-            this.GUI_HelpCM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.GUI_ToolTipManager.SetToolTip(this.GUI_HelpCM, "Edit or delete the message of the selfbot command");
-            // 
-            // GUI_TitleRoleColor
-            // 
-            this.GUI_TitleRoleColor.AutoSize = false;
-            this.GUI_TitleRoleColor.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.GUI_TitleRoleColor.Location = new System.Drawing.Point(25, 219);
-            this.GUI_TitleRoleColor.Name = "GUI_TitleRoleColor";
-            this.GUI_TitleRoleColor.Size = new System.Drawing.Size(209, 20);
-            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.GUI_TitleRoleColor.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.GUI_TitleRoleColor.TabIndex = 141;
-            this.GUI_TitleRoleColor.Values.Description = "";
-            this.GUI_TitleRoleColor.Values.Heading = "Force Role Color";
-            this.GUI_TitleRoleColor.Values.Image = null;
-            // 
-            // GUI_TitleAutoForm
-            // 
-            this.GUI_TitleAutoForm.AutoSize = false;
-            this.GUI_TitleAutoForm.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.GUI_TitleAutoForm.Location = new System.Drawing.Point(25, 75);
-            this.GUI_TitleAutoForm.Name = "GUI_TitleAutoForm";
-            this.GUI_TitleAutoForm.Size = new System.Drawing.Size(208, 20);
-            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.GUI_TitleAutoForm.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.GUI_TitleAutoForm.TabIndex = 139;
-            this.GUI_TitleAutoForm.Values.Description = "";
-            this.GUI_TitleAutoForm.Values.Heading = "Open Form On Startup";
-            this.GUI_TitleAutoForm.Values.Image = null;
-            // 
-            // GUI_TitleCM
-            // 
-            this.GUI_TitleCM.AutoSize = false;
-            this.GUI_TitleCM.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
-            this.GUI_TitleCM.Location = new System.Drawing.Point(25, 3);
-            this.GUI_TitleCM.Name = "GUI_TitleCM";
-            this.GUI_TitleCM.Size = new System.Drawing.Size(209, 20);
-            this.GUI_TitleCM.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GUI_TitleCM.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.GUI_TitleCM.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.GUI_TitleCM.TabIndex = 142;
-            this.GUI_TitleCM.Values.Description = "";
-            this.GUI_TitleCM.Values.Heading = "Command Message";
-            this.GUI_TitleCM.Values.Image = null;
-            // 
-            // GUI_BtnAutoFormNo
-            // 
-            this.GUI_BtnAutoFormNo.Location = new System.Drawing.Point(104, 101);
-            this.GUI_BtnAutoFormNo.Name = "GUI_BtnAutoFormNo";
-            this.GUI_BtnAutoFormNo.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnAutoFormNo.TabIndex = 132;
-            this.GUI_BtnAutoFormNo.Values.Text = "No";
-            this.GUI_BtnAutoFormNo.Click += new System.EventHandler(this.BtnAFNo_Click);
-            // 
-            // GUI_TextAutoForm
-            // 
-            this.GUI_TextAutoForm.AutoSize = false;
-            this.GUI_TextAutoForm.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "AutoForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GUI_TextAutoForm.Location = new System.Drawing.Point(180, 101);
-            this.GUI_TextAutoForm.Name = "GUI_TextAutoForm";
-            this.GUI_TextAutoForm.Size = new System.Drawing.Size(49, 40);
-            this.GUI_TextAutoForm.TabIndex = 131;
-            this.GUI_TextAutoForm.Text = global::Discore_Selfbot.Properties.Settings.Default.AutoForm;
-            this.GUI_TextAutoForm.Values.Text = "Yes";
-            // 
-            // GUI_BtnAutoFormYes
-            // 
-            this.GUI_BtnAutoFormYes.Location = new System.Drawing.Point(4, 101);
-            this.GUI_BtnAutoFormYes.Name = "GUI_BtnAutoFormYes";
-            this.GUI_BtnAutoFormYes.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnAutoFormYes.TabIndex = 130;
-            this.GUI_BtnAutoFormYes.Values.Text = "Yes";
-            this.GUI_BtnAutoFormYes.Click += new System.EventHandler(this.BtnAFYes_Click);
-            // 
-            // GUI_BtnCMDelete
-            // 
-            this.GUI_BtnCMDelete.Location = new System.Drawing.Point(104, 29);
-            this.GUI_BtnCMDelete.Name = "GUI_BtnCMDelete";
-            this.GUI_BtnCMDelete.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnCMDelete.TabIndex = 129;
-            this.GUI_BtnCMDelete.Values.Text = "Delete";
-            this.GUI_BtnCMDelete.Click += new System.EventHandler(this.BtnCMDelete_Click);
-            // 
-            // GUI_TextCM
-            // 
-            this.GUI_TextCM.AutoSize = false;
-            this.GUI_TextCM.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Discore_Selfbot.Properties.Settings.Default, "SendAction", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GUI_TextCM.Location = new System.Drawing.Point(180, 29);
-            this.GUI_TextCM.Name = "GUI_TextCM";
-            this.GUI_TextCM.Size = new System.Drawing.Size(50, 40);
-            this.GUI_TextCM.TabIndex = 128;
-            this.GUI_TextCM.Text = global::Discore_Selfbot.Properties.Settings.Default.SendAction;
-            this.GUI_TextCM.Values.Text = "Edit";
-            // 
-            // GUI_BtnCMEdit
-            // 
-            this.GUI_BtnCMEdit.Location = new System.Drawing.Point(4, 29);
-            this.GUI_BtnCMEdit.Name = "GUI_BtnCMEdit";
-            this.GUI_BtnCMEdit.Size = new System.Drawing.Size(70, 40);
-            this.GUI_BtnCMEdit.TabIndex = 127;
-            this.GUI_BtnCMEdit.Values.Text = "Edit";
-            this.GUI_BtnCMEdit.Click += new System.EventHandler(this.BtnCMEdit_Click);
+            this.GUI_TitleStartup.AutoSize = false;
+            this.GUI_TitleStartup.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.GUI_TitleStartup.Location = new System.Drawing.Point(29, 3);
+            this.GUI_TitleStartup.Name = "GUI_TitleStartup";
+            this.GUI_TitleStartup.Size = new System.Drawing.Size(200, 20);
+            this.GUI_TitleStartup.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GUI_TitleStartup.StateNormal.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.GUI_TitleStartup.StateNormal.Content.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.GUI_TitleStartup.TabIndex = 139;
+            this.GUI_TitleStartup.Values.Description = "";
+            this.GUI_TitleStartup.Values.Heading = "On Startup";
+            this.GUI_TitleStartup.Values.Image = null;
             // 
             // GUI_SettingsBorder
             // 
@@ -1273,9 +1165,11 @@
             this.Embed_Clear});
             this.Embed_Bar.Dock = System.Windows.Forms.DockStyle.Top;
             this.Embed_Bar.HeaderStyle = ComponentFactory.Krypton.Toolkit.HeaderStyle.Secondary;
+            this.Embed_Bar.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Embed_Bar.Location = new System.Drawing.Point(0, 0);
             this.Embed_Bar.Name = "Embed_Bar";
             this.Embed_Bar.Size = new System.Drawing.Size(220, 28);
+            this.Embed_Bar.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Embed_Bar.TabIndex = 0;
             this.Embed_Bar.Values.Description = "|";
             this.Embed_Bar.Values.Heading = "Embed Creator";
@@ -1534,9 +1428,8 @@
             // 
             // Guilds_Loading
             // 
-            this.Guilds_Loading.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::Discore_Selfbot.Properties.Settings.Default, "FavoriteColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Guilds_Loading.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Guilds_Loading.ForeColor = global::Discore_Selfbot.Properties.Settings.Default.FavoriteColor;
+            this.Guilds_Loading.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.Guilds_Loading.Location = new System.Drawing.Point(0, 0);
             this.Guilds_Loading.Name = "Guilds_Loading";
             this.Guilds_Loading.Size = new System.Drawing.Size(484, 10);
@@ -1646,20 +1539,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonTreeView GUI_CommandsList;
         private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeSparkle;
         private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeDark;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeDefault;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_ThemesBorder;
-        private System.Windows.Forms.TextBox GUI_HelpRoleColor;
         private System.Windows.Forms.TextBox GUI_HelpAutoForm;
-        private System.Windows.Forms.TextBox GUI_HelpCM;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleRoleColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleAutoForm;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleCM;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoFormNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextAutoForm;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnAutoFormYes;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnCMDelete;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextCM;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnCMEdit;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleStartup;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_SettingsBorder;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_BotsInfo;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_BotsInviteLink;
@@ -1679,15 +1561,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem GUI_LinkGithub;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem GUI_LinkMyGuild;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_Changelog;
-        private System.Windows.Forms.TextBox GUI_HelpHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnHideConsoleNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextHideConsole;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnHideConsoleYes;
-        private ComponentFactory.Krypton.Toolkit.KryptonColorButton GUI_FavColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnRoleColorNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_TextRoleColor;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnRoleColorYes;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private System.Windows.Forms.ToolStrip Active_Bar;
         private System.Windows.Forms.ToolStripLabel Active_Title;
@@ -1704,12 +1577,6 @@
         public System.Windows.Forms.ToolStripLabel Active_Channel;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge GUI_Back;
         private ComponentFactory.Krypton.Toolkit.KryptonManager GUI_ThemeManager;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_AutoStartNo;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel GUI_AutoStartText;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_AutoStartYes;
-        private System.Windows.Forms.TextBox GUI_HelpAutoStart;
-        private ComponentFactory.Krypton.Toolkit.KryptonHeader GUI_TitleAutoStart;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_FavText;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel GUI_CCTest;
         private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_BtnOpenSelfbotFolder;
         private ComponentFactory.Krypton.Toolkit.KryptonListBox GUI_CCList;
@@ -1731,5 +1598,20 @@
         private System.Windows.Forms.ToolStripLabel GuildInfo_BarText;
         private ComponentFactory.Krypton.Navigator.KryptonPage GuildInfo_Channels;
         private System.Windows.Forms.RichTextBox GuildInfo_ChannelsBox;
+        private System.Windows.Forms.ComboBox Settings_Startup;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton GUI_ThemeDefault;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox GUI_FavText;
+        private ComponentFactory.Krypton.Toolkit.KryptonColorButton GUI_FavColor;
+        private System.Windows.Forms.TextBox textBox4;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleFavColor;
+        private System.Windows.Forms.ComboBox Setting_WindowsStartup;
+        private System.Windows.Forms.TextBox textBox3;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleWindowsStartup;
+        private System.Windows.Forms.ComboBox Setting_ForceRoleColor;
+        private System.Windows.Forms.TextBox textBox2;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleForceRoleColor;
+        private System.Windows.Forms.ComboBox Setting_CommandAction;
+        private System.Windows.Forms.TextBox textBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonHeader TitleCommandAction;
     }
 }

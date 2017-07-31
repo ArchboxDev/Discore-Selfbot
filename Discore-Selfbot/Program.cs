@@ -20,6 +20,7 @@ namespace Discore_Selfbot
 {
     public class Program
     {
+        
         private CommandService _Commands;
         public static DiscordSocketClient _Client;
 
@@ -33,10 +34,13 @@ namespace Discore_Selfbot
         public const int SW_SHOW = 5;
         public static List<_TagClass> TagList = new List<_TagClass>();
         public static List<IMessage> ErrorMessages = new List<IMessage>();
-        public static _GuiClass _Gui = new _GuiClass();
+        public static _GUI _GUI = new _GUI();
+        public static NotifyIcon NotifyIcon;
         public static _BotClass _Bot = new _BotClass();
         public System.Timers.Timer UptimeTimer = new System.Timers.Timer();
         WebClient AvatarIconDownload = new WebClient();
+        public static _StatsClass Stats = new _StatsClass();
+        public static _SettingsClass Settings = new _SettingsClass();
         [STAThread]
         static void Main()
         {
@@ -61,14 +65,16 @@ namespace Discore_Selfbot
             Console.ForegroundColor = ConsoleColor.White;
             Console.Title = "Discore - Selfbot";
             Notif();
-            
+
             foreach (var Files in Directory.GetFiles(_Bot.PathTags))
-            { if (Files.ToString().EndsWith(".json"))
-                { using (StreamReader reader = new StreamReader(Files))
+            {
+                if (Files.ToString().EndsWith(".json"))
+                {
+                    using (StreamReader reader = new StreamReader(Files))
                     { TagList.Add((_TagClass)serializer.Deserialize(reader, typeof(_TagClass))); }
                 }
             }
-#region LoadToken
+            #region LoadToken
             if (File.Exists(_Bot.Path + "Token.txt"))
             {
                 _Bot.Token = File.ReadAllText(_Bot.Path + "Token.txt");
@@ -101,12 +107,38 @@ namespace Discore_Selfbot
             {
             }
             #endregion
-            Properties.Settings.Default.TotalRuns++;
-            Properties.Settings.Default.Save();
-            Console.WriteLine("Token found Loading Bot");
-            if (Properties.Settings.Default.StartupAction == "None")
+
+            if (File.Exists(_Bot.Path + "Settings.json"))
             {
-                _Gui.NotifyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
+                using (StreamReader reader = new StreamReader(_Bot.Path + "Settings.json"))
+                { Settings = (_SettingsClass)serializer.Deserialize(reader, typeof(_SettingsClass)); }
+            }
+            else
+            {
+                using (StreamWriter file = File.CreateText(_Bot.PathTags + "Settings.json"))
+                {
+                    serializer.Serialize(file, Settings);
+                }
+            }
+
+            if (File.Exists(_Bot.Path + "Stats.json"))
+            {
+                using (StreamReader reader = new StreamReader(_Bot.Path + "Stats.json"))
+                { Stats = (_StatsClass)serializer.Deserialize(reader, typeof(_StatsClass)); }
+            }
+            else
+            {
+                Stats.TotalRuns++;
+                using (StreamWriter file = File.CreateText(_Bot.Path + "Stats.json"))
+                {
+                    serializer.Serialize(file, Stats);
+                }
+            }
+
+            Console.WriteLine("Token found Loading Bot");
+            if (Settings.Startup == "Hide All")
+            {
+                NotifyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
                 var handle = GetConsoleWindow();
                 ShowWindow(handle, SW_HIDE);
             }
@@ -118,16 +150,25 @@ namespace Discore_Selfbot
         {
             Thread MyIconThread = new Thread(delegate ()
             {
-                _Gui.NotifyIcon = new NotifyIcon();
-                _Gui.NotifyIcon.Icon = Properties.Resources.Selfbot;
-                _Gui.NotifyIcon.Visible = true;
-                _Gui.NotifyIcon.Click += Notify_Click;
+                NotifyIcon = new NotifyIcon()
+                {
+                    Icon = Properties.Resources.Selfbot,
+                    Visible = true
+                };
+                NotifyIcon.Click += Notify_Click;
                 Application.Run();
             });
             MyIconThread.SetApartmentState(ApartmentState.STA);
             MyIconThread.Start();
         }
-
+        public static void SaveSettings()
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter file = File.CreateText(_Bot.Path + "Settings.json"))
+            {
+                serializer.Serialize(file, Settings);
+            }
+        }
         private static void Notify_Click(object sender, EventArgs e)
         {
             var NotifyMenu = new NotifyMenu();
@@ -152,7 +193,7 @@ namespace Discore_Selfbot
 
             
            
-            _Bot.FavoriteColor = new Discord.Color(Properties.Settings.Default.FavoriteColor.R, Properties.Settings.Default.FavoriteColor.G, Properties.Settings.Default.FavoriteColor.B);
+            _Bot.FavoriteColor = new Discord.Color(Settings.FavColor.R, Settings.FavColor.G, Settings.FavColor.B);
             int GuildCount = 0;
             _Client.GuildUnavailable += (g) =>
             {
@@ -160,7 +201,7 @@ namespace Discore_Selfbot
                 if (_Client.ConnectionState != ConnectionState.Disconnecting)
                 {
                     Console.WriteLine($"[Warning] G: {g.Name} is unavailable");
-                    _Gui.NotifyIcon.ShowBalloonTip(30, "Warning!", "G: {g.Name} is unavailable", ToolTipIcon.Warning);
+                    NotifyIcon.ShowBalloonTip(30, "Warning!", "G: {g.Name} is unavailable", ToolTipIcon.Warning);
                 }
                 
                 return Task.CompletedTask;
@@ -172,9 +213,9 @@ namespace Discore_Selfbot
                 if (_Bot.Ready == false & GuildCount == _Client.Guilds.Count)
                 {
                     _Bot.Ready = true;
-                    if (Properties.Settings.Default.HideConsole == "Yes")
+                    if (Settings.Startup == "Hide All")
                     {
-                        _Gui.NotifyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        NotifyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
 
                     }
                     string Message = "";
@@ -218,62 +259,26 @@ namespace Discore_Selfbot
             {
                 if (m.Author.Id == _Client.CurrentUser.Id)
                 {
-                            _GUI.MyGUI.Embed_SendActive.Enabled = true;
+                            _GUI.Form.Embed_SendActive.Enabled = true;
                     
                     if (m.Channel is IPrivateChannel)
                     {
-                        _Gui.ActiveGuildID = 0;
-                        _Gui.ActiveChannelID = m.Channel.Id;
-                        _Gui.ActiveGuild = "DM";
-                        _Gui.ActiveChannel = m.Channel.Name;
-                        if (_GUI.MyGUI != null || !_GUI.MyGUI.Disposing || _GUI.MyGUI.Handle != null)
-                        {
-                            _GUI.MyGUI.BeginInvoke((Action)(() =>
-                        {
-                            _GUI.MyGUI.UpdateActive("DM", m.Channel.Name);
-                            _GUI.MyGUI.Embed_SendActive.Text = "Active DM";
-                        }));
-                        }
+                            _GUI.Form.SetActive("DM", 1, m.Channel.Name, m.Channel.Id);
+                            _GUI.Form.Embed_SendActive.Text = "Active DM";
                     }
                     else
                     {
                         var GU = m.Author as IGuildUser;
                         if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
                         {
-                            _Gui.ActiveGuildID = GU.Guild.Id;
-                            _Gui.ActiveChannelID = m.Channel.Id;
-                            _Gui.ActiveGuild = GU.Guild.Name;
-                            _Gui.ActiveChannel = m.Channel.Name;
-                            if (_GUI.MyGUI != null || !_GUI.MyGUI.Disposing || _GUI.MyGUI.Handle != null)
-                            {
-                                try
-                                {
-                                    _GUI.MyGUI.BeginInvoke((Action)(() =>
-                                {
-                                    _GUI.MyGUI.UpdateActive(GU.Guild.Name, m.Channel.Name);
-                                    _GUI.MyGUI.Embed_SendActive.Text = "Active";
-                                }));
-                                }
-                                catch
-                                {
-
-                                }
-                            }
+                            _GUI.Form.SetActive(GU.Guild.Name, GU.Guild.Id, m.Channel.Name, m.Channel.Id);
+                                    _GUI.Form.Embed_SendActive.Text = "Active";
+                            
                         }
                         else
                         {
-                            _Gui.ActiveGuildID = 0;
-                            _Gui.ActiveChannelID = 0;
-                            _Gui.ActiveGuild = "Guild";
-                            _Gui.ActiveChannel = "Channel";
-                            if (_GUI.MyGUI != null || !_GUI.MyGUI.Disposing || _GUI.MyGUI.Handle != null)
-                            {
-                                _GUI.MyGUI.BeginInvoke((Action)(() =>
-                            {
-                                _GUI.MyGUI.UpdateActive("Guild", "Channel");
-                                _GUI.MyGUI.Embed_SendActive.Text = "No Perms";
-                            }));
-                            }
+                                _GUI.Form.SetActive(GU.Guild.Name, 2, m.Channel.Name, m.Channel.Id);
+                                _GUI.Form.Embed_SendActive.Text = "No Perms";
                         }
                     }
                 }
@@ -301,7 +306,7 @@ namespace Discore_Selfbot
                     _Bot.FirstForm = true;
                     _GUI.Open();
                 }
-                Console.Title = "[Discore Selfbot - Online!!";
+                Console.Title = "[Discore Selfbot] Online!!";
                 Console.WriteLine("[Discore Selfbot] CONNECTED!");
                 if (_Bot.Ready == false)
                 {
@@ -316,11 +321,11 @@ namespace Discore_Selfbot
                         IntPtr pIcon = b.GetHicon();
                         Icon i = Icon.FromHandle(pIcon);
                         _GUI.Avatar = i;
-                        if (Properties.Settings.Default.StartupAction == "Gui")
+                        if (Settings.Startup == "Show GUI And Console")
                         {
-                            _GUI.MyGUI.Text = _Client.CurrentUser.Username;
-                            _GUI.MyGUI.Icon = i;
-                            _GUI.MyGUI.Guilds_Loading.Maximum = _Client.Guilds.Count;
+                            _GUI.Form.Text = _Client.CurrentUser.Username;
+                            _GUI.Form.Icon = i;
+                            _GUI.Form.Guilds_Loading.Maximum = _Client.Guilds.Count;
                         }
                     }
                 }
@@ -330,7 +335,7 @@ namespace Discore_Selfbot
 
             _Client.Disconnected += (e) =>
             {
-                        _GUI.MyGUI.Guilds_Bar.Items.Clear();
+                        _GUI.Form.Guilds_Bar.Items.Clear();
                 _GUI.GuildIDCache.Clear();
                 Console.Title = "Discore Selfbot - Offline!";
                 Console.WriteLine("[Discore Selfbot] DISCONNECTED!");
@@ -339,9 +344,9 @@ namespace Discore_Selfbot
 
             _Client.Ready += () =>
             {
-                    if (Properties.Settings.Default.StartupAction == "None")
+                    if (Settings.Startup == "Hide All")
                     {
-                        _Gui.NotifyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
+                        NotifyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
                     }
                     string Message = "";
                 switch (_Client.CurrentUser.Id)
@@ -387,9 +392,9 @@ namespace Discore_Selfbot
             }
             catch (Exception ex)
             {
-                if (Properties.Settings.Default.StartupAction == "None")
+                if (Settings.Startup == "Hide All")
                 {
-                    _Gui.NotifyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
+                    NotifyIcon.ShowBalloonTip(30, "Error!", "Selfbot could not connect", ToolTipIcon.Error);
                     var handle = GetConsoleWindow();
                     ShowWindow(handle, SW_SHOW);
                 }
@@ -441,8 +446,12 @@ namespace Discore_Selfbot
         public static void UptimeTick(object sender, ElapsedEventArgs e)
         {
             _Bot.Uptime++;
-            Properties.Settings.Default.TotalUptime++;
-            Properties.Settings.Default.Save();
+            Stats.TotalUptime++;
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter file = File.CreateText(_Bot.Path + "Stats.json"))
+            {
+                serializer.Serialize(file, Stats);
+            }
         }
 
         public static Discord.Color GetEmbedColor(ICommandContext CommandMessage)
@@ -461,7 +470,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    if (Properties.Settings.Default.ForceRoleColor == "Yes")
+                    if (Settings.ForceRoleColor == "Yes")
                     {
                         foreach (var Role in GuildUser.Guild.Roles.OrderBy(x => x.Position))
                         {

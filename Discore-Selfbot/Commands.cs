@@ -16,24 +16,21 @@ namespace Discore_Selfbot
     public class InfoCommands : ModuleBase
     {
 #region InfoCommands
-        [Command("nr")]
-        public async Task NR()
+        [Command("roles")]
+        public async Task Roles()
         {
-            foreach (var Role in Context.Guild.Roles)
+            List<string> RoleList = new List<string>();
+            foreach(var Role in Context.Guild.Roles.Where(x => x.Id != Context.Guild.EveryoneRole.Id))
             {
-                try
-                {
-                    Console.WriteLine($"Deleted {Role.Name}");
-                    await Role.DeleteAsync();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                RoleList.Add($"<@&{Role.Id}>");
             }
-
+            var embed = new EmbedBuilder()
+            {
+                Description = string.Join(", ", RoleList.ToList())
+            };
+            await ReplyAsync("", false,embed);
         }
-        
+
         [Command("region")]
         public async Task Region()
         {
@@ -44,7 +41,7 @@ namespace Discore_Selfbot
                 Description = Region.Name,
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -66,7 +63,7 @@ namespace Discore_Selfbot
             IGuildUser GuildUser = Context.User as IGuildUser;
             if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
             {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -87,7 +84,7 @@ namespace Discore_Selfbot
                 Description = $"For a list of commands see the GUI `self gui` or" + Environment.NewLine + "Visit the [Website](https://blaze.ml/discore-selfbot/)",
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -107,7 +104,7 @@ namespace Discore_Selfbot
         {
             if (Context.Guild != null)
             {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -170,7 +167,7 @@ namespace Discore_Selfbot
                 {
                     Name = $"{Context.Guild.Name}"
                 },
-                ThumbnailUrl = new Uri(Context.Guild.IconUrl),
+                ThumbnailUrl = Context.Guild.IconUrl,
                 Description = $"Owner: {Owner.Mention}```md" + Environment.NewLine + $"[Online](Offline)" + Environment.NewLine + $"<Users> [{MembersOnline}]({Members}) <Bots> [{BotsOnline}]({Bots})" + Environment.NewLine + $"Channels <Text {TextChan}> <Voice {VoiceChan}>" + Environment.NewLine + $"<Roles {Context.Guild.Roles.Count}> <CustomEmojis {Context.Guild.Emotes.Count}> <Region {Context.Guild.VoiceRegionId}>```",
                 Footer = new EmbedFooterBuilder()
                 {
@@ -178,7 +175,7 @@ namespace Discore_Selfbot
                 },
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -200,7 +197,7 @@ namespace Discore_Selfbot
             {
                 System.Net.NetworkInformation.PingReply PingDiscord = new System.Net.NetworkInformation.Ping().Send("discordapp.com");
                 System.Net.NetworkInformation.PingReply PingGoogle = new System.Net.NetworkInformation.Ping().Send("google.com");
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -216,7 +213,7 @@ namespace Discore_Selfbot
             else
             {
                 System.Net.NetworkInformation.PingReply Ping = new System.Net.NetworkInformation.Ping().Send(IP);
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -234,17 +231,18 @@ namespace Discore_Selfbot
         [Command("uptime")]
         public async Task Uptime()
         {
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
-                    x.Content = $"`Selfbot | Hi Uptime {Program._Bot.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}`";
+                    x.Content = $"`Selfbot | Hi Uptime {Program._Bot.Uptime} minutes | TotalUptime {Program.Stats.TotalUptime} minutes | TotalRuns {Program.Stats.TotalRuns}`";
                 });
             }
             else
             {
                 await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync($"`Selfbot | Uptime {Program._Bot.Uptime} minutes | TotalUptime {Properties.Settings.Default.TotalUptime} minutes | TotalRuns {Properties.Settings.Default.TotalRuns}`");
+                await Context.Message.Channel.SendMessageAsync($"`Selfbot | Uptime {Program._Bot.Uptime} minutes | TotalUptime {Program.Stats.TotalUptime} minutes | TotalRuns {Program.Stats.TotalRuns}`");
             }
         }
 
@@ -254,7 +252,7 @@ namespace Discore_Selfbot
         {
             var interpreter = new DynamicExpresso.Interpreter();
             var result = interpreter.Eval(Math);
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -276,7 +274,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -321,8 +319,8 @@ namespace Discore_Selfbot
                 Author = new EmbedAuthorBuilder()
                 {
                     Name = $"Selfbot | {Context.Client.CurrentUser.Username}",
-                    IconUrl = new Uri(Context.Client.CurrentUser.GetAvatarUrl()),
-                    Url = new Uri(Context.Client.CurrentUser.GetAvatarUrl())
+                    IconUrl = Context.Client.CurrentUser.GetAvatarUrl(),
+                    Url = Context.Client.CurrentUser.GetAvatarUrl()
                 },
                 Color = Program.GetEmbedColor(Context),
                 Description = $"```md" + Environment.NewLine + $"<Guilds {Guilds.Count()}> <Created {Context.Client.CurrentUser.CreatedAt.Date.ToShortDateString()}> <ID {Context.Client.CurrentUser.Id}>```",
@@ -377,7 +375,7 @@ namespace Discore_Selfbot
             {
                 x.Name = "Uptime"; x.Value = $":hourglass: {Program._Bot.Uptime} minutes"; x.IsInline = true;
             });
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -401,7 +399,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -422,7 +420,7 @@ namespace Discore_Selfbot
                 Description = $"Selfbot made by xXBuilderBXx#9113 [Github](https://github.com/ArchboxDev/Discore-Selfbot)",
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -445,7 +443,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -485,11 +483,11 @@ namespace Discore_Selfbot
                 var embed = new EmbedBuilder()
                 {
                     Title = $"Selfbot | Avatar for {User.Username}#{User.Discriminator}",
-                    ImageUrl = new Uri(User.GetAvatarUrl()),
-                    Url = new Uri(User.GetAvatarUrl()),
+                    ImageUrl = User.GetAvatarUrl(),
+                    Url = User.GetAvatarUrl(),
                     Color = Program.GetEmbedColor(Context)
                 };
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -521,7 +519,7 @@ namespace Discore_Selfbot
             IGuildUser ThisUser = Context.User as IGuildUser;
             if (!ThisUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
             {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -563,13 +561,13 @@ namespace Discore_Selfbot
                     Author = new EmbedAuthorBuilder()
                     {
                         Name = $"{GuildUser.Username}#{GuildUser.Discriminator}",
-                        IconUrl = new Uri(GuildUser.GetAvatarUrl())
+                        IconUrl = GuildUser.GetAvatarUrl()
                     },
                     Description = $"{GuildUser.Mention} - {GuildUser.Id}" + Environment.NewLine + $"Created {GuildUser.CreatedAt.Date.ToShortDateString()} | Joined Guild {GuildUser.JoinedAt.Value.Date.ToShortDateString()}" + Environment.NewLine + $"I am in {Count} Guilds with {Context.Message.Author.Username}",
-                    Url = new Uri(GuildUser.GetAvatarUrl()),
+                    Url = GuildUser.GetAvatarUrl(),
                     Color = Program.GetEmbedColor(Context)
                 };
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -585,7 +583,7 @@ namespace Discore_Selfbot
             }
             catch
             {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -626,7 +624,7 @@ namespace Discore_Selfbot
                 }
             }
             Console.WriteLine("----- ----- -----");
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -652,7 +650,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -681,7 +679,7 @@ namespace Discore_Selfbot
             };
             reader.Close();
             response.Close();
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -704,7 +702,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -728,13 +726,13 @@ namespace Discore_Selfbot
             var embed = new EmbedBuilder()
             {
                 Title = "Selfbot | Random Dag :dog:",
-                Url = new Uri("http://random.dog/" + Item),
-                ImageUrl = new Uri("http://random.dog/" + Item),
+                Url = "http://random.dog/" + Item,
+                ImageUrl = "http://random.dog/" + Item,
                 Color = Program.GetEmbedColor(Context)
             };
             reader.Close();
             response.Close();
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -790,7 +788,7 @@ namespace Discore_Selfbot
                 var DM = await list[RandomValue].GetOrCreateDMChannelAsync();
                 await DM.SendMessageAsync($"You have been kicked from {Context.Guild.Name} due to a russian roulette game by {Context.User.Username}#{Context.User.Discriminator}");
 
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -806,7 +804,7 @@ namespace Discore_Selfbot
             }
             else
             {
-                if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
@@ -829,7 +827,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -853,38 +851,38 @@ namespace Discore_Selfbot
             switch (RandomValue)
             {
                 case 1:
-                    embed.ImageUrl = new Uri("https://em.wattpad.com/cfe2f4102b9bb5e0e32ad2ef4e6ad0edf906130c/687474703a2f2f666330382e64657669616e746172742e6e65742f667337302f662f323031312f3230322f332f332f615f6769726c5f6e656b6f5f62795f6d6f6b617468656865786769726c2d643431377432772e6a7067?s=fit&h=360&w=360&q=80");
+                    embed.ImageUrl = "https://em.wattpad.com/cfe2f4102b9bb5e0e32ad2ef4e6ad0edf906130c/687474703a2f2f666330382e64657669616e746172742e6e65742f667337302f662f323031312f3230322f332f332f615f6769726c5f6e656b6f5f62795f6d6f6b617468656865786769726c2d643431377432772e6a7067?s=fit&h=360&w=360&q=80";
                     break;
                 case 2:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/8dc8675a8d5a5a58fa224d0f13b3edd6/tumblr_oj1dtq9rMk1vwt3qvo1_500.jpg");
+                    embed.ImageUrl = "https://68.media.tumblr.com/8dc8675a8d5a5a58fa224d0f13b3edd6/tumblr_oj1dtq9rMk1vwt3qvo1_500.jpg";
                     break;
                 case 3:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/5c472ee7d83552b5f65e9223810223de/tumblr_obgu5eQEEq1qjkxb4o1_500.png");
+                    embed.ImageUrl = "https://68.media.tumblr.com/5c472ee7d83552b5f65e9223810223de/tumblr_obgu5eQEEq1qjkxb4o1_500.png";
                     break;
                 case 4:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/4c43df58c426321ca6d5f3c80d76f141/tumblr_olh7x7zeJe1vwt3qvo1_500.jpg");
+                    embed.ImageUrl = "https://68.media.tumblr.com/4c43df58c426321ca6d5f3c80d76f141/tumblr_olh7x7zeJe1vwt3qvo1_500.jpg";
                     break;
                 case 5:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/d5bc9bb09cd2fac7f39f14c3a9254ab8/tumblr_ogkc06Fv531vbwt78o1_500.png");
+                    embed.ImageUrl = "https://68.media.tumblr.com/d5bc9bb09cd2fac7f39f14c3a9254ab8/tumblr_ogkc06Fv531vbwt78o1_500.png";
                     break;
                 case 6:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/0211be68a458ef95a958918b0972973a/tumblr_o7m6s8GekH1vsna11o1_500.gif");
+                    embed.ImageUrl = "https://68.media.tumblr.com/0211be68a458ef95a958918b0972973a/tumblr_o7m6s8GekH1vsna11o1_500.gif";
                     break;
                 case 7:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/2392325783e722994f418fdbfce2051d/tumblr_okym54bfdK1vwt3qvo1_500.png");
+                    embed.ImageUrl = "https://68.media.tumblr.com/2392325783e722994f418fdbfce2051d/tumblr_okym54bfdK1vwt3qvo1_500.png";
                     break;
                 case 8:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/37c749b7fcf43c33d7ed3e4f69c3e56a/tumblr_o80parZMmX1v61aw6o1_500.jpg");
+                    embed.ImageUrl = "https://68.media.tumblr.com/37c749b7fcf43c33d7ed3e4f69c3e56a/tumblr_o80parZMmX1v61aw6o1_500.jpg";
                     break;
                 case 9:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/89854b3b3d572aa6380e0e811f8453a8/tumblr_okkhgbxPQ31vwt3qvo1_500.jpg");
+                    embed.ImageUrl = "https://68.media.tumblr.com/89854b3b3d572aa6380e0e811f8453a8/tumblr_okkhgbxPQ31vwt3qvo1_500.jpg";
                     break;
                 case 10:
-                    embed.ImageUrl = new Uri("https://68.media.tumblr.com/bdb7ad6e1b981ef67310402b0a107f8f/tumblr_o2ugsiwXDB1uwflhdo1_500.jpg");
+                    embed.ImageUrl = "https://68.media.tumblr.com/bdb7ad6e1b981ef67310402b0a107f8f/tumblr_o2ugsiwXDB1uwflhdo1_500.jpg";
                     break;
             }
             embed.Url = embed.ImageUrl;
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -906,7 +904,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -926,7 +924,7 @@ namespace Discore_Selfbot
                 Description = Text,
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -949,7 +947,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -970,7 +968,7 @@ namespace Discore_Selfbot
                 Description = Text,
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -989,7 +987,7 @@ namespace Discore_Selfbot
         public async Task Lenny()
         {
             var CommandMessage = Context.Message as IUserMessage;
-            if (Properties.Settings.Default.MessageAction == "Edit")
+            if (Program.Settings.MessageAction == "Edit")
             {
                 await CommandMessage.ModifyAsync(x =>
                 {
@@ -1012,7 +1010,7 @@ namespace Discore_Selfbot
                 IGuildUser GuildUser = Context.User as IGuildUser;
                 if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
                 {
-                    if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
                     {
                         await Context.Message.ModifyAsync(x =>
                         {
@@ -1031,7 +1029,7 @@ namespace Discore_Selfbot
             {
                 Description = "LEWD",
                 Color = new Discord.Color(255, 20, 147),
-                ThumbnailUrl = new Uri("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRM7wR508Do1SR7I-kJACZtjyb4vCXX_N5ftE4PbSC5ptNheXi1")
+                ThumbnailUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRM7wR508Do1SR7I-kJACZtjyb4vCXX_N5ftE4PbSC5ptNheXi1"
             };
             if (Text.Contains("is") || Text.Contains("are") || Text.Contains("is lewd") || Text.Contains("are lewd"))
             {
@@ -1046,7 +1044,7 @@ namespace Discore_Selfbot
             {
                 embed.Description = "LEWD " + Text;
             }
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -1070,14 +1068,15 @@ namespace Discore_Selfbot
         public async Task Form()
         {
             await Context.Message.DeleteAsync();
-            if (!_GUI.MyGUI.Visible)
+            
+            if (!Program._GUI.Form.Visible)
             {
-                _GUI.Open();
-                _GUI.MyGUI.Activate();
+                Program._GUI.Open();
+                Program._GUI.Form.Activate();
             }
             else
             {
-                _GUI.MyGUI.Activate();
+                Program._GUI.Form.Activate();
                 Console.WriteLine("Gui already open");
             }
         }
@@ -1140,10 +1139,7 @@ namespace Discore_Selfbot
             //var WebHook = new Discord.Webhook.DiscordWebhookClient(, "");
             //await WebHook.SendMessageAsync(Mention + Text, false, null, "Discore-Selfbot");
             //await WebHook.SendMessageAsync("Test", false, null, "Test user");
-            //_GUI.MyGUI.BeginInvoke((Action)(() => {
-
-            //}));
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -1185,7 +1181,7 @@ namespace Discore_Selfbot
                 Color = new Discord.Color(color.R, color.G, color.B)
             };
 
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
                 {
@@ -1209,7 +1205,7 @@ namespace Discore_Selfbot
             {
                 Title = "Selfbot | Dice",
                 Description = $"You rolled a {randomValue}",
-                ThumbnailUrl = new Uri("http://bestanimations.com/Games/Dice/dice-animated-gif-2.gif")
+                ThumbnailUrl = "http://bestanimations.com/Games/Dice/dice-animated-gif-2.gif"
             };
             bool Embed = true;
             try
@@ -1221,7 +1217,7 @@ namespace Discore_Selfbot
                 }
             }
             catch { }
-            if (Context.Message.Channel is IPrivateChannel || Properties.Settings.Default.MessageAction == "Edit")
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 if (Embed == true)
                 {
@@ -1276,16 +1272,16 @@ namespace Discore_Selfbot
                         Author = new EmbedAuthorBuilder()
                         {
                             Name = Tag.TagName,
-                            Url = new Uri(Tag.Url)
+                            Url = Tag.Url
                         },
                         Description = Tag.Message,
                         Footer = new EmbedFooterBuilder()
                         {
                             Text = Tag.UserName,
-                            IconUrl = new Uri(Tag.UserIcon)
+                            IconUrl = Tag.UserIcon
                         },
-                        ThumbnailUrl = new Uri(Tag.Thumbnail),
-                        ImageUrl = new Uri(Tag.MainImage),
+                        ThumbnailUrl = Tag.Thumbnail,
+                        ImageUrl = Tag.MainImage,
                         Color = Tag.Color
                     };
                     await Context.Message.ModifyAsync(x => x.Embed = embed.Build());

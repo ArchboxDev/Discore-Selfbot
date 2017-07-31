@@ -50,11 +50,6 @@ namespace Discore_Selfbot
 
         private async void EmbedSend_Click(object sender, EventArgs e)
         {
-            if (ActiveGuild.Text == "MyGuild" || Program._Gui.ActiveGuildID == 0)
-            {
-                    MessageBox.Show("No active guild");
-                    return;
-            }
             if (EmbedTitle.Text == LastEmbedTitle)
             {
                 if (EmbedText.Text == LastEmbedText)
@@ -75,16 +70,31 @@ namespace Discore_Selfbot
                     Text = EmbedFooter.Text
                 }
             };
-            if (ActiveGuild.Text != "DM" & !ActiveChannel.Text.Contains("@"))
+            if (Program._GUI.Form.ActiveGuildID == 1)
             {
-                var Guild = Program._Client.GetGuild(Program._Gui.ActiveGuildID);
-                var GuildChan = Guild.GetChannel(Program._Gui.ActiveChannelID) as ITextChannel;
-                await GuildChan.SendMessageAsync("", false, embed);
+                IDMChannel DMChan = Program._Client.GetChannel(Program._GUI.Form.ActiveChannelID) as IDMChannel ?? null;
+                if (DMChan == null)
+                {
+                    MessageBox.Show(this, "Could not find DM channel", "Error");
+                    return;
+                }
+                    await DMChan.SendMessageAsync("", false, embed);
             }
             else
             {
-                IDMChannel DMChan = Program._Client.GetChannel(Program._Gui.ActiveChannelID) as IDMChannel;
-                await DMChan.SendMessageAsync("", false, embed);
+                var Guild = Program._Client.GetGuild(Program._GUI.Form.ActiveGuildID) ?? null;
+                if (Guild == null)
+                {
+                    MessageBox.Show(this, "Could not find guild", "Error");
+                    return;
+                }
+                var GuildChan = Guild.GetChannel(Program._GUI.Form.ActiveChannelID) as ITextChannel ?? null;
+                if (GuildChan == null)
+                {
+                    MessageBox.Show(this, "Could not find guild channel", "Error");
+                    return;
+                }
+                await GuildChan.SendMessageAsync("", false, embed);
             }
         }
 

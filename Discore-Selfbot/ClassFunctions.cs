@@ -21,16 +21,6 @@ namespace Discore_Selfbot
         public string MainImage { get; set; }
         public Discord.Color Color { get; set; }
     }
-    public class _GuiClass
-    {
-        public bool StartupForm = false;
-        public string ActiveGuild = "Guild";
-        public string ActiveChannel = "Channel";
-        public ulong ActiveGuildID = 0;
-        public ulong ActiveChannelID = 0;
-        public NotifyIcon NotifyIcon;
-
-    }
     public class _BotClass
     {
         public string Token = "";
@@ -42,7 +32,21 @@ namespace Discore_Selfbot
         public string PathCustom = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Discore-Selfbot\\Custom\\";
         public int Uptime = 0;
         public DateTime StartupTime;
-        public Discord.Color FavoriteColor;
-        
+        public Discord.Color FavoriteColor = new Discord.Color();
+    }
+
+    public class _StatsClass
+    {
+        public int TotalUptime = 0;
+        public int TotalRuns = 0;
+        public int CommandsUsed = 0;
+    }
+    public class _SettingsClass
+    {
+        public string MessageAction = "Edit";
+        public System.Drawing.Color FavColor = new System.Drawing.Color();
+        public string Theme = "Default";
+        public string Startup = "Show GUI And Console";
+        public string ForceRoleColor = "No";
     }
 }

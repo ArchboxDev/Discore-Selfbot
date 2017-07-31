@@ -1,36 +1,6 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Discore_Selfbot.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="SendAction" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Edit</Value>
-    </Setting>
-    <Setting Name="AutoForm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Yes</Value>
-    </Setting>
-    <Setting Name="FavoriteColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">ControlText</Value>
-    </Setting>
-    <Setting Name="Theme" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Default</Value>
-    </Setting>
-    <Setting Name="TotalUptime" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="TotalRuns" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="HideConsole" Type="System.String" Scope="User">
-      <Value Profile="(Default)">No</Value>
-    </Setting>
-    <Setting Name="ForceRoleColor" Type="System.String" Scope="User">
-      <Value Profile="(Default)">No</Value>
-    </Setting>
-    <Setting Name="StartupAction" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="MessageAction" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-  </Settings>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
 </SettingsFile>
