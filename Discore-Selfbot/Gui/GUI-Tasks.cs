@@ -11,7 +11,7 @@ using System.Net;
 
 public class _GUI
 {
-    public GUI_Form Form;
+    public GUI_Form Form = null;
     public Icon Avatar;
     public List<ulong> GuildIDCache = new List<ulong>();
     public WebClient GuildIconDownload = new WebClient();
@@ -35,6 +35,11 @@ public class _GUI
     
     public void AddGuild(IGuild Guild)
     {
+        if (Form == null)
+        {
+            GuildIDCache.Clear();
+            return;
+        }
         if (!GuildIDCache.Contains(Guild.Id))
         {
                 GuildIDCache.Add(Guild.Id);
@@ -113,6 +118,11 @@ public class _GUI
     }
     public void RemoveGuild(IGuild Guild)
     {
+        if (Form == null)
+        {
+            GuildIDCache.Clear();
+            return;
+        }
         if (Form.Guilds_Loading.Value != 0)
         {
             Form.Guilds_Loading.Value--;

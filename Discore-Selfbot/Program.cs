@@ -257,28 +257,31 @@ namespace Discore_Selfbot
 
             _Client.MessageReceived += (m) =>
             {
-                if (m.Author.Id == _Client.CurrentUser.Id)
+                if (_GUI.Form != null)
                 {
-                            _GUI.Form.Embed_SendActive.Enabled = true;
-                    
-                    if (m.Channel is IPrivateChannel)
+                    if (m.Author.Id == _Client.CurrentUser.Id)
                     {
+                        _GUI.Form.Embed_SendActive.Enabled = true;
+
+                        if (m.Channel is IPrivateChannel)
+                        {
                             _GUI.Form.SetActive("DM", 1, m.Channel.Name, m.Channel.Id);
                             _GUI.Form.Embed_SendActive.Text = "Active DM";
-                    }
-                    else
-                    {
-                        var GU = m.Author as IGuildUser;
-                        if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
-                        {
-                            _GUI.Form.SetActive(GU.Guild.Name, GU.Guild.Id, m.Channel.Name, m.Channel.Id);
-                                    _GUI.Form.Embed_SendActive.Text = "Active";
-                            
                         }
                         else
                         {
+                            var GU = m.Author as IGuildUser;
+                            if (GU.GetPermissions(m.Channel as ITextChannel).EmbedLinks == true)
+                            {
+                                _GUI.Form.SetActive(GU.Guild.Name, GU.Guild.Id, m.Channel.Name, m.Channel.Id);
+                                _GUI.Form.Embed_SendActive.Text = "Active";
+
+                            }
+                            else
+                            {
                                 _GUI.Form.SetActive(GU.Guild.Name, 2, m.Channel.Name, m.Channel.Id);
                                 _GUI.Form.Embed_SendActive.Text = "No Perms";
+                            }
                         }
                     }
                 }
@@ -321,11 +324,14 @@ namespace Discore_Selfbot
                         IntPtr pIcon = b.GetHicon();
                         Icon i = Icon.FromHandle(pIcon);
                         _GUI.Avatar = i;
-                        if (Settings.Startup == "Show GUI And Console")
+                        if (_GUI != null)
                         {
-                            _GUI.Form.Text = _Client.CurrentUser.Username;
-                            _GUI.Form.Icon = i;
-                            _GUI.Form.Guilds_Loading.Maximum = _Client.Guilds.Count;
+                            if (Settings.Startup == "Show GUI And Console")
+                            {
+                                _GUI.Form.Text = _Client.CurrentUser.Username;
+                                _GUI.Form.Icon = i;
+                                _GUI.Form.Guilds_Loading.Maximum = _Client.Guilds.Count;
+                            }
                         }
                     }
                 }
@@ -335,7 +341,10 @@ namespace Discore_Selfbot
 
             _Client.Disconnected += (e) =>
             {
-                        _GUI.Form.Guilds_Bar.Items.Clear();
+                if (_GUI.Form != null)
+                {
+                    _GUI.Form.Guilds_Bar.Items.Clear();
+                }
                 _GUI.GuildIDCache.Clear();
                 Console.Title = "Discore Selfbot - Offline!";
                 Console.WriteLine("[Discore Selfbot] DISCONNECTED!");
@@ -488,6 +497,7 @@ namespace Discore_Selfbot
             }
             return Color;
         }
+
         public async Task InstallCommands()
         {
             _Client.MessageReceived += HandleCommand;
@@ -497,40 +507,48 @@ namespace Discore_Selfbot
         {
             var message = messageParam as SocketUserMessage;
             if (message == null) return;
-            if (message.Author.Id != _Client.CurrentUser.Id) return;
             if (message.Author.Id == _Client.CurrentUser.Id)
             {
                 int argPos = 0;
-                if (!(message.HasStringPrefix("self ", ref argPos))) return;
-                foreach (var Mes in Program.ErrorMessages)
+                if (message.HasStringPrefix("self ", ref argPos))
                 {
-                    await Mes.DeleteAsync();
-                }
-                await message.ModifyAsync(x =>
-                {
-                    x.Content = "`...`";
-                });
-                var context = new CommandContext(_Client, message);
-                var result = await _Commands.ExecuteAsync(context, argPos);
-                if (result.IsSuccess)
-                {
-                    Console.WriteLine($"[Command] Executed {message.Content}");
-                    return;
+                    foreach (var Mes in Program.ErrorMessages)
+                    {
+                        await Mes.DeleteAsync();
+                    }
+                    await message.ModifyAsync(x =>
+                    {
+                        x.Content = "`...`";
+                    });
+                    var context = new CommandContext(_Client, message);
+                    var result = await _Commands.ExecuteAsync(context, argPos);
+                    if (result.IsSuccess)
+                    {
+                        Console.WriteLine($"[Command] Executed {message.Content}");
+                        return;
+                    }
+                    else
+                    {
+                        //if (!File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
+                        //{
+
+
+                        //}
+                        Console.WriteLine($"[Command] Failed {message.Content} | " + result.ErrorReason);
+                        await message.DeleteAsync();
+                    }
+                    //if (File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
+                    //{
+                    //await CustomCommands.ParseFileAsync(message.Content.Replace("self ", ""), context);
+                    //}
                 }
                 else
                 {
-                    //if (!File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
-                    //{
-
-
-                    //}
-                    Console.WriteLine($"[Command] Failed {message.Content} | " + result.ErrorReason);
-                    await message.DeleteAsync();
+                    if (message.Content.Contains("{lenny}"))
+                    {
+                        await message.ModifyAsync(x => { x.Content = message.Content.Replace("{lenny}", "( ͡° ͜ʖ ͡°)"); });
+                    }
                 }
-                //if (File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
-                //{
-                    //await CustomCommands.ParseFileAsync(message.Content.Replace("self ", ""), context);
-                //}
             }
         }
     }

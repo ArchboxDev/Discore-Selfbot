@@ -639,7 +639,7 @@ namespace Discore_Selfbot
 
         private void Form_Close(object sender, FormClosedEventArgs e)
         {
-            
+            Program._GUI.Form = null;
         }
 
         private void Settings_Startup_SelectedIndexChanged(object sender, EventArgs e)
