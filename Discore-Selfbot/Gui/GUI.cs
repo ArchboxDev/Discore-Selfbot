@@ -7,6 +7,7 @@ using ComponentFactory.Krypton.Toolkit;
 using System.Net;
 using System.IO;
 using Discord;
+using System.Threading;
 
 namespace Discore_Selfbot
 {
@@ -29,6 +30,7 @@ namespace Discore_Selfbot
             this.GUI_LinkGithub.Click += LinkGithub_Click;
             this.GUI_LinkMyGuild.Click += LinkMyGuild_Click;
         }
+
         public string ActiveGuild = "Guild";
         public string ActiveChannel = "Channel";
         public ulong ActiveGuildID = 0;
@@ -147,6 +149,7 @@ namespace Discore_Selfbot
             Program._GUI.GuildIDCache.Clear();
             foreach (var Guild in Program._Client.Guilds)
             {
+                
                 Program._GUI.GuildIDCache.Add(Guild.Id);
                 if (Guild.IconUrl == null)
                 {
@@ -698,6 +701,11 @@ namespace Discore_Selfbot
         private void GUI_NavSettingsPage_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void MCLICK(object sender, EventArgs e)
+        {
+           
         }
     }
 }

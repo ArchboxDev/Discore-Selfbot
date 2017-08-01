@@ -119,6 +119,8 @@
   </resheader>
   <data name="GUI_Changelog.Text" xml:space="preserve">
     <value>--- Latest Update ---
+- Loads of fixes and tweaks to the GUI including a new design of the settings and fixed the self clean command
+
 - Trying to fix GUI issues
 
 - Removed auto nickname feature

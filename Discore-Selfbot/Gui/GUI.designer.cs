@@ -337,7 +337,7 @@
             this.GUI_NavSettingsPage,
             this.GUI_NavBotsPage,
             this.GUI_NavCustomPage});
-            this.GUI_Right.SelectedIndex = 2;
+            this.GUI_Right.SelectedIndex = 0;
             this.GUI_Right.Size = new System.Drawing.Size(234, 384);
             this.GUI_Right.TabIndex = 28;
             this.GUI_Right.Text = "kryptonNavigator1";
@@ -934,6 +934,7 @@
             this.GUI_TitleStartup.Values.Description = "";
             this.GUI_TitleStartup.Values.Heading = "On Startup";
             this.GUI_TitleStartup.Values.Image = null;
+            this.GUI_TitleStartup.Click += new System.EventHandler(this.MCLICK);
             // 
             // GUI_SettingsBorder
             // 

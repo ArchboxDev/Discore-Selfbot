@@ -138,7 +138,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Other\TrayIconBuster.cs" />
-    <Compile Include="Gui\GUI-Tasks.cs" />
+    <Compile Include="Gui\GUI_Function.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Discore_Selfbot
@@ -28,7 +29,19 @@ namespace Discore_Selfbot
             {
                 Description = string.Join(", ", RoleList.ToList())
             };
-            await ReplyAsync("", false,embed);
+            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
+            {
+                await Context.Message.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
+            }
         }
 
         [Command("region")]
@@ -1069,51 +1082,56 @@ namespace Discore_Selfbot
         {
             await Context.Message.DeleteAsync();
             
-            if (!Program._GUI.Form.Visible)
+            if (Program._GUI.Form == null)
             {
                 Program._GUI.Open();
-                Program._GUI.Form.Activate();
             }
             else
             {
                 Program._GUI.Form.Activate();
-                Console.WriteLine("Gui already open");
             }
         }
 
         [Command("clean")]
-        public async Task Clean(int Ammount)
+        public async Task Clean(int Ammount = 0)
         {
-            await Context.Message.DeleteAsync();
+            if (Ammount == 0)
+            {
+                await Context.Message.DeleteAsync();
+                Console.WriteLine("Specify an ammount > self clean (ammount)");
+                return;
+            }
             if (Ammount < 1)
             {
+                await Context.Message.DeleteAsync();
                 Console.WriteLine("Clean ammount cannot be less than 0");
                 return;
             }
             if (Ammount > 30)
             {
+                await Context.Message.DeleteAsync();
                 Console.WriteLine("Clean ammount cannot be more than 30");
                 return;
             }
-            int Count = Ammount;
-            var Messages = await Context.Channel.GetMessagesAsync().Flatten();
-            foreach (var Message in Messages)
-            {
-                if (Message.Author.Id == Context.Client.CurrentUser.Id)
+
+            int Count = Ammount + 1;
+                var Messages = await Context.Channel.GetMessagesAsync(100).Flatten();
+              foreach(var Message in Messages)
                 {
-                    if (Count != 0)
-                    {
-                        await Message.DeleteAsync();
-                        Count--;
-                    }
-                    else
+                    if (Count == 0)
                     {
                         break;
                     }
+                    
+                    if (Message.Author.Id == Context.Client.CurrentUser.Id)
+                    {
+                        Count--;
+                        await Message.DeleteAsync();
+                    }
                 }
-            }
         }
         [Command("cleanembed")]
+
         [Alias("cleanembeds")]
         public async Task Cleanembed()
         {
@@ -1130,6 +1148,7 @@ namespace Discore_Selfbot
                 }
             }
         }
+
         [Command("test")]
         public async Task Test()
         {

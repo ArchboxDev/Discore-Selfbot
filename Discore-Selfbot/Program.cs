@@ -191,8 +191,6 @@ namespace Discore_Selfbot
             });
             await InstallCommands();
 
-            
-           
             _Bot.FavoriteColor = new Discord.Color(Settings.FavColor.R, Settings.FavColor.G, Settings.FavColor.B);
             int GuildCount = 0;
             _Client.GuildUnavailable += (g) =>
@@ -209,8 +207,12 @@ namespace Discore_Selfbot
 
             _Client.GuildAvailable += (g) =>
             {
-                _GUI.AddGuild(g);
-                if (_Bot.Ready == false & GuildCount == _Client.Guilds.Count)
+                GuildCount++;
+                if (_GUI.Form != null)
+                {
+                    _GUI.AddGuild(g);
+                }
+                if (GuildCount == _Client.Guilds.Count)
                 {
                     _Bot.Ready = true;
                     if (Settings.Startup == "Hide All")
@@ -290,31 +292,49 @@ namespace Discore_Selfbot
 
             _Client.JoinedGuild += (g) =>
             {
-                Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
-                _GUI.AddGuild(g);
+                if (g.Owner == null)
+                {
+                    Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Unknown Owner???");
+                }
+                else
+                {
+                    Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                }
+                if (_GUI.Form != null)
+                {
+                    _GUI.AddGuild(g);
+                }
                 return Task.CompletedTask;
             };
 
             _Client.LeftGuild += (g) =>
             {
-                _GUI.RemoveGuild(g);
-                Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                if (g.Owner == null)
+                {
+                    Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Unknown Owner???");
+                }
+                else
+                {
+Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                }
+                if (_GUI.Form != null)
+                {
+                    _GUI.RemoveGuild(g);
+                }
                 return Task.CompletedTask;
             };
 
             _Client.Connected += () =>
             {
-                if (_Bot.FirstForm == false)
+                Console.Title = "Discore Selfbot - Online!!";
+                if (_Bot.Ready == true)
                 {
-                    _Bot.FirstForm = true;
-                    _GUI.Open();
+                    Console.WriteLine("[Discore Selfbot] CONNECTED!");
                 }
-                Console.Title = "[Discore Selfbot] Online!!";
-                Console.WriteLine("[Discore Selfbot] CONNECTED!");
                 if (_Bot.Ready == false)
                 {
+                    Console.WriteLine("[Discore Selfbot] CONNECTED! - Loading Guilds Please Wait");
                     _Bot.Ready = true;
-                    
                     UptimeTimer.Interval = 60000;
                     UptimeTimer.Elapsed += UptimeTick;
                     UptimeTimer.Start();
@@ -324,7 +344,7 @@ namespace Discore_Selfbot
                         IntPtr pIcon = b.GetHicon();
                         Icon i = Icon.FromHandle(pIcon);
                         _GUI.Avatar = i;
-                        if (_GUI != null)
+                        if (_GUI.Form != null)
                         {
                             if (Settings.Startup == "Show GUI And Console")
                             {
@@ -335,7 +355,6 @@ namespace Discore_Selfbot
                         }
                     }
                 }
-
                 return Task.CompletedTask;
             };
 
@@ -344,60 +363,23 @@ namespace Discore_Selfbot
                 if (_GUI.Form != null)
                 {
                     _GUI.Form.Guilds_Bar.Items.Clear();
-                }
-                _GUI.GuildIDCache.Clear();
+                    _GUI.GuildIDCache.Clear();
+                }   
                 Console.Title = "Discore Selfbot - Offline!";
                 Console.WriteLine("[Discore Selfbot] DISCONNECTED!");
                 return Task.CompletedTask;
             };
 
-            _Client.Ready += () =>
-            {
-                    if (Settings.Startup == "Hide All")
-                    {
-                        NotifyIcon.ShowBalloonTip(30, "Connected", "Selfbot is ONLINE!", ToolTipIcon.Info);
-                    }
-                    string Message = "";
-                switch (_Client.CurrentUser.Id)
-                {
-                    case 190590364871032834:
-                        Message = "Hi master Builderb";
-                        break;
-                    case 213621714909659136:
-                        Message = "Bubbie's butt is bubbly";
-                        break;
-                    case 155490847494897664:
-                        Message = "Julia + Novus <3";
-                        break;
-                    case 107827535479353344:
-                        Message = "Julia + Novus <3";
-                        break;
-                    case 213627387206828032:
-                        Message = "Towergay confirmed";
-                        break;
-                    case 149928344811601920:
-                        Message = "Builderb pats Chat the neko";
-                        break;
-                    case 267007263359631380:
-                        Message = "Thanks for testing";
-                        break;
-                    case 190376235128455168:
-                        Message = "Get back in the salt mines!";
-                        break;
-                    default:
-                        Message = $"Hi {_Client.CurrentUser.Username}";
-                        break;
-                }
-                    TimeSpan Startup = DateTime.Now - _Bot.StartupTime;
-                    Console.WriteLine($"{Message} | Selfbot ready {_Client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds");
-                
-                return Task.CompletedTask;
-            };
+           
 
             try
             {
                 await _Client.LoginAsync(TokenType.User, _Bot.Token);
                 await _Client.StartAsync();
+                if (Program.Settings.Startup == "Show GUI And Console")
+                {
+                    _GUI.Open();
+                }
             }
             catch (Exception ex)
             {

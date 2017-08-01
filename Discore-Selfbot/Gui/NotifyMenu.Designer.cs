@@ -71,7 +71,7 @@
             this.Controls.Add(this.BtnOpenGUI);
             this.Controls.Add(this.BtnShowConsole);
             this.Controls.Add(this.BtnHideConsole);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(200, 190);
             this.MinimizeBox = false;
