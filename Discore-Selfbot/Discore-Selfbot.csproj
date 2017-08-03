@@ -33,8 +33,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>6.2.7.6</ApplicationVersion>
+    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationVersion>6.2.7.8</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="ClassFunctions.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="LogManager.cs" />
     <Compile Include="Other\ConsoleFix.cs" />
     <Compile Include="Gui\CustomCommand.cs">
       <SubType>Form</SubType>

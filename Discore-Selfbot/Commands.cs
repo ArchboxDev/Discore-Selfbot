@@ -8,18 +8,97 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Discore_Selfbot
 {
+    public class _Check
+    {
+        public static async Task GuildOnly(IUserMessage Message)
+        {
+            if (Message.Channel is IPrivateChannel)
+            {
+                await _CommandError.GuildOnly(Message);
+            }
+        }
+        public static async Task DMOnly(IUserMessage Message)
+        {
+            if (Message.Channel is IGuildChannel)
+            {
+              await _CommandError.DMOnly(Message);
+            }
+        }
+        public static bool HasEmbedPerms(IUserMessage Message)
+        {
+            bool EmbedPerms = true;
+            if (Message.Channel is IGuildChannel)
+            {
+                IGuildUser GU = Message.Author as IGuildUser;
+                if (!GU.GuildPermissions.EmbedLinks)
+                {
+                    EmbedPerms = false;
+                }
+            }
+            return EmbedPerms;
+        }
+        public static async Task EmbedPerms(IUserMessage Message)
+        {
+            if (Message.Channel is IGuildChannel)
+            {
+                IGuildUser GU = Message.Author as IGuildUser;
+                if (!GU.GuildPermissions.EmbedLinks)
+                {
+                   await _CommandError.NoEmbedPerms(Message);
+                }
+            }
+        }
+    }
+
+    public class _CommandError
+    {
+        public static async Task GuildOnly(IUserMessage Message)
+        {
+            await Message.ModifyAsync(x =>
+            {
+                x.Content = "`Selfbot | Cannot use command in dm channel`";
+            });
+            throw new ArgumentException("Cannot use command in dm channel");
+        }
+        public static async Task DMOnly(IUserMessage Message)
+        {
+            await Message.ModifyAsync(x =>
+            {
+                x.Content = "`Selfbot | Cannot use command in guild channel`";
+            });
+            throw new ArgumentException("Cannot use command in guild channel");
+        }
+        public static async Task NoEmbedPerms(IUserMessage Message)
+        {
+            await Message.ModifyAsync(x =>
+            {
+                x.Content = $"`Selfbot | You do not have permission Embed Links`";
+            });
+            throw new ArgumentException("You do not have permission Embed Links");
+        }
+        public static async Task Custom(IUserMessage Message, string MessageText)
+        {
+            await Message.ModifyAsync(x =>
+            {
+                x.Content = $"`Selfbot | {MessageText}`";
+            });
+            throw new ArgumentException(MessageText);
+        }
+    }
+
     public class InfoCommands : ModuleBase
     {
-#region InfoCommands
+        #region InfoCommands
         [Command("roles")]
         public async Task Roles()
         {
+            await _Check.GuildOnly(Context.Message);
+            await _Check.EmbedPerms(Context.Message);
+
             List<string> RoleList = new List<string>();
             foreach(var Role in Context.Guild.Roles.Where(x => x.Id != Context.Guild.EveryoneRole.Id))
             {
@@ -27,7 +106,8 @@ namespace Discore_Selfbot
             }
             var embed = new EmbedBuilder()
             {
-                Description = string.Join(", ", RoleList.ToList())
+                Description = string.Join(", ", RoleList.ToList()),
+                Color = Program.GetEmbedColor(Context)
             };
             if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
@@ -50,10 +130,14 @@ namespace Discore_Selfbot
             IVoiceRegion Region = await Context.Client.GetOptimalVoiceRegionAsync();
             var embed = new EmbedBuilder()
             {
-                Title = "Your Region",
-                Description = Region.Name,
+                Title = ":globe_with_meridians: Region Info",
+                Description = $"Your Region > {Region.Id}",
                 Color = Program.GetEmbedColor(Context)
             };
+            if (Context.Guild != null)
+            {
+                embed.Description = embed.Description + Environment.NewLine + $"Server Region > {Context.Guild.VoiceRegionId}";
+            }
             if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 await Context.Message.ModifyAsync(x =>
@@ -115,22 +199,8 @@ namespace Discore_Selfbot
         [Command("guild")]
         public async Task Guild()
         {
-            if (Context.Guild != null)
-            {
-                if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                {
-                    await Context.Message.ModifyAsync(x =>
-                    {
-                        x.Content = $"`Selfbot | You need to use this command in a guild channel`";
-                    });
-                }
-                else
-                {
-                    await Context.Message.DeleteAsync();
-                    await Context.Message.Channel.SendMessageAsync($"`Selfbot | You need to use this command in a guild channel`");
-                }
-                return;
-            }
+            await _Check.GuildOnly(Context.Message);
+            await _Check.EmbedPerms(Context.Message);
             int Members = 0;
             int Bots = 0;
             int MembersOnline = 0;
@@ -524,7 +594,7 @@ namespace Discore_Selfbot
         [Command("user")]
         public async Task User(string ID)
         {
-            if (Context.Guild != null)
+            if (Context.Guild == null)
             {
                 await Context.Message.Channel.SendMessageAsync("`Selfbot | Cannot use command in private channel`");
                 return;
@@ -658,26 +728,7 @@ namespace Discore_Selfbot
         [Command("cat")]
         public async Task Cat()
         {
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             WebRequest request = WebRequest.Create("http://random.cat/meow");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
@@ -710,26 +761,7 @@ namespace Discore_Selfbot
         [Command("dog")]
         public async Task Dog()
         {
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             WebRequest request = WebRequest.Create("http://random.dog/woof");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
@@ -787,6 +819,7 @@ namespace Discore_Selfbot
         [Command("roulette")]
         public async Task Roulette(string Option = "")
         {
+            await _Check.GuildOnly(Context.Message);
             List<IGuildUser> list = new List<IGuildUser>();
             foreach (var User in await Context.Guild.GetUsersAsync())
             {
@@ -835,26 +868,7 @@ namespace Discore_Selfbot
         [Command("neko")]
         public async Task Neko()
         {
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             var RandomValue = Program.RandomGenerator.Next(1, 11);
             var embed = new EmbedBuilder()
             {
@@ -909,29 +923,11 @@ namespace Discore_Selfbot
                 await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
             }
         }
+
         [Command("embed")]
         public async Task Embed([Remainder] string Text)
         {
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             var embed = new EmbedBuilder()
             {
                 Description = Text,
@@ -953,28 +949,9 @@ namespace Discore_Selfbot
         }
 
         [Command("tembed")]
-        public async Task Tembed(string Title, [Remainder] string Text)
+        public async Task Tembed(string Title, [Remainder] string Text = "")
         {
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             var embed = new EmbedBuilder()
             {
                 Title = Title,
@@ -985,7 +962,7 @@ namespace Discore_Selfbot
             {
                 await Context.Message.ModifyAsync(x =>
                 {
-                    x.Content = " ";
+                    x.Content = "";
                     x.Embed = embed.Build();
                 });
             }
@@ -1017,27 +994,7 @@ namespace Discore_Selfbot
         [Command("lewd")]
         public async Task Lewd([Remainder] string Text = "")
         {
-
-            if (Context.Guild != null)
-            {
-                IGuildUser GuildUser = Context.User as IGuildUser;
-                if (!GuildUser.GetPermissions(Context.Channel as IGuildChannel).EmbedLinks)
-                {
-                    if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-                    {
-                        await Context.Message.ModifyAsync(x =>
-                        {
-                            x.Content = $"`Selfbot | You do not have permission Embed Links`";
-                        });
-                    }
-                    else
-                    {
-                        await Context.Message.DeleteAsync();
-                        await Context.Message.Channel.SendMessageAsync($"`Selfbot | You do not have permission Embed Links`");
-                    }
-                    return;
-                }
-            }
+            await _Check.EmbedPerms(Context.Message);
             var embed = new EmbedBuilder()
             {
                 Description = "LEWD",
@@ -1098,20 +1055,17 @@ namespace Discore_Selfbot
             if (Ammount == 0)
             {
                 await Context.Message.DeleteAsync();
-                Console.WriteLine("Specify an ammount > self clean (ammount)");
-                return;
+                throw new Exception("Specify an ammount > self clean (ammount)");
             }
             if (Ammount < 1)
             {
                 await Context.Message.DeleteAsync();
-                Console.WriteLine("Clean ammount cannot be less than 0");
-                return;
+                throw new Exception("Clean ammount cannot be less than 0");
             }
             if (Ammount > 30)
             {
                 await Context.Message.DeleteAsync();
-                Console.WriteLine("Clean ammount cannot be more than 30");
-                return;
+                throw new Exception("Clean ammount cannot be more than 30");
             }
 
             int Count = Ammount + 1;
@@ -1130,8 +1084,8 @@ namespace Discore_Selfbot
                     }
                 }
         }
-        [Command("cleanembed")]
 
+        [Command("cleanembed")]
         [Alias("cleanembeds")]
         public async Task Cleanembed()
         {
@@ -1189,6 +1143,7 @@ namespace Discore_Selfbot
         [Command("hex")]
         public async Task Color(string Text)
         {
+            await _Check.EmbedPerms(Context.Message);
             if (!Text.Contains("#"))
             {
                 Text = "#" + Text;
@@ -1226,23 +1181,14 @@ namespace Discore_Selfbot
                 Description = $"You rolled a {randomValue}",
                 ThumbnailUrl = "http://bestanimations.com/Games/Dice/dice-animated-gif-2.gif"
             };
-            bool Embed = true;
-            try
-            {
-                var GU = Context.User as IGuildUser;
-                if (!GU.GetPermissions(Context.Channel as ITextChannel).EmbedLinks)
-                {
-                    Embed = false;
-                }
-            }
-            catch { }
+            bool Embed = _Check.HasEmbedPerms(Context.Message);
             if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
             {
                 if (Embed == true)
                 {
                     await Context.Message.ModifyAsync(x =>
                     {
-                        x.Content = " ";
+                        x.Content = "";
                         x.Embed = embed.Build();
                     });
                 }
@@ -1278,11 +1224,11 @@ namespace Discore_Selfbot
         {
             if (TagName == "")
             {
-                Program.ErrorMessages.Add(Context.Message);
                 await Context.Message.ModifyAsync(x => x.Content = "`self tag (TagName) | for a list of tags do | self tags`");
             }
             else
             {
+                await _Check.EmbedPerms(Context.Message);
                 if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
                 {
                     _TagClass Tag = Program.TagList.First(x => x.TagName.ToLower() == TagName.ToLower());
@@ -1307,8 +1253,7 @@ namespace Discore_Selfbot
                 }
                 else
                 {
-                    Program.ErrorMessages.Add(Context.Message);
-                    await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} does not exist`");
+                    await _CommandError.Custom(Context.Message, $"Tag {TagName} not found");
                 }
             }
         }
@@ -1345,9 +1290,7 @@ namespace Discore_Selfbot
             {
                 if (UserID == 0)
                 {
-                    await Context.Message.ModifyAsync(x => x.Content = $"`Selfbot | User ID not found`");
-                    Program.ErrorMessages.Add(Context.Message);
-                    return;
+                    await _CommandError.Custom(Context.Message, $"User ID not found");
                 }
                 foreach (var Item in Program.TagList.Where(x => x.UserID == UserID))
                 {
@@ -1364,13 +1307,11 @@ namespace Discore_Selfbot
         {
             if (TagName == "" | MessageID == 0)
             {
-                Program.ErrorMessages.Add(Context.Message);
                 await Context.Message.ModifyAsync(x => x.Content = $"`Use | self addtag (TagName) (MessageID)`");
                 return;
             }
             if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
             {
-                Program.ErrorMessages.Add(Context.Message);
                 await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} already exists`");
                 return;
             }
@@ -1385,7 +1326,6 @@ namespace Discore_Selfbot
             }
             if (TagMessage == null)
             {
-                Program.ErrorMessages.Add(Context.Message);
                 await Context.Message.ModifyAsync(x => x.Content = $"`Cannot find message by ID`");
                 return;
             }
@@ -1420,7 +1360,6 @@ namespace Discore_Selfbot
             {
                 await Context.Message.ModifyAsync(x => x.Content = $"`Created tag {TagName} with an image to edit it use | self edittag`");
             }
-            Program.ErrorMessages.Add(Context.Message);
         }
 
         [Command("deltag")]
@@ -1429,30 +1368,25 @@ namespace Discore_Selfbot
         {
             if (TagName == "")
             {
-                await Context.Message.ModifyAsync(x => x.Content = $"`Use | self deltag (TagName)`");
-                Program.ErrorMessages.Add(Context.Message);
-                return;
+                await _CommandError.Custom(Context.Message, "Self deltag (Name)");
             }
             if (Program.TagList.Exists(x => x.TagName.ToLower() == TagName.ToLower()))
             {
                 File.Delete(Program._Bot.PathTags + TagName.ToLower() + ".json");
                 Program.TagList.RemoveAll(x => x.TagName.ToLower() == TagName.ToLower());
                 await Context.Message.ModifyAsync(x => x.Content = $"`Deleted tag {TagName}`");
-                Program.ErrorMessages.Add(Context.Message);
                 return;
             }
             else
             {
-                await Context.Message.ModifyAsync(x => x.Content = $"`Tag {TagName} does not exists`");
-                Program.ErrorMessages.Add(Context.Message);
+                await _CommandError.Custom(Context.Message, "Tag {TagName} does not exists");
             }
         }
 
         [Command("edittag")]
         public async Task Edittag()
         {
-            await Context.Message.ModifyAsync(x => x.Content = $"`Selfbot | Edittag command coming soon :(`");
-            Program.ErrorMessages.Add(Context.Message);
+            await _CommandError.Custom(Context.Message, "Edittag command coming soon ;)");
         }
         #endregion
     }

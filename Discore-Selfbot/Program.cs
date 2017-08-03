@@ -33,7 +33,9 @@ namespace Discore_Selfbot
         public const int SW_HIDE = 0;
         public const int SW_SHOW = 5;
         public static List<_TagClass> TagList = new List<_TagClass>();
-        public static List<IMessage> ErrorMessages = new List<IMessage>();
+
+        
+
         public static _GUI _GUI = new _GUI();
         public static NotifyIcon NotifyIcon;
         public static _BotClass _Bot = new _BotClass();
@@ -46,16 +48,18 @@ namespace Discore_Selfbot
         {
             _Bot.StartupTime = DateTime.Now;
             DisableConsoleQuickEdit.Go();
-#region CreateFolders
+            
+            Console.Title = "Discore Selfbot";
+            #region CreateFolders
             if (!Directory.Exists(_Bot.Path))
             {
                 Directory.CreateDirectory(_Bot.Path);
             }
-            if (!Directory.Exists(_Bot.Path))
+            if (!Directory.Exists(_Bot.PathTags))
             {
                 Directory.CreateDirectory(_Bot.PathTags);
             }
-            if (!Directory.Exists(_Bot.Path))
+            if (!Directory.Exists(_Bot.PathCustom))
             {
                 Directory.CreateDirectory(_Bot.PathCustom);
             }
@@ -63,7 +67,6 @@ namespace Discore_Selfbot
             JsonSerializer serializer = new JsonSerializer();
             TrayIconBuster.TrayIconBuster.RemovePhantomIcons();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Title = "Discore - Selfbot";
             Notif();
 
             foreach (var Files in Directory.GetFiles(_Bot.PathTags))
@@ -80,17 +83,17 @@ namespace Discore_Selfbot
                 _Bot.Token = File.ReadAllText(_Bot.Path + "Token.txt");
                 if (_Bot.Token == "")
                 {
-                    Console.Title = "Discore - Selfbot - User Token Required";
-                    Console.WriteLine("Token not found please enter your user token in this file and restart the bot");
+                    Console.Title = "Discore Selfbot";
+                    _Log.Custom("Token not found please enter your user token in this file and restart the bot");
                     Process.Start(_Bot.Path);
                 }
             }
             else
             {
-                Console.Title = "Discore - Selfbot - User Token Required";
+                Console.Title = "Discore Selfbot";
                 File.CreateText(_Bot.Path + "Token.txt").Close();
-                Console.WriteLine("Insert your User Token into the file Token.txt and restart the bot");
-                Console.WriteLine("And no i dont steal tokens you can view the code on github");
+                _Log.Custom("Insert your User Token into the file Token.txt and restart the bot");
+                _Log.Custom("And no i dont steal tokens you can view the code on github");
                 Process.Start(_Bot.Path);
             }
             if (!File.Exists(_Bot.Path + "How-To-Get-User-Token.txt"))
@@ -135,7 +138,7 @@ namespace Discore_Selfbot
                 }
             }
 
-            Console.WriteLine("Token found Loading Bot");
+            _Log.Selfbot("Token found loading bot");
             if (Settings.Startup == "Hide All")
             {
                 NotifyIcon.ShowBalloonTip(30, "Loading!", "Selfbot is now loading", ToolTipIcon.Info);
@@ -171,6 +174,7 @@ namespace Discore_Selfbot
         }
         private static void Notify_Click(object sender, EventArgs e)
         {
+            _Log.GUI("Opening notification menu");
             var NotifyMenu = new NotifyMenu();
             if (NotifyMenu.Visible == false)
             {
@@ -198,7 +202,7 @@ namespace Discore_Selfbot
                 _GUI.RemoveGuild(g);
                 if (_Client.ConnectionState != ConnectionState.Disconnecting)
                 {
-                    Console.WriteLine($"[Warning] G: {g.Name} is unavailable");
+                    _Log.Warning($"Guild {g.Name} is unavailable");
                     NotifyIcon.ShowBalloonTip(30, "Warning!", "G: {g.Name} is unavailable", ToolTipIcon.Warning);
                 }
                 
@@ -212,7 +216,7 @@ namespace Discore_Selfbot
                 {
                     _GUI.AddGuild(g);
                 }
-                if (GuildCount == _Client.Guilds.Count)
+                if (_Bot.Ready == false & GuildCount == _Client.Guilds.Count)
                 {
                     _Bot.Ready = true;
                     if (Settings.Startup == "Hide All")
@@ -247,12 +251,22 @@ namespace Discore_Selfbot
                         case 190376235128455168:
                             Message = "Get back in the salt mines!";
                             break;
+                        case 217215496267890689:
+                            Message = "Far Far Aw.. Aiir";
+                            break;
+                        case 160168328520794112:
+                            Message = "Hazed you noob";
+                            break;
+                        case 257815520680738816:
+                            Message = "Keith... Lemon!";
+                            break;
                         default:
                             Message = $"Hi {_Client.CurrentUser.Username}";
                             break;
                     }
                     TimeSpan Startup = DateTime.Now - _Bot.StartupTime;
-                    Console.WriteLine($"{Message} | Selfbot ready {_Client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds");
+                    _Log.Custom($"{Message} | Selfbot ready {_Client.Guilds.Count()} guilds | Loaded fully in {Startup.Seconds} Seconds", ConsoleColor.Green);
+                    
                 }
                 return Task.CompletedTask;
             };
@@ -294,11 +308,11 @@ namespace Discore_Selfbot
             {
                 if (g.Owner == null)
                 {
-                    Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Unknown Owner???");
+                    _Log.Guild($"Joined > {g.Name} ({g.Id}) - Unknown Owner???");
                 }
                 else
                 {
-                    Console.WriteLine($"[Joined Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+                    _Log.Guild($"Joined > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 }
                 if (_GUI.Form != null)
                 {
@@ -311,11 +325,11 @@ namespace Discore_Selfbot
             {
                 if (g.Owner == null)
                 {
-                    Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Unknown Owner???");
+                    _Log.Guild($"Left > {g.Name} ({g.Id}) - Unknown Owner???");
                 }
                 else
                 {
-Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
+_Log.Guild($"Left > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 }
                 if (_GUI.Form != null)
                 {
@@ -326,15 +340,14 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
 
             _Client.Connected += () =>
             {
-                Console.Title = "Discore Selfbot - Online!!";
+                Console.Title = "Discore Selfbot - Online!";
                 if (_Bot.Ready == true)
                 {
-                    Console.WriteLine("[Discore Selfbot] CONNECTED!");
+                    _Log.Selfbot("CONNECTED!");
                 }
-                if (_Bot.Ready == false)
+                else
                 {
-                    Console.WriteLine("[Discore Selfbot] CONNECTED! - Loading Guilds Please Wait");
-                    _Bot.Ready = true;
+                    _Log.Selfbot("CONNECTED! - Loading guilds please wait");
                     UptimeTimer.Interval = 60000;
                     UptimeTimer.Elapsed += UptimeTick;
                     UptimeTimer.Start();
@@ -366,7 +379,7 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                     _GUI.GuildIDCache.Clear();
                 }   
                 Console.Title = "Discore Selfbot - Offline!";
-                Console.WriteLine("[Discore Selfbot] DISCONNECTED!");
+                _Log.Warning("DISCONNECTED!");
                 return Task.CompletedTask;
             };
 
@@ -389,16 +402,14 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                     var handle = GetConsoleWindow();
                     ShowWindow(handle, SW_SHOW);
                 }
-                Console.ForegroundColor = ConsoleColor.Red;
                 if (ex.Message.Contains("401"))
                 {
-                    Console.WriteLine("Invalid Token");
+                    _Log.Error("Invalid Token");
                 }
                 else
                 {
-                    Console.WriteLine(ex.Message);
+                    _Log.Error(ex.Message);
                 }
-                Console.ForegroundColor = ConsoleColor.White;
             }
             await Task.Delay(-1);
         }
@@ -430,7 +441,7 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Could not send attachment: " + ex);
+                _Log.Command("Could not send attachment: " + ex, true);
             }
         }
 
@@ -494,20 +505,11 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 int argPos = 0;
                 if (message.HasStringPrefix("self ", ref argPos))
                 {
-                    foreach (var Mes in Program.ErrorMessages)
-                    {
-                        await Mes.DeleteAsync();
-                    }
-                    await message.ModifyAsync(x =>
-                    {
-                        x.Content = "`...`";
-                    });
                     var context = new CommandContext(_Client, message);
                     var result = await _Commands.ExecuteAsync(context, argPos);
                     if (result.IsSuccess)
                     {
-                        Console.WriteLine($"[Command] Executed {message.Content}");
-                        return;
+                        _Log.Command(message.Content);
                     }
                     else
                     {
@@ -516,8 +518,7 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
 
 
                         //}
-                        Console.WriteLine($"[Command] Failed {message.Content} | " + result.ErrorReason);
-                        await message.DeleteAsync();
+                        _Log.Command($"{message.Content} > {result.ErrorReason}", true);
                     }
                     //if (File.Exists(SelfbotDir + "Custom\\" + message.Content.Replace("self ", "") + ".json"))
                     //{
@@ -527,7 +528,7 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 else
                 {
                     var MessageText = "";
-                    if (message.Content.Contains("{lenny}") || message.Content.Contains("{fidget}"))
+                    if (message.Content.Contains("{lenny}") || message.Content.Contains("{fidget}") || message.Content.Contains("{flip}"))
                     {
                         if (MessageText == "")
                         {
@@ -535,6 +536,7 @@ Console.WriteLine($"[Left Guild] {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                         }
                         MessageText = MessageText.Replace("{lenny}", "( ͡° ͜ʖ ͡°)");
                         MessageText = MessageText.Replace("{fidget}", "߷");
+                        MessageText = MessageText.Replace("{flip}", "(╯°□°）╯︵ ┻━┻");
                         await message.ModifyAsync(x => { x.Content = MessageText; });
                     };
                 }

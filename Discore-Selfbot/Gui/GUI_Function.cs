@@ -21,9 +21,7 @@ namespace Discore_Selfbot
         public void Open()
         {
             GUI_Form.CheckForIllegalCrossThreadCalls = false;
-            //Form = new GUI_Form();
-            Console.WriteLine("Opening GUI");
-            //Form.ShowDialog();
+            _Log.GUI("Opening main GUI");
             Thread mThread = new Thread(delegate ()
             {
                 Form = new GUI_Form();
