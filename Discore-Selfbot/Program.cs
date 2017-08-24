@@ -147,8 +147,7 @@ namespace Discore_Selfbot
             }
             new Program().RunBot().GetAwaiter().GetResult();
         }
-
-        [STAThread]
+        
         public static void Notif()
         {
             Thread MyIconThread = new Thread(delegate ()
@@ -164,6 +163,7 @@ namespace Discore_Selfbot
             MyIconThread.SetApartmentState(ApartmentState.STA);
             MyIconThread.Start();
         }
+
         public static void SaveSettings()
         {
             JsonSerializer serializer = new JsonSerializer();
@@ -172,6 +172,7 @@ namespace Discore_Selfbot
                 serializer.Serialize(file, Settings);
             }
         }
+
         private static void Notify_Click(object sender, EventArgs e)
         {
             _Log.GUI("Opening notification menu");
@@ -181,6 +182,7 @@ namespace Discore_Selfbot
                 NotifyMenu.ShowDialog();
             }
         }
+
         public async Task RunBot()
         {
 
@@ -527,9 +529,9 @@ _Log.Guild($"Left > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                 }
                 else
                 {
-                    var MessageText = "";
-                    if (message.Content.Contains("{lenny}") || message.Content.Contains("{fidget}") || message.Content.Contains("{flip}"))
+                    if (message.Content.Contains("{lenny}") || message.Content.Contains("{fidget}") || message.Content.Contains("{flip}") || message.Content.Contains("{shrug}"))
                     {
+                        var MessageText = "";
                         if (MessageText == "")
                         {
                             MessageText = message.Content;
@@ -537,6 +539,7 @@ _Log.Guild($"Left > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
                         MessageText = MessageText.Replace("{lenny}", "( ͡° ͜ʖ ͡°)");
                         MessageText = MessageText.Replace("{fidget}", "߷");
                         MessageText = MessageText.Replace("{flip}", "(╯°□°）╯︵ ┻━┻");
+                        MessageText = MessageText.Replace("{shrug}", "¯\\_(ツ)_/¯");
                         await message.ModifyAsync(x => { x.Content = MessageText; });
                     };
                 }

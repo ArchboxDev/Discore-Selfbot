@@ -12,6 +12,40 @@ using System.Threading.Tasks;
 
 namespace Discore_Selfbot
 {
+    public class _Send
+    {
+        public static async Task Message(ICommandContext Context, string Message)
+        {
+            if (Context.Guild == null || Program.Settings.MessageAction == "Edit")
+            {
+                await Context.Message.ModifyAsync(x =>
+                {
+                    x.Content = Message;
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync(Message);
+            }
+        }
+        public static async Task Embed(ICommandContext Context, EmbedBuilder Embed)
+        {
+            if (Context.Guild == null || Program.Settings.MessageAction == "Edit")
+            {
+                await Context.Message.ModifyAsync(x =>
+                {
+                    x.Content = "";
+                    x.Embed = Embed.Build();
+                });
+            }
+            else
+            {
+                await Context.Message.DeleteAsync();
+                await Context.Message.Channel.SendMessageAsync("", false, Embed.Build());
+            }
+        }
+    }
     public class _Check
     {
         public static async Task GuildOnly(IUserMessage Message)
@@ -109,19 +143,7 @@ namespace Discore_Selfbot
                 Description = string.Join(", ", RoleList.ToList()),
                 Color = Program.GetEmbedColor(Context)
             };
-            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-            {
-                await Context.Message.ModifyAsync(x =>
-                {
-                    x.Content = "";
-                    x.Embed = embed.Build();
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync("", false, embed.Build());
-            }
+                await _Send.Embed(Context, embed);
         }
 
         [Command("region")]
@@ -1112,18 +1134,8 @@ namespace Discore_Selfbot
             //var WebHook = new Discord.Webhook.DiscordWebhookClient(, "");
             //await WebHook.SendMessageAsync(Mention + Text, false, null, "Discore-Selfbot");
             //await WebHook.SendMessageAsync("Test", false, null, "Test user");
-            if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")
-            {
-                await Context.Message.ModifyAsync(x =>
-                {
-                    x.Content = $"`Selfbot | Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}`";
-                });
-            }
-            else
-            {
-                await Context.Message.DeleteAsync();
-                await Context.Message.Channel.SendMessageAsync($"`Selfbot | Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}`");
-            }
+            await _Send.Message(Context, $"`Selfbot | Hi {Context.Client.CurrentUser.Username}#{Context.Client.CurrentUser.Discriminator}`");
+           
         }
 
         [Command("snip")]
@@ -1247,7 +1259,7 @@ namespace Discore_Selfbot
                         },
                         ThumbnailUrl = Tag.Thumbnail,
                         ImageUrl = Tag.MainImage,
-                        Color = Tag.Color
+                        Color = Program.GetEmbedColor(Context)
                     };
                     await Context.Message.ModifyAsync(x => x.Embed = embed.Build());
                 }
@@ -1298,7 +1310,20 @@ namespace Discore_Selfbot
                 }
             }
             string Tags = string.Join(" | ", ListOfTags);
-            await Context.Message.ModifyAsync(x => x.Content = "**List Of Tags**```md" + Environment.NewLine + $"{Tags}```");
+            if (_Check.HasEmbedPerms(Context.Message))
+            {
+                var embed = new EmbedBuilder()
+                {
+                    Title = "List Of Tags",
+                    Color = Program.GetEmbedColor(Context),
+                    Description = "```" + Environment.NewLine + Tags + "```"
+                };
+               await ReplyAsync("", false, embed);
+            }
+            else
+            {
+                await Context.Message.ModifyAsync(x => x.Content = "**List Of Tags**```md" + Environment.NewLine + $"{Tags}```");
+            }
         }
 
         [Command("addtag")]
