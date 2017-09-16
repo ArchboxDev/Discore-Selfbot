@@ -462,25 +462,26 @@ _Log.Guild($"Left > {g.Name} ({g.Id}) - Owner {g.Owner.Username}");
         {
             Discord.Color Color = new Discord.Color(0);
             Color = _Bot.FavoriteColor;
-            if (CommandMessage.Channel is IPrivateChannel)
-            {
-
-            }
-            else
+            if (CommandMessage.Guild != null)
             {
                 IGuildUser GuildUser = CommandMessage.User as IGuildUser;
-                if (GuildUser.RoleIds.Count == 1)
-                {
-                }
-                else
+                if (GuildUser.RoleIds.Count != 1)
                 {
                     if (Settings.ForceRoleColor == "Yes")
                     {
-                        foreach (var Role in GuildUser.Guild.Roles.OrderBy(x => x.Position))
+                        if (GuildUser.GuildPermissions.EmbedLinks || GuildUser.GetPermissions(CommandMessage.Channel as ITextChannel).EmbedLinks)
                         {
-                            if (GuildUser.RoleIds.Contains(Role.Id))
+                            if (CommandMessage.Guild.Roles.Count() > 1 && GuildUser.RoleIds.Count() > 1)
                             {
-                                Color = Role.Color;
+                                foreach (var i in GuildUser.Guild.Roles.Where(x => x.Id != CommandMessage.Guild.EveryoneRole.Id && GuildUser.RoleIds.Contains(x.Id)).OrderByDescending(x => x.Position))
+                                {
+                                    if (i.Color.R != 0 && i.Color.G != 0 && i.Color.B != 0)
+                                    {
+                                        Color = i.Color;
+                                        break;
+                                    }
+                                }
+
                             }
                         }
                     }

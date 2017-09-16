@@ -230,7 +230,7 @@ namespace Discore_Selfbot
             var embed = new EmbedBuilder()
             {
                 Title = "Selfbot Help",
-                Description = $"For a list of commands see the GUI `self gui` or" + Environment.NewLine + "Visit the [Website](https://blaze.ml/discore-selfbot/)",
+                Description = $"For a list of commands see the GUI `self gui` or" + Environment.NewLine + "Visit the [Website](https://blazeweb.ml/discore-selfbot/)",
                 Color = Program.GetEmbedColor(Context)
             };
             if (Context.Message.Channel is IPrivateChannel || Program.Settings.MessageAction == "Edit")

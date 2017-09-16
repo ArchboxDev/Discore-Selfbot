@@ -74,7 +74,7 @@ namespace Discore_Selfbot
 
         private void LinkWebsite_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://blaze.ml/");
+            System.Diagnostics.Process.Start("https://blazeweb.ml/");
         }
 
         private void NavInfo_SelectedPageChanged(object sender, EventArgs e)
@@ -340,7 +340,7 @@ namespace Discore_Selfbot
 
         private void LinkDownload_LinkClicked(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://discore.blaze.ml/");
+            System.Diagnostics.Process.Start("https://discore.blazeweb.ml/");
         }
 
         private void BtnOpenSelfbotFolder_Click(object sender, EventArgs e)
@@ -406,7 +406,7 @@ namespace Discore_Selfbot
             if (e.Node.Name == "PixelBot")
             {
                 GUI_BotsInfo.Text = "A gamer featured bot with commands for steam/osu/minecraft and twitch streamer alerts";
-                GUI_BotsWebLink.AccessibleDescription = "https://blaze.ml";
+                GUI_BotsWebLink.AccessibleDescription = "https://blazeweb.ml";
                 GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=277933222015401985&scope=bot&permissions=0";
                 GUI_BotsWebLink.Visible = true;
                 GUI_BotsInviteLink.Visible = true;
@@ -414,7 +414,7 @@ namespace Discore_Selfbot
             if (e.Node.Name == "Minotaur")
             {
                 GUI_BotsInfo.Text = "A guild moderation bot with ban/kick/mute commands and advanced logging/userlogs/modlogs";
-                GUI_BotsWebLink.AccessibleDescription = "https://blaze.ml";
+                GUI_BotsWebLink.AccessibleDescription = "https://blazeweb.ml";
                 GUI_BotsInviteLink.AccessibleDescription = "https://discordapp.com/oauth2/authorize?&client_id=281849383404830733&scope=bot&permissions=0";
                 GUI_BotsWebLink.Visible = true;
                 GUI_BotsInviteLink.Visible = true;
