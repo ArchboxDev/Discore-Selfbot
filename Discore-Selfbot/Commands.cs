@@ -134,7 +134,7 @@ namespace Discore_Selfbot
             await _Check.EmbedPerms(Context.Message);
 
             List<string> RoleList = new List<string>();
-            foreach(var Role in Context.Guild.Roles.Where(x => x.Id != Context.Guild.EveryoneRole.Id))
+            foreach (var Role in Context.Guild.Roles.Where(x => x.Id != Context.Guild.EveryoneRole.Id))
             {
                 RoleList.Add($"<@&{Role.Id}>");
             }
@@ -143,7 +143,37 @@ namespace Discore_Selfbot
                 Description = string.Join(", ", RoleList.ToList()),
                 Color = Program.GetEmbedColor(Context)
             };
-                await _Send.Embed(Context, embed);
+            await _Send.Embed(Context, embed);
+        }
+
+        [Command("getusers")]
+        public async Task Getusers()
+        {
+            IGuild FakeGuild = Program._Client.GetGuild(303724819994771457);
+            var FakeGuildUsers = await FakeGuild.GetUsersAsync();
+            IGuild Disnode = Program._Client.GetGuild(236338097955143680);
+            List<string> Users = new List<string>();
+            foreach (var user in FakeGuildUsers)
+            {
+                if (!user.IsBot)
+                {
+                    var ThisUser = await Disnode.GetUserAsync(user.Id);
+                    if (ThisUser != null)
+                    {
+                        Users.Add($"{user.Username} <@{user.Id}> | Created {(user.CreatedAt).Day}/{(user.CreatedAt).Month}/{(user.CreatedAt).Year} | Joined {(ThisUser.JoinedAt.Value).Day}/{(ThisUser.JoinedAt.Value).Month}/{(ThisUser.JoinedAt.Value).Year}");
+                    }
+                    else
+                    {
+                        Users.Add($"{user.Username} <@{user.Id}> | Created {(user.CreatedAt).Day}/{(user.CreatedAt).Month}/{(user.CreatedAt).Year}");
+                    }
+                }
+            }
+
+            var embed = new EmbedBuilder()
+            {
+                Description = string.Join(Environment.NewLine, Users)
+            };
+            await ReplyAsync("", false, embed.Build());
         }
 
         [Command("region")]
@@ -1318,7 +1348,7 @@ namespace Discore_Selfbot
                     Color = Program.GetEmbedColor(Context),
                     Description = "```" + Environment.NewLine + Tags + "```"
                 };
-               await ReplyAsync("", false, embed);
+               await ReplyAsync("", false, embed.Build());
             }
             else
             {

@@ -78,7 +78,7 @@ namespace Discore_Selfbot
                     MessageBox.Show(this, "Could not find DM channel", "Error");
                     return;
                 }
-                    await DMChan.SendMessageAsync("", false, embed);
+                    await DMChan.SendMessageAsync("", false, embed.Build());
             }
             else
             {
@@ -94,7 +94,7 @@ namespace Discore_Selfbot
                     MessageBox.Show(this, "Could not find guild channel", "Error");
                     return;
                 }
-                await GuildChan.SendMessageAsync("", false, embed);
+                await GuildChan.SendMessageAsync("", false, embed.Build());
             }
         }
 

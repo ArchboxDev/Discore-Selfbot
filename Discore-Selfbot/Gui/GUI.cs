@@ -314,12 +314,12 @@ namespace Discore_Selfbot
             {
                 var Guild = Program._Client.GetGuild(this.ActiveGuildID);
                 var GuildChan = Guild.GetChannel(this.ActiveChannelID) as ITextChannel;
-                await GuildChan.SendMessageAsync("", false, embed);
+                await GuildChan.SendMessageAsync("", false, embed.Build());
             }
             else
             {
                 IDMChannel DMChan = Program._Client.GetChannel(this.ActiveChannelID) as IDMChannel;
-                await DMChan.SendMessageAsync("", false, embed);
+                await DMChan.SendMessageAsync("", false, embed.Build());
             }
         }
 
