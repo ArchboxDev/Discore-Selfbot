@@ -1,8 +1,11 @@
+# Discord ToS
+Due to Discord changing the terms of service selfbots are against the ToS.
+
+You can still download the selfbot and use it in your own private server or friends server but if you are caught by Discord staff members or reported by certain users your account will be disabled.
+
 # What is this bot?
 Discore-Selfbot is a discord selfbot with commands and features such as getting guild/user information, auto nickname and other fun commands. It also has a cool GUI which can communicate with the selfbot to send commands or get information.
 
-Linux version is available here without the GUI [Linux Version](https://github.com/ArchboxDev/Discore-Selfbot-Linux)
-![](http://i.imgur.com/OpXQJ2u.png)
 ## Why should I use this?
 The bot is easy to use and only need a token file and Windows .net framework 2.6.1.
 
@@ -34,13 +37,10 @@ The bot is easy to use and only need a token file and Windows .net framework 2.6
 
 [Form/GUI Code](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/GUI.cs)
 ## How to download
-http://discore.blaze.ml/
-
-If Windows smartscreen pop out an infomation that this app is unrecognised. Ignore it and click more to run as shown in the link below
-
-http://imgur.com/a/Hi2Nc
+Download link removed you are free to download this repo instead
 
 ## Website
-https://blaze.ml/discore-selfbot/
+Visit my website to view Discord bots i have made
+https://blazeweb.ml/
 
-If you have a suggestion/issue please use this github or join my guild WJTYdNb.
+Or you can join my guild WJTYdNb.
