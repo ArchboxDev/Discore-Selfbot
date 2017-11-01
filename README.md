@@ -3,6 +3,8 @@ Due to Discord changing the terms of service selfbots are against the ToS.
 
 You can still download the selfbot and use it in your own private server or friends server but if you are caught by Discord staff members or reported by certain users your account will be disabled.
 
+This project is archived and no new updates will be made also the GUI will not work.
+
 # What is this bot?
 Discore-Selfbot is a discord selfbot with commands and features such as getting guild/user information, auto nickname and other fun commands. It also has a cool GUI which can communicate with the selfbot to send commands or get information.
 
