@@ -32,17 +32,17 @@ The bot is easy to use and only need a token file and Windows .net framework 2.6
   - Always on top
   
 ## Commands
-[Commands](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Commands.md)
+[Commands](https://github.com/xXBuilderBXx/Discore-Selfbot/blob/master/Commands.md)
 
 ## Source?
-[Main Bot Code](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/Program.cs)
+[Main Bot Code](https://github.com/xXBuilderBXx/Discore-Selfbot/blob/master/Discore-Selfbot/Program.cs)
 
-[Form/GUI Code](https://github.com/ArchboxDev/Discore-Selfbot/blob/master/Discore-Selfbot/GUI.cs)
+[Form/GUI Code](https://github.com/xXBuilderBXx/Discore-Selfbot/blob/master/Discore-Selfbot/GUI.cs)
 ## How to download
 Download link removed you are free to download this repo instead
 
 ## Website
 Visit my website to view Discord bots i have made
-https://blazeweb.ml/
+https://blazedev.me
 
 Or you can join my guild WJTYdNb.
